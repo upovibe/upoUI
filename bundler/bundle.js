@@ -2,19 +2,28 @@
 // Import all components to register them with the browser
 
 import Input from '../components/Input.js';
-import Button from '../components/Button.js';
-import Select from '../components/Select.js';
 
 // Export components for individual use
-export { Input, Button, Select };
+export { Input };
 
 // Also export as default object for convenience
 export default {
-  Input,
-  Button,
-  Select
+    Input,
+    version: '1.0.0'
 };
 
-// Log that UPO UI has been loaded
+// Log successful loading
 console.log('🎨 UPO UI loaded successfully!');
-console.log('Available components:', Object.keys({ Input, Button, Select })); 
+console.log('📦 Version: 1.0.0');
+console.log('🎯 Framework compatibility: Tailwind CSS, Bootstrap, Custom CSS');
+
+// Usage info
+console.log(`
+🎉 UPO UI is ready!
+
+Features:
+✅ Works with any CSS framework
+✅ All HTML attributes supported
+✅ Framework agnostic
+✅ Zero dependencies
+`); 

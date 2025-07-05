@@ -71,3 +71,6 @@ class Input extends HTMLElement {
 
 // Define the custom element
 customElements.define('ui-input', Input);
+
+// Export for bundler
+export default Input;

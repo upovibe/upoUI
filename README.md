@@ -1,15 +1,16 @@
 # 🎨 UPO UI
 
-A lightweight, vanilla JavaScript Web Component library. No build tools, no dependencies, just pure ES Modules.
+A lightweight, vanilla JavaScript Web Component library designed for CSS framework compatibility. No build tools, no dependencies, just pure ES Modules.
 
 ## ✨ Features
 
 - 🚀 **Zero Dependencies** - Pure vanilla JavaScript
 - 📦 **No Build Tools** - Works directly in the browser
-- 🎭 **Shadow DOM** - Encapsulated styles and markup
-- 🎨 **CSS Variables** - Easy theming
-- 📱 **Responsive** - Mobile-first design
+- 🎨 **CSS Framework Ready** - Works with Tailwind, Bootstrap, or any CSS framework
+- 🔧 **Attribute Pass-through** - All HTML attributes supported
+- 📱 **Responsive** - Style with your preferred CSS framework
 - 🔥 **Lightweight** - Minimal footprint
+- 🎯 **Framework Agnostic** - Switch between CSS frameworks easily
 
 ## 🚀 Quick Start
 
@@ -18,77 +19,84 @@ A lightweight, vanilla JavaScript Web Component library. No build tools, no depe
 <html>
 <head>
     <title>UPO UI Demo</title>
+    <!-- Add your preferred CSS framework -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Or use Bootstrap -->
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"> -->
 </head>
 <body>
-    <!-- Use the components -->
-    <ui-input placeholder="Enter your name"></ui-input>
-    <ui-button variant="primary">Click Me!</ui-button>
-    <ui-select placeholder="Choose option">
-        <option value="1">Option 1</option>
-        <option value="2">Option 2</option>
-    </ui-select>
+    <!-- Use components with your CSS framework classes -->
+    <ui-input 
+        placeholder="Enter your name"
+        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+    </ui-input>
     
     <!-- Load the library -->
-    <script type="module" src="./components/bundle.js"></script>
+    <script type="module" src="./bundler/bundle.js"></script>
 </body>
 </html>
 ```
 
-## 📋 Components
+## 🎨 Styling
 
-### Input (`<ui-input>`)
+### With Tailwind CSS
 ```html
-<ui-input placeholder="Enter text"></ui-input>
-<ui-input type="email" placeholder="Enter email"></ui-input>
-<ui-input disabled placeholder="Disabled input"></ui-input>
+<ui-input class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none">
 ```
 
-### Button (`<ui-button>`)
+### With Bootstrap
 ```html
-<ui-button variant="primary">Primary</ui-button>
-<ui-button variant="secondary">Secondary</ui-button>
-<ui-button variant="outline">Outline</ui-button>
-<ui-button variant="danger">Danger</ui-button>
-<ui-button size="small">Small</ui-button>
-<ui-button disabled>Disabled</ui-button>
+<ui-input class="form-control form-control-lg border-primary">
 ```
 
-### Select (`<ui-select>`)
+### With Custom CSS
 ```html
-<ui-select placeholder="Choose option">
-    <option value="1">Option 1</option>
-    <option value="2">Option 2</option>
-    <option value="3">Option 3</option>
-</ui-select>
+<ui-input class="my-custom-input">
 ```
-
-## 🎨 Theming
-
-Customize components using CSS variables:
 
 ```css
-:root {
-    --ui-input-border-radius: 8px;
-    --ui-button-primary-background: #your-color;
-    --ui-select-border-color: #your-color;
+.my-custom-input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+.my-custom-input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
 }
 ```
+
+## 🏗️ Architecture
+
+Our components use a **transparent wrapper approach** instead of Shadow DOM:
+
+- **CSS Framework Compatibility**: External stylesheets can directly style components
+- **Attribute Pass-through**: All attributes are transferred to internal elements
+- **No Style Encapsulation**: Components inherit page styles (feature, not bug!)
+- **Framework Agnostic**: Works with any CSS framework or custom styles
 
 ## 📁 Installation
 
 ### Option 1: Direct Download
-Download the `components/` folder and include it in your project.
+Download the repository and include the `bundler/bundle.js` file:
+
+```html
+<script type="module" src="./bundler/bundle.js"></script>
+```
 
 ### Option 2: CDN (Coming Soon)
 ```html
-<script type="module" src="https://cdn.jsdelivr.net/gh/upovibe/upoUI@v1.0.0/components/bundle.js"></script>
+<script type="module" src="https://cdn.jsdelivr.net/gh/upovibe/upoUI@v1.0.0/bundler/bundle.js"></script>
 ```
 
 ### Option 3: Clone Repository
 ```bash
 git clone https://github.com/upovibe/upoUI.git
 cd upoUI
-# Open index.html in your browser
+# Open components.html in your browser
 ```
 
 ## 🌐 Browser Support
@@ -96,10 +104,18 @@ cd upoUI
 Works in all modern browsers that support:
 - ES Modules
 - Custom Elements v1
-- Shadow DOM v1
-- CSS Variables
+- JavaScript Classes
 
 **Supported:** Chrome 63+, Firefox 63+, Safari 10.1+, Edge 79+
+
+## 🎯 Why This Approach?
+
+Unlike traditional web components that use Shadow DOM, UPO UI prioritizes:
+
+1. **CSS Framework Integration** - Works seamlessly with Tailwind, Bootstrap, etc.
+2. **Simplicity** - No complex styling APIs or CSS custom properties
+3. **Flexibility** - Style components exactly how you want
+4. **Familiarity** - Behaves like native HTML elements
 
 ## 🤝 Contributing
 

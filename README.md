@@ -81,7 +81,7 @@ Download the `components/` folder and include it in your project.
 
 ### Option 2: CDN (Coming Soon)
 ```html
-<script type="module" src="https://cdn.jsdelivr.net/npm/upo-ui@latest/bundle.js"></script>
+<script type="module" src="https://cdn.jsdelivr.net/gh/upovibe/upoUI@v1.0.0/components/bundle.js"></script>
 ```
 
 ### Option 3: Clone Repository

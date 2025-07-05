@@ -19,17 +19,17 @@ class Header extends HTMLElement {
                     <ui-box class="flex justify-between items-center h-16">
                         <!-- Logo/Brand -->
                         <ui-box class="flex items-center">
-                            <ui-link href="#" class="text-2xl font-bold text-blue-600 hover:text-blue-700 no-underline">
+                            <ui-link href="index.html" class="text-2xl font-bold text-blue-600 hover:text-blue-700 no-underline">
                                 UPO UI
                             </ui-link>
                         </ui-box>
                         
                         <!-- Navigation Links -->
                         <ui-box class="hidden md:flex items-center space-x-8">
-                            <ui-link href="#" class="text-gray-700 hover:text-blue-600 font-medium no-underline">
+                            <ui-link href="index.html" class="text-gray-700 hover:text-blue-600 font-medium no-underline">
                                 Home
                             </ui-link>
-                            <ui-link href="#" class="text-gray-700 hover:text-blue-600 font-medium no-underline">
+                            <ui-link href="components.html" class="text-gray-700 hover:text-blue-600 font-medium no-underline">
                                 Components
                             </ui-link>
                             <ui-link href="#" class="text-gray-700 hover:text-blue-600 font-medium no-underline">
@@ -74,10 +74,10 @@ class Header extends HTMLElement {
                     <!-- Mobile Menu (hidden by default) -->
                     <ui-box id="mobile-menu" class="md:hidden hidden border-t border-gray-200 pt-4 pb-3">
                         <ui-box class="flex flex-col space-y-3">
-                            <ui-link href="#" class="block px-3 py-2 text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-md no-underline">
+                            <ui-link href="index.html" class="block px-3 py-2 text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-md no-underline">
                                 Home
                             </ui-link>
-                            <ui-link href="#" class="block px-3 py-2 text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-md no-underline">
+                            <ui-link href="components.html" class="block px-3 py-2 text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-md no-underline">
                                 Components
                             </ui-link>
                             <ui-link href="#" class="block px-3 py-2 text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-md no-underline">

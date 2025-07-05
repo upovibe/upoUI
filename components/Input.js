@@ -8,6 +8,9 @@ class Input extends HTMLElement {
         // Add the input to the component
         this.appendChild(this.input);
         
+        // Flag to prevent double processing
+        this.initialized = false;
+        
         // Forward events from the internal input to the custom element
         this.input.addEventListener('input', (e) => {
             this.dispatchEvent(new CustomEvent('input', { 
@@ -34,6 +37,10 @@ class Input extends HTMLElement {
     
     // Connected callback - called when element is added to DOM
     connectedCallback() {
+        // Prevent double processing
+        if (this.initialized) return;
+        this.initialized = true;
+        
         // Transfer all attributes to the internal input
         const attributes = this.getAttributeNames();
         
@@ -69,8 +76,10 @@ class Input extends HTMLElement {
     }
 }
 
-// Define the custom element
-customElements.define('ui-input', Input);
+// Prevent double registration
+if (!customElements.get('ui-input')) {
+    customElements.define('ui-input', Input);
+}
 
 // Export for bundler
 export default Input;

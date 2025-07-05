@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UPO UI - Demo & Documentation</title>
+    <style>
+        :root {
+            /* UPO UI Theme Variables */
+            --upo-primary-color: #3b82f6;
+            --upo-secondary-color: #6b7280;
+            --upo-success-color: #10b981;
+            --upo-danger-color: #ef4444;
+            --upo-warning-color: #f59e0b;
+            
+            /* Custom theme for components */
+            --upo-input-border-radius: 8px;
+            --upo-button-border-radius: 8px;
+            --upo-select-border-radius: 8px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #1f2937;
+            background: #ffffff;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .header h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--upo-primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .header p {
+            font-size: 1.25rem;
+            color: var(--upo-secondary-color);
+            margin-bottom: 2rem;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: #f0f9ff;
+            color: var(--upo-primary-color);
+            border-radius: 9999px;
+            font-weight: 500;
+            font-size: 0.875rem;
+            margin: 0.25rem;
+        }
+        
+        .section {
+            margin-bottom: 3rem;
+        }
+        
+        .section h2 {
+            font-size: 1.875rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: #111827;
+        }
+        
+        .demo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .demo-card {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+        
+        .demo-card h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #374151;
+        }
+        
+        .demo-content {
+            margin-bottom: 1.5rem;
+        }
+        
+        .demo-content > * {
+            margin-bottom: 1rem;
+        }
+        
+        .demo-content > *:last-child {
+            margin-bottom: 0;
+        }
+        
+        .code-block {
+            background: #1f2937;
+            color: #f9fafb;
+            padding: 1rem;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.875rem;
+            overflow-x: auto;
+        }
+        
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #374151;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .output {
+            background: #f0f9ff;
+            border: 1px solid #e0e7ff;
+            border-radius: 6px;
+            padding: 1rem;
+            margin-top: 1rem;
+            font-family: monospace;
+            font-size: 0.875rem;
+            color: #1e40af;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 4rem;
+            padding: 2rem;
+            border-top: 1px solid #e5e7eb;
+            color: var(--upo-secondary-color);
+        }
+        
+        .footer a {
+            color: var(--upo-primary-color);
+            text-decoration: none;
+        }
+        
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .container {
+                padding: 1rem;
+            }
+            
+            .demo-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>🎨 UPO UI</h1>
+            <p>A lightweight, vanilla JavaScript Web Component library</p>
+            <div>
+                <span class="badge">No Build Tools</span>
+                <span class="badge">Pure ES Modules</span>
+                <span class="badge">Shadow DOM</span>
+                <span class="badge">CSS Variables</span>
+            </div>
+        </header>
+
+        <section class="section">
+            <h2>📝 Input Component</h2>
+            <div class="demo-grid">
+                <div class="demo-card">
+                    <h3>Basic Input</h3>
+                    <div class="demo-content">
+                        <upo-input placeholder="Enter your name"></upo-input>
+                        <upo-input type="email" placeholder="Enter your email"></upo-input>
+                        <upo-input type="password" placeholder="Enter your password"></upo-input>
+                    </div>
+                    <div class="code-block">
+&lt;upo-input placeholder="Enter your name"&gt;&lt;/upo-input&gt;
+&lt;upo-input type="email" placeholder="Enter your email"&gt;&lt;/upo-input&gt;
+&lt;upo-input type="password" placeholder="Enter your password"&gt;&lt;/upo-input&gt;
+                    </div>
+                </div>
+                
+                <div class="demo-card">
+                    <h3>Input States</h3>
+                    <div class="demo-content">
+                        <upo-input value="Pre-filled value" placeholder="Normal input"></upo-input>
+                        <upo-input disabled placeholder="Disabled input"></upo-input>
+                    </div>
+                    <div class="code-block">
+&lt;upo-input value="Pre-filled value"&gt;&lt;/upo-input&gt;
+&lt;upo-input disabled placeholder="Disabled input"&gt;&lt;/upo-input&gt;
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>🔘 Button Component</h2>
+            <div class="demo-grid">
+                <div class="demo-card">
+                    <h3>Button Variants</h3>
+                    <div class="demo-content">
+                        <div class="button-group">
+                            <upo-button variant="primary">Primary</upo-button>
+                            <upo-button variant="secondary">Secondary</upo-button>
+                            <upo-button variant="outline">Outline</upo-button>
+                            <upo-button variant="ghost">Ghost</upo-button>
+                            <upo-button variant="danger">Danger</upo-button>
+                        </div>
+                    </div>
+                    <div class="code-block">
+&lt;upo-button variant="primary"&gt;Primary&lt;/upo-button&gt;
+&lt;upo-button variant="secondary"&gt;Secondary&lt;/upo-button&gt;
+&lt;upo-button variant="outline"&gt;Outline&lt;/upo-button&gt;
+&lt;upo-button variant="ghost"&gt;Ghost&lt;/upo-button&gt;
+&lt;upo-button variant="danger"&gt;Danger&lt;/upo-button&gt;
+                    </div>
+                </div>
+                
+                <div class="demo-card">
+                    <h3>Button Sizes</h3>
+                    <div class="demo-content">
+                        <div class="button-group">
+                            <upo-button size="small">Small</upo-button>
+                            <upo-button size="medium">Medium</upo-button>
+                            <upo-button size="large">Large</upo-button>
+                        </div>
+                        <div class="button-group">
+                            <upo-button disabled>Disabled</upo-button>
+                        </div>
+                    </div>
+                    <div class="code-block">
+&lt;upo-button size="small"&gt;Small&lt;/upo-button&gt;
+&lt;upo-button size="medium"&gt;Medium&lt;/upo-button&gt;
+&lt;upo-button size="large"&gt;Large&lt;/upo-button&gt;
+&lt;upo-button disabled&gt;Disabled&lt;/upo-button&gt;
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>📋 Select Component</h2>
+            <div class="demo-grid">
+                <div class="demo-card">
+                    <h3>Basic Select</h3>
+                    <div class="demo-content">
+                        <upo-select placeholder="Choose an option">
+                            <option value="option1">Option 1</option>
+                            <option value="option2">Option 2</option>
+                            <option value="option3">Option 3</option>
+                        </upo-select>
+                        
+                        <upo-select value="option2">
+                            <option value="option1">Pre-selected Option 1</option>
+                            <option value="option2">Pre-selected Option 2</option>
+                            <option value="option3">Pre-selected Option 3</option>
+                        </upo-select>
+                    </div>
+                    <div class="code-block">
+&lt;upo-select placeholder="Choose an option"&gt;
+    &lt;option value="option1"&gt;Option 1&lt;/option&gt;
+    &lt;option value="option2"&gt;Option 2&lt;/option&gt;
+    &lt;option value="option3"&gt;Option 3&lt;/option&gt;
+&lt;/upo-select&gt;
+                    </div>
+                </div>
+                
+                <div class="demo-card">
+                    <h3>Select States</h3>
+                    <div class="demo-content">
+                        <upo-select disabled placeholder="Disabled select">
+                            <option value="option1">Option 1</option>
+                            <option value="option2">Option 2</option>
+                        </upo-select>
+                        
+                        <upo-select placeholder="With disabled option">
+                            <option value="option1">Available Option</option>
+                            <option value="option2" disabled>Disabled Option</option>
+                            <option value="option3">Another Available Option</option>
+                        </upo-select>
+                    </div>
+                    <div class="code-block">
+&lt;upo-select disabled placeholder="Disabled select"&gt;
+    &lt;option value="option1"&gt;Option 1&lt;/option&gt;
+    &lt;option value="option2"&gt;Option 2&lt;/option&gt;
+&lt;/upo-select&gt;
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>🎯 Interactive Demo</h2>
+            <div class="demo-card">
+                <h3>Form Example</h3>
+                <div class="demo-content">
+                    <form id="demoForm">
+                        <div class="form-group">
+                            <label for="name">Name:</label>
+                            <upo-input id="name" placeholder="Enter your full name"></upo-input>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email:</label>
+                            <upo-input id="email" type="email" placeholder="Enter your email"></upo-input>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="country">Country:</label>
+                            <upo-select id="country" placeholder="Select your country">
+                                <option value="us">United States</option>
+                                <option value="ca">Canada</option>
+                                <option value="uk">United Kingdom</option>
+                                <option value="au">Australia</option>
+                                <option value="other">Other</option>
+                            </upo-select>
+                        </div>
+                        
+                        <div class="button-group">
+                            <upo-button id="submitBtn" variant="primary">Submit</upo-button>
+                            <upo-button id="resetBtn" variant="secondary">Reset</upo-button>
+                        </div>
+                    </form>
+                    
+                    <div class="output" id="output">
+                        Form output will appear here...
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>🚀 Getting Started</h2>
+            <div class="demo-card">
+                <h3>Installation</h3>
+                <div class="code-block">
+&lt;!-- Option 1: Load all components --&gt;
+&lt;script type="module" src="./components/bundle.js"&gt;&lt;/script&gt;
+
+&lt;!-- Option 2: Load individual components --&gt;
+&lt;script type="module" src="./components/Input.js"&gt;&lt;/script&gt;
+&lt;script type="module" src="./components/Button.js"&gt;&lt;/script&gt;
+&lt;script type="module" src="./components/Select.js"&gt;&lt;/script&gt;
+
+&lt;!-- Option 3: Import in your JavaScript --&gt;
+&lt;script type="module"&gt;
+    import { Input, Button, Select } from './components/bundle.js';
+&lt;/script&gt;
+                </div>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <p>Made with ❤️ using Vanilla JavaScript Web Components</p>
+            <p>
+                <a href="https://github.com/yourusername/upoUI">GitHub</a> • 
+                <a href="https://yourusername.github.io/upoUI">Live Demo</a>
+            </p>
+        </footer>
+    </div>
+
+    <!-- Load UPO UI Components -->
+    <script type="module" src="./components/bundle.js"></script>
+    
+    <!-- Demo JavaScript -->
+    <script type="module">
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('demoForm');
+            const output = document.getElementById('output');
+            const submitBtn = document.getElementById('submitBtn');
+            const resetBtn = document.getElementById('resetBtn');
+            
+            // Form submission
+            submitBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const formData = {
+                    name: document.getElementById('name').value,
+                    email: document.getElementById('email').value,
+                    country: document.getElementById('country').value
+                };
+                
+                output.innerHTML = `
+                    <strong>Form Data:</strong><br>
+                    ${JSON.stringify(formData, null, 2)}
+                `;
+            });
+            
+            // Form reset
+            resetBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                document.getElementById('name').value = '';
+                document.getElementById('email').value = '';
+                document.getElementById('country').value = '';
+                output.innerHTML = 'Form output will appear here...';
+            });
+            
+            // Add event listeners for real-time updates
+            ['name', 'email', 'country'].forEach(id => {
+                const element = document.getElementById(id);
+                element.addEventListener('input', () => {
+                    console.log(`${id} changed to:`, element.value);
+                });
+            });
+        });
+    </script>
+</body>
+</html> 

@@ -12,9 +12,6 @@ class Header extends HTMLElement {
         if (this.initialized) return;
         this.initialized = true;
         
-        // Load UPO UI components
-        this.loadComponents();
-        
         // Create the header layout using our UI components
         this.innerHTML = `
             <ui-box class="bg-white shadow-md border-b border-gray-200">

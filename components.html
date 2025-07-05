@@ -13,13 +13,48 @@
         <ui-box class="bg-white p-6 rounded-lg shadow-lg">
             <h1 class="text-2xl font-bold mb-4 text-gray-800">Input Component</h1>
             
-            <ui-input 
-                type="text" 
-                name="simple" 
-                id="simple" 
-                placeholder="Enter text..." 
-                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none">
-            </ui-input>
+            <!-- Test Default Input Styling -->
+            <h3 class="text-lg font-semibold mb-3">Default Input Styling</h3>
+            <ui-box class="flex flex-col gap-4">
+                <ui-box>
+                    <label class="block text-sm font-medium mb-1">Default Input (no classes)</label>
+                    <ui-input type="text" placeholder="This input has default styling"></ui-input>
+                </ui-box>
+                
+                <ui-box>
+                    <label class="block text-sm font-medium mb-1">Email Input (default)</label>
+                    <ui-input type="email" placeholder="your@email.com"></ui-input>
+                </ui-box>
+                
+                <ui-box>
+                    <label class="block text-sm font-medium mb-1">Disabled Input (default)</label>
+                    <ui-input type="text" placeholder="Disabled input" disabled></ui-input>
+                </ui-box>
+            </ui-box>
+            
+            <hr class="my-6">
+            
+            <!-- Custom Input Styling -->
+            <h3 class="text-lg font-semibold mb-3">Custom Input Styling</h3>
+            <ui-box class="flex flex-col gap-4">
+                <ui-box>
+                    <label class="block text-sm font-medium mb-1">Custom Tailwind Input</label>
+                    <ui-input 
+                        type="text" 
+                        placeholder="Custom styled input"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none">
+                    </ui-input>
+                </ui-box>
+                
+                <ui-box>
+                    <label class="block text-sm font-medium mb-1">Green Focus Input</label>
+                    <ui-input 
+                        type="text" 
+                        placeholder="Green focus ring"
+                        class="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-green-500 focus:border-green-500">
+                    </ui-input>
+                </ui-box>
+            </ui-box>
         </ui-box>
         
         <!-- Box Component Demo -->
@@ -27,7 +62,7 @@
             <h1 class="text-2xl font-bold mb-4 text-gray-800">Box Component</h1>
             
             <!-- Test Default Styling -->
-            <h3 class="text-lg font-semibold mb-3">Default Styling Test</h3>
+            <h3 class="text-lg font-semibold mb-3">Default Box Styling</h3>
             <ui-box class="flex flex-col gap-4">
                 <ui-box>
                     <p>This box should have default styling - white background, padding, border, rounded corners.</p>
@@ -41,7 +76,7 @@
             <hr class="my-6">
             
             <!-- Custom Styling -->
-            <h3 class="text-lg font-semibold mb-3">Custom Styling Test</h3>
+            <h3 class="text-lg font-semibold mb-3">Custom Box Styling</h3>
             
             <!-- Basic Box -->
             <ui-box class="p-4 bg-blue-100 rounded border mb-4">
@@ -61,27 +96,12 @@
                 </ui-box>
             </ui-box>
             
-            <!-- Nested Boxes -->
-            <ui-box class="p-6 bg-purple-100 rounded-lg">
-                <h3 class="text-lg font-semibold mb-3">Nested Box Layout</h3>
-                <ui-box class="grid grid-cols-2 gap-4">
-                    <ui-box class="p-4 bg-white rounded shadow">
-                        <h4 class="font-medium mb-2">Card 1</h4>
-                        <p class="text-gray-600">Content inside nested box</p>
-                    </ui-box>
-                    <ui-box class="p-4 bg-white rounded shadow">
-                        <h4 class="font-medium mb-2">Card 2</h4>
-                        <p class="text-gray-600">More content here</p>
-                    </ui-box>
-                </ui-box>
-            </ui-box>
-            
-            <!-- Form Layout using Box -->
+            <!-- Combined: Default Boxes + Custom Inputs -->
             <ui-box class="mt-6 p-4 bg-gray-50 rounded">
-                <h3 class="text-lg font-semibold mb-3">Form with Box Layout</h3>
+                <h3 class="text-lg font-semibold mb-3">Mixed Styling: Default Boxes + Custom Inputs</h3>
                 <ui-box class="space-y-4">
                     <ui-box>
-                        <label class="block text-sm font-medium mb-1">Name</label>
+                        <label class="block text-sm font-medium mb-1">Name (default box, custom input)</label>
                         <ui-input 
                             type="text" 
                             placeholder="Your name"
@@ -89,11 +109,10 @@
                         </ui-input>
                     </ui-box>
                     <ui-box>
-                        <label class="block text-sm font-medium mb-1">Email</label>
+                        <label class="block text-sm font-medium mb-1">Email (default box, default input)</label>
                         <ui-input 
                             type="email" 
-                            placeholder="your@email.com"
-                            class="w-full px-3 py-2 border rounded focus:ring-2 focus:ring-green-500">
+                            placeholder="your@email.com">
                         </ui-input>
                     </ui-box>
                 </ui-box>

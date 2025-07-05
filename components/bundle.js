@@ -2,13 +2,15 @@
 // Import all components to register them with the browser
 
 import Input from './Input.js';
+import Box from './Box.js';
 
 // Export components for individual use
-export { Input };
+export { Input, Box };
 
 // Also export as default object for convenience
 export default {
     Input,
+    Box,
     version: '1.0.0'
 };
 

@@ -1,0 +1,63 @@
+class Box extends HTMLElement {
+    constructor() {
+        super();
+        
+        // Create the div element directly (no shadow DOM)
+        this.div = document.createElement('div');
+        
+        // Flag to prevent double processing
+        this.initialized = false;
+        
+        // Add the div to the component
+        this.appendChild(this.div);
+    }
+    
+    // Connected callback - called when element is added to DOM
+    connectedCallback() {
+        // Prevent double processing
+        if (this.initialized) return;
+        this.initialized = true;
+        
+        // Move any existing children (except our div) to the internal div
+        const children = Array.from(this.childNodes);
+        children.forEach(child => {
+            if (child !== this.div) {
+                this.div.appendChild(child);
+            }
+        });
+        
+        // Transfer all attributes to the internal div (same as Input)
+        const attributes = this.getAttributeNames();
+        
+        attributes.forEach(attr => {
+            const value = this.getAttribute(attr);
+            this.div.setAttribute(attr, value);
+        });
+        
+        // Remove all attributes from the wrapper to avoid duplication
+        attributes.forEach(attr => {
+            this.removeAttribute(attr);
+        });
+    }
+    
+    // Forward common methods to the internal div
+    focus() {
+        this.div.focus();
+    }
+    
+    blur() {
+        this.div.blur();
+    }
+    
+    scrollIntoView(options) {
+        this.div.scrollIntoView(options);
+    }
+}
+
+// Prevent double registration
+if (!customElements.get('ui-box')) {
+    customElements.define('ui-box', Box);
+}
+
+// Export for bundler
+export default Box;

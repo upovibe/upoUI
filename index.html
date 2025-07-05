@@ -1,11 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-</head>
-<body>
-    
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>UPO UI - Modern Web Component Library</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+    </head>
+    <body class="bg-gray-50 min-h-screen">
+        <!-- Header Component -->
+        <app-header></app-header>
+
+        <!-- Main Content -->
+        <main>
+            <!-- Hero Section -->
+            <app-hero></app-hero>
+
+            <!-- Features Section -->
+            <app-features></app-features>
+        </main>
+
+        <!-- Footer -->
+        <app-footer></app-footer>
+
+        <!-- Load Components -->
+        <script type="module" src="components/bundle.js"></script>
+        <!-- Load Layout Components -->
+        <script type="module" src="layouts/Header.js"></script>
+        <script type="module" src="layouts/Hero.js"></script>
+        <script type="module" src="layouts/Features.js"></script>
+        <script type="module" src="layouts/Footer.js"></script>
+    </body>
 </html>

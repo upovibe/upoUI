@@ -3,14 +3,18 @@
 
 import Input from './Input.js';
 import Box from './Box.js';
+import Link from './Link.js';
+import Button from './Button.js';
 
 // Export components for individual use
-export { Input, Box };
+export { Input, Box, Link, Button };
 
 // Also export as default object for convenience
 export default {
     Input,
     Box,
+    Link,
+    Button,
     version: '1.0.0'
 };
 

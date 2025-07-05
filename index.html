@@ -3,437 +3,225 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UPO UI - Demo & Documentation</title>
-    <style>
-        :root {
-            /* UPO UI Theme Variables */
-            --ui-primary-color: #3b82f6;
-            --ui-secondary-color: #6b7280;
-            --ui-success-color: #10b981;
-            --ui-danger-color: #ef4444;
-            --ui-warning-color: #f59e0b;
-            
-            /* Custom theme for components */
-            --ui-input-border-radius: 8px;
-            --ui-button-border-radius: 8px;
-            --ui-select-border-radius: 8px;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            line-height: 1.6;
-            color: #1f2937;
-            background: #ffffff;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-        
-        .header {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-        
-        .header h1 {
-            font-size: 3rem;
-            font-weight: 700;
-            color: var(--ui-primary-color);
-            margin-bottom: 1rem;
-        }
-        
-        .header p {
-            font-size: 1.25rem;
-            color: var(--ui-secondary-color);
-            margin-bottom: 2rem;
-        }
-        
-        .badge {
-            display: inline-block;
-            padding: 0.5rem 1rem;
-            background: #f0f9ff;
-            color: var(--ui-primary-color);
-            border-radius: 9999px;
-            font-weight: 500;
-            font-size: 0.875rem;
-            margin: 0.25rem;
-        }
-        
-        .section {
-            margin-bottom: 3rem;
-        }
-        
-        .section h2 {
-            font-size: 1.875rem;
-            font-weight: 600;
-            margin-bottom: 1.5rem;
-            color: #111827;
-        }
-        
-        .demo-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-        
-        .demo-card {
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
-            border-radius: 12px;
-            padding: 1.5rem;
-        }
-        
-        .demo-card h3 {
-            font-size: 1.25rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            color: #374151;
-        }
-        
-        .demo-content {
-            margin-bottom: 1.5rem;
-        }
-        
-        .demo-content > * {
-            margin-bottom: 1rem;
-        }
-        
-        .demo-content > *:last-child {
-            margin-bottom: 0;
-        }
-        
-        .code-block {
-            background: #1f2937;
-            color: #f9fafb;
-            padding: 1rem;
-            border-radius: 6px;
-            font-family: 'Courier New', monospace;
-            font-size: 0.875rem;
-            overflow-x: auto;
-        }
-        
-        .form-group {
-            margin-bottom: 1rem;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-            color: #374151;
-        }
-        
-        .button-group {
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-        }
-        
-        .output {
-            background: #f0f9ff;
-            border: 1px solid #e0e7ff;
-            border-radius: 6px;
-            padding: 1rem;
-            margin-top: 1rem;
-            font-family: monospace;
-            font-size: 0.875rem;
-            color: #1e40af;
-        }
-        
-        .footer {
-            text-align: center;
-            margin-top: 4rem;
-            padding: 2rem;
-            border-top: 1px solid #e5e7eb;
-            color: var(--ui-secondary-color);
-        }
-        
-        .footer a {
-            color: var(--ui-primary-color);
-            text-decoration: none;
-        }
-        
-        .footer a:hover {
-            text-decoration: underline;
-        }
-        
-        @media (max-width: 768px) {
-            .header h1 {
-                font-size: 2rem;
-            }
-            
-            .container {
-                padding: 1rem;
-            }
-            
-            .demo-grid {
-                grid-template-columns: 1fr;
+    <title>UPO UI - Vanilla JavaScript Web Components</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3b82f6',
+                        secondary: '#6b7280'
+                    }
+                }
             }
         }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <header class="header">
-            <h1>🎨 UPO UI</h1>
-            <p>A lightweight, vanilla JavaScript Web Component library</p>
-            <div>
-                <span class="badge">No Build Tools</span>
-                <span class="badge">Pure ES Modules</span>
-                <span class="badge">Shadow DOM</span>
-                <span class="badge">CSS Variables</span>
-            </div>
-        </header>
-
-        <section class="section">
-            <h2>📝 Input Component</h2>
-            <div class="demo-grid">
-                <div class="demo-card">
-                    <h3>Basic Input</h3>
-                    <div class="demo-content">
-                        <ui-input placeholder="Enter your name"></ui-input>
-                        <ui-input type="email" placeholder="Enter your email"></ui-input>
-                        <ui-input type="password" placeholder="Enter your password"></ui-input>
-                    </div>
-                    <div class="code-block">
-&lt;ui-input placeholder="Enter your name"&gt;&lt;/ui-input&gt;
-&lt;ui-input type="email" placeholder="Enter your email"&gt;&lt;/ui-input&gt;
-&lt;ui-input type="password" placeholder="Enter your password"&gt;&lt;/ui-input&gt;
-                    </div>
-                </div>
-                
-                <div class="demo-card">
-                    <h3>Input States</h3>
-                    <div class="demo-content">
-                        <ui-input value="Pre-filled value" placeholder="Normal input"></ui-input>
-                        <ui-input disabled placeholder="Disabled input"></ui-input>
-                    </div>
-                    <div class="code-block">
-&lt;ui-input value="Pre-filled value"&gt;&lt;/ui-input&gt;
-&lt;ui-input disabled placeholder="Disabled input"&gt;&lt;/ui-input&gt;
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="section">
-            <h2>🔘 Button Component</h2>
-            <div class="demo-grid">
-                <div class="demo-card">
-                    <h3>Button Variants</h3>
-                    <div class="demo-content">
-                        <div class="button-group">
-                            <ui-button variant="primary">Primary</ui-button>
-                            <ui-button variant="secondary">Secondary</ui-button>
-                            <ui-button variant="outline">Outline</ui-button>
-                            <ui-button variant="ghost">Ghost</ui-button>
-                            <ui-button variant="danger">Danger</ui-button>
-                        </div>
-                    </div>
-                    <div class="code-block">
-&lt;ui-button variant="primary"&gt;Primary&lt;/ui-button&gt;
-&lt;ui-button variant="secondary"&gt;Secondary&lt;/ui-button&gt;
-&lt;ui-button variant="outline"&gt;Outline&lt;/ui-button&gt;
-&lt;ui-button variant="ghost"&gt;Ghost&lt;/ui-button&gt;
-&lt;ui-button variant="danger"&gt;Danger&lt;/ui-button&gt;
-                    </div>
-                </div>
-                
-                <div class="demo-card">
-                    <h3>Button Sizes</h3>
-                    <div class="demo-content">
-                        <div class="button-group">
-                            <ui-button size="small">Small</ui-button>
-                            <ui-button size="medium">Medium</ui-button>
-                            <ui-button size="large">Large</ui-button>
-                        </div>
-                        <div class="button-group">
-                            <ui-button disabled>Disabled</ui-button>
-                        </div>
-                    </div>
-                    <div class="code-block">
-&lt;ui-button size="small"&gt;Small&lt;/ui-button&gt;
-&lt;ui-button size="medium"&gt;Medium&lt;/ui-button&gt;
-&lt;ui-button size="large"&gt;Large&lt;/ui-button&gt;
-&lt;ui-button disabled&gt;Disabled&lt;/ui-button&gt;
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="section">
-            <h2>📋 Select Component</h2>
-            <div class="demo-grid">
-                <div class="demo-card">
-                    <h3>Basic Select</h3>
-                    <div class="demo-content">
-                        <ui-select placeholder="Choose an option">
-                            <option value="option1">Option 1</option>
-                            <option value="option2">Option 2</option>
-                            <option value="option3">Option 3</option>
-                        </ui-select>
-                        
-                        <ui-select value="option2">
-                            <option value="option1">Pre-selected Option 1</option>
-                            <option value="option2">Pre-selected Option 2</option>
-                            <option value="option3">Pre-selected Option 3</option>
-                        </ui-select>
-                    </div>
-                    <div class="code-block">
-&lt;ui-select placeholder="Choose an option"&gt;
-    &lt;option value="option1"&gt;Option 1&lt;/option&gt;
-    &lt;option value="option2"&gt;Option 2&lt;/option&gt;
-    &lt;option value="option3"&gt;Option 3&lt;/option&gt;
-&lt;/ui-select&gt;
-                    </div>
-                </div>
-                
-                <div class="demo-card">
-                    <h3>Select States</h3>
-                    <div class="demo-content">
-                        <ui-select disabled placeholder="Disabled select">
-                            <option value="option1">Option 1</option>
-                            <option value="option2">Option 2</option>
-                        </ui-select>
-                        
-                        <ui-select placeholder="With disabled option">
-                            <option value="option1">Available Option</option>
-                            <option value="option2" disabled>Disabled Option</option>
-                            <option value="option3">Another Available Option</option>
-                        </ui-select>
-                    </div>
-                    <div class="code-block">
-&lt;ui-select disabled placeholder="Disabled select"&gt;
-    &lt;option value="option1"&gt;Option 1&lt;/option&gt;
-    &lt;option value="option2"&gt;Option 2&lt;/option&gt;
-&lt;/ui-select&gt;
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="section">
-            <h2>🎯 Interactive Demo</h2>
-            <div class="demo-card">
-                <h3>Form Example</h3>
-                <div class="demo-content">
-                    <form id="demoForm">
-                        <div class="form-group">
-                            <label for="name">Name:</label>
-                            <ui-input id="name" placeholder="Enter your full name"></ui-input>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="email">Email:</label>
-                            <ui-input id="email" type="email" placeholder="Enter your email"></ui-input>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="country">Country:</label>
-                            <ui-select id="country" placeholder="Select your country">
-                                <option value="us">United States</option>
-                                <option value="ca">Canada</option>
-                                <option value="uk">United Kingdom</option>
-                                <option value="au">Australia</option>
-                                <option value="other">Other</option>
-                            </ui-select>
-                        </div>
-                        
-                        <div class="button-group">
-                            <ui-button id="submitBtn" variant="primary">Submit</ui-button>
-                            <ui-button id="resetBtn" variant="secondary">Reset</ui-button>
-                        </div>
-                    </form>
-                    
-                    <div class="output" id="output">
-                        Form output will appear here...
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="section">
-            <h2>🚀 Getting Started</h2>
-            <div class="demo-card">
-                <h3>Installation</h3>
-                <div class="code-block">
-&lt;!-- Option 1: Load all components --&gt;
-&lt;script type="module" src="./components/bundle.js"&gt;&lt;/script&gt;
-
-&lt;!-- Option 2: Load individual components --&gt;
-&lt;script type="module" src="./components/Input.js"&gt;&lt;/script&gt;
-&lt;script type="module" src="./components/Button.js"&gt;&lt;/script&gt;
-&lt;script type="module" src="./components/Select.js"&gt;&lt;/script&gt;
-
-&lt;!-- Option 3: Import in your JavaScript --&gt;
-&lt;script type="module"&gt;
-    import { Input, Button, Select } from './components/bundle.js';
-&lt;/script&gt;
-                </div>
-            </div>
-        </section>
-
-        <footer class="footer">
-            <p>Made with ❤️ using Vanilla JavaScript Web Components</p>
-            <p>
-                <a href="https://github.com/yourusername/upoUI">GitHub</a> • 
-                <a href="https://yourusername.github.io/upoUI">Live Demo</a>
-            </p>
-        </footer>
-    </div>
-
-    <!-- Load UPO UI Components -->
-    <script type="module" src="./components/bundle.js"></script>
-    
-    <!-- Demo JavaScript -->
-    <script type="module">
-        document.addEventListener('DOMContentLoaded', () => {
-            const form = document.getElementById('demoForm');
-            const output = document.getElementById('output');
-            const submitBtn = document.getElementById('submitBtn');
-            const resetBtn = document.getElementById('resetBtn');
-            
-            // Form submission
-            submitBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                const formData = {
-                    name: document.getElementById('name').value,
-                    email: document.getElementById('email').value,
-                    country: document.getElementById('country').value
-                };
-                
-                output.innerHTML = `
-                    <strong>Form Data:</strong><br>
-                    ${JSON.stringify(formData, null, 2)}
-                `;
-            });
-            
-            // Form reset
-            resetBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                document.getElementById('name').value = '';
-                document.getElementById('email').value = '';
-                document.getElementById('country').value = '';
-                output.innerHTML = 'Form output will appear here...';
-            });
-            
-            // Add event listeners for real-time updates
-            ['name', 'email', 'country'].forEach(id => {
-                const element = document.getElementById(id);
-                element.addEventListener('input', () => {
-                    console.log(`${id} changed to:`, element.value);
-                });
-            });
-        });
     </script>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm border-b border-gray-200">
+        <div class="max-w-6xl mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-2">
+                    <span class="text-2xl">🎨</span>
+                    <span class="text-xl font-bold text-gray-900">UPO UI</span>
+                </div>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-900 font-medium">Home</a>
+                    <a href="components.html" class="text-gray-600 hover:text-gray-900">Components</a>
+                    <a href="https://github.com/upovibe/upoUI" class="text-gray-600 hover:text-gray-900">GitHub</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="py-20 bg-gradient-to-br from-blue-50 to-indigo-100">
+        <div class="max-w-6xl mx-auto px-4 text-center">
+            <h1 class="text-6xl font-bold text-gray-900 mb-6">
+                🎨 <span class="text-primary">UPO UI</span>
+            </h1>
+            <p class="text-2xl text-gray-600 mb-8 max-w-3xl mx-auto">
+                A lightweight, vanilla JavaScript Web Component library. 
+                No build tools, no dependencies, just pure ES Modules.
+            </p>
+            <div class="flex flex-wrap justify-center gap-3 mb-10">
+                <span class="px-4 py-2 bg-white text-primary rounded-full font-medium text-sm shadow-sm">No Build Tools</span>
+                <span class="px-4 py-2 bg-white text-primary rounded-full font-medium text-sm shadow-sm">Pure ES Modules</span>
+                <span class="px-4 py-2 bg-white text-primary rounded-full font-medium text-sm shadow-sm">Shadow DOM</span>
+                <span class="px-4 py-2 bg-white text-primary rounded-full font-medium text-sm shadow-sm">CSS Variables</span>
+            </div>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="components.html" class="px-8 py-3 bg-primary text-white rounded-lg font-medium hover:bg-blue-600 transition-colors">
+                    View Components
+                </a>
+                <a href="https://github.com/upovibe/upoUI" class="px-8 py-3 bg-white text-gray-900 rounded-lg font-medium border border-gray-300 hover:bg-gray-50 transition-colors">
+                    GitHub
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-16 bg-white">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Why Choose UPO UI?</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">
+                    Built for modern web development with simplicity and performance in mind.
+                </p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="text-center p-6">
+                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-2xl">🚀</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Zero Dependencies</h3>
+                    <p class="text-gray-600">Pure vanilla JavaScript. No frameworks, no build tools, no complex setup.</p>
+                </div>
+                <div class="text-center p-6">
+                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-2xl">⚡</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Lightning Fast</h3>
+                    <p class="text-gray-600">Minimal footprint with Shadow DOM encapsulation for optimal performance.</p>
+                </div>
+                <div class="text-center p-6">
+                    <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-2xl">🎨</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Easy Theming</h3>
+                    <p class="text-gray-600">CSS variables for effortless customization and consistent design.</p>
+                </div>
+                <div class="text-center p-6">
+                    <div class="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-2xl">📱</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Mobile First</h3>
+                    <p class="text-gray-600">Responsive design that works perfectly on all devices.</p>
+                </div>
+                <div class="text-center p-6">
+                    <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-2xl">♿</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Accessible</h3>
+                    <p class="text-gray-600">Built with accessibility in mind, following WCAG guidelines.</p>
+                </div>
+                <div class="text-center p-6">
+                    <div class="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-2xl">🔧</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Developer Friendly</h3>
+                    <p class="text-gray-600">Simple API, great documentation, and excellent TypeScript support.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Start Section -->
+    <section class="py-16 bg-gray-50">
+        <div class="max-w-4xl mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Get Started in Seconds</h2>
+                <p class="text-gray-600">
+                    Just add a script tag and start using components immediately.
+                </p>
+            </div>
+            <div class="bg-gray-900 text-gray-100 rounded-lg p-6 font-mono text-sm overflow-x-auto">
+                <div class="mb-4">
+                    <span class="text-gray-400">// 1. Load the components</span>
+                </div>
+                <div class="mb-4">
+                    &lt;script type="module" src="./components/bundle.js"&gt;&lt;/script&gt;
+                </div>
+                <div class="mb-4">
+                    <span class="text-gray-400">// 2. Use them anywhere</span>
+                </div>
+                <div class="mb-2">
+                    &lt;ui-input placeholder="Enter your name"&gt;&lt;/ui-input&gt;
+                </div>
+                <div class="mb-2">
+                    &lt;ui-button variant="primary"&gt;Click Me!&lt;/ui-button&gt;
+                </div>
+                <div>
+                    &lt;ui-select&gt;
+                </div>
+                <div class="ml-4">
+                    &lt;option value="1"&gt;Option 1&lt;/option&gt;
+                </div>
+                <div class="ml-4">
+                    &lt;option value="2"&gt;Option 2&lt;/option&gt;
+                </div>
+                <div>
+                    &lt;/ui-select&gt;
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Components Preview -->
+    <section class="py-16 bg-white">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Available Components</h2>
+                <p class="text-gray-600">
+                    A growing collection of essential UI components.
+                </p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-gray-50 rounded-lg p-6 text-center">
+                    <div class="text-4xl mb-4">📝</div>
+                    <h3 class="text-xl font-semibold mb-2">Input</h3>
+                    <p class="text-gray-600 mb-4">Text inputs with validation, placeholders, and various types.</p>
+                    <div class="bg-white p-4 rounded-lg">
+                        <div class="h-10 bg-gray-200 rounded border-2 border-blue-300"></div>
+                    </div>
+                </div>
+                <div class="bg-gray-50 rounded-lg p-6 text-center">
+                    <div class="text-4xl mb-4">🔘</div>
+                    <h3 class="text-xl font-semibold mb-2">Button</h3>
+                    <p class="text-gray-600 mb-4">Buttons with multiple variants, sizes, and states.</p>
+                    <div class="bg-white p-4 rounded-lg">
+                        <div class="h-10 bg-blue-500 rounded text-white flex items-center justify-center text-sm font-medium">
+                            Primary Button
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-gray-50 rounded-lg p-6 text-center">
+                    <div class="text-4xl mb-4">📋</div>
+                    <h3 class="text-xl font-semibold mb-2">Select</h3>
+                    <p class="text-gray-600 mb-4">Dropdown selects with customizable options and styling.</p>
+                    <div class="bg-white p-4 rounded-lg">
+                        <div class="h-10 bg-gray-200 rounded border-2 border-gray-300 flex items-center justify-between px-3">
+                            <span class="text-gray-500 text-sm">Select option</span>
+                            <span class="text-gray-400">▼</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-12">
+                <a href="components.html" class="px-8 py-3 bg-primary text-white rounded-lg font-medium hover:bg-blue-600 transition-colors">
+                    View All Components
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-6xl mx-auto px-4 text-center">
+            <div class="flex items-center justify-center space-x-2 mb-4">
+                <span class="text-2xl">🎨</span>
+                <span class="text-xl font-bold">UPO UI</span>
+            </div>
+            <p class="text-gray-400 mb-6">Made with ❤️ using Vanilla JavaScript Web Components</p>
+            <div class="flex justify-center space-x-6">
+                <a href="https://github.com/upovibe/upoUI" class="text-gray-400 hover:text-white transition-colors">GitHub</a>
+                <a href="components.html" class="text-gray-400 hover:text-white transition-colors">Components</a>
+                <a href="https://upovibe.github.io/upoUI" class="text-gray-400 hover:text-white transition-colors">Live Demo</a>
+            </div>
+        </div>
+    </footer>
 </body>
 </html> 

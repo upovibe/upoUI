@@ -87,7 +87,7 @@ Download the repository and include the `bundler/bundle.js` file:
 <script type="module" src="./bundler/bundle.js"></script>
 ```
 
-### Option 2: CDN (Coming Soon)
+### Option 2: Using CDN
 ```html
 <script type="module" src="https://cdn.jsdelivr.net/gh/upovibe/upoUI@v1.0.0/bundler/bundle.js"></script>
 ```

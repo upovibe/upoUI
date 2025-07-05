@@ -4,7 +4,7 @@
 import Input from './Input.js';
 
 // Export components for individual use
-export { Input };
+// export { Input };
 
 // Also export as default object for convenience
 export default {

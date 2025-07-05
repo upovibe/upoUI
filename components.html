@@ -3,9 +3,145 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Componenet</title>
+    <title>Input Component Demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
+<body class="bg-light">
+    <div class="container my-5">
+        <div class="bg-white rounded shadow p-4">
+            <h1 class="text-dark mb-4">Input Component Demo</h1>
+            
+            <div class="d-flex flex-column gap-4">
+                <div class="p-3 bg-light rounded">
+                    <div class="fw-bold text-dark mb-2">Basic Input Component:</div>
+                    <code class="small bg-secondary text-white px-2 py-1 rounded">&lt;ui-input name="basic" id="basic"&gt;&lt;/ui-input&gt;</code>
+                    <div class="mt-3">
+                        <ui-input name="basic" id="basic" class="form-control"></ui-input>
+                    </div>
+                </div>
+                
+                <div class="p-3 bg-light rounded">
+                    <div class="fw-bold text-dark mb-2">Input with Bootstrap danger styling:</div>
+                    <code class="small bg-secondary text-white px-2 py-1 rounded">&lt;ui-input name="red-input" id="red-input" class="form-control border-danger"&gt;&lt;/ui-input&gt;</code>
+                    <div class="mt-3">
+                        <ui-input name="red-input" id="red-input" class="form-control border-danger bg-danger-subtle"></ui-input>
+                    </div>
+                </div>
+                
+                <div class="p-3 bg-light rounded">
+                    <div class="fw-bold text-dark mb-2">Input with Bootstrap primary styling:</div>
+                    <code class="small bg-secondary text-white px-2 py-1 rounded">&lt;ui-input name="blue-input" id="blue-input" class="form-control border-primary"&gt;&lt;/ui-input&gt;</code>
+                    <div class="mt-3">
+                        <ui-input name="blue-input" id="blue-input" class="form-control border-primary bg-primary-subtle"></ui-input>
+                    </div>
+                </div>
+                
+                <div class="p-3 bg-light rounded">
+                    <div class="fw-bold text-dark mb-2">Input with placeholder and type:</div>
+                    <code class="small bg-secondary text-white px-2 py-1 rounded">&lt;ui-input type="email" name="email" id="email" placeholder="Enter your email" class="form-control"&gt;&lt;/ui-input&gt;</code>
+                    <div class="mt-3">
+                        <ui-input type="email" name="email" id="email" placeholder="Enter your email" class="form-control"></ui-input>
+                    </div>
+                </div>
+                
+                <div class="p-3 bg-light rounded">
+                    <div class="fw-bold text-dark mb-2">Password input with Bootstrap styling:</div>
+                    <code class="small bg-secondary text-white px-2 py-1 rounded">&lt;ui-input type="password" name="password" id="password" placeholder="Password" required class="form-control form-control-lg"&gt;&lt;/ui-input&gt;</code>
+                    <div class="mt-3">
+                        <ui-input type="password" name="password" id="password" placeholder="Password" required class="form-control form-control-lg border-info"></ui-input>
+                    </div>
+                </div>
+                
+                <div class="p-3 bg-light rounded">
+                    <div class="fw-bold text-dark mb-2">Number input with Bootstrap classes:</div>
+                    <code class="small bg-secondary text-white px-2 py-1 rounded">&lt;ui-input type="number" name="number" id="number" min="0" max="100" step="5" class="form-control w-25 text-center"&gt;&lt;/ui-input&gt;</code>
+                    <div class="mt-3">
+                        <ui-input type="number" name="number" id="number" min="0" max="100" step="5" placeholder="0-100" class="form-control w-25 text-center border-success"></ui-input>
+                    </div>
+                </div>
+                
+                <div class="p-3 bg-light rounded">
+                    <div class="fw-bold text-dark mb-2">Disabled input with Bootstrap styling:</div>
+                    <code class="small bg-secondary text-white px-2 py-1 rounded">&lt;ui-input name="disabled" id="disabled" value="This is disabled" disabled class="form-control"&gt;&lt;/ui-input&gt;</code>
+                    <div class="mt-3">
+                        <ui-input name="disabled" id="disabled" value="This is disabled" disabled class="form-control"></ui-input>
+                    </div>
+                </div>
+                
+                <div class="p-3 bg-light rounded">
+                    <div class="fw-bold text-dark mb-2">Readonly input with Bootstrap classes:</div>
+                    <code class="small bg-secondary text-white px-2 py-1 rounded">&lt;ui-input name="readonly" id="readonly" value="Read-only value" readonly class="form-control-plaintext border border-success"&gt;&lt;/ui-input&gt;</code>
+                    <div class="mt-3">
+                        <ui-input name="readonly" id="readonly" value="Read-only value" readonly class="form-control-plaintext border border-success bg-success-subtle"></ui-input>
+                    </div>
+                </div>
+                
+                <div class="p-3 bg-light rounded">
+                    <div class="fw-bold text-dark mb-2">Input with ALL HTML attributes:</div>
+                    <code class="small bg-secondary text-white px-2 py-1 rounded">&lt;ui-input type="text" name="all-attrs" id="all-attrs" maxlength="10" minlength="3" pattern="[A-Za-z]+" title="Only letters allowed" autocomplete="given-name" spellcheck="false" tabindex="1" class="form-control"&gt;&lt;/ui-input&gt;</code>
+                    <div class="mt-3">
+                        <ui-input type="text" name="all-attrs" id="all-attrs" maxlength="10" minlength="3" pattern="[A-Za-z]+" title="Only letters allowed" autocomplete="given-name" spellcheck="false" tabindex="1" class="form-control" placeholder="Max 10 chars, letters only"></ui-input>
+                    </div>
+                </div>
+                
+                <div class="p-3 bg-light rounded">
+                    <div class="fw-bold text-dark mb-2">Input with custom data attributes:</div>
+                    <code class="small bg-secondary text-white px-2 py-1 rounded">&lt;ui-input name="custom" id="custom" data-category="user-input" data-validation="email" data-required="true" class="form-control"&gt;&lt;/ui-input&gt;</code>
+                    <div class="mt-3">
+                        <ui-input name="custom" id="custom" data-category="user-input" data-validation="email" data-required="true" class="form-control" placeholder="Has custom data attributes"></ui-input>
+                    </div>
+                </div>
+                
+                <div class="p-3 bg-light rounded">
+                    <div class="fw-bold text-dark mb-2">Input with ARIA attributes:</div>
+                    <code class="small bg-secondary text-white px-2 py-1 rounded">&lt;ui-input name="aria" id="aria" aria-label="User full name" aria-describedby="name-help" aria-required="true" class="form-control"&gt;&lt;/ui-input&gt;</code>
+                    <div class="mt-3">
+                        <ui-input name="aria" id="aria" aria-label="User full name" aria-describedby="name-help" aria-required="true" class="form-control" placeholder="Has ARIA attributes"></ui-input>
+                        <div id="name-help" class="form-text">Enter your full name for better accessibility</div>
+                    </div>
+                </div>
+                
+                <div class="p-3 bg-light rounded">
+                    <div class="fw-bold text-dark mb-2">File input with multiple and accept:</div>
+                    <code class="small bg-secondary text-white px-2 py-1 rounded">&lt;ui-input type="file" name="files" id="files" multiple accept=".jpg,.png,.gif" class="form-control"&gt;&lt;/ui-input&gt;</code>
+                    <div class="mt-3">
+                        <ui-input type="file" name="files" id="files" multiple accept=".jpg,.png,.gif" class="form-control"></ui-input>
+                    </div>
+                </div>
+                
+                <div class="p-3 bg-light rounded">
+                    <div class="fw-bold text-dark mb-2">Interactive Example - Type something:</div>
+                    <ui-input type="text" name="interactive" id="interactive-input" placeholder="Type here..." class="form-control form-control-lg border-warning"></ui-input>
+                    <div class="mt-3 p-3 bg-light rounded font-monospace small d-flex align-items-center" id="output" style="min-height: 40px;">Output will appear here...</div>
+                </div>
+            </div>
+        </div>
+    </div>
     
+    <script src="components/Input.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Demo script for interactive example
+        const interactiveInput = document.getElementById('interactive-input');
+        const output = document.getElementById('output');
+        
+        interactiveInput.addEventListener('input', (e) => {
+            output.textContent = `Input value: "${e.detail.value}"`;
+        });
+        
+        interactiveInput.addEventListener('focus', () => {
+            output.textContent += ' [FOCUSED]';
+        });
+        
+        interactiveInput.addEventListener('blur', () => {
+            output.textContent += ' [BLURRED]';
+        });
+        
+        // Log all attributes for the custom data example
+        document.addEventListener('DOMContentLoaded', () => {
+            const customInput = document.getElementById('custom');
+            console.log('Custom input attributes:', customInput.input.getAttributeNames());
+        });
+    </script>
 </body>
 </html>

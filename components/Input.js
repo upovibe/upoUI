@@ -1,106 +1,73 @@
 class Input extends HTMLElement {
-  constructor() {
-    super();
-    this.attachShadow({ mode: 'open' });
-    this.render();
-  }
-
-  static get observedAttributes() {
-    return ['placeholder', 'value', 'type', 'disabled'];
-  }
-
-  attributeChangedCallback(name, oldValue, newValue) {
-    if (oldValue !== newValue) {
-      this.render();
+    constructor() {
+        super();
+        
+        // Create the input element directly (no shadow DOM)
+        this.input = document.createElement('input');
+        
+        // Add the input to the component
+        this.appendChild(this.input);
+        
+        // Forward events from the internal input to the custom element
+        this.input.addEventListener('input', (e) => {
+            this.dispatchEvent(new CustomEvent('input', { 
+                bubbles: true, 
+                detail: { value: e.target.value } 
+            }));
+        });
+        
+        this.input.addEventListener('change', (e) => {
+            this.dispatchEvent(new CustomEvent('change', { 
+                bubbles: true, 
+                detail: { value: e.target.value } 
+            }));
+        });
+        
+        this.input.addEventListener('focus', (e) => {
+            this.dispatchEvent(new CustomEvent('focus', { bubbles: true }));
+        });
+        
+        this.input.addEventListener('blur', (e) => {
+            this.dispatchEvent(new CustomEvent('blur', { bubbles: true }));
+        });
     }
-  }
-
-  render() {
-    this.shadowRoot.innerHTML = `
-      <style>
-        :host {
-          display: inline-block;
-          width: 100%;
-        }
+    
+    // Connected callback - called when element is added to DOM
+    connectedCallback() {
+        // Transfer all attributes to the internal input
+        const attributes = this.getAttributeNames();
         
-        .input-container {
-          position: relative;
-          width: 100%;
-        }
+        attributes.forEach(attr => {
+            const value = this.getAttribute(attr);
+            this.input.setAttribute(attr, value);
+        });
         
-        input {
-          width: 100%;
-          padding: var(--ui-input-padding, 12px 16px);
-          border: var(--ui-input-border, 1px solid #d1d5db);
-          border-radius: var(--ui-input-border-radius, 6px);
-          font-size: var(--ui-input-font-size, 16px);
-          font-family: var(--ui-input-font-family, inherit);
-          background: var(--ui-input-background, #ffffff);
-          color: var(--ui-input-color, #111827);
-          transition: var(--ui-input-transition, border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out);
-          outline: none;
-          box-sizing: border-box;
-        }
-        
-        input:focus {
-          border-color: var(--ui-input-focus-border-color, #3b82f6);
-          box-shadow: var(--ui-input-focus-box-shadow, 0 0 0 3px rgba(59, 130, 246, 0.1));
-        }
-        
-        input:disabled {
-          background: var(--ui-input-disabled-background, #f9fafb);
-          color: var(--ui-input-disabled-color, #6b7280);
-          cursor: not-allowed;
-        }
-        
-        input::placeholder {
-          color: var(--ui-input-placeholder-color, #9ca3af);
-        }
-      </style>
-      <div class="input-container">
-        <input 
-          type="${this.getAttribute('type') || 'text'}"
-          placeholder="${this.getAttribute('placeholder') || ''}"
-          value="${this.getAttribute('value') || ''}"
-          ${this.hasAttribute('disabled') ? 'disabled' : ''}
-        />
-      </div>
-    `;
-
-    // Add event listeners
-    const input = this.shadowRoot.querySelector('input');
-    input.addEventListener('input', (e) => {
-      this.setAttribute('value', e.target.value);
-      this.dispatchEvent(new CustomEvent('input', {
-        detail: { value: e.target.value },
-        bubbles: true
-      }));
-    });
-
-    input.addEventListener('change', (e) => {
-      this.dispatchEvent(new CustomEvent('change', {
-        detail: { value: e.target.value },
-        bubbles: true
-      }));
-    });
-  }
-
-  get value() {
-    return this.shadowRoot.querySelector('input').value;
-  }
-
-  set value(val) {
-    this.setAttribute('value', val);
-  }
-
-  focus() {
-    this.shadowRoot.querySelector('input').focus();
-  }
-
-  blur() {
-    this.shadowRoot.querySelector('input').blur();
-  }
+        // Remove all attributes from the wrapper to avoid duplication
+        attributes.forEach(attr => {
+            this.removeAttribute(attr);
+        });
+    }
+    
+    // Get the value of the input
+    get value() {
+        return this.input.value;
+    }
+    
+    // Set the value of the input
+    set value(val) {
+        this.input.value = val;
+    }
+    
+    // Focus method
+    focus() {
+        this.input.focus();
+    }
+    
+    // Blur method
+    blur() {
+        this.input.blur();
+    }
 }
 
+// Define the custom element
 customElements.define('ui-input', Input);
-export default Input; 

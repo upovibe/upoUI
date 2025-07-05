@@ -81,15 +81,23 @@ Our components use a **transparent wrapper approach** instead of Shadow DOM:
 ## 📁 Installation
 
 ### Option 1: Direct Download
-Download the repository and include the `bundler/bundle.js` file:
+Download the repository and include the bundle file:
 
 ```html
+<!-- From bundler folder -->
 <script type="module" src="./bundler/bundle.js"></script>
+
+<!-- Or from components folder -->
+<script type="module" src="./components/bundle.js"></script>
 ```
 
 ### Option 2: Using CDN
 ```html
+<!-- Try from bundler folder -->
 <script type="module" src="https://cdn.jsdelivr.net/gh/upovibe/upoUI@v1.0.0/bundler/bundle.js"></script>
+
+<!-- Or try from components folder -->
+<script type="module" src="https://cdn.jsdelivr.net/gh/upovibe/upoUI@v1.0.0/components/bundle.js"></script>
 ```
 
 ### Option 3: Clone Repository

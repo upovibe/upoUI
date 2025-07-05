@@ -10,6 +10,29 @@ class Box extends HTMLElement {
         
         // Add the div to the component
         this.appendChild(this.div);
+        
+        // Add default styles via CSS
+        this.addDefaultStyles();
+    }
+    
+    // Add default CSS styles to document if not already added
+    addDefaultStyles() {
+        if (!document.getElementById('upo-ui-box-styles')) {
+            const style = document.createElement('style');
+            style.id = 'upo-ui-box-styles';
+            style.textContent = `
+                .upo-box-default {
+                    display: block;
+                    padding: 1rem;
+                    margin: 0;
+                    border: 1px solid #e5e7eb;
+                    border-radius: 0.375rem;
+                    background-color: #ffffff;
+                    box-sizing: border-box;
+                }
+            `;
+            document.head.appendChild(style);
+        }
     }
     
     // Connected callback - called when element is added to DOM
@@ -26,12 +49,25 @@ class Box extends HTMLElement {
             }
         });
         
+        // Check if user provided classes
+        const hasUserClass = this.hasAttribute('class');
+        
+        // Apply default class if no user classes
+        if (!hasUserClass) {
+            this.div.className = 'upo-box-default';
+        }
+        
         // Transfer all attributes to the internal div (same as Input)
         const attributes = this.getAttributeNames();
         
         attributes.forEach(attr => {
             const value = this.getAttribute(attr);
-            this.div.setAttribute(attr, value);
+            if (attr === 'class' && hasUserClass) {
+                // Override default class with user classes
+                this.div.className = value;
+            } else {
+                this.div.setAttribute(attr, value);
+            }
         });
         
         // Remove all attributes from the wrapper to avoid duplication

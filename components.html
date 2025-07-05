@@ -26,6 +26,23 @@
         <ui-box class="bg-white p-6 rounded-lg shadow-lg">
             <h1 class="text-2xl font-bold mb-4 text-gray-800">Box Component</h1>
             
+            <!-- Test Default Styling -->
+            <h3 class="text-lg font-semibold mb-3">Default Styling Test</h3>
+            <ui-box class="flex flex-col gap-4">
+                <ui-box>
+                    <p>This box should have default styling - white background, padding, border, rounded corners.</p>
+                </ui-box>
+                
+                <ui-box>
+                    <p>Another default box to test consistency.</p>
+                </ui-box>
+            </ui-box>
+            
+            <hr class="my-6">
+            
+            <!-- Custom Styling -->
+            <h3 class="text-lg font-semibold mb-3">Custom Styling Test</h3>
+            
             <!-- Basic Box -->
             <ui-box class="p-4 bg-blue-100 rounded border mb-4">
                 <p>This is a basic box component with blue background!</p>

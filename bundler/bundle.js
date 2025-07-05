@@ -1,9 +1,9 @@
 // UPO UI - Bundle Entry Point
 // Import all components to register them with the browser
 
-import Input from './Input.js';
-import Button from './Button.js';
-import Select from './Select.js';
+import Input from '../components/Input.js';
+import Button from '../components/Button.js';
+import Select from '../components/Select.js';
 
 // Export components for individual use
 export { Input, Button, Select };

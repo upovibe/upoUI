@@ -10,14 +10,24 @@
     <!-- Header Component -->
     <app-header></app-header>
     
+    <!-- Main Content with Sidebar -->
+    <main class="relative">
+        <!-- Sidebar Component -->
+        <app-sidebar></app-sidebar>
+        
+        <!-- Sidebar Content Component -->
+        <app-sidebar-content></app-sidebar-content>
+    </main>
     
     <!-- Footer -->
-    <app-footer></app-footer>
+    <!-- <app-footer></app-footer> -->
     
     <!-- Load Components -->
     <script type="module" src="components/bundle.js"></script>
     <!-- Load Layout Components -->
     <script type="module" src="layouts/Header.js"></script>
     <script type="module" src="layouts/Footer.js"></script>
+    <script type="module" src="layouts/Sidebar.js"></script>
+    <script type="module" src="layouts/SidebarContent.js"></script>
 </body>
 </html>

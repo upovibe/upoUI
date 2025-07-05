@@ -30,31 +30,31 @@ class Input extends HTMLElement {
         
         input {
           width: 100%;
-          padding: var(--upo-input-padding, 12px 16px);
-          border: var(--upo-input-border, 1px solid #d1d5db);
-          border-radius: var(--upo-input-border-radius, 6px);
-          font-size: var(--upo-input-font-size, 16px);
-          font-family: var(--upo-input-font-family, inherit);
-          background: var(--upo-input-background, #ffffff);
-          color: var(--upo-input-color, #111827);
-          transition: var(--upo-input-transition, border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out);
+          padding: var(--ui-input-padding, 12px 16px);
+          border: var(--ui-input-border, 1px solid #d1d5db);
+          border-radius: var(--ui-input-border-radius, 6px);
+          font-size: var(--ui-input-font-size, 16px);
+          font-family: var(--ui-input-font-family, inherit);
+          background: var(--ui-input-background, #ffffff);
+          color: var(--ui-input-color, #111827);
+          transition: var(--ui-input-transition, border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out);
           outline: none;
           box-sizing: border-box;
         }
         
         input:focus {
-          border-color: var(--upo-input-focus-border-color, #3b82f6);
-          box-shadow: var(--upo-input-focus-box-shadow, 0 0 0 3px rgba(59, 130, 246, 0.1));
+          border-color: var(--ui-input-focus-border-color, #3b82f6);
+          box-shadow: var(--ui-input-focus-box-shadow, 0 0 0 3px rgba(59, 130, 246, 0.1));
         }
         
         input:disabled {
-          background: var(--upo-input-disabled-background, #f9fafb);
-          color: var(--upo-input-disabled-color, #6b7280);
+          background: var(--ui-input-disabled-background, #f9fafb);
+          color: var(--ui-input-disabled-color, #6b7280);
           cursor: not-allowed;
         }
         
         input::placeholder {
-          color: var(--upo-input-placeholder-color, #9ca3af);
+          color: var(--ui-input-placeholder-color, #9ca3af);
         }
       </style>
       <div class="input-container">
@@ -102,5 +102,5 @@ class Input extends HTMLElement {
   }
 }
 
-customElements.define('upo-input', Input);
+customElements.define('ui-input', Input);
 export default Input; 

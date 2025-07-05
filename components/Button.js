@@ -31,97 +31,97 @@ class Button extends HTMLElement {
           align-items: center;
           justify-content: center;
           border: none;
-          border-radius: var(--upo-button-border-radius, 6px);
-          font-weight: var(--upo-button-font-weight, 500);
-          font-family: var(--upo-button-font-family, inherit);
+          border-radius: var(--ui-button-border-radius, 6px);
+          font-weight: var(--ui-button-font-weight, 500);
+          font-family: var(--ui-button-font-family, inherit);
           cursor: pointer;
-          transition: var(--upo-button-transition, all 0.2s ease-in-out);
+          transition: var(--ui-button-transition, all 0.2s ease-in-out);
           outline: none;
           text-decoration: none;
           box-sizing: border-box;
         }
         
         button:focus {
-          box-shadow: var(--upo-button-focus-box-shadow, 0 0 0 3px rgba(59, 130, 246, 0.1));
+          box-shadow: var(--ui-button-focus-box-shadow, 0 0 0 3px rgba(59, 130, 246, 0.1));
         }
         
         button:disabled {
           cursor: not-allowed;
-          opacity: var(--upo-button-disabled-opacity, 0.6);
+          opacity: var(--ui-button-disabled-opacity, 0.6);
         }
         
         /* Size variations */
         .small {
-          padding: var(--upo-button-small-padding, 8px 12px);
-          font-size: var(--upo-button-small-font-size, 14px);
-          line-height: var(--upo-button-small-line-height, 1.25);
+          padding: var(--ui-button-small-padding, 8px 12px);
+          font-size: var(--ui-button-small-font-size, 14px);
+          line-height: var(--ui-button-small-line-height, 1.25);
         }
         
         .medium {
-          padding: var(--upo-button-medium-padding, 10px 16px);
-          font-size: var(--upo-button-medium-font-size, 16px);
-          line-height: var(--upo-button-medium-line-height, 1.5);
+          padding: var(--ui-button-medium-padding, 10px 16px);
+          font-size: var(--ui-button-medium-font-size, 16px);
+          line-height: var(--ui-button-medium-line-height, 1.5);
         }
         
         .large {
-          padding: var(--upo-button-large-padding, 12px 20px);
-          font-size: var(--upo-button-large-font-size, 18px);
-          line-height: var(--upo-button-large-line-height, 1.75);
+          padding: var(--ui-button-large-padding, 12px 20px);
+          font-size: var(--ui-button-large-font-size, 18px);
+          line-height: var(--ui-button-large-line-height, 1.75);
         }
         
         /* Variant styles */
         .primary {
-          background: var(--upo-button-primary-background, #3b82f6);
-          color: var(--upo-button-primary-color, #ffffff);
-          border: var(--upo-button-primary-border, 1px solid #3b82f6);
+          background: var(--ui-button-primary-background, #3b82f6);
+          color: var(--ui-button-primary-color, #ffffff);
+          border: var(--ui-button-primary-border, 1px solid #3b82f6);
         }
         
         .primary:hover:not(:disabled) {
-          background: var(--upo-button-primary-hover-background, #2563eb);
-          border-color: var(--upo-button-primary-hover-border-color, #2563eb);
+          background: var(--ui-button-primary-hover-background, #2563eb);
+          border-color: var(--ui-button-primary-hover-border-color, #2563eb);
         }
         
         .secondary {
-          background: var(--upo-button-secondary-background, #ffffff);
-          color: var(--upo-button-secondary-color, #374151);
-          border: var(--upo-button-secondary-border, 1px solid #d1d5db);
+          background: var(--ui-button-secondary-background, #ffffff);
+          color: var(--ui-button-secondary-color, #374151);
+          border: var(--ui-button-secondary-border, 1px solid #d1d5db);
         }
         
         .secondary:hover:not(:disabled) {
-          background: var(--upo-button-secondary-hover-background, #f9fafb);
-          border-color: var(--upo-button-secondary-hover-border-color, #9ca3af);
+          background: var(--ui-button-secondary-hover-background, #f9fafb);
+          border-color: var(--ui-button-secondary-hover-border-color, #9ca3af);
         }
         
         .outline {
-          background: var(--upo-button-outline-background, transparent);
-          color: var(--upo-button-outline-color, #3b82f6);
-          border: var(--upo-button-outline-border, 1px solid #3b82f6);
+          background: var(--ui-button-outline-background, transparent);
+          color: var(--ui-button-outline-color, #3b82f6);
+          border: var(--ui-button-outline-border, 1px solid #3b82f6);
         }
         
         .outline:hover:not(:disabled) {
-          background: var(--upo-button-outline-hover-background, #3b82f6);
-          color: var(--upo-button-outline-hover-color, #ffffff);
+          background: var(--ui-button-outline-hover-background, #3b82f6);
+          color: var(--ui-button-outline-hover-color, #ffffff);
         }
         
         .ghost {
-          background: var(--upo-button-ghost-background, transparent);
-          color: var(--upo-button-ghost-color, #374151);
-          border: var(--upo-button-ghost-border, 1px solid transparent);
+          background: var(--ui-button-ghost-background, transparent);
+          color: var(--ui-button-ghost-color, #374151);
+          border: var(--ui-button-ghost-border, 1px solid transparent);
         }
         
         .ghost:hover:not(:disabled) {
-          background: var(--upo-button-ghost-hover-background, #f3f4f6);
+          background: var(--ui-button-ghost-hover-background, #f3f4f6);
         }
         
         .danger {
-          background: var(--upo-button-danger-background, #ef4444);
-          color: var(--upo-button-danger-color, #ffffff);
-          border: var(--upo-button-danger-border, 1px solid #ef4444);
+          background: var(--ui-button-danger-background, #ef4444);
+          color: var(--ui-button-danger-color, #ffffff);
+          border: var(--ui-button-danger-border, 1px solid #ef4444);
         }
         
         .danger:hover:not(:disabled) {
-          background: var(--upo-button-danger-hover-background, #dc2626);
-          border-color: var(--upo-button-danger-hover-border-color, #dc2626);
+          background: var(--ui-button-danger-hover-background, #dc2626);
+          border-color: var(--ui-button-danger-hover-border-color, #dc2626);
         }
       </style>
       <button 
@@ -160,5 +160,5 @@ class Button extends HTMLElement {
   }
 }
 
-customElements.define('upo-button', Button);
+customElements.define('ui-button', Button);
 export default Button; 

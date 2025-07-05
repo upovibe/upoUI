@@ -24,12 +24,12 @@ A lightweight, vanilla JavaScript Web Component library built with native Web Co
     <title>UPO UI Demo</title>
 </head>
 <body>
-    <upo-input placeholder="Enter your name"></upo-input>
-    <upo-button variant="primary">Click Me!</upo-button>
-    <upo-select placeholder="Choose option">
+    <ui-input placeholder="Enter your name"></ui-input>
+    <ui-button variant="primary">Click Me!</ui-button>
+    <ui-select placeholder="Choose option">
         <option value="1">Option 1</option>
         <option value="2">Option 2</option>
-    </upo-select>
+    </ui-select>
     
     <script type="module" src="./components/bundle.js"></script>
 </body>
@@ -62,11 +62,11 @@ A flexible input component with support for various input types.
 #### Usage
 
 ```html
-<upo-input placeholder="Enter text"></upo-input>
-<upo-input type="email" placeholder="Enter email"></upo-input>
-<upo-input type="password" placeholder="Enter password"></upo-input>
-<upo-input value="Pre-filled" placeholder="Default value"></upo-input>
-<upo-input disabled placeholder="Disabled input"></upo-input>
+<ui-input placeholder="Enter text"></ui-input>
+<ui-input type="email" placeholder="Enter email"></ui-input>
+<ui-input type="password" placeholder="Enter password"></ui-input>
+<ui-input value="Pre-filled" placeholder="Default value"></ui-input>
+<ui-input disabled placeholder="Disabled input"></ui-input>
 ```
 
 #### Attributes
@@ -94,17 +94,17 @@ A versatile button component with multiple variants and sizes.
 #### Usage
 
 ```html
-<upo-button variant="primary">Primary Button</upo-button>
-<upo-button variant="secondary">Secondary Button</upo-button>
-<upo-button variant="outline">Outline Button</upo-button>
-<upo-button variant="ghost">Ghost Button</upo-button>
-<upo-button variant="danger">Danger Button</upo-button>
+<ui-button variant="primary">Primary Button</ui-button>
+<ui-button variant="secondary">Secondary Button</ui-button>
+<ui-button variant="outline">Outline Button</ui-button>
+<ui-button variant="ghost">Ghost Button</ui-button>
+<ui-button variant="danger">Danger Button</ui-button>
 
-<upo-button size="small">Small</upo-button>
-<upo-button size="medium">Medium</upo-button>
-<upo-button size="large">Large</upo-button>
+<ui-button size="small">Small</ui-button>
+<ui-button size="medium">Medium</ui-button>
+<ui-button size="large">Large</ui-button>
 
-<upo-button disabled>Disabled</upo-button>
+<ui-button disabled>Disabled</ui-button>
 ```
 
 #### Attributes
@@ -130,22 +130,22 @@ A dropdown select component with support for option elements.
 #### Usage
 
 ```html
-<upo-select placeholder="Choose option">
+<ui-select placeholder="Choose option">
     <option value="1">Option 1</option>
     <option value="2">Option 2</option>
     <option value="3">Option 3</option>
-</upo-select>
+</ui-select>
 
-<upo-select value="2">
+<ui-select value="2">
     <option value="1">Option 1</option>
     <option value="2" selected>Option 2</option>
     <option value="3">Option 3</option>
-</upo-select>
+</ui-select>
 
-<upo-select disabled>
+<ui-select disabled>
     <option value="1">Option 1</option>
     <option value="2">Option 2</option>
-</upo-select>
+</ui-select>
 ```
 
 #### Attributes
@@ -171,30 +171,30 @@ UPO UI uses CSS Variables for easy theming. You can customize the appearance by 
 ```css
 :root {
     /* Input theming */
-    --upo-input-padding: 12px 16px;
-    --upo-input-border: 1px solid #d1d5db;
-    --upo-input-border-radius: 6px;
-    --upo-input-font-size: 16px;
-    --upo-input-background: #ffffff;
-    --upo-input-color: #111827;
-    --upo-input-focus-border-color: #3b82f6;
-    --upo-input-focus-box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    --ui-input-padding: 12px 16px;
+    --ui-input-border: 1px solid #d1d5db;
+    --ui-input-border-radius: 6px;
+    --ui-input-font-size: 16px;
+    --ui-input-background: #ffffff;
+    --ui-input-color: #111827;
+    --ui-input-focus-border-color: #3b82f6;
+    --ui-input-focus-box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
     
     /* Button theming */
-    --upo-button-border-radius: 6px;
-    --upo-button-font-weight: 500;
-    --upo-button-transition: all 0.2s ease-in-out;
-    --upo-button-primary-background: #3b82f6;
-    --upo-button-primary-color: #ffffff;
-    --upo-button-primary-hover-background: #2563eb;
+    --ui-button-border-radius: 6px;
+    --ui-button-font-weight: 500;
+    --ui-button-transition: all 0.2s ease-in-out;
+    --ui-button-primary-background: #3b82f6;
+    --ui-button-primary-color: #ffffff;
+    --ui-button-primary-hover-background: #2563eb;
     
     /* Select theming */
-    --upo-select-padding: 12px 16px;
-    --upo-select-border: 1px solid #d1d5db;
-    --upo-select-border-radius: 6px;
-    --upo-select-background: #ffffff;
-    --upo-select-color: #111827;
-    --upo-select-focus-border-color: #3b82f6;
+    --ui-select-padding: 12px 16px;
+    --ui-select-border: 1px solid #d1d5db;
+    --ui-select-border-radius: 6px;
+    --ui-select-background: #ffffff;
+    --ui-select-color: #111827;
+    --ui-select-focus-border-color: #3b82f6;
 }
 ```
 
@@ -244,14 +244,14 @@ This project is configured for GitHub Pages deployment:
 
 ```html
 <form>
-    <upo-input id="name" placeholder="Enter your name"></upo-input>
-    <upo-input id="email" type="email" placeholder="Enter your email"></upo-input>
-    <upo-select id="country" placeholder="Select country">
+    <ui-input id="name" placeholder="Enter your name"></ui-input>
+    <ui-input id="email" type="email" placeholder="Enter your email"></ui-input>
+    <ui-select id="country" placeholder="Select country">
         <option value="us">United States</option>
         <option value="ca">Canada</option>
         <option value="uk">United Kingdom</option>
-    </upo-select>
-    <upo-button id="submit" variant="primary">Submit</upo-button>
+    </ui-select>
+    <ui-button id="submit" variant="primary">Submit</ui-button>
 </form>
 
 <script type="module">
@@ -273,17 +273,17 @@ This project is configured for GitHub Pages deployment:
 
 ```javascript
 // Listen for input changes
-document.querySelector('upo-input').addEventListener('input', (e) => {
+document.querySelector('ui-input').addEventListener('input', (e) => {
     console.log('Input value:', e.detail.value);
 });
 
 // Listen for button clicks
-document.querySelector('upo-button').addEventListener('click', (e) => {
+document.querySelector('ui-button').addEventListener('click', (e) => {
     console.log('Button clicked!');
 });
 
 // Listen for select changes
-document.querySelector('upo-select').addEventListener('change', (e) => {
+document.querySelector('ui-select').addEventListener('change', (e) => {
     console.log('Selected value:', e.detail.value);
 });
 ```

@@ -83,21 +83,21 @@ class Select extends HTMLElement {
         
         select {
           width: 100%;
-          padding: var(--upo-select-padding, 12px 16px);
-          border: var(--upo-select-border, 1px solid #d1d5db);
-          border-radius: var(--upo-select-border-radius, 6px);
-          font-size: var(--upo-select-font-size, 16px);
-          font-family: var(--upo-select-font-family, inherit);
-          background: var(--upo-select-background, #ffffff);
-          color: var(--upo-select-color, #111827);
-          transition: var(--upo-select-transition, border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out);
+          padding: var(--ui-select-padding, 12px 16px);
+          border: var(--ui-select-border, 1px solid #d1d5db);
+          border-radius: var(--ui-select-border-radius, 6px);
+          font-size: var(--ui-select-font-size, 16px);
+          font-family: var(--ui-select-font-family, inherit);
+          background: var(--ui-select-background, #ffffff);
+          color: var(--ui-select-color, #111827);
+          transition: var(--ui-select-transition, border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out);
           outline: none;
           box-sizing: border-box;
           cursor: pointer;
           appearance: none;
           -webkit-appearance: none;
           -moz-appearance: none;
-          background-image: var(--upo-select-arrow, url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e"));
+          background-image: var(--ui-select-arrow, url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e"));
           background-position: right 12px center;
           background-repeat: no-repeat;
           background-size: 16px 16px;
@@ -105,24 +105,24 @@ class Select extends HTMLElement {
         }
         
         select:focus {
-          border-color: var(--upo-select-focus-border-color, #3b82f6);
-          box-shadow: var(--upo-select-focus-box-shadow, 0 0 0 3px rgba(59, 130, 246, 0.1));
+          border-color: var(--ui-select-focus-border-color, #3b82f6);
+          box-shadow: var(--ui-select-focus-box-shadow, 0 0 0 3px rgba(59, 130, 246, 0.1));
         }
         
         select:disabled {
-          background: var(--upo-select-disabled-background, #f9fafb);
-          color: var(--upo-select-disabled-color, #6b7280);
+          background: var(--ui-select-disabled-background, #f9fafb);
+          color: var(--ui-select-disabled-color, #6b7280);
           cursor: not-allowed;
         }
         
         option {
-          padding: var(--upo-select-option-padding, 8px 12px);
-          background: var(--upo-select-option-background, #ffffff);
-          color: var(--upo-select-option-color, #111827);
+          padding: var(--ui-select-option-padding, 8px 12px);
+          background: var(--ui-select-option-background, #ffffff);
+          color: var(--ui-select-option-color, #111827);
         }
         
         option:disabled {
-          color: var(--upo-select-option-disabled-color, #9ca3af);
+          color: var(--ui-select-option-disabled-color, #9ca3af);
         }
         
         /* Hide the default slot */
@@ -172,5 +172,5 @@ class Select extends HTMLElement {
   }
 }
 
-customElements.define('upo-select', Select);
+customElements.define('ui-select', Select);
 export default Select; 

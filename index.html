@@ -7,16 +7,16 @@
     <style>
         :root {
             /* UPO UI Theme Variables */
-            --upo-primary-color: #3b82f6;
-            --upo-secondary-color: #6b7280;
-            --upo-success-color: #10b981;
-            --upo-danger-color: #ef4444;
-            --upo-warning-color: #f59e0b;
+            --ui-primary-color: #3b82f6;
+            --ui-secondary-color: #6b7280;
+            --ui-success-color: #10b981;
+            --ui-danger-color: #ef4444;
+            --ui-warning-color: #f59e0b;
             
             /* Custom theme for components */
-            --upo-input-border-radius: 8px;
-            --upo-button-border-radius: 8px;
-            --upo-select-border-radius: 8px;
+            --ui-input-border-radius: 8px;
+            --ui-button-border-radius: 8px;
+            --ui-select-border-radius: 8px;
         }
         
         * {
@@ -46,13 +46,13 @@
         .header h1 {
             font-size: 3rem;
             font-weight: 700;
-            color: var(--upo-primary-color);
+            color: var(--ui-primary-color);
             margin-bottom: 1rem;
         }
         
         .header p {
             font-size: 1.25rem;
-            color: var(--upo-secondary-color);
+            color: var(--ui-secondary-color);
             margin-bottom: 2rem;
         }
         
@@ -60,7 +60,7 @@
             display: inline-block;
             padding: 0.5rem 1rem;
             background: #f0f9ff;
-            color: var(--upo-primary-color);
+            color: var(--ui-primary-color);
             border-radius: 9999px;
             font-weight: 500;
             font-size: 0.875rem;
@@ -154,11 +154,11 @@
             margin-top: 4rem;
             padding: 2rem;
             border-top: 1px solid #e5e7eb;
-            color: var(--upo-secondary-color);
+            color: var(--ui-secondary-color);
         }
         
         .footer a {
-            color: var(--upo-primary-color);
+            color: var(--ui-primary-color);
             text-decoration: none;
         }
         
@@ -200,26 +200,26 @@
                 <div class="demo-card">
                     <h3>Basic Input</h3>
                     <div class="demo-content">
-                        <upo-input placeholder="Enter your name"></upo-input>
-                        <upo-input type="email" placeholder="Enter your email"></upo-input>
-                        <upo-input type="password" placeholder="Enter your password"></upo-input>
+                        <ui-input placeholder="Enter your name"></ui-input>
+                        <ui-input type="email" placeholder="Enter your email"></ui-input>
+                        <ui-input type="password" placeholder="Enter your password"></ui-input>
                     </div>
                     <div class="code-block">
-&lt;upo-input placeholder="Enter your name"&gt;&lt;/upo-input&gt;
-&lt;upo-input type="email" placeholder="Enter your email"&gt;&lt;/upo-input&gt;
-&lt;upo-input type="password" placeholder="Enter your password"&gt;&lt;/upo-input&gt;
+&lt;ui-input placeholder="Enter your name"&gt;&lt;/ui-input&gt;
+&lt;ui-input type="email" placeholder="Enter your email"&gt;&lt;/ui-input&gt;
+&lt;ui-input type="password" placeholder="Enter your password"&gt;&lt;/ui-input&gt;
                     </div>
                 </div>
                 
                 <div class="demo-card">
                     <h3>Input States</h3>
                     <div class="demo-content">
-                        <upo-input value="Pre-filled value" placeholder="Normal input"></upo-input>
-                        <upo-input disabled placeholder="Disabled input"></upo-input>
+                        <ui-input value="Pre-filled value" placeholder="Normal input"></ui-input>
+                        <ui-input disabled placeholder="Disabled input"></ui-input>
                     </div>
                     <div class="code-block">
-&lt;upo-input value="Pre-filled value"&gt;&lt;/upo-input&gt;
-&lt;upo-input disabled placeholder="Disabled input"&gt;&lt;/upo-input&gt;
+&lt;ui-input value="Pre-filled value"&gt;&lt;/ui-input&gt;
+&lt;ui-input disabled placeholder="Disabled input"&gt;&lt;/ui-input&gt;
                     </div>
                 </div>
             </div>
@@ -232,19 +232,19 @@
                     <h3>Button Variants</h3>
                     <div class="demo-content">
                         <div class="button-group">
-                            <upo-button variant="primary">Primary</upo-button>
-                            <upo-button variant="secondary">Secondary</upo-button>
-                            <upo-button variant="outline">Outline</upo-button>
-                            <upo-button variant="ghost">Ghost</upo-button>
-                            <upo-button variant="danger">Danger</upo-button>
+                            <ui-button variant="primary">Primary</ui-button>
+                            <ui-button variant="secondary">Secondary</ui-button>
+                            <ui-button variant="outline">Outline</ui-button>
+                            <ui-button variant="ghost">Ghost</ui-button>
+                            <ui-button variant="danger">Danger</ui-button>
                         </div>
                     </div>
                     <div class="code-block">
-&lt;upo-button variant="primary"&gt;Primary&lt;/upo-button&gt;
-&lt;upo-button variant="secondary"&gt;Secondary&lt;/upo-button&gt;
-&lt;upo-button variant="outline"&gt;Outline&lt;/upo-button&gt;
-&lt;upo-button variant="ghost"&gt;Ghost&lt;/upo-button&gt;
-&lt;upo-button variant="danger"&gt;Danger&lt;/upo-button&gt;
+&lt;ui-button variant="primary"&gt;Primary&lt;/ui-button&gt;
+&lt;ui-button variant="secondary"&gt;Secondary&lt;/ui-button&gt;
+&lt;ui-button variant="outline"&gt;Outline&lt;/ui-button&gt;
+&lt;ui-button variant="ghost"&gt;Ghost&lt;/ui-button&gt;
+&lt;ui-button variant="danger"&gt;Danger&lt;/ui-button&gt;
                     </div>
                 </div>
                 
@@ -252,19 +252,19 @@
                     <h3>Button Sizes</h3>
                     <div class="demo-content">
                         <div class="button-group">
-                            <upo-button size="small">Small</upo-button>
-                            <upo-button size="medium">Medium</upo-button>
-                            <upo-button size="large">Large</upo-button>
+                            <ui-button size="small">Small</ui-button>
+                            <ui-button size="medium">Medium</ui-button>
+                            <ui-button size="large">Large</ui-button>
                         </div>
                         <div class="button-group">
-                            <upo-button disabled>Disabled</upo-button>
+                            <ui-button disabled>Disabled</ui-button>
                         </div>
                     </div>
                     <div class="code-block">
-&lt;upo-button size="small"&gt;Small&lt;/upo-button&gt;
-&lt;upo-button size="medium"&gt;Medium&lt;/upo-button&gt;
-&lt;upo-button size="large"&gt;Large&lt;/upo-button&gt;
-&lt;upo-button disabled&gt;Disabled&lt;/upo-button&gt;
+&lt;ui-button size="small"&gt;Small&lt;/ui-button&gt;
+&lt;ui-button size="medium"&gt;Medium&lt;/ui-button&gt;
+&lt;ui-button size="large"&gt;Large&lt;/ui-button&gt;
+&lt;ui-button disabled&gt;Disabled&lt;/ui-button&gt;
                     </div>
                 </div>
             </div>
@@ -276,46 +276,46 @@
                 <div class="demo-card">
                     <h3>Basic Select</h3>
                     <div class="demo-content">
-                        <upo-select placeholder="Choose an option">
+                        <ui-select placeholder="Choose an option">
                             <option value="option1">Option 1</option>
                             <option value="option2">Option 2</option>
                             <option value="option3">Option 3</option>
-                        </upo-select>
+                        </ui-select>
                         
-                        <upo-select value="option2">
+                        <ui-select value="option2">
                             <option value="option1">Pre-selected Option 1</option>
                             <option value="option2">Pre-selected Option 2</option>
                             <option value="option3">Pre-selected Option 3</option>
-                        </upo-select>
+                        </ui-select>
                     </div>
                     <div class="code-block">
-&lt;upo-select placeholder="Choose an option"&gt;
+&lt;ui-select placeholder="Choose an option"&gt;
     &lt;option value="option1"&gt;Option 1&lt;/option&gt;
     &lt;option value="option2"&gt;Option 2&lt;/option&gt;
     &lt;option value="option3"&gt;Option 3&lt;/option&gt;
-&lt;/upo-select&gt;
+&lt;/ui-select&gt;
                     </div>
                 </div>
                 
                 <div class="demo-card">
                     <h3>Select States</h3>
                     <div class="demo-content">
-                        <upo-select disabled placeholder="Disabled select">
+                        <ui-select disabled placeholder="Disabled select">
                             <option value="option1">Option 1</option>
                             <option value="option2">Option 2</option>
-                        </upo-select>
+                        </ui-select>
                         
-                        <upo-select placeholder="With disabled option">
+                        <ui-select placeholder="With disabled option">
                             <option value="option1">Available Option</option>
                             <option value="option2" disabled>Disabled Option</option>
                             <option value="option3">Another Available Option</option>
-                        </upo-select>
+                        </ui-select>
                     </div>
                     <div class="code-block">
-&lt;upo-select disabled placeholder="Disabled select"&gt;
+&lt;ui-select disabled placeholder="Disabled select"&gt;
     &lt;option value="option1"&gt;Option 1&lt;/option&gt;
     &lt;option value="option2"&gt;Option 2&lt;/option&gt;
-&lt;/upo-select&gt;
+&lt;/ui-select&gt;
                     </div>
                 </div>
             </div>
@@ -329,28 +329,28 @@
                     <form id="demoForm">
                         <div class="form-group">
                             <label for="name">Name:</label>
-                            <upo-input id="name" placeholder="Enter your full name"></upo-input>
+                            <ui-input id="name" placeholder="Enter your full name"></ui-input>
                         </div>
                         
                         <div class="form-group">
                             <label for="email">Email:</label>
-                            <upo-input id="email" type="email" placeholder="Enter your email"></upo-input>
+                            <ui-input id="email" type="email" placeholder="Enter your email"></ui-input>
                         </div>
                         
                         <div class="form-group">
                             <label for="country">Country:</label>
-                            <upo-select id="country" placeholder="Select your country">
+                            <ui-select id="country" placeholder="Select your country">
                                 <option value="us">United States</option>
                                 <option value="ca">Canada</option>
                                 <option value="uk">United Kingdom</option>
                                 <option value="au">Australia</option>
                                 <option value="other">Other</option>
-                            </upo-select>
+                            </ui-select>
                         </div>
                         
                         <div class="button-group">
-                            <upo-button id="submitBtn" variant="primary">Submit</upo-button>
-                            <upo-button id="resetBtn" variant="secondary">Reset</upo-button>
+                            <ui-button id="submitBtn" variant="primary">Submit</ui-button>
+                            <ui-button id="resetBtn" variant="secondary">Reset</ui-button>
                         </div>
                     </form>
                     

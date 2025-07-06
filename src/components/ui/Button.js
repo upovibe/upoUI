@@ -2,14 +2,11 @@ class Button extends HTMLElement {
     constructor() {
         super();
         
-        // Create the button element directly (no shadow DOM)
-        this.button = document.createElement('button');
+        // This will be determined in connectedCallback
+        this.element = null; 
         
         // Flag to prevent double processing
         this.initialized = false;
-        
-        // Add the button to the component
-        this.appendChild(this.button);
         
         // Add default styles via CSS
         this.addDefaultStyles();
@@ -80,12 +77,20 @@ class Button extends HTMLElement {
         // Prevent double processing
         if (this.initialized) return;
         this.initialized = true;
+
+        // Smartly choose between <a> and <button> based on href attribute
+        if (this.hasAttribute('href')) {
+            this.element = document.createElement('a');
+        } else {
+            this.element = document.createElement('button');
+        }
+        this.appendChild(this.element);
         
-        // Move any existing children (except our button) to the internal button
+        // Move any existing children (except our element) to the internal element
         const children = Array.from(this.childNodes);
         children.forEach(child => {
-            if (child !== this.button) {
-                this.button.appendChild(child);
+            if (child !== this.element) {
+                this.element.appendChild(child);
             }
         });
         
@@ -94,19 +99,19 @@ class Button extends HTMLElement {
         
         // Apply default class if no user classes
         if (!hasUserClass) {
-            this.button.className = 'upo-button-default';
+            this.element.className = 'upo-button-default';
         }
         
-        // Transfer all attributes to the internal button (same as other components)
+        // Transfer all attributes to the internal element (same as other components)
         const attributes = this.getAttributeNames();
         
         attributes.forEach(attr => {
             const value = this.getAttribute(attr);
             if (attr === 'class' && hasUserClass) {
                 // Override default class with user classes
-                this.button.className = value;
+                this.element.className = value;
             } else {
-                this.button.setAttribute(attr, value);
+                this.element.setAttribute(attr, value);
             }
         });
         
@@ -116,17 +121,17 @@ class Button extends HTMLElement {
         });
     }
     
-    // Forward common methods to the internal button
+    // Forward common methods to the internal element
     focus() {
-        this.button.focus();
+        this.element.focus();
     }
     
     blur() {
-        this.button.blur();
+        this.element.blur();
     }
     
     click() {
-        this.button.click();
+        this.element.click();
     }
 }
 

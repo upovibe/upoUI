@@ -127,9 +127,6 @@ class Router {
             console.error(`Router outlet '${outletSelector}' not found`);
             return;
         }
-
-        // Show initial loading only
-        this.outlet.innerHTML = '<div class="flex items-center justify-center min-h-screen"><div class="text-xl">Loading...</div></div>';
         
         // Preload ALL static components first
         await this.preloadAllComponents();

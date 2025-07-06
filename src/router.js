@@ -1,29 +1,24 @@
 import './layouts/Header.js';
 
 /**
- * UPO UI Simple Router
+ * UPO UI Simple Router - No Loading Delays
  * 
- * History API-based routing system that works without build tools
- * 
- * USAGE:
- * ------
- * const router = new Router();
- * router.route('/', 'src/pages/Home.js')
- *       .route('/about', 'src/pages/About.js')
- *       .start();
+ * Preloads all components for instant navigation
  */
 
 class Router {
     constructor() {
         this.routes = new Map();
+        this.componentCache = new Map(); // Cache loaded components
         this.currentComponent = null;
         this.outlet = null;
+        this.isReady = false;
     }
     
     // Add a route
     route(path, componentPath) {
         this.routes.set(path, componentPath);
-        return this; // Enable chaining
+        return this;
     }
     
     // Navigate to a path
@@ -33,13 +28,21 @@ class Router {
     }
     
     // Start the router
-    start(outletSelector = '#app') {
+    async start(outletSelector = '#app') {
         this.outlet = document.querySelector(outletSelector);
         
         if (!this.outlet) {
             console.error(`Router outlet '${outletSelector}' not found`);
             return;
         }
+
+        // Show initial loading only
+        this.outlet.innerHTML = '<div class="flex items-center justify-center min-h-screen"><div class="text-xl">Loading...</div></div>';
+        
+        // Preload ALL components first
+        await this.preloadAllComponents();
+        
+        this.isReady = true;
         
         // Listen for back/forward navigation
         window.addEventListener('popstate', () => {
@@ -55,43 +58,56 @@ class Router {
             }
         });
         
-        // Initial render
+        // Initial render (now instant)
         this.render();
         
         return this;
     }
     
-    // Render the current route
-    async render() {
+    // Preload all components
+    async preloadAllComponents() {
+        console.log('🔄 Preloading all components...');
+        
+        const loadPromises = Array.from(this.routes.entries()).map(async ([path, componentPath]) => {
+            try {
+                const module = await import(`./${componentPath}`);
+                this.componentCache.set(path, module.default);
+                console.log(`✅ Loaded: ${componentPath}`);
+            } catch (error) {
+                console.error(`❌ Failed to load: ${componentPath}`, error);
+            }
+        });
+        
+        await Promise.all(loadPromises);
+        console.log('🎯 All components preloaded - navigation is now instant!');
+    }
+    
+    // Render the current route (now instant!)
+    render() {
+        if (!this.isReady) return; // Don't render until components are loaded
+        
         const path = window.location.pathname || '/';
-        const componentPath = this.routes.get(path);
+        const ComponentClass = this.componentCache.get(path);
 
-        if (!componentPath) {
+        if (!ComponentClass) {
             this.renderNotFound();
             return;
         }
 
         try {
-            // Show loading state while the component is fetched
-            this.outlet.innerHTML = '<div class="flex items-center justify-center min-h-screen"><div class="text-xl">Loading...</div></div>';
-
-            // Dynamically import the page component
-            const module = await import(`./${componentPath}`);
-            const ComponentClass = module.default;
-
-            // Convert the component's class name (e.g., "AboutPage") to its custom element tag name (e.g., "page-about")
+            // Convert class name to tag name
             const tagName = `page-${ComponentClass.name.replace('Page', '').toLowerCase()}`;
 
-            // Render the header and the page component
+            // Instant render - no loading delay!
             this.outlet.innerHTML = `
                 <app-header></app-header>
                 <${tagName}></${tagName}>
             `;
 
-            console.log(`✅ Rendered route: ${path}`);
+            console.log(`⚡ Instant render: ${path}`);
 
         } catch (error) {
-            console.error(`Failed to load or render route: ${path}`, error);
+            console.error(`Failed to render route: ${path}`, error);
             this.renderError();
         }
     }

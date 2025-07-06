@@ -1,4 +1,7 @@
 import App from '../core/App.js';
+import '../components/layout/Hero.js';
+import '../components/layout/Features.js';
+import '../components/ui/Box.js';
 
 /**
  * Root Page Component (/)
@@ -14,48 +17,20 @@ class RootPage extends App {
 
     render() {
         return `
-            <div class="bg-gray-50">
-                <!-- Features Section -->
-                <div class="py-20">
-                    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <div class="text-center mb-16">
-                            <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-                                Ultra Minimal & Modern
-                            </h1>
-                            <p class="text-xl md:text-2xl text-gray-600">
-                                A simple, fast, and powerful web components framework.
-                            </p>
-                        </div>
-                        
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                            <div class="text-center p-6">
-                                <div class="text-4xl mb-4">⚡</div>
-                                <h3 class="text-xl font-semibold mb-3">No Build Step</h3>
-                                <p class="text-gray-600">Clone and start immediately. No npm, no webpack, no complexity.</p>
-                            </div>
-                            
-                            <div class="text-center p-6">
-                                <div class="text-4xl mb-4">🎨</div>
-                                <h3 class="text-xl font-semibold mb-3">CSS Framework Agnostic</h3>
-                                <p class="text-gray-600">Works with Tailwind, Bootstrap, or any CSS framework.</p>
-                            </div>
-                            
-                            <div class="text-center p-6">
-                                <div class="text-4xl mb-4">🚀</div>
-                                <h3 class="text-xl font-semibold mb-3">Modern & Simple</h3>
-                                <p class="text-gray-600">Web components with reactive state management.</p>
-                            </div>
-                        </div>
+            <div>
+                <app-hero></app-hero>
+                <app-features></app-features>
 
-                        <!-- App Architecture Info -->
-                        <div class="mt-20 text-center">
-                            <h2 class="text-3xl font-bold text-gray-900 mb-8">
-                                🏗️ Clean Architecture
-                            </h2>
-                            <div class="bg-white rounded-lg shadow-lg p-8 max-w-4xl mx-auto">
-                                <div class="text-left">
-                                    <h3 class="text-lg font-semibold mb-4">Organized Folder Structure:</h3>
-                                    <pre class="bg-gray-100 p-4 rounded-lg text-sm overflow-x-auto">
+                <!-- App Architecture Info -->
+                <ui-box class="bg-white py-20 sm:py-24">
+                    <ui-box class="max-w-7xl mx-auto px-6 lg:px-8 text-center">
+                        <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+                            Clean & Logical Architecture
+                        </h2>
+                        <ui-box class="mt-16 bg-white rounded-lg shadow-xl p-8 max-w-4xl mx-auto">
+                            <ui-box class="text-left">
+                                <h3 class="text-lg font-semibold mb-4 text-gray-800">Organized Folder Structure:</h3>
+                                <pre class="bg-gray-100 p-4 rounded-lg text-sm overflow-x-auto">
 src/
 ├── app/                    # 📱 Main app directory
 │   ├── layout.js          # Root layout (wraps all pages)
@@ -76,17 +51,16 @@ src/
 │   └── layout/          # Layout components
 │
 └── assets/              # 📁 Static assets
-                                    </pre>
-                                </div>
-                                <div class="mt-6 text-center">
-                                    <p class="text-gray-600">
-                                        Similar to Next.js App Router, but with vanilla JavaScript!
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                                </pre>
+                            </ui-box>
+                            <ui-box class="mt-6 text-center">
+                                <p class="text-gray-600">
+                                    Inspired by the Next.js App Router, but with 100% vanilla JavaScript!
+                                </p>
+                            </ui-box>
+                        </ui-box>
+                    </ui-box>
+                </ui-box>
             </div>
         `;
     }

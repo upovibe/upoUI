@@ -94,10 +94,18 @@ class App extends HTMLElement {
      */
     connectedCallback() {
         // Load UPO UI components bundle if not already loaded
-        if (!document.querySelector('script[src="/src/components/ui/bundle.js"]')) {
+        const bundleSrc = 'src/components/ui/bundle.js';
+        let alreadyLoaded = false;
+        document.querySelectorAll('script').forEach(s => {
+            if (s.src.endsWith(bundleSrc)) {
+                alreadyLoaded = true;
+            }
+        });
+
+        if (!alreadyLoaded) {
             const script = document.createElement('script');
             script.type = 'module';
-            script.src = '/src/components/ui/bundle.js';  // Absolute path from root
+            script.src = bundleSrc;  // Relative path from index.html
             document.head.appendChild(script);
         }
         

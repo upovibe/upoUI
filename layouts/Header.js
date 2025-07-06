@@ -1,4 +1,6 @@
-class Header extends HTMLElement {
+import App from '../app.js';
+
+class Header extends App {
     constructor() {
         super();
         
@@ -6,16 +8,10 @@ class Header extends HTMLElement {
         this.initialized = false;
     }
     
-    // Connected callback - called when element is added to DOM
-    connectedCallback() {
-        // Prevent double processing
-        if (this.initialized) return;
-        this.initialized = true;
-        
-        // Create the header layout using our UI components
-        this.innerHTML = `
+    render() {
+        return `
             <ui-box class="sticky top-0 z-50 bg-white/80 backdrop-blur-md">
-                <ui-box class="mx-auto px-4 sm:px-6 lg:px-8">
+                <ui-box class="mx-auto px-3 sm:px-6 lg:px-8 relative">
                     <ui-box class="flex justify-between items-center h-16">
                         <!-- Logo/Brand & Navigation Links -->
                         <ui-box class="flex items-center space-x-8">
@@ -64,8 +60,8 @@ class Header extends HTMLElement {
                     </ui-box>
                     
                     <!-- Mobile Menu (hidden by default) -->
-                    <ui-box id="mobile-menu" class="md:hidden hidden border-t border-gray-200 pt-4 pb-3">
-                        <ui-box class="flex flex-col space-y-3">
+                    <ui-box id="mobile-menu" class="md:hidden hidden absolute top-full left-0 right-0 bg-white border border-gray-200 shadow-lg z-40">
+                        <ui-box class="flex flex-col space-y-3 p-4">
                             <ui-link href="components.html" class="block px-3 py-2 text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-md no-underline">
                                 Components
                             </ui-link>
@@ -86,12 +82,18 @@ class Header extends HTMLElement {
                 </ui-box>
             </ui-box>
         `;
-        
-        // Add mobile menu toggle functionality
-        this.setupMobileMenu();
     }
     
-    // Setup mobile menu toggle
+    connectedCallback() {
+        super.connectedCallback();
+        
+        if (this.initialized) return;
+        this.initialized = true;
+        
+        // Simple setup
+        setTimeout(() => this.setupMobileMenu(), 100);
+    }
+    
     setupMobileMenu() {
         const menuButton = this.querySelector('#mobile-menu-button');
         const mobileMenu = this.querySelector('#mobile-menu');

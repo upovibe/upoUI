@@ -185,6 +185,40 @@ class Router {
         }
     }
     
+    // Try to load a page automatically based on URL path
+    async tryAutoLoad(path) {
+        // Try different possible file locations
+        const possiblePaths = [
+            `app${path}/page.js`,           // Next.js style: /contact → app/contact/page.js
+            `app${path}.js`,                // Simple style: /contact → app/contact.js
+            `app${path}/index.js`,          // Index style: /contact → app/contact/index.js
+            `app${path}/${path.split('/').pop()}.js`  // Named style: /contact → app/contact/contact.js
+        ];
+        
+        // If root path, try these
+        if (path === '/') {
+            possiblePaths.unshift('app/page.js', 'app/home.js', 'app/index.js');
+        }
+        
+        // Try each possible path
+        for (const componentPath of possiblePaths) {
+            try {
+                const module = await import(`../${componentPath}`);
+                console.log(`✅ Auto-loaded: ${componentPath} → ${path}`);
+                
+                // Cache it for next time
+                this.componentCache.set(path, module.default);
+                
+                return module.default;
+            } catch (error) {
+                // File doesn't exist, try next one
+                continue;
+            }
+        }
+        
+        return null;
+    }
+    
     // Render the current route (supports both static and dynamic)
     async render() {
         if (!this.isReady) return; // Don't render until components are loaded
@@ -217,6 +251,11 @@ class Router {
                 const cacheKey = `${dynamicMatch.componentPath}#${JSON.stringify(routeParams)}`;
                 ComponentClass = await this.loadDynamicComponent(dynamicMatch.componentPath, cacheKey);
             }
+        }
+        
+        // If no manual route found, try auto-loading
+        if (!ComponentClass) {
+            ComponentClass = await this.tryAutoLoad(path);
         }
 
         if (!ComponentClass) {

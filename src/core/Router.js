@@ -322,46 +322,72 @@ class Router {
 
         try {
             // Convert class name to tag name (PascalCase to kebab-case)
-            // e.g., AboutPage -> app-about-page, UserDynamicPage -> app-user-dynamic-page
             const tagName = `app-${ComponentClass.name
-                .replace(/([A-Z])/g, '-$1')  // Insert dash before capitals
-                .toLowerCase()               // Convert to lowercase
-                .replace(/^-/, '')           // Remove leading dash
+                .replace(/([A-Z])/g, '-$1')
+                .toLowerCase()
+                .replace(/^-/, '')
             }`;
 
             // Create page content
             const pageContent = `<${tagName}></${tagName}>`;
 
-            // Render with layout
-            this.outlet.innerHTML = `<root-layout></root-layout>`;
+            // --- LAYOUT OVERRIDE LOGIC ---
+            const pathSegments = path.split('/').filter(Boolean);
+            let customLayoutTagName = null;
+
+            if (pathSegments.length > 0) {
+                const routeGroup = pathSegments[0];
+                const layoutPath = `app/${routeGroup}/layout.js`;
+                try {
+                    const layoutModule = await import(`../${layoutPath}`);
+                    const LayoutClass = layoutModule.default;
+                    customLayoutTagName = `app-${LayoutClass.name.replace(/([A-Z])/g, '-$1').toLowerCase().replace(/^-/, '')}`;
+                    console.log(`✅ Using custom layout for /${routeGroup}/* routes.`);
+                } catch (e) {
+                    // This is expected if no custom layout exists.
+                    console.log(`📝 No custom layout for /${routeGroup}/*, using rootLayout.`);
+                }
+            }
             
-            // Get layout element and set page content
-            const layoutElement = this.outlet.querySelector('root-layout');
-            if (layoutElement) {
-                layoutElement.setPageContent(pageContent);
+            if (customLayoutTagName) {
+                // Use the custom layout if it was found
+                this.outlet.innerHTML = `<${customLayoutTagName}></${customLayoutTagName}>`;
+                setTimeout(() => { // Wait for the element to be in the DOM
+                    const customLayoutElement = this.outlet.querySelector(customLayoutTagName);
+                    if (customLayoutElement && customLayoutElement.setPageContent) {
+                        customLayoutElement.setPageContent(pageContent);
+                    } else if (customLayoutElement) {
+                        // Fallback if setPageContent is not there
+                        customLayoutElement.innerHTML = pageContent;
+                    }
+                }, 0);
+            } else {
+                // Otherwise, use the default root layout
+                this.outlet.innerHTML = `<root-layout></root-layout>`;
+                const layoutElement = this.outlet.querySelector('root-layout');
+                if (layoutElement) {
+                    layoutElement.setPageContent(pageContent);
+                }
             }
 
-            // Pass route data to page component
-            const componentElement = this.outlet.querySelector(tagName);
-            if (componentElement) {
-                // Set route parameters
-                if (Object.keys(routeParams).length > 0) {
-                    componentElement.set('routeParams', routeParams);
+            // Pass route data to the page component after the layout is rendered
+             setTimeout(() => {
+                const componentElement = this.outlet.querySelector(tagName);
+                if (componentElement) {
+                    if (Object.keys(routeParams).length > 0) {
+                        componentElement.set('routeParams', routeParams);
+                    }
+                    if (Object.keys(queryParams).length > 0) {
+                        componentElement.set('queryParams', queryParams);
+                    }
+                    componentElement.set('routeInfo', {
+                        path,
+                        params: routeParams,
+                        query: queryParams,
+                        pattern: routeInfo?.pattern || path
+                    });
                 }
-                
-                // Set query parameters
-                if (Object.keys(queryParams).length > 0) {
-                    componentElement.set('queryParams', queryParams);
-                }
-                
-                // Set full route info
-                componentElement.set('routeInfo', {
-                    path,
-                    params: routeParams,
-                    query: queryParams,
-                    pattern: routeInfo?.pattern || path
-                });
-            }
+            }, 0);
 
         } catch (error) {
             console.error(`Failed to render route: ${path}`, error);

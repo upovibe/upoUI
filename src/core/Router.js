@@ -18,7 +18,7 @@ import '../app/rootLayout.js';
  */
 
 class Router {
-    constructor() {
+    constructor(basePath = '/') {
         this.routes = new Map();
         this.dynamicRoutes = new Map(); // For routes with parameters
         this.componentCache = new Map(); // Cache loaded components
@@ -26,10 +26,7 @@ class Router {
         this.currentComponent = null;
         this.outlet = null;
         this.isReady = false;
-
-        // Auto-detect base path for GitHub Pages, but not for localhost.
-        const isGitHubPages = window.location.hostname.includes('github.io');
-        this.basePath = isGitHubPages ? `/${window.location.pathname.split('/')[1]}` : '';
+        this.basePath = basePath || '/';
     }
     
     // Add a route (supports both static and dynamic)

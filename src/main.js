@@ -1,7 +1,13 @@
 import Router from './core/Router.js';
 
-// Create router instance
-const router = new Router();
+// Calculate the base path from the script's own URL.
+// This makes the app portable and work in any subdirectory without configuration.
+const scriptUrl = new URL(import.meta.url);
+const scriptPath = scriptUrl.pathname;
+const basePath = scriptPath.substring(0, scriptPath.lastIndexOf('/src'));
+
+// Create router instance, passing the calculated base path
+const router = new Router(basePath);
 
 // Start the router - no manual routes needed!
 router.start('#app');

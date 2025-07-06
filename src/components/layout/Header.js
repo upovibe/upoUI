@@ -29,14 +29,16 @@ class Header extends App {
     }
 
     render() {
+        const logoPath = `${window.router.basePath}/src/assets/logo.png`;
+
         return `
             <header class="fixed top-0 left-0 right-0 z-50">
-                <div class="flex items-center justify-between backdrop-blur-lg bg-white/30 px-4 min-h-[60px] py-2 border-b border-gray-200">
+                <div class="flex items-center justify-between h-16 backdrop-blur-sm bg-white/30 px-4">
                     <!-- Logo and Brand Name -->
                     <div class="flex items-center">
                         <ui-link href="/" class="flex items-center no-underline hover:opacity-80 transition-opacity">
-                            <img class="h-8 w-auto" src="src/assets/logo.png" alt="UPO UI Logo">
-                            <span class="hidden md:inline-block ml-3 text-xl font-bold text-gray-800">UPO UI</span>
+                            <img class="h-8 w-auto" src="${logoPath}" alt="UPO UI Logo">
+                            <span class="ml-3 text-xl font-bold text-gray-800">UPO UI</span>
                         </ui-link>
                     </div>
                     

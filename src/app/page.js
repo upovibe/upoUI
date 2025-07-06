@@ -7,6 +7,11 @@ import App from '../core/App.js';
  * Loaded when user visits the root URL
  */
 class RootPage extends App {
+    connectedCallback() {
+        super.connectedCallback();
+        document.title = 'Home | UPO UI';
+    }
+
     render() {
         return `
             <div class="min-h-screen bg-gray-50">

@@ -1,4 +1,3 @@
-
 import Router from './router.js';
 
 // Create router instance

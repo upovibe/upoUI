@@ -87,6 +87,14 @@ class Router {
         if (!this.isReady) return; // Don't render until components are loaded
         
         const path = window.location.pathname || '/';
+        
+        // Handle index.html redirect to clean URL
+        if (path === '/index.html') {
+            history.replaceState(null, null, '/');
+            this.render(); // Re-render with clean URL
+            return;
+        }
+        
         const ComponentClass = this.componentCache.get(path);
 
         if (!ComponentClass) {

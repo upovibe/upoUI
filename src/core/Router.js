@@ -18,15 +18,21 @@ import '../app/rootLayout.js';
  */
 
 class Router {
-    constructor(basePath = '') {
+    constructor() {
         this.routes = new Map();
-        this.dynamicRoutes = new Map(); // For routes with parameters
-        this.componentCache = new Map(); // Cache loaded components
-        this.layoutCache = null; // Cache for layout component
+        this.dynamicRoutes = new Map();
+        this.componentCache = new Map();
+        this.layoutCache = null;
         this.currentComponent = null;
         this.outlet = null;
         this.isReady = false;
-        this.basePath = basePath;
+
+        // The <base> tag is the single, reliable source of truth for the app's root.
+        this.basePath = document.querySelector('base')?.getAttribute('href') || '/';
+        // Ensure basePath always ends with a slash if it's not just "/"
+        if (this.basePath !== '/' && !this.basePath.endsWith('/')) {
+            this.basePath += '/';
+        }
     }
     
     // Add a route (supports both static and dynamic)
@@ -106,12 +112,10 @@ class Router {
     
     // Navigate to a path
     navigate(path) {
-        let destination = this.basePath + (path === '/' ? '/' : path);
-        // On localhost, basePath is empty, path is '/', so destination can be just '/' not '//'
-        if (destination.startsWith('//')) {
-            destination = destination.substring(1);
-        }
-        history.pushState(null, null, destination);
+        // Construct the destination URL correctly using the base path.
+        // The URL constructor handles all edge cases like double slashes.
+        const finalUrl = new URL(path, new URL(this.basePath, window.location.origin));
+        history.pushState(null, null, finalUrl.href);
         this.render();
     }
     
@@ -284,13 +288,10 @@ class Router {
     async render() {
         if (!this.isReady) return; // Don't render until components are loaded
         
-        // Get the full path and clean it by removing the base path
-        let path = window.location.pathname || '/';
-        if (this.basePath && path.startsWith(this.basePath)) {
-            path = path.substring(this.basePath.length);
-        }
-        if (!path.startsWith('/')) {
-            path = '/' + path;
+        // To get the clean path, we remove the base path from the start of the URL's pathname.
+        let path = window.location.pathname;
+        if (path.startsWith(this.basePath)) {
+            path = path.substring(this.basePath.length -1);
         }
 
         const queryParams = this.parseQueryParams();
@@ -445,13 +446,9 @@ class Router {
     
     // Get current route info
     getCurrentRoute() {
-        // Get the full path and clean it by removing the base path
-        let path = window.location.pathname || '/';
-        if (this.basePath && path.startsWith(this.basePath)) {
-            path = path.substring(this.basePath.length);
-        }
-        if (!path.startsWith('/')) {
-            path = '/' + path;
+        let path = window.location.pathname;
+        if (path.startsWith(this.basePath)) {
+            path = path.substring(this.basePath.length -1);
         }
 
         const queryParams = this.parseQueryParams();

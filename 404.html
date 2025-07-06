@@ -4,21 +4,14 @@
     <meta charset="utf-8">
     <title>UPO UI - Redirecting...</title>
     <script>
-      // Get the full path that was attempted.
       const path = location.pathname;
-
-      // The base path for a GitHub Pages site is the first segment of the path.
-      // e.g., for /repo-name/components, the base is /repo-name/
-      const basePath = '/' + path.split('/')[1] + '/';
-
-      // Save the full path to be used by the main app.
-      sessionStorage.setItem('redirect', path);
+      const repoName = path.split('/')[1];
+      const isSubdirectory = location.hostname.includes('github.io') || path.split('/').length > 2;
+      const basePath = isSubdirectory ? '/' + repoName + '/' : '/';
       
-      // Redirect to the root of the site.
+      sessionStorage.setItem('redirect', path);
       location.href = basePath;
     </script>
   </head>
-  <body>
-    Redirecting...
-  </body>
+  <body>Redirecting...</body>
 </html> 

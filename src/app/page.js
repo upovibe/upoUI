@@ -3,8 +3,8 @@ import App from '../core/App.js';
 /**
  * Root Page Component (/)
  * 
- * This is the home page of the application
- * Loaded when user visits the root URL
+ * This is the home page of the application.
+ * It now renders within the global RootLayout.
  */
 class RootPage extends App {
     connectedCallback() {
@@ -14,38 +14,16 @@ class RootPage extends App {
 
     render() {
         return `
-            <div class="min-h-screen bg-gray-50">
-                <!-- Hero Section -->
-                <div class="bg-gradient-to-r from-blue-600 to-purple-600 text-white">
-                    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-                        <div class="text-center">
-                            <h1 class="text-4xl md:text-6xl font-bold mb-6">
-                                Welcome to UPO UI
-                            </h1>
-                            <p class="text-xl md:text-2xl mb-8 opacity-90">
-                                Ultra Minimal Web Components Framework
-                            </p>
-                            <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                                <a href="/components" class="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
-                                    View Components
-                                </a>
-                                <a href="/about" class="border border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white/10 transition-colors">
-                                    Learn More
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
+            <div class="bg-gray-50">
                 <!-- Features Section -->
                 <div class="py-20">
                     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div class="text-center mb-16">
-                            <h2 class="text-3xl font-bold text-gray-900 mb-4">
-                                Why Choose UPO UI?
-                            </h2>
-                            <p class="text-xl text-gray-600">
-                                Simple, fast, and powerful web components
+                            <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+                                Ultra Minimal & Modern
+                            </h1>
+                            <p class="text-xl md:text-2xl text-gray-600">
+                                A simple, fast, and powerful web components framework.
                             </p>
                         </div>
                         

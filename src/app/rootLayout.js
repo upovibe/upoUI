@@ -15,31 +15,27 @@ import '../components/layout/Footer.js';
  */
 class RootLayout extends App {
     render() {
-        const children = this.get('children') || '';
-        const showHeader = this.get('showHeader') !== false;
-        const showFooter = this.get('showFooter') !== false;
-        const layoutClass = this.get('layoutClass') || '';
-        const pageTitle = this.get('pageTitle') || 'UPO UI';
-        
-        // Set document title
-        document.title = pageTitle;
-        
         return `
-            <div class="min-h-screen flex flex-col ${layoutClass}">
-                ${showHeader ? '<app-header></app-header>' : ''}
+            <div class="flex flex-col min-h-screen bg-gray-50">
+                <app-header></app-header>
                 
-                <main class="flex-1">
-                    ${children}
+                <main class="flex-grow pt-16">
+                    <!-- Page content will be injected here -->
                 </main>
                 
-                ${showFooter ? '<app-footer></app-footer>' : ''}
+                <app-footer></app-footer>
             </div>
         `;
     }
     
     // Set page content
-    setPageContent(content) {
-        this.set('children', content);
+    setPageContent(htmlContent) {
+        const outlet = this.querySelector('main');
+        if (outlet) {
+            outlet.innerHTML = htmlContent;
+        } else {
+            console.error('Main content outlet not found in root layout.');
+        }
     }
     
     // Configure layout options

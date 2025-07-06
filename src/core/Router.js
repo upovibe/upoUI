@@ -26,6 +26,14 @@ class Router {
         this.currentComponent = null;
         this.outlet = null;
         this.isReady = false;
+
+        // Auto-detect base path for any environment (GitHub Pages, shared hosting subdirectories, etc.)
+        const pathSegments = window.location.pathname.split('/').filter(Boolean);
+        // If the path looks like /repo/ or /subdir/, the base path is the first segment.
+        // We check for a file extension to avoid treating a file like 'index.html' as the base path.
+        this.basePath = (pathSegments.length > 0 && !pathSegments[pathSegments.length - 1].includes('.')) 
+            ? `/${pathSegments[0]}` 
+            : '';
     }
     
     // Add a route (supports both static and dynamic)
@@ -105,7 +113,9 @@ class Router {
     
     // Navigate to a path
     navigate(path) {
-        history.pushState(null, null, path);
+        // Prepend base path for correct URL updates on platforms like GitHub Pages
+        const destination = this.basePath + (path === '/' ? '' : path);
+        history.pushState(null, null, destination || '/');
         this.render();
     }
     
@@ -136,7 +146,13 @@ class Router {
             const link = e.target.closest('a');
             if (link && link.origin === window.location.origin) {
                 e.preventDefault();
-                this.navigate(link.pathname + link.search);
+                
+                // Clean the base path from the link's pathname before navigating
+                let path = link.pathname;
+                if (this.basePath && path.startsWith(this.basePath)) {
+                    path = path.substring(this.basePath.length);
+                }
+                this.navigate(path);
             }
         });
         
@@ -275,12 +291,20 @@ class Router {
     async render() {
         if (!this.isReady) return; // Don't render until components are loaded
         
-        const path = window.location.pathname || '/';
+        // Get the full path and clean it by removing the base path
+        let path = window.location.pathname || '/';
+        if (this.basePath && path.startsWith(this.basePath)) {
+            path = path.substring(this.basePath.length);
+        }
+        if (!path.startsWith('/')) {
+            path = '/' + path;
+        }
+
         const queryParams = this.parseQueryParams();
         
-        // Handle index.html redirect to clean URL
-        if (path === '/index.html') {
-            history.replaceState(null, null, '/');
+        // Handle index.html redirect to clean URL with base path
+        if (window.location.pathname.includes('/index.html')) {
+            history.replaceState(null, null, this.basePath + '/');
             this.render(); // Re-render with clean URL
             return;
         }
@@ -428,7 +452,15 @@ class Router {
     
     // Get current route info
     getCurrentRoute() {
-        const path = window.location.pathname || '/';
+        // Get the full path and clean it by removing the base path
+        let path = window.location.pathname || '/';
+        if (this.basePath && path.startsWith(this.basePath)) {
+            path = path.substring(this.basePath.length);
+        }
+        if (!path.startsWith('/')) {
+            path = '/' + path;
+        }
+
         const queryParams = this.parseQueryParams();
         const dynamicMatch = this.matchDynamicRoute(path);
         

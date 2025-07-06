@@ -6,7 +6,7 @@ import '../components/ui/Box.js';
  * 
  * A placeholder page for UI components.
  */
-class ComponentsPage extends App {
+class ComponentPage extends App {
 
     connectedCallback() {
         super.connectedCallback();
@@ -26,5 +26,5 @@ class ComponentsPage extends App {
     }
 }
 
-customElements.define('app-components-page', ComponentsPage);
-export default ComponentsPage; 
+customElements.define('app-component-page', ComponentPage);
+export default ComponentPage; 

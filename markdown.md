@@ -1,5 +1,6 @@
-## 📡 Backend Integration
-**Goal**: Fetch and send data between UPO UI and a Lumen API.
-- Create a helper file at `src/utils/api.js`
-- Use native `fetch()` or Axios via CDN
-- Include common methods like: `get()`, `post()`, `withToken()`
+## 🧠 Global State Management
+**Goal**: Share global data (e.g., logged-in user, theme) across components.
+- Create `src/core/store.js`
+- Use a simple event-driven pattern (Pub/Sub)
+- Include `setState`, `getState`, and `subscribe` methods
+- Automatically trigger UI updates on state changes

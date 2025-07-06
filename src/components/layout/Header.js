@@ -29,6 +29,7 @@ class Header extends App {
     }
 
     render() {
+        // Construct a path that is always correct, whether on localhost or a subdirectory.
         const logoPath = `${window.router.basePath}/src/assets/logo.png`;
 
         return `

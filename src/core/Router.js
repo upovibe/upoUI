@@ -18,7 +18,7 @@ import '../app/rootLayout.js';
  */
 
 class Router {
-    constructor(basePath = '/') {
+    constructor(basePath = '') {
         this.routes = new Map();
         this.dynamicRoutes = new Map(); // For routes with parameters
         this.componentCache = new Map(); // Cache loaded components
@@ -26,7 +26,7 @@ class Router {
         this.currentComponent = null;
         this.outlet = null;
         this.isReady = false;
-        this.basePath = basePath || '/';
+        this.basePath = basePath;
     }
     
     // Add a route (supports both static and dynamic)

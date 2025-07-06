@@ -24,12 +24,10 @@ class DocsLayout extends App {
                         <nav class="flex flex-col space-y-2">
                             <h3 class="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-2">Getting Started</h3>
                             <a href="/docs" class="text-gray-700 hover:text-blue-600">Introduction</a>
+                            <a href="/docs/installation" class="text-gray-500 hover:text-blue-600">Installation</a>
                             
                             <h3 class="text-sm font-semibold text-gray-500 uppercase tracking-wider mt-6 mb-2">Components</h3>
-                            <a href="/docs/buttons" class="text-gray-500 hover:text-blue-600">Buttons</a>
-                            <a href="/docs/links" class="text-gray-500 hover:text-blue-600">Links</a>
-                            <a href="/docs/inputs" class="text-gray-500 hover:text-blue-600">Inputs</a>
-                            <a href="/docs/box" class="text-gray-500 hover:text-blue-600">Box</a>
+                            <a href="/docs/components" class="text-gray-500 hover:text-blue-600">Overview</a>
                         </nav>
                     </aside>
 

@@ -35,7 +35,7 @@ class Header extends App {
                     <!-- Logo and Brand Name -->
                     <div class="flex items-center">
                         <ui-link href="/" class="flex items-center no-underline hover:opacity-80 transition-opacity">
-                            <img class="h-8 w-auto" src="src/assets/logo.png" alt="UPO UI Logo">
+                            <img class="h-8 w-auto" src="/src/assets/logo.png" alt="UPO UI Logo">
                             <span class="ml-3 text-xl font-bold text-gray-800">UPO UI</span>
                         </ui-link>
                     </div>

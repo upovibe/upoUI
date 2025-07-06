@@ -26,13 +26,6 @@ class Router {
         this.currentComponent = null;
         this.outlet = null;
         this.isReady = false;
-
-        // The <base> tag is the single, reliable source of truth for the app's root.
-        this.basePath = document.querySelector('base')?.getAttribute('href') || '/';
-        // Ensure basePath always ends with a slash if it's not just "/"
-        if (this.basePath !== '/' && !this.basePath.endsWith('/')) {
-            this.basePath += '/';
-        }
     }
     
     // Add a route (supports both static and dynamic)
@@ -112,10 +105,7 @@ class Router {
     
     // Navigate to a path
     navigate(path) {
-        // Construct the destination URL correctly using the base path.
-        // The URL constructor handles all edge cases like double slashes.
-        const finalUrl = new URL(path, new URL(this.basePath, window.location.origin));
-        history.pushState(null, null, finalUrl.href);
+        history.pushState(null, null, path);
         this.render();
     }
     
@@ -143,13 +133,7 @@ class Router {
             const link = e.target.closest('a');
             if (link && link.origin === window.location.origin) {
                 e.preventDefault();
-                
-                // Clean the base path from the link's pathname before navigating
-                let path = link.pathname;
-                if (this.basePath && path.startsWith(this.basePath)) {
-                    path = path.substring(this.basePath.length);
-                }
-                this.navigate(path);
+                this.navigate(link.pathname);
             }
         });
         
@@ -288,17 +272,13 @@ class Router {
     async render() {
         if (!this.isReady) return; // Don't render until components are loaded
         
-        // To get the clean path, we remove the base path from the start of the URL's pathname.
-        let path = window.location.pathname;
-        if (path.startsWith(this.basePath)) {
-            path = path.substring(this.basePath.length -1);
-        }
+        const path = window.location.pathname || '/';
 
         const queryParams = this.parseQueryParams();
         
         // Handle index.html redirect to clean URL with base path
         if (window.location.pathname.includes('/index.html')) {
-            history.replaceState(null, null, this.basePath + '/');
+            history.replaceState(null, null, '/');
             this.render(); // Re-render with clean URL
             return;
         }
@@ -446,11 +426,7 @@ class Router {
     
     // Get current route info
     getCurrentRoute() {
-        let path = window.location.pathname;
-        if (path.startsWith(this.basePath)) {
-            path = path.substring(this.basePath.length -1);
-        }
-
+        const path = window.location.pathname || '/';
         const queryParams = this.parseQueryParams();
         const dynamicMatch = this.matchDynamicRoute(path);
         

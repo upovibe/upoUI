@@ -1,15 +1,13 @@
 import Router from './core/Router.js';
 
-// Create router instance. The router now configures itself from index.html.
+// Create a new router instance.
 const router = new Router();
 
-// Start the router
+// Start the router.
 router.start('#app');
 
-// Make router globally available for navigation
+// Make the router globally available.
 window.router = router;
-
-
 
 console.log('🎯 UPO UI Router with Auto-Loading loaded!');
 console.log('');

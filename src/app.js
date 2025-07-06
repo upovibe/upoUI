@@ -94,10 +94,10 @@ class App extends HTMLElement {
      */
     connectedCallback() {
         // Load UPO UI components bundle if not already loaded
-        if (!document.querySelector('script[src="components/bundle.js"]')) {
+        if (!document.querySelector('script[src="src/components/bundle.js"]')) {
             const script = document.createElement('script');
             script.type = 'module';
-            script.src = 'components/bundle.js';
+            script.src = 'src/components/bundle.js';
             document.head.appendChild(script);
         }
         

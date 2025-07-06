@@ -1,4 +1,4 @@
-import '../app/layout.js';
+import '../app/rootLayout.js';
 
 /**
  * UPO UI App-Based Router - File-System Routing + Layouts
@@ -150,7 +150,7 @@ class Router {
     async preloadAllComponents() {
         // Load layout component first
         try {
-            const layoutModule = await import('../app/layout.js');
+            const layoutModule = await import('../app/rootLayout.js');
             this.layoutCache = layoutModule.default;
         } catch (error) {
             console.error('❌ Failed to load layout:', error);

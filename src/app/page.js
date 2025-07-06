@@ -1,6 +1,12 @@
-import App from '../app.js';
+import App from '../core/App.js';
 
-class HomePage extends App {
+/**
+ * Root Page Component (/)
+ * 
+ * This is the home page of the application
+ * Loaded when user visits the root URL
+ */
+class RootPage extends App {
     render() {
         return `
             <div class="min-h-screen bg-gray-50">
@@ -15,12 +21,12 @@ class HomePage extends App {
                                 Ultra Minimal Web Components Framework
                             </p>
                             <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                                <button class="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
-                                    Get Started
-                                </button>
-                                <button class="border border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white/10 transition-colors">
+                                <a href="/components" class="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
                                     View Components
-                                </button>
+                                </a>
+                                <a href="/about" class="border border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white/10 transition-colors">
+                                    Learn More
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -57,6 +63,45 @@ class HomePage extends App {
                                 <p class="text-gray-600">Web components with reactive state management.</p>
                             </div>
                         </div>
+
+                        <!-- App Architecture Info -->
+                        <div class="mt-20 text-center">
+                            <h2 class="text-3xl font-bold text-gray-900 mb-8">
+                                🏗️ Clean Architecture
+                            </h2>
+                            <div class="bg-white rounded-lg shadow-lg p-8 max-w-4xl mx-auto">
+                                <div class="text-left">
+                                    <h3 class="text-lg font-semibold mb-4">Organized Folder Structure:</h3>
+                                    <pre class="bg-gray-100 p-4 rounded-lg text-sm overflow-x-auto">
+src/
+├── app/                    # 📱 Main app directory
+│   ├── layout.js          # Root layout (wraps all pages)
+│   ├── page.js           # Home page (/)
+│   ├── about/
+│   │   └── page.js       # About page (/about)
+│   ├── components/
+│   │   └── page.js       # Components page (/components)
+│   └── [dynamic]/        # Dynamic routes
+│       └── page.js       # Dynamic page template
+│
+├── core/                  # 🧠 Framework core
+│   ├── App.js            # Base component class
+│   └── Router.js         # Router logic
+│
+├── components/           # 🎨 UI components
+│   ├── ui/              # Basic UI elements
+│   └── layout/          # Layout components
+│
+└── assets/              # 📁 Static assets
+                                    </pre>
+                                </div>
+                                <div class="mt-6 text-center">
+                                    <p class="text-gray-600">
+                                        Similar to Next.js App Router, but with vanilla JavaScript!
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -64,5 +109,5 @@ class HomePage extends App {
     }
 }
 
-customElements.define('page-home', HomePage);
-export default HomePage; 
+customElements.define('app-root-page', RootPage);
+export default RootPage; 

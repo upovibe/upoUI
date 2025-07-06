@@ -135,4 +135,4 @@ if (!customElements.get('ui-input')) {
 }
 
 // Export for bundler
-export default Input;
+export default Input; 

@@ -1,4 +1,4 @@
-import App from '../app.js';
+import App from '../../core/App.js';
 
 class Header extends App {
     render() {
@@ -20,4 +20,4 @@ class Header extends App {
 }
 
 customElements.define('app-header', Header);
-export default Header;
+export default Header; 

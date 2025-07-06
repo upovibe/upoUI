@@ -96,4 +96,4 @@ if (!customElements.get('ui-box')) {
 }
 
 // Export for bundler
-export default Box;
+export default Box; 

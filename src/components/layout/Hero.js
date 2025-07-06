@@ -12,7 +12,7 @@ import '../ui/Box.js';
  */
 class Hero extends App {
     handleGetStartedClick() {
-        window.router.navigate('/components');
+        window.router.navigate('/docs');
     }
 
     render() {

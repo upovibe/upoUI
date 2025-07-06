@@ -45,12 +45,12 @@ class Header extends App {
                     
                     <!-- Navigation Links -->
                     <nav class="flex items-center space-x-4">
-                        <ui-link href="/components" class="text-gray-700 hover:text-blue-600 font-medium transition-colors no-underline flex items-center space-x-2 p-2 lg:py-1 rounded-md hover:bg-white/50 border border-gray-200 rounded-lg shadow-sm hover:shadow-md hover:border-blue-600">
-                            <i class="fas fa-cubes size-4"></i>
-                            <span class="hidden md:inline">Components</span>
+                        <ui-link href="/docs" class="text-gray-700 hover:text-blue-600 font-medium transition-colors no-underline flex items-center space-x-2 p-2 rounded-md hover:bg-white/50">
+                            <i class="fas fa-cubes text-xl"></i>
+                            <span class="hidden md:inline">Docs</span>
                         </ui-link>
-                        <ui-link href="https://github.com/upovibe/upoUI" target="_blank" rel="noopener noreferrer" class="text-gray-700 hover:text-blue-600 font-medium transition-colors no-underline flex items-center space-x-2 p-2 lg:py-1 rounded-md hover:bg-white/50 border border-gray-200 rounded-lg shadow-sm hover:shadow-md hover:border-blue-600">
-                            <i class="fab fa-github size-4"></i>
+                        <ui-link href="https://github.com/upovibe/upoUI" target="_blank" rel="noopener noreferrer" class="text-gray-700 hover:text-gray-900 transition-colors no-underline flex items-center space-x-2 p-2 rounded-md hover:bg-white/50">
+                            <i class="fab fa-github text-xl"></i>
                             <span class="hidden md:inline">GitHub</span>
                         </ui-link>
                     </nav>

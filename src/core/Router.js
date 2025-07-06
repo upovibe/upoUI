@@ -27,13 +27,9 @@ class Router {
         this.outlet = null;
         this.isReady = false;
 
-        // Auto-detect base path for any environment (GitHub Pages, shared hosting subdirectories, etc.)
-        const pathSegments = window.location.pathname.split('/').filter(Boolean);
-        // If the path looks like /repo/ or /subdir/, the base path is the first segment.
-        // We check for a file extension to avoid treating a file like 'index.html' as the base path.
-        this.basePath = (pathSegments.length > 0 && !pathSegments[pathSegments.length - 1].includes('.')) 
-            ? `/${pathSegments[0]}` 
-            : '';
+        // Auto-detect base path for GitHub Pages, but not for localhost.
+        const isGitHubPages = window.location.hostname.includes('github.io');
+        this.basePath = isGitHubPages ? `/${window.location.pathname.split('/')[1]}` : '';
     }
     
     // Add a route (supports both static and dynamic)

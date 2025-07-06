@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>UPO UI - Redirecting...</title>
+    <script>
+      // Get the full path that was attempted.
+      const path = location.pathname;
+
+      // The base path for a GitHub Pages site is the first segment of the path.
+      // e.g., for /repo-name/components, the base is /repo-name/
+      const basePath = '/' + path.split('/')[1] + '/';
+
+      // Save the full path to be used by the main app.
+      sessionStorage.setItem('redirect', path);
+      
+      // Redirect to the root of the site.
+      location.href = basePath;
+    </script>
+  </head>
+  <body>
+    Redirecting...
+  </body>
+</html> 

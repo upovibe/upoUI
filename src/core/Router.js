@@ -197,18 +197,18 @@ class Router {
         }
         // For multi-segment paths, prioritize dynamic routes first (more likely)
         else if (pathSegments.length > 1) {
-            // Try common dynamic patterns first (most likely to exist)
+            // Try static patterns first (group folders)
+            possiblePaths.push(
+                `app${path}/page.js`,                  // Next.js style: /auth/signin → app/auth/signin/page.js
+                `app${path}.js`                        // Simple style: /auth/signin → app/auth/signin.js
+            );
+            
+            // Try common dynamic patterns
             const [first, second] = pathSegments;
             possiblePaths.push(
                 `app/${first}/[id]/page.js`,           // Most common: app/user/[id]/page.js
                 `app/${first}/[slug]/page.js`,         // Second most common
                 `app/${first}/[${second}]/page.js`     // Generic dynamic
-            );
-            
-            // Then try static patterns
-            possiblePaths.push(
-                `app${path}/page.js`,                  // Next.js style
-                `app${path}.js`                        // Simple style
             );
         }
         // For single-segment paths, try static patterns first

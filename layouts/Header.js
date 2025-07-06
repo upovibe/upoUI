@@ -106,10 +106,5 @@ class Header extends App {
     }
 }
 
-// Prevent double registration
-if (!customElements.get('app-header')) {
-    customElements.define('app-header', Header);
-}
-
-// Export for bundler
+customElements.define('app-header', Header);
 export default Header; 

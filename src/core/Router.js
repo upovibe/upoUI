@@ -106,9 +106,12 @@ class Router {
     
     // Navigate to a path
     navigate(path) {
-        // Prepend base path for correct URL updates on platforms like GitHub Pages
-        const destination = this.basePath + (path === '/' ? '' : path);
-        history.pushState(null, null, destination || '/');
+        let destination = this.basePath + (path === '/' ? '/' : path);
+        // On localhost, basePath is empty, path is '/', so destination can be just '/' not '//'
+        if (destination.startsWith('//')) {
+            destination = destination.substring(1);
+        }
+        history.pushState(null, null, destination);
         this.render();
     }
     
@@ -220,8 +223,8 @@ class Router {
         // For single-segment paths, try static patterns first
         else {
             possiblePaths.push(
-                `app${path}/page.js`,                  // Next.js style: /contact → app/contact/page.js
                 `app${path}.js`,                       // Simple style: /contact → app/contact.js
+                `app${path}/page.js`,                  // Next.js style: /contact → app/contact/page.js
                 `app${path}/index.js`,                 // Index style: /contact → app/contact/index.js
                 `app${path}/${path.split('/').pop()}.js`  // Named style: /contact → app/contact/contact.js
             );

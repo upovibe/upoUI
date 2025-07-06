@@ -11,6 +11,10 @@ import '../ui/Box.js';
  * and call-to-action buttons.
  */
 class Hero extends App {
+    handleGetStartedClick() {
+        window.router.navigate('/components');
+    }
+
     render() {
         return `
             <ui-box class="bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 -mt-10">
@@ -25,12 +29,12 @@ class Hero extends App {
                             Focus on building, not configuring.
                         </p>
                         <ui-box class="mt-10 flex items-center justify-center gap-x-6">
-                            <ui-link 
-                                href="/components" 
-                                class="rounded-lg bg-indigo-600 px-5 py-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 transition-all transform hover:scale-105 no-underline"
+                            <ui-button 
+                                onclick="this.closest('app-hero').handleGetStartedClick()"
+                                class="rounded-lg bg-indigo-600 px-5 py-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 transition-all transform hover:scale-105"
                             >
                                 Get Started
-                            </ui-link>
+                            </ui-button>
                             <ui-link 
                                 href="https://github.com/upovibe/upoUI" 
                                 target="_blank"

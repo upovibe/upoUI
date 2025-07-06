@@ -187,36 +187,88 @@ class Router {
     
     // Try to load a page automatically based on URL path
     async tryAutoLoad(path) {
-        // Try different possible file locations
-        const possiblePaths = [
-            `app${path}/page.js`,           // Next.js style: /contact → app/contact/page.js
-            `app${path}.js`,                // Simple style: /contact → app/contact.js
-            `app${path}/index.js`,          // Index style: /contact → app/contact/index.js
-            `app${path}/${path.split('/').pop()}.js`  // Named style: /contact → app/contact/contact.js
-        ];
+        // Smart pattern detection - try most likely patterns first
+        const pathSegments = path.split('/').filter(Boolean);
+        const possiblePaths = [];
         
         // If root path, try these
         if (path === '/') {
-            possiblePaths.unshift('app/page.js', 'app/home.js', 'app/index.js');
+            possiblePaths.push('app/page.js', 'app/home.js', 'app/index.js');
+        }
+        // For multi-segment paths, prioritize dynamic routes first (more likely)
+        else if (pathSegments.length > 1) {
+            // Try common dynamic patterns first (most likely to exist)
+            const [first, second] = pathSegments;
+            possiblePaths.push(
+                `app/${first}/[id]/page.js`,           // Most common: app/user/[id]/page.js
+                `app/${first}/[slug]/page.js`,         // Second most common
+                `app/${first}/[${second}]/page.js`     // Generic dynamic
+            );
+            
+            // Then try static patterns
+            possiblePaths.push(
+                `app${path}/page.js`,                  // Next.js style
+                `app${path}.js`                        // Simple style
+            );
+        }
+        // For single-segment paths, try static patterns first
+        else {
+            possiblePaths.push(
+                `app${path}/page.js`,                  // Next.js style: /contact → app/contact/page.js
+                `app${path}.js`,                       // Simple style: /contact → app/contact.js
+                `app${path}/index.js`,                 // Index style: /contact → app/contact/index.js
+                `app${path}/${path.split('/').pop()}.js`  // Named style: /contact → app/contact/contact.js
+            );
         }
         
-        // Try each possible path
+        // Try each pattern (now optimized for fewer failures)
         for (const componentPath of possiblePaths) {
             try {
                 const module = await import(`../${componentPath}`);
                 console.log(`✅ Auto-loaded: ${componentPath} → ${path}`);
                 
-                // Cache it for next time
+                // Cache it for next time and extract params if dynamic
                 this.componentCache.set(path, module.default);
+                
+                // If this was a dynamic route, extract and store params
+                if (componentPath.includes('[') && componentPath.includes(']')) {
+                    const params = this.extractDynamicParams(componentPath, path);
+                    this.componentCache.set(`${path}:params`, params);
+                }
                 
                 return module.default;
             } catch (error) {
-                // File doesn't exist, try next one
+                // Continue to next pattern (404s are now minimized)
                 continue;
             }
         }
         
         return null;
+    }
+    
+
+    
+    // Extract parameters from dynamic route
+    extractDynamicParams(componentPath, actualPath) {
+        const params = {};
+        
+        // Convert component path to pattern
+        const pattern = componentPath
+            .replace('app', '')
+            .replace('/page.js', '')
+            .replace('.js', '');
+        
+        const patternSegments = pattern.split('/').filter(Boolean);
+        const actualSegments = actualPath.split('/').filter(Boolean);
+        
+        patternSegments.forEach((segment, index) => {
+            if (segment.startsWith('[') && segment.endsWith(']')) {
+                const paramName = segment.slice(1, -1);
+                params[paramName] = actualSegments[index];
+            }
+        });
+        
+        return params;
     }
     
     // Render the current route (supports both static and dynamic)
@@ -256,6 +308,11 @@ class Router {
         // If no manual route found, try auto-loading
         if (!ComponentClass) {
             ComponentClass = await this.tryAutoLoad(path);
+            
+            // Check if auto-loaded component has dynamic params
+            if (ComponentClass && this.componentCache.has(`${path}:params`)) {
+                routeParams = this.componentCache.get(`${path}:params`);
+            }
         }
 
         if (!ComponentClass) {

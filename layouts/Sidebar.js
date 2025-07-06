@@ -1,33 +1,14 @@
-class Sidebar extends HTMLElement {
+import App from '../app.js';
+
+class Sidebar extends App {
     constructor() {
         super();
-        
-        // Flag to prevent double processing
-        this.initialized = false;
         this.isOpen = false;
+        this.initialized = false;
     }
     
-    // Load UPO UI components
-    loadComponents() {
-        if (!document.querySelector('script[src="components/bundle.js"]')) {
-            const script = document.createElement('script');
-            script.type = 'module';
-            script.src = 'components/bundle.js';
-            document.head.appendChild(script);
-        }
-    }
-    
-    // Connected callback - called when element is added to DOM
-    connectedCallback() {
-        // Prevent double processing
-        if (this.initialized) return;
-        this.initialized = true;
-        
-        // Load UPO UI components
-        this.loadComponents();
-        
-        // Create the sidebar layout using our UI components
-        this.innerHTML = `
+    render() {
+        return `
             <!-- Sidebar -->
             <ui-box 
                 id="sidebar" 
@@ -70,7 +51,7 @@ class Sidebar extends HTMLElement {
                                 <ui-link href="#box" class="block text-sm px-3 py-1 text-gray-700 hover:bg-white/20 hover:text-blue-600 rounded-md no-underline transition-colors">
                                     Box
                                 </ui-link>
-                                <ui-link href="#link" class="block text-sm px-3 py-1 text-gray-700 hover:bg-white/20 hover:text-blue-6
+                                <ui-link href="#link" class="block text-sm px-3 py-1 text-gray-700 hover:bg-white/20 hover:text-blue-600 rounded-md no-underline transition-colors">
                                     Link
                                 </ui-link>
                             </ui-box>
@@ -79,68 +60,35 @@ class Sidebar extends HTMLElement {
                 </ui-box>
             </ui-box>
         `;
-        
-        // Setup sidebar functionality
-        this.setupSidebar();
     }
     
-    // Setup sidebar toggle functionality
+    connectedCallback() {
+        super.connectedCallback();
+        
+        if (this.initialized) return;
+        this.initialized = true;
+        
+        // Simple setup
+        setTimeout(() => this.setupSidebar(), 100);
+    }
+    
     setupSidebar() {
         const sidebar = this.querySelector('#sidebar');
         const toggleButton = this.querySelector('#sidebar-toggle');
-        const closeButton = this.querySelector('#sidebar-close');
         
-        // Toggle sidebar
-        const toggleSidebar = () => {
-            // Only allow toggle on mobile
+        if (!sidebar || !toggleButton) return;
+        
+        toggleButton.addEventListener('click', () => {
             if (window.innerWidth >= 1024) return;
             
             this.isOpen = !this.isOpen;
             
             if (this.isOpen) {
-                // Open sidebar
                 sidebar.classList.remove('-translate-x-full');
                 sidebar.classList.add('translate-x-0');
             } else {
-                // Close sidebar on mobile
                 sidebar.classList.remove('translate-x-0');
                 sidebar.classList.add('-translate-x-full');
-            }
-        };
-        
-        const closeSidebar = () => {
-            // Only allow close on mobile
-            if (window.innerWidth >= 1024) return;
-            
-            this.isOpen = false;
-            sidebar.classList.remove('translate-x-0');
-            sidebar.classList.add('-translate-x-full');
-        };
-        
-        // Event listeners
-        toggleButton.addEventListener('click', toggleSidebar);
-        closeButton.addEventListener('click', closeSidebar);
-        
-        // Close on escape key
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && this.isOpen) {
-                closeSidebar();
-            }
-        });
-        
-        // Handle window resize
-        window.addEventListener('resize', () => {
-            if (window.innerWidth >= 1024) {
-                // Desktop - always show sidebar and hide overlay
-                sidebar.classList.remove('-translate-x-full');
-                sidebar.classList.add('translate-x-0');
-                this.isOpen = true;
-            } else {
-                // Mobile - hide sidebar by default if not open
-                if (!this.isOpen) {
-                    sidebar.classList.remove('translate-x-0');
-                    sidebar.classList.add('-translate-x-full');
-                }
             }
         });
         
@@ -151,10 +99,5 @@ class Sidebar extends HTMLElement {
     }
 }
 
-// Prevent double registration
-if (!customElements.get('app-sidebar')) {
-    customElements.define('app-sidebar', Sidebar);
-}
-
-// Export for bundler
+customElements.define('app-sidebar', Sidebar);
 export default Sidebar; 

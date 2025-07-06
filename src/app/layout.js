@@ -21,6 +21,9 @@ class RootLayout extends App {
         const layoutClass = this.get('layoutClass') || '';
         const pageTitle = this.get('pageTitle') || 'UPO UI';
         
+        // Set document title
+        document.title = pageTitle;
+        
         return `
             <div class="min-h-screen flex flex-col ${layoutClass}">
                 ${showHeader ? '<app-header></app-header>' : ''}

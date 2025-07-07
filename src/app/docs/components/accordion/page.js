@@ -2,7 +2,6 @@ import App from '../../../../core/App.js';
 import '../../../../components/ui/CodeBlock.js';
 import '../../../../components/ui/Accordion.js';
 import '../../../../components/ui/Box.js';
-// ...optional component imports...
 
 function escapeHtml(str) {
     return str

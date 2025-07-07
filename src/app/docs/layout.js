@@ -19,8 +19,8 @@ class DocsLayout extends App {
 
     render() {
         return `
+        <app-header></app-header>
             <ui-box class="w-full">
-                <app-header></app-header>
                 <ui-box class="max-w-8xl mx-auto px-6 lg:px-8 flex pt-16">
                     <!-- Sidebar -->
                     <aside class="w-64 flex-shrink-0 py-8 pr-8 hidden md:block">

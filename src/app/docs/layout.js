@@ -35,7 +35,7 @@ class DocsLayout extends App {
           <app-sidebar></app-sidebar>
 
           <!-- Main Content Area -->
-          <main id="docs-content-outlet" class="flex-grow w-full lg:container mx-auto px-3 md:px-6 lg:px-10 py-12">
+          <main id="docs-content-outlet" class="flex-grow w-full lg:container mx-auto px-3 md:px-6 lg:px-10 py-8 lg:py-12">
             <!-- Page-specific content will be injected here -->
           </main>
 

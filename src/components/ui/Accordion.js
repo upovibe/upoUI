@@ -93,11 +93,28 @@ class AccordionItem extends HTMLElement {
         // Observe slot changes
         const slot = this.shadowRoot.querySelector('slot');
         slot.addEventListener('slotchange', () => this.updateContentHeight());
+        
+        // Create intersection observer to detect when accordion becomes visible
+        this.observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && this.hasAttribute('open')) {
+                    // Small delay to ensure layout is complete
+                    setTimeout(() => this.updateContentHeight(), 0);
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        this.observer.observe(this);
     }
 
     disconnectedCallback() {
         this.header.removeEventListener('click', this._onHeaderClick);
         this.header.removeEventListener('keydown', this._onHeaderKeyDown);
+        
+        // Clean up intersection observer
+        if (this.observer) {
+            this.observer.disconnect();
+        }
     }
 
     static get observedAttributes() {
@@ -133,6 +150,13 @@ class AccordionItem extends HTMLElement {
 
     updateContentHeight() {
         if (this.hasAttribute('open')) {
+            // Temporarily set max-height to auto to measure actual content
+            this.content.style.maxHeight = 'auto';
+            this.content.style.opacity = '1';
+            
+            // Force a layout update
+            this.content.offsetHeight;
+            
             // Calculate the actual content height
             const slot = this.shadowRoot.querySelector('slot');
             const assignedNodes = slot.assignedNodes({ flatten: true });
@@ -140,13 +164,24 @@ class AccordionItem extends HTMLElement {
             
             assignedNodes.forEach(node => {
                 if (node.nodeType === Node.ELEMENT_NODE) {
-                    height += node.offsetHeight;
+                    // Use getBoundingClientRect for more accurate measurement
+                    const rect = node.getBoundingClientRect();
+                    height += rect.height;
+                    
+                    // Also account for margins
+                    const style = window.getComputedStyle(node);
+                    height += parseFloat(style.marginTop) + parseFloat(style.marginBottom);
                 }
             });
             
+            // Add padding to the height calculation
+            const contentStyle = window.getComputedStyle(this.content);
+            const paddingTop = parseFloat(contentStyle.paddingTop);
+            const paddingBottom = parseFloat(contentStyle.paddingBottom);
+            height += paddingTop + paddingBottom;
+            
             this.content.style.setProperty('--content-height', `${height}px`);
             this.content.style.maxHeight = 'var(--content-height)';
-            this.content.style.opacity = '1';
         } else {
             this.content.style.maxHeight = '0';
             this.content.style.opacity = '0';

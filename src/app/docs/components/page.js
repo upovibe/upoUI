@@ -15,14 +15,14 @@ class DocsComponentsPage extends App {
 
     render() {
         return `
-            <ui-box class="bg-white p-8 rounded-lg shadow-sm">
+            <div>
                 <h1 class="text-3xl font-bold text-gray-900">
                     Components
                 </h1>
                 <p class="mt-4 text-lg text-gray-600">
                     Detailed documentation for each UI component will be available here.
                 </p>
-            </ui-box>
+            </div>
         `;
     }
 }

@@ -1,48 +1,50 @@
-import App from '../../core/App.js';
-import '../../components/ui/Box.js';
-import '../../components/layout/Header.js';
+import App from "../../core/App.js";
+import "../../components/ui/Box.js";
+import "../../components/layout/Header.js";
+import "../../components/layout/Sidebar.js";
 
 /**
- * Docs Section Layout
- * 
- * Provides a two-column layout with a sidebar for documentation pages,
- * all under the main application header.
+ * 📘 Docs Section Layout
+ *
+ * Renders the documentation layout with a fixed header, sidebar, and
+ * a main content area. Content will be injected into the outlet.
  */
 class DocsLayout extends App {
-
-    setPageContent(htmlContent) {
-        const outlet = this.querySelector('#docs-content-outlet');
-        if (outlet) {
-            outlet.innerHTML = htmlContent;
-        }
+  /**
+   * Updates the main content area dynamically.
+   * @param {string} htmlContent - HTML content to insert into the outlet.
+   */
+  setPageContent(htmlContent) {
+    const outlet = this.querySelector("#docs-content-outlet");
+    if (outlet) {
+      outlet.innerHTML = htmlContent;
     }
+  }
 
-    render() {
-        return `
+  render() {
+    return `
+      <div>
+        <!-- Global Header -->
         <app-header></app-header>
-            <ui-box class="w-full">
-                <ui-box class="max-w-8xl mx-auto px-6 lg:px-8 flex pt-16">
-                    <!-- Sidebar -->
-                    <aside class="w-64 flex-shrink-0 py-8 pr-8 hidden md:block">
-                        <nav class="flex flex-col space-y-2">
-                            <h3 class="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-2">Getting Started</h3>
-                            <a href="/docs" class="text-gray-700 hover:text-blue-600">Introduction</a>
-                            <a href="/docs/installation" class="text-gray-500 hover:text-blue-600">Installation</a>
-                            
-                            <h3 class="text-sm font-semibold text-gray-500 uppercase tracking-wider mt-6 mb-2">Components</h3>
-                            <a href="/docs/components" class="text-gray-500 hover:text-blue-600">Overview</a>
-                        </nav>
-                    </aside>
 
-                    <!-- Main Content -->
-                    <main id="docs-content-outlet" class="flex-grow py-8 w-full">
-                        <!-- Page content will be injected here -->
-                    </main>
-                </ui-box>
-            </ui-box>
-        `;
-    }
+        <!-- Docs Container -->
+        <ui-box class="max-w-8xl mx-auto p-3 flex pt-16">
+          
+          <!-- Sidebar Navigation -->
+          <app-sidebar></app-sidebar>
+
+          <!-- Main Content Area -->
+          <main id="docs-content-outlet" class="flex-grow container mx-auto p-6 py-12">
+            <!-- Page-specific content will be injected here -->
+          </main>
+
+          
+
+        </ui-box>
+      </div>
+    `;
+  }
 }
 
-customElements.define('app-docs-layout', DocsLayout);
-export default DocsLayout; 
+customElements.define("app-docs-layout", DocsLayout);
+export default DocsLayout;

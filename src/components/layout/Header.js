@@ -31,7 +31,7 @@ class Header extends App {
     render() {
         return `
             <header class="fixed top-0 left-0 right-0 z-50">
-                <div class="flex items-center justify-between h-16 backdrop-blur-sm bg-white/30 px-4">
+                <div class="flex items-center justify-between h-16 backdrop-blur-sm bg-white/30 px-4 border-b border-gray-200">
                     <!-- Logo and Brand Name -->
                     <div class="flex items-center">
                         <ui-link href="/" class="flex items-center no-underline hover:opacity-80 transition-opacity">

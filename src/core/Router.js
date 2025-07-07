@@ -272,9 +272,11 @@ class Router {
     async render() {
         if (!this.isReady) return; // Don't render until components are loaded
         
-        const path = window.location.pathname || '/';
+        // Dispatch an event to notify components of the route change
+        window.dispatchEvent(new CustomEvent('route-changed', { detail: { path: window.location.pathname } }));
 
-        const queryParams = this.parseQueryParams();
+        const path = window.location.pathname || '/';
+        const queryParams = this.parseQueryParams(window.location.search);
         
         // Handle index.html redirect to clean URL with base path
         if (window.location.pathname.includes('/index.html')) {

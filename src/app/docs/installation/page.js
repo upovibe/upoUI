@@ -15,14 +15,14 @@ class InstallationPage extends App {
 
     render() {
         return `
-            <ui-box class="bg-white p-8 rounded-lg shadow-sm">
+            <div>
                 <h1 class="text-3xl font-bold text-gray-900">
                     Installation
                 </h1>
                 <p class="mt-4 text-lg text-gray-600">
                     Installation instructions will be documented here.
                 </p>
-            </ui-box>
+            </div>
         `;
     }
 }

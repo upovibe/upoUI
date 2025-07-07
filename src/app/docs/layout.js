@@ -2,6 +2,7 @@ import App from "../../core/App.js";
 import "../../components/ui/Box.js";
 import "../../components/layout/Header.js";
 import "../../components/layout/Sidebar.js";
+import "../../components/layout/PromoSidebar.js";
 
 /**
  * 📘 Docs Section Layout
@@ -38,7 +39,8 @@ class DocsLayout extends App {
             <!-- Page-specific content will be injected here -->
           </main>
 
-          
+          <!-- Promotional Sidebar -->
+          <app-promo-sidebar></app-promo-sidebar>
 
         </ui-box>
       </div>

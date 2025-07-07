@@ -117,8 +117,8 @@ class Sidebar extends App {
                                 />
                             </div>
                             <div>
-                                <h1 class="text-xl font-extrabold text-gray-800 tracking-tigh">UPO UI</h1>
-                                <p class="text-xs text-gray-500 font-semibold">Version 1.0.0</p>
+                                <h1 class="text-xl font-extrabold text-gray-800 tracking-tight">UPO UI</h1>
+                                <p class="text-xs text-gray-500 font-semibold tracking-wide">Version 1.0.0</p>
                             </div>
                         </div>
                     </div>

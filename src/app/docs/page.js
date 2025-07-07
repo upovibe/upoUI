@@ -20,9 +20,7 @@ class DocsIndexPage extends App {
             <div class="max-w-4xl mx-auto">
                 <!-- Hero Section -->
                 <div class="text-center mb-12">
-                    <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl mb-6">
-                        <i class="fas fa-rocket text-white text-2xl"></i>
-                    </div>
+                    <img class="size-16 rounded-lg shadow-lg rounded-full mx-auto" src="/src/assets/logo.png" alt="UPO UI Logo" />
                     <h1 class="text-4xl font-bold text-gray-900 mb-4">
                         Welcome to UPO UI
                     </h1>

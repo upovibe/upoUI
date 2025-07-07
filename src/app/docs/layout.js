@@ -44,7 +44,7 @@ class DocsLayout extends App {
         </div>
 
         <!-- Main Content Area with Normal Scrolling -->
-        <main id="docs-content-outlet" class="ml-64 lg:mr-64 min-h-screen px-3 md:px-6 lg:px-10 py-8 lg:py-12 pt-24">
+        <main id="docs-content-outlet" class="ml-64 lg:mr-64 min-h-screen px-3 md:px-6 lg:px-10 py-8 lg:py-24 pt-24">
           <!-- Page-specific content will be injected here -->
         </main>
 

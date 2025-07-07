@@ -32,12 +32,12 @@ class DocsLayout extends App {
         <div class="fixed top-16 left-0 right-0 bottom-0 pointer-events-none">
           
           <!-- Fixed Left Sidebar -->
-          <div class="absolute top-0 left-0 w-64 h-full bg-white border-r border-gray-200 overflow-y-auto pointer-events-auto">
+          <div class="absolute top-0 left-0 w-64 h-full bg-white border-r border-gray-200 overflow-y-auto overflow-x-hidden pointer-events-auto">
             <app-sidebar></app-sidebar>
           </div>
 
           <!-- Fixed Right Sidebar -->
-          <div class="absolute top-0 right-0 w-64 h-full bg-white border-l border-gray-200 overflow-y-auto pointer-events-auto hidden lg:block">
+          <div class="absolute top-0 right-0 w-64 h-full bg-white border-l border-gray-200 overflow-y-auto overflow-x-hidden pointer-events-auto hidden lg:block">
             <app-promo-sidebar></app-promo-sidebar>
           </div>
 

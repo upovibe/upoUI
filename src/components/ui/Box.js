@@ -49,12 +49,9 @@ class Box extends HTMLElement {
             }
         });
         
-        // Check if user provided classes
-        const hasUserClass = this.hasAttribute('class');
-        
-        // Apply default class if no user classes
-        if (!hasUserClass) {
-            this.div.className = 'upo-box-default';
+        // Use the getter for the default class
+        if (!this.hasAttribute('class')) {
+            this.div.className = this.defaultClass;
         }
         
         // Transfer all attributes to the internal div (same as Input)
@@ -62,7 +59,7 @@ class Box extends HTMLElement {
         
         attributes.forEach(attr => {
             const value = this.getAttribute(attr);
-            if (attr === 'class' && hasUserClass) {
+            if (attr === 'class' && this.hasAttribute('class')) {
                 // Override default class with user classes
                 this.div.className = value;
             } else {
@@ -74,6 +71,11 @@ class Box extends HTMLElement {
         attributes.forEach(attr => {
             this.removeAttribute(attr);
         });
+    }
+    
+    // Getter for the default class, allows child classes to override it
+    get defaultClass() {
+        return 'upo-box-default';
     }
     
     // Forward common methods to the internal div

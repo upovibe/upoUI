@@ -3,6 +3,7 @@ import "../../components/ui/Box.js";
 import "../../components/layout/Header.js";
 import "../../components/layout/Sidebar.js";
 import "../../components/layout/PromoSidebar.js";
+import "../../components/common/ScrollToTop.js";
 
 /**
  * 📘 Docs Section Layout
@@ -50,6 +51,9 @@ class DocsLayout extends App {
         <main id="docs-content-outlet" class="lg:ml-64 lg:mr-64 min-h-screen px-3 md:px-6 lg:px-10 py-8 lg:py-24 pt-24">
           <!-- Page-specific content will be injected here -->
         </main>
+
+        <!-- Scroll to Top Button -->
+        <ui-scroll-to-top></ui-scroll-to-top>
 
       </div>
     `;

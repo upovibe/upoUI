@@ -10,7 +10,7 @@ import '../ui/Link.js';
 class PromoSidebar extends App {
   render() {
     return `
-      <aside class="w-64 flex-shrink-0 px-6 py-10 hidden lg:block">
+      <aside class="w-64 flex-shrink-0 px-6 py-10 hidden md:block">
         <ui-card class="bg-gradient-to-br from-blue-50 to-purple-100 border border-purple-200 rounded-xl shadow-lg text-center p-5">
 
           <h4 class="text-base font-bold text-gray-800 mb-2 tracking-tight">

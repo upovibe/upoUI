@@ -16,8 +16,7 @@ class AccordionDocsPage extends App {
         document.title = 'Accordion | UPO UI Docs';
     }
     render() {
-        const usageExample = `
-<ui-accordion>
+        const usageExample = `<ui-accordion>
   <ui-accordion-item title="Section 1" open>
     <p>Content for section 1.</p>
     <p>More content here.</p>

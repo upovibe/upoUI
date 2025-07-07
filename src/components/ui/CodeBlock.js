@@ -21,8 +21,12 @@ class CodeBlock extends HTMLElement {
     }
 
     connectedCallback() {
-        // Use the 'code' attribute if present, otherwise use inner text
-        const codeText = this.getAttribute('code') || this.textContent || '';
+        // Use the 'code' attribute if present, otherwise use innerHTML/textContent
+        let codeText = this.getAttribute('code');
+        if (codeText === null) {
+            // Use textContent to preserve newlines and spacing
+            codeText = this.textContent;
+        }
         this.code.textContent = codeText.trim();
         // Optionally, set language class for syntax highlighting
         if (this.hasAttribute('language')) {

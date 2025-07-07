@@ -106,6 +106,23 @@ class Sidebar extends App {
                         <i class="fas fa-chevron-right text-gray-600 text-sm"></i>
                     </ui-button>
 
+                    <!-- Logo Section -->
+                    <div class="h-16 border-b border-gray-200 flex items-center px-3">
+                        <div class="flex items-center gap-2">
+                            <div class="flex-shrink-0 w-10 h-10 rounded-lg overflow-hidden bg-white">
+                                <img 
+                                    src="/src/assets/logo.png" 
+                                    alt="UPO UI Logo" 
+                                    class="w-full h-full object-contain size-5"
+                                />
+                            </div>
+                            <div>
+                                <h1 class="text-xl font-extrabold text-gray-800 tracking-tigh">UPO UI</h1>
+                                <p class="text-xs text-gray-500 font-semibold">Version 1.0.0</p>
+                            </div>
+                        </div>
+                    </div>
+
                     <nav class="p-4 space-y-6 h-full overflow-y-auto">
 
                         <!-- Getting Started Section -->

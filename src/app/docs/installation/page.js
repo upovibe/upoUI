@@ -377,7 +377,7 @@ class InstallationPage extends App {
                         <div class="inline-flex items-center justify-center w-10 h-10 bg-gray-100 rounded-lg mr-4">
                             <i class="fas fa-cogs text-gray-600"></i>
                         </div>
-                        <h2 class="text-2xl font-bold text-gray-900">⚙️ Advanced Setup Options</h2>
+                        <h2 class="text-2xl font-bold text-gray-900">Advanced Setup Options</h2>
                     </div>
 
                     <div class="space-y-6">

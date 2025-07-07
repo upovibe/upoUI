@@ -85,6 +85,15 @@ class Sidebar extends App {
             return `${baseClass} text-gray-700 hover:bg-gray-100 hover:text-gray-900`;
         };
 
+        // Define component links in one place
+        const componentLinks = [
+            { href: '/docs/components', label: 'Overview' },
+            { href: '/docs/components/accordion', label: 'Accordion' },
+            { href: '/docs/components/alert', label: 'Alert' },
+            { href: '/docs/components/input', label: 'Input' },
+            // Add more as needed
+        ];
+
         // Check if this is the mobile overlay version
         const isMobileOverlay = this.classList.contains('lg:hidden');
 
@@ -148,9 +157,9 @@ class Sidebar extends App {
                                 <span class="truncate">Components</span>
                             </h3>
                             <div class="flex flex-col space-y-1">
-                                <ui-link href="/docs/components" class="${getLinkClass('/docs/components')}" onclick="this.getRootNode().host.close()">
-                                    Overview
-                                </ui-link>
+                                ${componentLinks.map(link => `
+                                    <ui-link href="${link.href}" class="${getLinkClass(link.href)}" onclick="this.getRootNode().host.close()">${link.label}</ui-link>
+                                `).join('')}
                             </div>
                         </section>
 
@@ -185,9 +194,9 @@ class Sidebar extends App {
                             <span class="truncate">Components</span>
                         </h3>
                         <div class="flex flex-col space-y-1">
-                            <ui-link href="/docs/components" class="${getLinkClass('/docs/components')}">
-                                Overview
-                            </ui-link>
+                            ${componentLinks.map(link => `
+                                <ui-link href="${link.href}" class="${getLinkClass(link.href)}">${link.label}</ui-link>
+                            `).join('')}
                         </div>
                     </section>
 

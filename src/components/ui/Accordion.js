@@ -225,6 +225,28 @@ customElements.define('ui-accordion-item', AccordionItem);
 class Accordion extends HTMLElement {
     constructor() {
         super();
+        this.addDefaultStyles();
+    }
+    
+    addDefaultStyles() {
+        if (!document.getElementById('upo-ui-accordion-styles')) {
+            const style = document.createElement('style');
+            style.id = 'upo-ui-accordion-styles';
+            style.textContent = `
+                ui-accordion {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 0.25rem;
+                }
+                ui-accordion ui-accordion-item[open] {
+                    margin-bottom: 0.5rem;
+                }
+                ui-accordion ui-accordion-item[open]:last-child {
+                    margin-bottom: 0;
+                }
+            `;
+            document.head.appendChild(style);
+        }
     }
     
     static get observedAttributes() {

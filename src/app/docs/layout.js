@@ -7,8 +7,8 @@ import "../../components/layout/PromoSidebar.js";
 /**
  * 📘 Docs Section Layout
  *
- * Renders the documentation layout with a fixed header, sidebar, and
- * a main content area. Content will be injected into the outlet.
+ * Renders the documentation layout with a fixed header, fixed sidebars, and
+ * a scrollable main content area. Content will be injected into the outlet.
  */
 class DocsLayout extends App {
   /**
@@ -24,25 +24,29 @@ class DocsLayout extends App {
 
   render() {
     return `
-      <div>
+      <div class="min-h-screen bg-white">
         <!-- Global Header -->
         <app-header></app-header>
 
-        <!-- Docs Container -->
-        <ui-box class="max-w-8xl mx-auto p-3 flex pt-16">
+        <!-- Docs Container with Fixed Sidebars -->
+        <div class="fixed inset-0 top-16 flex">
           
-          <!-- Sidebar Navigation -->
-          <app-sidebar></app-sidebar>
+          <!-- Fixed Sidebar Navigation -->
+          <div class="w-64 flex-shrink-0 bg-white border-r border-gray-200 overflow-y-auto">
+            <app-sidebar></app-sidebar>
+          </div>
 
-          <!-- Main Content Area -->
-          <main id="docs-content-outlet" class="flex-grow w-full lg:container mx-auto px-3 md:px-6 lg:px-10 py-8 lg:py-12">
+          <!-- Scrollable Main Content Area -->
+          <main id="docs-content-outlet" class="flex-1 overflow-y-auto px-3 md:px-6 lg:px-10 py-8 lg:py-12">
             <!-- Page-specific content will be injected here -->
           </main>
 
-          <!-- Promotional Sidebar -->
-          <app-promo-sidebar></app-promo-sidebar>
+          <!-- Fixed Promotional Sidebar -->
+          <div class="w-64 flex-shrink-0 bg-white border-l border-gray-200 overflow-y-auto hidden lg:block">
+            <app-promo-sidebar></app-promo-sidebar>
+          </div>
 
-        </ui-box>
+        </div>
       </div>
     `;
   }

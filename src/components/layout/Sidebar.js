@@ -7,7 +7,7 @@ import '../ui/Button.js';
  *
  * Displays the navigation links for UPO UI documentation.
  * Organized by section (e.g., Getting Started, Components).
- * Responsive: slide-in overlay on mobile, static on desktop.
+ * Responsive: slide-in overlay on mobile, fixed position on desktop.
  */
 class Sidebar extends App {
     constructor() {
@@ -87,10 +87,10 @@ class Sidebar extends App {
 
         return `
             <!-- Mobile backdrop -->
-            <div class="sidebar-backdrop fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden hidden" onclick="this.getRootNode().host.close()"></div>
+            <div class="sidebar-backdrop fixed inset-0 bg-black bg-opacity-50 z-50 lg:hidden hidden" onclick="this.getRootNode().host.close()"></div>
             
-            <!-- Sidebar -->
-            <aside class="fixed lg:static inset-y-0 left-0 z-50 w-64 bg-white border-r border-gray-200 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out lg:block px-6 lg:px-3 py-8">
+            <!-- Sidebar Content -->
+            <aside class="lg:static lg:transform-none fixed inset-y-0 left-0 z-50 w-64 bg-white transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out px-6 lg:px-3 py-8">
                 
                 <!-- Toggle Button - positioned on the right edge of sidebar -->
                 <ui-button 
@@ -104,7 +104,7 @@ class Sidebar extends App {
                 <nav class="flex flex-col space-y-6">
 
                     <!-- Getting Started Section -->
-                    <section class="space-y-2  border-l border-blue-500 pl-2">
+                    <section class="space-y-2 border-l border-blue-500 pl-2">
                         <h3 class="text-xs uppercase tracking-wide font-semibold text-gray-500">
                             <i class="fas fa-rocket mr-2"></i>
                             Getting Started

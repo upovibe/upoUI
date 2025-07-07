@@ -1,9 +1,12 @@
 class CodeBlock extends HTMLElement {
     constructor() {
         super();
+        this.container = document.createElement('div');
+        this.container.className = 'upo-codeblock-container';
         this.pre = document.createElement('pre');
         this.code = document.createElement('code');
         this.pre.appendChild(this.code);
+        this.container.appendChild(this.pre);
         this.addDefaultStyles();
         // Add copy button with smaller SVG icon and glassy background
         this.copyButton = document.createElement('button');
@@ -16,8 +19,8 @@ class CodeBlock extends HTMLElement {
         this.copyButton.setAttribute('aria-label', 'Copy code');
         this.copyButton.className = 'upo-codeblock-copy-btn';
         this.copyButton.onclick = () => this.copyCode();
-        this.pre.appendChild(this.copyButton);
-        this.appendChild(this.pre);
+        this.container.appendChild(this.copyButton);
+        this.appendChild(this.container);
     }
 
     connectedCallback() {
@@ -58,16 +61,40 @@ class CodeBlock extends HTMLElement {
             const style = document.createElement('style');
             style.id = 'upo-ui-codeblock-styles';
             style.textContent = `
+                .upo-codeblock-container {
+                    position: relative;
+                    margin: 1em 0;
+                }
                 pre {
                     background: #1a202c;
                     color: #f7fafc;
                     padding: 1rem;
                     border-radius: 0.5rem;
-                    overflow-x: auto;
+                    overflow: auto;
                     font-size: 0.95em;
-                    margin: 1em 0;
+                    margin: 0;
                     max-width: 100%;
+                    min-height: 200px;
+                    max-height: 400px;
                     position: relative;
+                }
+                pre::-webkit-scrollbar {
+                    width: 8px;
+                    height: 8px;
+                }
+                pre::-webkit-scrollbar-track {
+                    background: #2d3748;
+                    border-radius: 4px;
+                }
+                pre::-webkit-scrollbar-thumb {
+                    background: #4a5568;
+                    border-radius: 4px;
+                }
+                pre::-webkit-scrollbar-thumb:hover {
+                    background: #718096;
+                }
+                pre::-webkit-scrollbar-corner {
+                    background: #2d3748;
                 }
                 code {
                     background: none;
@@ -86,7 +113,7 @@ class CodeBlock extends HTMLElement {
                     border-radius: 0.375rem;
                     cursor: pointer;
                     transition: background 0.2s;
-                    z-index: 2;
+                    z-index: 10;
                     display: flex;
                     align-items: center;
                     justify-content: center;

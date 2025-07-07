@@ -85,24 +85,28 @@ class Sidebar extends App {
             return `${baseClass} text-gray-700 hover:bg-gray-100 hover:text-gray-900`;
         };
 
-        return `
-            <!-- Mobile backdrop -->
-            <div class="sidebar-backdrop fixed inset-0 bg-black bg-opacity-50 z-50 lg:hidden hidden" onclick="this.getRootNode().host.close()"></div>
-            
-            <!-- Sidebar Content -->
-            <div class="h-full w-full overflow-x-hidden overflow-y-auto">
-                <aside class="lg:static lg:transform-none fixed inset-y-0 left-0 z-50 w-64 bg-white transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out lg:relative lg:w-full lg:h-full">
+        // Check if this is the mobile overlay version
+        const isMobileOverlay = this.classList.contains('lg:hidden');
+
+        if (isMobileOverlay) {
+            // Mobile overlay version
+            return `
+                <!-- Mobile backdrop -->
+                <div class="sidebar-backdrop fixed inset-0 bg-black bg-opacity-50 z-50 hidden" onclick="this.getRootNode().host.close()"></div>
+                
+                <!-- Mobile Sidebar Overlay -->
+                <aside class="fixed inset-y-0 left-0 z-50 w-64 bg-white transform -translate-x-full transition-transform duration-300 ease-in-out">
                     
                     <!-- Toggle Button - positioned on the right edge of sidebar -->
                     <ui-button 
                         id="sidebar-toggle-button"
-                        class="lg:hidden absolute -right-4 top-4 w-8 h-8 bg-white border border-gray-200 rounded-r-md hover:bg-gray-50 transition-colors flex items-center justify-center z-10 p-0"
+                        class="absolute -right-4 top-4 w-8 h-8 bg-white border border-gray-200 rounded-r-md hover:bg-gray-50 transition-colors flex items-center justify-center z-10 p-0"
                         aria-label="Toggle sidebar"
                     >
                         <i class="fas fa-chevron-right text-gray-600 text-sm"></i>
                     </ui-button>
 
-                    <nav class="p-4 space-y-6">
+                    <nav class="p-4 space-y-6 h-full overflow-y-auto">
 
                         <!-- Getting Started Section -->
                         <section class="space-y-2 border-l border-blue-500 pl-3">
@@ -135,8 +139,44 @@ class Sidebar extends App {
 
                     </nav>
                 </aside>
-            </div>
-        `;
+            `;
+        } else {
+            // Desktop fixed version
+            return `
+                <nav class="p-4 space-y-6 h-full overflow-y-auto overflow-x-hidden">
+
+                    <!-- Getting Started Section -->
+                    <section class="space-y-2 border-l border-blue-500 pl-3">
+                        <h3 class="text-xs uppercase tracking-wide font-semibold text-gray-500">
+                            <i class="fas fa-rocket mr-2"></i>
+                            <span class="truncate">Getting Started</span>
+                        </h3>
+                        <div class="flex flex-col space-y-1">
+                            <ui-link href="/docs" class="${getLinkClass('/docs')}">
+                                Introduction
+                            </ui-link>
+                            <ui-link href="/docs/installation" class="${getLinkClass('/docs/installation')}">
+                                Installation
+                            </ui-link>
+                        </div>
+                    </section>
+
+                    <!-- Components Section -->
+                    <section class="space-y-2 border-l border-blue-500 pl-3">
+                        <h3 class="text-xs uppercase tracking-wide font-semibold text-gray-500">
+                            <i class="fas fa-cubes mr-2"></i>
+                            <span class="truncate">Components</span>
+                        </h3>
+                        <div class="flex flex-col space-y-1">
+                            <ui-link href="/docs/components" class="${getLinkClass('/docs/components')}">
+                                Overview
+                            </ui-link>
+                        </div>
+                    </section>
+
+                </nav>
+            `;
+        }
     }
 }
 

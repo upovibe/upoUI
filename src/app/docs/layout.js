@@ -31,8 +31,8 @@ class DocsLayout extends App {
         <!-- Fixed Sidebars Container -->
         <div class="fixed top-16 left-0 right-0 bottom-0 pointer-events-none">
           
-          <!-- Fixed Left Sidebar -->
-          <div class="absolute top-0 left-0 w-64 h-full bg-white border-r border-gray-200 overflow-y-auto overflow-x-hidden pointer-events-auto">
+          <!-- Fixed Left Sidebar (Hidden on mobile) -->
+          <div class="absolute top-0 left-0 w-64 h-full bg-white border-r border-gray-200 overflow-y-auto overflow-x-hidden pointer-events-auto hidden lg:block">
             <app-sidebar></app-sidebar>
           </div>
 
@@ -43,8 +43,11 @@ class DocsLayout extends App {
 
         </div>
 
+        <!-- Mobile Sidebar Overlay -->
+        <app-sidebar class="lg:hidden"></app-sidebar>
+
         <!-- Main Content Area with Normal Scrolling -->
-        <main id="docs-content-outlet" class="ml-64 lg:mr-64 min-h-screen px-3 md:px-6 lg:px-10 py-8 lg:py-24 pt-24">
+        <main id="docs-content-outlet" class="lg:ml-64 lg:mr-64 min-h-screen px-3 md:px-6 lg:px-10 py-8 lg:py-24 pt-24">
           <!-- Page-specific content will be injected here -->
         </main>
 

@@ -1,10 +1,12 @@
 import App from '../../core/App.js';
 import '../../components/ui/Box.js';
+import '../../components/layout/Header.js';
 
 /**
  * Docs Section Layout
  * 
- * Provides a two-column layout with a sidebar for documentation pages.
+ * Provides a two-column layout with a sidebar for documentation pages,
+ * all under the main application header.
  */
 class DocsLayout extends App {
 
@@ -18,7 +20,8 @@ class DocsLayout extends App {
     render() {
         return `
             <ui-box class="w-full">
-                <ui-box class="max-w-8xl mx-auto px-6 lg:px-8 flex">
+                <app-header></app-header>
+                <ui-box class="max-w-8xl mx-auto px-6 lg:px-8 flex pt-16">
                     <!-- Sidebar -->
                     <aside class="w-64 flex-shrink-0 py-8 pr-8 hidden md:block">
                         <nav class="flex flex-col space-y-2">

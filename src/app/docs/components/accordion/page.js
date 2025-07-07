@@ -18,14 +18,30 @@ class AccordionDocsPage extends App {
     <p>Content for section 2.</p>
   </ui-accordion-item>
 </ui-accordion>`;
+
+        const singleExample = `<ui-accordion single>
+  <ui-accordion-item title="Section 1" open>
+    <p>Content for section 1.</p>
+    <p>More content here.</p>
+  </ui-accordion-item>
+  <ui-accordion-item title="Section 2">
+    <p>Content for section 2.</p>
+  </ui-accordion-item>
+  <ui-accordion-item title="Section 3">
+    <p>Content for section 3.</p>
+  </ui-accordion-item>
+</ui-accordion>`;
+
         return `
             <div>
                 <h1 class="text-3xl font-bold text-gray-900">Accordion</h1>
-                <p class="mt-4 text-gray-600">
-                  The <code>&lt;ui-accordion&gt;</code> component lets you create collapsible sections. Each <code>&lt;ui-accordion-item&gt;</code> takes a <b>title</b> attribute and can be opened by adding the <b>open</b> attribute. Only the content of the open item is visible at a time. This is useful for FAQs, settings panels, and more.
+                <p class="mt-4 text-lg text-gray-600">
+                  The <code>&lt;ui-accordion&gt;</code> component lets you create collapsible sections. Each <code>&lt;ui-accordion-item&gt;</code> takes a <b>title</b> attribute and can be opened by adding the <b>open</b> attribute.
                 </p>
-                <h2 class="text-xl font-semibold mt-8 mb-2">Live Example</h2>
-                <ui-box class="p-12 px-20 border border-gray-200 rounded-lg">
+                
+                <h2 class="text-xl font-semibold mt-8 mb-2">Multiple Items Open (Default)</h2>
+                <p class="mb-4 text-gray-600">By default, multiple accordion items can be open at the same time.</p>
+                <ui-box>
                   <ui-accordion>
                     <ui-accordion-item title="Section 1" open>
                       <p>Content for section 1.</p>
@@ -36,8 +52,25 @@ class AccordionDocsPage extends App {
                     </ui-accordion-item>
                   </ui-accordion>
                 </ui-box>
-                <h2 class="text-xl font-semibold mt-8 mb-2">Usage Example</h2>
                 <ui-codeblock language="html" code="${usageExample.replace(/"/g, '&quot;')}"></ui-codeblock>
+                
+                <h2 class="text-xl font-semibold mt-8 mb-2">Single Item Open</h2>
+                <p class="mb-4 text-gray-600">Add the <code>single</code> attribute to ensure only one accordion item can be open at a time.</p>
+                <ui-box>
+                  <ui-accordion single>
+                    <ui-accordion-item title="Section 1" open>
+                      <p>Content for section 1.</p>
+                      <p>More content here.</p>
+                    </ui-accordion-item>
+                    <ui-accordion-item title="Section 2">
+                      <p>Content for section 2.</p>
+                    </ui-accordion-item>
+                    <ui-accordion-item title="Section 3">
+                      <p>Content for section 3.</p>
+                    </ui-accordion-item>
+                  </ui-accordion>
+                </ui-box>
+                <ui-codeblock language="html" code="${singleExample.replace(/"/g, '&quot;')}"></ui-codeblock>
             </div>
         `;
     }

@@ -154,7 +154,27 @@ class AccordionItem extends HTMLElement {
     }
 
     _onHeaderClick() {
-        this.toggleAttribute('open');
+        // Check if parent accordion has "single" attribute
+        const accordion = this.closest('ui-accordion');
+        if (accordion && accordion.hasAttribute('single')) {
+            // Close all other accordion items in this accordion
+            const allItems = accordion.querySelectorAll('ui-accordion-item');
+            allItems.forEach(item => {
+                if (item !== this) {
+                    item.removeAttribute('open');
+                }
+            });
+            
+            // If this item was already open, close it; otherwise open it
+            if (this.hasAttribute('open')) {
+                this.removeAttribute('open');
+            } else {
+                this.setAttribute('open', '');
+            }
+        } else {
+            // Normal behavior - just toggle
+            this.toggleAttribute('open');
+        }
     }
 
     _onHeaderKeyDown(e) {
@@ -170,6 +190,25 @@ customElements.define('ui-accordion-item', AccordionItem);
 class Accordion extends HTMLElement {
     constructor() {
         super();
+    }
+    
+    static get observedAttributes() {
+        return ['single'];
+    }
+    
+    attributeChangedCallback(name, oldValue, newValue) {
+        if (name === 'single') {
+            // If single attribute is added and multiple items are open, close all but the first
+            if (this.hasAttribute('single')) {
+                const openItems = this.querySelectorAll('ui-accordion-item[open]');
+                if (openItems.length > 1) {
+                    // Keep only the first open item
+                    for (let i = 1; i < openItems.length; i++) {
+                        openItems[i].removeAttribute('open');
+                    }
+                }
+            }
+        }
     }
 }
 

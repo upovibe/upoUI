@@ -17,7 +17,7 @@ class DocsIndexPage extends App {
 
     render() {
         return `
-            <div class="max-w-4xl mx-auto">
+            <div class="">
                 <!-- Hero Section -->
                 <div class="text-center mb-12">
                     <img class="size-16 rounded-full shadow-lg mx-auto" src="/src/assets/logo.png" alt="UPO UI Logo" />

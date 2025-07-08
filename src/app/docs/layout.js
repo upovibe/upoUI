@@ -25,7 +25,7 @@ class DocsLayout extends App {
 
   render() {
     return `
-      <div class="min-h-screen bg-white w-full lg:container mx-auto">
+      <div class="min-h-screen bg-white w-full xl:container mx-auto">
         <!-- Global Header -->
         <app-header></app-header>
 

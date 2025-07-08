@@ -18,7 +18,7 @@ class InstallationPage extends App {
 
     render() {
         return `
-            <div class="max-w-4xl mx-auto">
+            <div class="">
                 <!-- Page Header -->
                 <div class="mb-8">
                     <h1 class="text-4xl font-bold text-gray-900 mb-4">

@@ -158,17 +158,28 @@ class Alert extends HTMLElement {
         }));
     }
 
-    renderAlert() {
-        if (this.dismissed) {
-            return;
-        }
+    // Connected callback - called when element is added to DOM
+    connectedCallback() {
+        // Prevent double processing
+        if (this.initialized) return;
+        this.initialized = true;
 
-        const iconSvg = this.getIconSvg();
-        const content = Array.from(this.childNodes)
+        // Store original content before building the alert
+        const originalContent = Array.from(this.childNodes)
             .filter(node => node !== this.alertDiv)
-            .map(node => node.textContent || node.innerHTML || '')
-            .join('');
+            .map(node => node.textContent || '')
+            .join('').trim();
 
+        // Move any existing children (except our alertDiv) to avoid duplication
+        const children = Array.from(this.childNodes);
+        children.forEach(child => {
+            if (child !== this.alertDiv) {
+                this.removeChild(child);
+            }
+        });
+
+        // Build the alert content
+        const iconSvg = this.getIconSvg();
         this.alertDiv.className = `upo-alert-${this.type}`;
         this.alertDiv.innerHTML = `
             <svg class="upo-alert-icon upo-alert-icon-${this.type}" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -176,7 +187,7 @@ class Alert extends HTMLElement {
             </svg>
             <div class="upo-alert-content">
                 ${this.title ? `<div class="upo-alert-title">${this.title}</div>` : ''}
-                <div class="upo-alert-message">${content}</div>
+                <div class="upo-alert-message">${originalContent}</div>
             </div>
             ${this.dismissible ? `
                 <div class="upo-alert-dismiss">
@@ -190,20 +201,33 @@ class Alert extends HTMLElement {
         `;
     }
 
-    // Connected callback - called when element is added to DOM
-    connectedCallback() {
-        // Prevent double processing
-        if (this.initialized) return;
-        this.initialized = true;
-        
-        // Initial render
-        this.renderAlert();
-    }
-
     // Called when attributes change
     attributeChangedCallback() {
         if (this.initialized) {
-            this.renderAlert();
+            // Re-render when attributes change
+            const iconSvg = this.getIconSvg();
+            const messageContent = this.alertDiv.querySelector('.upo-alert-message');
+            const originalContent = messageContent ? messageContent.textContent : '';
+            
+            this.alertDiv.className = `upo-alert-${this.type}`;
+            this.alertDiv.innerHTML = `
+                <svg class="upo-alert-icon upo-alert-icon-${this.type}" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    ${iconSvg}
+                </svg>
+                <div class="upo-alert-content">
+                    ${this.title ? `<div class="upo-alert-title">${this.title}</div>` : ''}
+                    <div class="upo-alert-message">${originalContent}</div>
+                </div>
+                ${this.dismissible ? `
+                    <div class="upo-alert-dismiss">
+                        <button type="button" onclick="this.closest('ui-alert').dismiss()" aria-label="Dismiss alert">
+                            <svg class="upo-alert-icon" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
+                            </svg>
+                        </button>
+                    </div>
+                ` : ''}
+            `;
         }
     }
 }

@@ -163,18 +163,8 @@ class Tabs extends HTMLElement {
     }
 }
 
-// Define custom elements
-if (!customElements.get('ui-tab-list')) {
-    customElements.define('ui-tab-list', TabList);
-}
-if (!customElements.get('ui-tab')) {
-    customElements.define('ui-tab', Tab);
-}
-if (!customElements.get('ui-tab-panel')) {
-    customElements.define('ui-tab-panel', TabPanel);
-}
-if (!customElements.get('ui-tabs')) {
-    customElements.define('ui-tabs', Tabs);
-}
-
+customElements.define('ui-tab-list', TabList);
+customElements.define('ui-tab', Tab);
+customElements.define('ui-tab-panel', TabPanel);
+customElements.define('ui-tabs', Tabs);
 export default Tabs; 

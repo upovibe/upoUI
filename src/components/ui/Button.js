@@ -130,10 +130,5 @@ class Button extends HTMLElement {
     }
 }
 
-// Prevent double registration
-if (!customElements.get('ui-button')) {
-    customElements.define('ui-button', Button);
-}
-
-// Export for bundler
+customElements.define('ui-button', Button);
 export default Button; 

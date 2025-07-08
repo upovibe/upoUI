@@ -130,8 +130,5 @@ class CodeBlock extends HTMLElement {
     }
 }
 
-if (!customElements.get('ui-codeblock')) {
-    customElements.define('ui-codeblock', CodeBlock);
-}
-
+customElements.define('ui-codeblock', CodeBlock);
 export default CodeBlock; 

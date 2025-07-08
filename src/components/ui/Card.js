@@ -42,9 +42,5 @@ class Card extends Box {
     }
 }
 
-// Prevent double registration
-if (!customElements.get('ui-card')) {
-    customElements.define('ui-card', Card);
-}
-
+customElements.define('ui-card', Card);
 export default Card; 

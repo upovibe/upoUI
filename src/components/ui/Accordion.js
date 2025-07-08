@@ -270,5 +270,4 @@ class Accordion extends HTMLElement {
 }
 
 customElements.define('ui-accordion', Accordion);
-
 export default Accordion;

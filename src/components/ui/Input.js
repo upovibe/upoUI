@@ -129,10 +129,5 @@ class Input extends HTMLElement {
     }
 }
 
-// Prevent double registration
-if (!customElements.get('ui-input')) {
-    customElements.define('ui-input', Input);
-}
-
-// Export for bundler
+customElements.define('ui-input', Input);
 export default Input; 

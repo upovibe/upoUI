@@ -92,10 +92,5 @@ class Box extends HTMLElement {
     }
 }
 
-// Prevent double registration
-if (!customElements.get('ui-box')) {
-    customElements.define('ui-box', Box);
-}
-
-// Export for bundler
+customElements.define('ui-box', Box);
 export default Box; 

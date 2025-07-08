@@ -105,10 +105,5 @@ class Link extends HTMLElement {
     }
 }
 
-// Prevent double registration
-if (!customElements.get('ui-link')) {
-    customElements.define('ui-link', Link);
-}
-
-// Export for bundler
+customElements.define('ui-link', Link);
 export default Link; 

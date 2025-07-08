@@ -1,9 +1,9 @@
-import App from "../../core/App.js";
-import "../../components/ui/Box.js";
-import "../../components/layout/Header.js";
-import "../../components/layout/Sidebar.js";
-import "../../components/layout/PromoSidebar.js";
-import "../../components/common/ScrollToTop.js";
+import App from "@/core/App.js";
+import "@/components/ui/Box.js";
+import "@/components/layout/Header.js";
+import "@/components/layout/Sidebar.js";
+import "@/components/layout/PromoSidebar.js";
+import "@/components/common/ScrollToTop.js";
 
 /**
  * 📘 Docs Section Layout

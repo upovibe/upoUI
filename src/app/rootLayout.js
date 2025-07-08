@@ -1,6 +1,6 @@
-import App from '../core/App.js';
-import '../components/layout/Header.js';
-import '../components/layout/Footer.js';
+import App from '@/core/App.js';
+import '@/components/layout/Header.js';
+import '@/components/layout/Footer.js';
 
 /**
  * Root Layout Component

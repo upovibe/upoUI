@@ -1,6 +1,6 @@
-import App from '../../core/App.js';
-import store from '../../core/store.js';
-import '../ui/Link.js';
+import App from '@/core/App.js';
+import store from '@/core/store.js';
+import '@/components/ui/Link.js';
 
 /**
  * 📌 App Header Component

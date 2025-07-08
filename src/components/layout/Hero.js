@@ -1,7 +1,7 @@
-import App from '../../core/App.js';
-import '../ui/Button.js';
-import '../ui/Link.js';
-import '../ui/Box.js';
+import App from '@/core/App.js';
+import '@/components/ui/Button.js';
+import '@/components/ui/Link.js';
+import '@/components/ui/Box.js';
 
 /**
  * Hero Section Component

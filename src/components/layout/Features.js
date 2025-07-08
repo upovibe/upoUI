@@ -1,5 +1,5 @@
-import App from '../../core/App.js';
-import '../ui/Box.js';
+import App from '@/core/App.js';
+import '@/components/ui/Box.js';
 
 /**
  * Features Section Component

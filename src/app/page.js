@@ -1,7 +1,7 @@
-import App from '../core/App.js';
-import '../components/layout/Hero.js';
-import '../components/layout/Features.js';
-import '../components/ui/Box.js';
+import App from '@/core/App.js';
+import '@/components/layout/Hero.js';
+import '@/components/layout/Features.js';
+import '@/components/ui/Box.js';
 
 /**
  * Root Page Component (/)

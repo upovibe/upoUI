@@ -1,4 +1,4 @@
-import App from '../../core/App.js';
+import App from '@/core/App.js';
 
 /**
  * 📜 Scroll to Top Component

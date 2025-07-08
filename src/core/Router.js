@@ -1,4 +1,4 @@
-import '../app/rootLayout.js';
+import '@/app/rootLayout.js';
 
 /**
  * UPO UI App-Based Router - File-System Routing + Layouts
@@ -147,7 +147,7 @@ class Router {
     async preloadAllComponents() {
         // Load layout component first
         try {
-            const layoutModule = await import('../app/rootLayout.js');
+            const layoutModule = await import('@/app/rootLayout.js');
             this.layoutCache = layoutModule.default;
         } catch (error) {
             console.error('❌ Failed to load layout:', error);
@@ -156,7 +156,7 @@ class Router {
         // Load all static page components
         const loadPromises = Array.from(this.routes.entries()).map(async ([path, componentPath]) => {
             try {
-                const module = await import(`../${componentPath}`);
+                const module = await import(`@/${componentPath}`);
                 this.componentCache.set(path, module.default);
             } catch (error) {
                 console.error(`❌ Failed to load: ${componentPath}`, error);
@@ -173,7 +173,7 @@ class Router {
         }
         
         try {
-            const module = await import(`../${componentPath}`);
+            const module = await import(`@/${componentPath}`);
             this.componentCache.set(cacheKey, module.default);
             return module.default;
         } catch (error) {
@@ -221,7 +221,7 @@ class Router {
         // Try each pattern (now optimized for fewer failures)
         for (const componentPath of possiblePaths) {
             try {
-                const module = await import(`../${componentPath}`);
+                const module = await import(`@/${componentPath}`);
                 console.log(`✅ Auto-loaded: ${componentPath} → ${path}`);
                 
                 // Cache it for next time and extract params if dynamic
@@ -338,7 +338,7 @@ class Router {
 
             if (pathSegments.length > 0) {
                 const routeGroup = pathSegments[0];
-                const layoutPath = `../app/${routeGroup}/layout.js`;
+                const layoutPath = `@/app/${routeGroup}/layout.js`;
                 try {
                     const layoutModule = await import(layoutPath);
                     CustomLayoutClass = layoutModule.default;

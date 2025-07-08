@@ -1,7 +1,7 @@
-import App from '../../../core/App.js';
-import '../../../components/ui/Box.js';
-import '../../../components/ui/Card.js';
-import '../../../components/ui/Button.js';
+import App from '@/core/App.js';
+import '@/components/ui/Box.js';
+import '@/components/ui/Card.js';
+import '@/components/ui/Button.js';
 
 /**
  * Docs Installation Page
@@ -210,9 +210,9 @@ class InstallationPage extends App {
                                 <div class="bg-gray-900 rounded-lg p-4 mb-4">
                                     <div class="text-sm font-mono text-gray-300">
                                         <div><span class="text-gray-500">// src/app/page.js</span></div>
-                                        <div><span class="text-purple-400">import</span> <span class="text-blue-400">App</span> <span class="text-purple-400">from</span> <span class="text-green-400">'../core/App.js'</span>;</div>
-                                        <div><span class="text-purple-400">import</span> <span class="text-green-400">'../components/ui/Box.js'</span>;</div>
-                                        <div><span class="text-purple-400">import</span> <span class="text-green-400">'../components/ui/Button.js'</span>;</div>
+                                                                        <div><span class="text-purple-400">import</span> <span class="text-blue-400">App</span> <span class="text-purple-400">from</span> <span class="text-green-400">'@/core/App.js'</span>;</div>
+                                <div><span class="text-purple-400">import</span> <span class="text-green-400">'@/components/ui/Box.js'</span>;</div>
+                                <div><span class="text-purple-400">import</span> <span class="text-green-400">'@/components/ui/Button.js'</span>;</div>
                                         <div></div>
                                         <div><span class="text-purple-400">class</span> <span class="text-blue-400">HomePage</span> <span class="text-purple-400">extends</span> <span class="text-green-400">App</span> {</div>
                                         <div class="ml-2"><span class="text-yellow-400">render</span>() {</div>

@@ -1,8 +1,8 @@
-import App from '../../../../core/App.js';
-import '../../../../components/ui/CodeBlock.js';
-import '../../../../components/ui/Accordion.js';
-import '../../../../components/ui/Box.js';
-import '../../../../components/ui/Tabs.js';
+import App from '@/core/App.js';
+import '@/components/ui/CodeBlock.js';
+import '@/components/ui/Accordion.js';
+import '@/components/ui/Box.js';
+import '@/components/ui/Tabs.js';
 
 class AccordionDocsPage extends App {
     connectedCallback() {
@@ -34,7 +34,7 @@ class AccordionDocsPage extends App {
 </ui-accordion>`;
 
         const setupExample = `// Import the accordion component
-import '../../components/ui/Accordion.js';
+                                import '@/components/ui/Accordion.js';
 
 class AccordionExample extends HTMLElement {
     connectedCallback() {

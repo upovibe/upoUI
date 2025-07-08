@@ -1,6 +1,6 @@
-import App from '../../core/App.js';
-import '../ui/Link.js';
-import '../ui/Button.js';
+import App from '@/core/App.js';
+import '@/components/ui/Link.js';
+import '@/components/ui/Button.js';
 
 /**
  * 📚 Docs Sidebar Component

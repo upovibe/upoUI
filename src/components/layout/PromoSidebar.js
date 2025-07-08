@@ -1,6 +1,6 @@
-import App from '../../core/App.js';
-import '../ui/Card.js';
-import '../ui/Link.js';
+import App from '@/core/App.js';
+import '@/components/ui/Card.js';
+import '@/components/ui/Link.js';
 
 /**
  * 💖 Promotional Sidebar Component

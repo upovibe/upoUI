@@ -74,7 +74,7 @@ class CodeBlock extends HTMLElement {
                     font-size: 0.95em;
                     margin: 0;
                     max-width: 100%;
-                    min-height: 200px;
+                    height: fit-content;
                     max-height: 400px;
                     position: relative;
                 }

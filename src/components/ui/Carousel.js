@@ -370,15 +370,17 @@ class Carousel extends HTMLElement {
             prevButton.style.pointerEvents = this.currentIndex === 0 ? 'none' : 'auto';
         }
         if (nextButton) {
-            nextButton.style.opacity = this.currentIndex === this.totalSlides - 1 ? '0.3' : '1';
-            nextButton.style.pointerEvents = this.currentIndex === this.totalSlides - 1 ? 'none' : 'auto';
+            const maxIndex = Math.max(0, this.totalSlides - this.itemsPerView);
+            nextButton.style.opacity = this.currentIndex >= maxIndex ? '0.3' : '1';
+            nextButton.style.pointerEvents = this.currentIndex >= maxIndex ? 'none' : 'auto';
         }
     }
 
     next() {
         if (this.isTransitioning) return;
         
-        if (this.currentIndex < this.totalSlides - 1) {
+        const maxIndex = Math.max(0, this.totalSlides - this.itemsPerView);
+        if (this.currentIndex < maxIndex) {
             this.currentIndex = this.currentIndex + 1;
             this.updateTrackPosition();
             this.updateIndicators();

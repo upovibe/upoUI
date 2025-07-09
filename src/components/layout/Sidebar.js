@@ -154,7 +154,7 @@ class Sidebar extends App {
                 <div class="sidebar-backdrop fixed inset-0 bg-black bg-opacity-50 z-50 hidden" onclick="this.getRootNode().host.close()"></div>
                 
                 <!-- Mobile Sidebar Overlay -->
-                <aside class="fixed inset-y-0 left-0 z-50 w-64 bg-white transform -translate-x-full transition-transform duration-300 ease-in-out">
+                <aside class="fixed inset-y-0 left-0 z-50 w-64 bg-white transform -translate-x-full transition-transform duration-300 ease-in-out flex flex-col">
                     
                     <!-- Toggle Button - positioned on the right edge of sidebar -->
                     <ui-button 
@@ -166,7 +166,7 @@ class Sidebar extends App {
                     </ui-button>
 
                     <!-- Logo Section -->
-                    <div class="h-16 border-b border-gray-200 flex items-center px-3">
+                    <div class="h-16 border-b border-gray-200 flex items-center px-3 flex-shrink-0">
                         <div class="flex items-center gap-2">
                             <div class="flex-shrink-0 w-10 h-10 rounded-lg overflow-hidden bg-white">
                                 <img 
@@ -182,7 +182,7 @@ class Sidebar extends App {
                         </div>
                     </div>
 
-                    <nav class="p-4 space-y-6 h-full overflow-y-auto overflow-x-hidden scrollbar-hide">
+                    <nav class="flex-1 p-4 space-y-6 overflow-y-auto overflow-x-hidden scrollbar-hide">
                         <style>
                             .scrollbar-hide {
                                 -ms-overflow-style: none;  /* Internet Explorer 10+ */

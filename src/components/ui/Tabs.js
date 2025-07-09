@@ -163,8 +163,8 @@ class Tabs extends HTMLElement {
     }
 }
 
-customElements.define('ui-tab-list', TabList);
-customElements.define('ui-tab', Tab);
-customElements.define('ui-tab-panel', TabPanel);
-customElements.define('ui-tabs', Tabs);
+    customElements.define('ui-tab-list', TabList);
+    customElements.define('ui-tab', Tab);
+    customElements.define('ui-tab-panel', TabPanel);
+    customElements.define('ui-tabs', Tabs);
 export default Tabs; 

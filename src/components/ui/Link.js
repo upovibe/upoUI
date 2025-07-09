@@ -105,5 +105,5 @@ class Link extends HTMLElement {
     }
 }
 
-customElements.define('ui-link', Link);
+    customElements.define('ui-link', Link);
 export default Link; 

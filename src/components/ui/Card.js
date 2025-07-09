@@ -42,5 +42,5 @@ class Card extends Box {
     }
 }
 
-customElements.define('ui-card', Card);
+    customElements.define('ui-card', Card);
 export default Card; 

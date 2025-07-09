@@ -92,5 +92,5 @@ class Box extends HTMLElement {
     }
 }
 
-customElements.define('ui-box', Box);
+    customElements.define('ui-box', Box);
 export default Box; 

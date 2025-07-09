@@ -129,5 +129,5 @@ class Input extends HTMLElement {
     }
 }
 
-customElements.define('ui-input', Input);
+    customElements.define('ui-input', Input);
 export default Input; 

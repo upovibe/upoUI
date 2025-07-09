@@ -130,5 +130,5 @@ class Button extends HTMLElement {
     }
 }
 
-customElements.define('ui-button', Button);
+    customElements.define('ui-button', Button);
 export default Button; 

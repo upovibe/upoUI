@@ -165,6 +165,11 @@ class Breadcrumb extends HTMLElement {
         this.breadcrumbContainer.className = `upo-breadcrumb upo-breadcrumb-${this.size} upo-breadcrumb-${this.color}`;
         this.breadcrumbList.className = 'upo-breadcrumb-list';
         
+        // Listen for breadcrumb items being added
+        this.addEventListener('breadcrumb-item-added', () => {
+            setTimeout(() => this.processChildren(), 0);
+        });
+        
         // Process child elements
         this.processChildren();
     }
@@ -176,6 +181,9 @@ class Breadcrumb extends HTMLElement {
             .map(node => node.textContent || '')
             .join('').trim();
 
+        // Get breadcrumb items BEFORE removing children
+        const items = this.querySelectorAll('ui-breadcrumb-item');
+        
         // Move any existing children (except our breadcrumbContainer) to avoid duplication
         const children = Array.from(this.childNodes);
         children.forEach(child => {
@@ -187,14 +195,32 @@ class Breadcrumb extends HTMLElement {
         // Clear the list
         this.breadcrumbList.innerHTML = '';
 
-        // Process breadcrumb items
-        const items = this.querySelectorAll('ui-breadcrumb-item');
+        // If no breadcrumb items found, create a simple breadcrumb from text content
+        if (items.length === 0) {
+            const li = document.createElement('li');
+            li.className = 'upo-breadcrumb-item';
+            li.textContent = originalContent || 'Breadcrumb';
+            this.breadcrumbList.appendChild(li);
+            return;
+        }
+        
         items.forEach((item, index) => {
             const li = document.createElement('li');
             li.className = 'upo-breadcrumb-item';
             
-            // Clone the item content
-            li.innerHTML = item.innerHTML;
+            // Get the text content from the breadcrumb item
+            const itemText = item.textContent || item.getAttribute('href') || 'Item';
+            
+            // Create link if href is provided
+            if (item.getAttribute('href')) {
+                const link = document.createElement('a');
+                link.href = item.getAttribute('href');
+                link.textContent = itemText;
+                li.appendChild(link);
+            } else {
+                // Just set the text content for the current page
+                li.textContent = itemText;
+            }
             
             // Add separator if not the last item
             if (index < items.length - 1) {
@@ -235,6 +261,13 @@ class BreadcrumbItem extends HTMLElement {
         
         // This component just serves as a marker for the parent breadcrumb
         // The actual rendering is handled by the parent breadcrumb component
+        // We need to ensure the parent breadcrumb processes this item
+        this.dispatchEvent(new CustomEvent('breadcrumb-item-added', { bubbles: true }));
+    }
+
+    // Get the text content of this breadcrumb item
+    get textContent() {
+        return super.textContent || this.getAttribute('href') || 'Item';
     }
 }
 

@@ -141,7 +141,6 @@ class Sidebar extends App {
             { href: '/docs/components/video', label: 'Video Player' },
             { href: '/docs/components/wizard', label: 'Wizard' },
             { href: '/docs/components/wrapper', label: 'Wrapper' },
-            { href: '/docs/components', label: 'Overview' }
             // Add more as needed
         ];
 

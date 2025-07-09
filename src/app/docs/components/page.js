@@ -27,7 +27,7 @@ class DocsComponentsPage extends App {
             { href: '/docs/components/card', label: 'Card', description: 'Container components for displaying content in organized layouts.' },
             { href: '/docs/components/carousel', label: 'Carousel', description: 'Rotating content display for images or promotions.' },
             { href: '/docs/components/checkbox', label: 'Checkbox', description: 'Toggle multiple selections with checkboxes.' },
-            { href: '/docs/components/date-picker', label: 'Date Picker', description: 'Choose dates with a calendar popup input.' },
+            { href: '/docs/components/datepicker', label: 'Date Picker', description: 'Choose dates with a calendar popup input.' },
             { href: '/docs/components/dialog', label: 'Dialog', description: 'Modal popups for alerts, forms, or confirmations.' },
             { href: '/docs/components/drawer', label: 'Drawer', description: 'Slide-out panels for navigation or options.' },
             { href: '/docs/components/dropdown', label: 'Dropdown', description: 'Toggleable list of options or menus.' },

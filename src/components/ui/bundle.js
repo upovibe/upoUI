@@ -14,6 +14,7 @@ import './Alert.js';
 import './CodeBlock.js';
 import './Card.js';
 import './Accordion.js';
+import './Avatar.js';
 
 // Export all components for easy importing
 export { default as Button } from './Button.js';
@@ -25,5 +26,6 @@ export { default as Alert } from './Alert.js';
 export { default as CodeBlock } from './CodeBlock.js';
 export { default as Card } from './Card.js';
 export { default as Accordion } from './Accordion.js';
+export { default as Avatar } from './Avatar.js';
 
 console.log('🎨 UPO UI Components loaded'); 

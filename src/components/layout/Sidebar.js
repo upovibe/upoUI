@@ -90,6 +90,7 @@ class Sidebar extends App {
             { href: '/docs/components', label: 'Overview' },
             { href: '/docs/components/accordion', label: 'Accordion' },
             { href: '/docs/components/alert', label: 'Alert' },
+            { href: '/docs/components/avatar', label: 'Avatar' },
             { href: '/docs/components/input', label: 'Input' },
             // Add more as needed
         ];

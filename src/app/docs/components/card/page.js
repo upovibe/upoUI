@@ -46,7 +46,7 @@ export default CardExample;`;
                     <div class="mb-8">
                         <h2 class="text-xl font-semibold text-gray-900 mb-4">Live Example</h2>
                         <ui-box class="p-4 shadow rounded-lg border border-gray-200">
-                            <ui-card class="flex items-center gap-4">
+                            <ui-card class="flex items-center gap-4 p-3 shadow border-gray-100 rounded-md">
                                 <ui-avatar name="John Doe" alt="John Doe"></ui-avatar>
                                     <div>
                                         <h3>Card Title</h3>
@@ -68,7 +68,7 @@ export default CardExample;`;
                   
                   <ui-tab-panel value="preview">
                     <ui-box class="p-4 shadow rounded-lg border border-gray-200">
-                      <ui-card class="flex items-center gap-4">
+                      <ui-card class="flex items-center gap-4 p-3 shadow border-gray-100 rounded-md">
                         <ui-avatar name="John Doe" alt="John Doe"></ui-avatar>
                         <div>
                           <h3>Card Title</h3>

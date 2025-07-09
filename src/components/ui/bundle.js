@@ -18,6 +18,7 @@ import './Avatar.js';
 import './Badge.js';
 import './Breadcrumb.js';
 import './Carousel.js';
+import './Checkbox.js';
 
 // Export all components for easy importing
 export { default as Button } from './Button.js';
@@ -33,5 +34,6 @@ export { default as Avatar } from './Avatar.js';
 export { default as Badge } from './Badge.js';
 export { default as Breadcrumb } from './Breadcrumb.js';
 export { default as Carousel } from './Carousel.js';
+export { default as Checkbox } from './Checkbox.js';
 
 console.log('🎨 UPO UI Components loaded'); 

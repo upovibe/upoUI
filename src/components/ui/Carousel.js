@@ -344,9 +344,10 @@ class Carousel extends HTMLElement {
         const translateX = -(this.currentIndex * totalItemWidth);
         this.carouselTrack.style.transform = `translateX(${translateX}px)`;
         
-        // Set container width to show only one item at a time (including margins)
-        this.contentContainer.style.width = `${totalItemWidth}px`;
-        this.contentContainer.style.minWidth = `${totalItemWidth}px`;
+        // Set container width to show items-per-view number of items (including margins)
+        const containerWidth = totalItemWidth * this.itemsPerView;
+        this.contentContainer.style.width = `${containerWidth}px`;
+        this.contentContainer.style.minWidth = `${containerWidth}px`;
     }
 
     updateIndicators() {

@@ -31,14 +31,14 @@ class Hero extends App {
                         <ui-box class="mt-10 flex items-center justify-center gap-x-6">
                             <ui-button 
                                 onclick="this.closest('app-hero').handleGetStartedClick()"
-                                class="rounded-lg bg-indigo-600 px-5 py-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 transition-all transform hover:scale-105"
+                                
                             >
                                 Get Started
                             </ui-button>
                             <ui-link 
                                 href="https://github.com/upovibe/upoUI" 
                                 target="_blank"
-                                class="rounded-lg bg-white px-5 py-3 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 no-underline transition-all transform hover:scale-105"
+                                class="rounded-lg bg-white px-5 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 no-underline transition-all transform hover:scale-105"
                             >
                                 View on GitHub <span aria-hidden="true">→</span>
                             </ui-link>

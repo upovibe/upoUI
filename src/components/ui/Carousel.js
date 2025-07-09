@@ -107,8 +107,8 @@ class Carousel extends HTMLElement {
                 }
                 
                 .upo-carousel-control {
-                    width: 2.5rem;
-                    height: 2.5rem;
+                    width: 2rem;
+                    height: 2rem;
                     border-radius: 50%;
                     background-color: rgba(255, 255, 255, 0.9);
                     border: none;
@@ -116,7 +116,7 @@ class Carousel extends HTMLElement {
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    font-size: 1.25rem;
+                    font-size: 1.2rem;
                     color: #374151;
                     transition: all 0.2s ease-in-out;
                     pointer-events: auto;
@@ -125,7 +125,6 @@ class Carousel extends HTMLElement {
                 
                 .upo-carousel-control:hover {
                     background-color: rgba(255, 255, 255, 1);
-                    transform: scale(1.1);
                 }
                 
                 .upo-carousel-control:active {
@@ -306,14 +305,14 @@ class Carousel extends HTMLElement {
     addControls() {
         const prevButton = document.createElement('button');
         prevButton.className = 'upo-carousel-control';
-        prevButton.innerHTML = '‹';
+        prevButton.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15,18 9,12 15,6"></polyline></svg>';
         prevButton.setAttribute('aria-label', 'Previous slide');
         prevButton.addEventListener('click', () => this.previous());
         this.leftControls.appendChild(prevButton);
 
         const nextButton = document.createElement('button');
         nextButton.className = 'upo-carousel-control';
-        nextButton.innerHTML = '›';
+        nextButton.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9,18 15,12 9,6"></polyline></svg>';
         nextButton.setAttribute('aria-label', 'Next slide');
         nextButton.addEventListener('click', () => this.next());
         this.rightControls.appendChild(nextButton);

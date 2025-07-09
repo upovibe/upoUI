@@ -4,9 +4,12 @@
  * Creates a checkbox with a label. Supports:
  * - Checked and unchecked states
  * - Accessibility features
+ * - Custom colors
  * 
  * Usage:
  * <ui-checkbox label="Accept Terms" checked></ui-checkbox>
+ * <ui-checkbox label="Warning" color="red"></ui-checkbox>
+ * <ui-checkbox label="Success" color="#10b981"></ui-checkbox>
  */
 class Checkbox extends HTMLElement {
     constructor() {
@@ -50,7 +53,7 @@ class Checkbox extends HTMLElement {
                 }
                 
                 .upo-checkbox-wrapper:hover {
-                    background-color: rgba(59, 130, 246, 0.05);
+                    background-color: rgba(59, 130, 246, 0.1);
                 }
                 
                 .upo-checkbox-input {
@@ -116,6 +119,112 @@ class Checkbox extends HTMLElement {
                 .upo-checkbox-disabled .upo-checkbox-label {
                     cursor: not-allowed;
                 }
+                
+                /* Color variants */
+                .upo-checkbox-input[data-color="red"] {
+                    accent-color: #ef4444;
+                }
+                
+                .upo-checkbox-input[data-color="red"]:checked {
+                    background-color: #ef4444 !important;
+                    border-color: #ef4444 !important;
+                }
+                
+                .upo-checkbox-input[data-color="red"]:focus {
+                    outline-color: #ef4444;
+                }
+                
+                .upo-checkbox-input[data-color="red"]:hover {
+                    border-color: #ef4444;
+                }
+                
+                .upo-checkbox-wrapper:hover .upo-checkbox-input[data-color="red"] {
+                    background-color: rgba(239, 68, 68, 0.15);
+                }
+                
+                .upo-checkbox-input[data-color="green"] {
+                    accent-color: #10b981;
+                }
+                
+                .upo-checkbox-input[data-color="green"]:checked {
+                    background-color: #10b981 !important;
+                    border-color: #10b981 !important;
+                }
+                
+                .upo-checkbox-input[data-color="green"]:focus {
+                    outline-color: #10b981;
+                }
+                
+                .upo-checkbox-input[data-color="green"]:hover {
+                    border-color: #10b981;
+                }
+                
+                .upo-checkbox-wrapper:hover .upo-checkbox-input[data-color="green"] {
+                    background-color: rgba(16, 185, 129, 0.15);
+                }
+                
+                .upo-checkbox-input[data-color="yellow"] {
+                    accent-color: #f59e0b;
+                }
+                
+                .upo-checkbox-input[data-color="yellow"]:checked {
+                    background-color: #f59e0b !important;
+                    border-color: #f59e0b !important;
+                }
+                
+                .upo-checkbox-input[data-color="yellow"]:focus {
+                    outline-color: #f59e0b;
+                }
+                
+                .upo-checkbox-input[data-color="yellow"]:hover {
+                    border-color: #f59e0b;
+                }
+                
+                .upo-checkbox-wrapper:hover .upo-checkbox-input[data-color="yellow"] {
+                    background-color: rgba(245, 158, 11, 0.15);
+                }
+                
+                .upo-checkbox-input[data-color="purple"] {
+                    accent-color: #8b5cf6;
+                }
+                
+                .upo-checkbox-input[data-color="purple"]:checked {
+                    background-color: #8b5cf6 !important;
+                    border-color: #8b5cf6 !important;
+                }
+                
+                .upo-checkbox-input[data-color="purple"]:focus {
+                    outline-color: #8b5cf6;
+                }
+                
+                .upo-checkbox-input[data-color="purple"]:hover {
+                    border-color: #8b5cf6;
+                }
+                
+                .upo-checkbox-wrapper:hover .upo-checkbox-input[data-color="purple"] {
+                    background-color: rgba(139, 92, 246, 0.15);
+                }
+                
+                .upo-checkbox-input[data-color="gray"] {
+                    accent-color: #6b7280;
+                }
+                
+                .upo-checkbox-input[data-color="gray"]:checked {
+                    background-color: #6b7280 !important;
+                    border-color: #6b7280 !important;
+                }
+                
+                .upo-checkbox-input[data-color="gray"]:focus {
+                    outline-color: #6b7280;
+                }
+                
+                .upo-checkbox-input[data-color="gray"]:hover {
+                    border-color: #6b7280;
+                }
+                
+                .upo-checkbox-wrapper:hover .upo-checkbox-input[data-color="gray"] {
+                    background-color: rgba(107, 114, 128, 0.15);
+                }
             `;
             document.head.appendChild(style);
         }
@@ -147,6 +256,9 @@ class Checkbox extends HTMLElement {
         
         // Update disabled state
         this.updateDisabledState();
+        
+        // Update color
+        this.updateColor();
     }
 
     disconnectedCallback() {
@@ -156,7 +268,7 @@ class Checkbox extends HTMLElement {
     }
 
     static get observedAttributes() {
-        return ['checked', 'label', 'disabled'];
+        return ['checked', 'label', 'disabled', 'color'];
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
@@ -169,6 +281,9 @@ class Checkbox extends HTMLElement {
         if (name === 'disabled') {
             this.updateDisabledState();
         }
+        if (name === 'color') {
+            this.updateColor();
+        }
     }
 
     updateDisabledState() {
@@ -179,6 +294,53 @@ class Checkbox extends HTMLElement {
             this.wrapper.classList.add('upo-checkbox-disabled');
         } else {
             this.wrapper.classList.remove('upo-checkbox-disabled');
+        }
+    }
+
+    updateColor() {
+        const color = this.getAttribute('color');
+        
+        // Remove any existing color data attributes
+        this.checkbox.removeAttribute('data-color');
+        
+        if (color) {
+            // Check if it's a predefined color
+            const predefinedColors = ['red', 'green', 'yellow', 'purple', 'gray'];
+            
+            if (predefinedColors.includes(color)) {
+                this.checkbox.setAttribute('data-color', color);
+            } else {
+                // Custom hex color
+                this.checkbox.style.accentColor = color;
+                this.checkbox.style.setProperty('--custom-color', color);
+                
+                // Add custom color styles
+                this.addCustomColorStyles(color);
+            }
+        }
+    }
+
+    addCustomColorStyles(color) {
+        const styleId = `upo-checkbox-custom-${color.replace('#', '')}`;
+        
+        if (!document.getElementById(styleId)) {
+            const style = document.createElement('style');
+            style.id = styleId;
+            style.textContent = `
+                .upo-checkbox-input[style*="--custom-color: ${color}"]:checked {
+                    background-color: ${color} !important;
+                    border-color: ${color} !important;
+                }
+                
+                .upo-checkbox-input[style*="--custom-color: ${color}"]:focus {
+                    outline-color: ${color} !important;
+                }
+                
+                .upo-checkbox-input[style*="--custom-color: ${color}"]:hover {
+                    border-color: ${color} !important;
+                }
+            `;
+            document.head.appendChild(style);
         }
     }
 

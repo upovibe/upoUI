@@ -19,6 +19,12 @@ class CheckboxDocsPage extends App {
 <ui-checkbox label="Disabled checkbox" disabled></ui-checkbox>
 <ui-checkbox label="Disabled checked" checked disabled></ui-checkbox>`;
 
+        const colorsExample = `<ui-checkbox label="Red checkbox" color="red"></ui-checkbox>
+<ui-checkbox label="Green checkbox" color="green" checked></ui-checkbox>
+<ui-checkbox label="Yellow checkbox" color="yellow"></ui-checkbox>
+<ui-checkbox label="Purple checkbox" color="purple"></ui-checkbox>
+<ui-checkbox label="Custom color" color="#ff6b6b"></ui-checkbox>`;
+
         const setupExample = `// Import the checkbox component
 import '@/components/ui/Checkbox.js';
 
@@ -36,6 +42,11 @@ class CheckboxExample extends HTMLElement {
                 <ui-checkbox label="Normal checkbox"></ui-checkbox>
                 <ui-checkbox label="Checked checkbox" checked></ui-checkbox>
                 <ui-checkbox label="Disabled checkbox" disabled></ui-checkbox>
+                
+                <!-- Color variants -->
+                <ui-checkbox label="Red checkbox" color="red"></ui-checkbox>
+                <ui-checkbox label="Green checkbox" color="green" checked></ui-checkbox>
+                <ui-checkbox label="Custom color" color="#ff6b6b"></ui-checkbox>
             </div>
         \`;
     }
@@ -107,6 +118,30 @@ export default CheckboxExample;`;
                   </ui-tab-panel>
                 </ui-tabs>
 
+                <h2 class="text-xl font-semibold mt-8 mb-4">Color Variants</h2>
+                <p class="mb-4 text-gray-600">Checkboxes can be customized with predefined colors or custom hex colors.</p>
+                
+                <ui-tabs>
+                  <ui-tab-list>
+                    <ui-tab value="preview3">Preview</ui-tab>
+                    <ui-tab value="code3">Code</ui-tab>
+                  </ui-tab-list>
+                  
+                  <ui-tab-panel value="preview3">
+                    <ui-box class="flex flex-col gap-4 p-4 shadow rounded-lg border border-gray-200">
+                      <ui-checkbox label="Red checkbox" color="red"></ui-checkbox>
+                      <ui-checkbox label="Green checkbox" color="green" checked></ui-checkbox>
+                      <ui-checkbox label="Yellow checkbox" color="yellow"></ui-checkbox>
+                      <ui-checkbox label="Purple checkbox" color="purple"></ui-checkbox>
+                      <ui-checkbox label="Custom color" color="#ff6b6b"></ui-checkbox>
+                    </ui-box>
+                  </ui-tab-panel>
+                  
+                  <ui-tab-panel value="code3">
+                    <ui-codeblock language="html" code="${colorsExample.replace(/"/g, '&quot;')}"></ui-codeblock>
+                  </ui-tab-panel>
+                </ui-tabs>
+
                 <h2 class="text-xl font-semibold mt-8 mb-4">Setup Guide</h2>
                 <p class="mb-4 text-gray-600">Here's how to use the checkbox component in your own JavaScript files:</p>
                 
@@ -119,6 +154,7 @@ export default CheckboxExample;`;
                         <li>• Use <code>label</code> attribute to set the label text</li>
                         <li>• Add <code>checked</code> attribute for initial checked state</li>
                         <li>• Add <code>disabled</code> attribute to disable the checkbox</li>
+                        <li>• Use <code>color</code> attribute for predefined or custom colors</li>
                         <li>• Clicking the label also toggles the checkbox</li>
                         <li>• Fully accessible with keyboard navigation</li>
                     </ul>
@@ -156,6 +192,12 @@ export default CheckboxExample;`;
                                     <td class="px-4 py-2 text-sm text-gray-600">boolean</td>
                                     <td class="px-4 py-2 text-sm text-gray-600">false</td>
                                     <td class="px-4 py-2 text-sm text-gray-600">Whether the checkbox is disabled</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-2 text-sm text-gray-900"><code>color</code></td>
+                                    <td class="px-4 py-2 text-sm text-gray-600">string</td>
+                                    <td class="px-4 py-2 text-sm text-gray-600">blue</td>
+                                    <td class="px-4 py-2 text-sm text-gray-600">Predefined colors: red, green, yellow, purple, gray. Or custom hex color like #ff6b6b</td>
                                 </tr>
                             </tbody>
                         </table>

@@ -97,7 +97,6 @@ class Sidebar extends App {
             { href: '/docs/components/card', label: 'Card' },
             { href: '/docs/components/carousel', label: 'Carousel' },
             { href: '/docs/components/checkbox', label: 'Checkbox' },
-            { href: '/docs/components/chip', label: 'Chip' },
             { href: '/docs/components/collapse', label: 'Collapse' },
             { href: '/docs/components/date-picker', label: 'Date Picker' },
             { href: '/docs/components/dialog', label: 'Dialog' },

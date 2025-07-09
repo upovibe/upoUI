@@ -362,42 +362,48 @@ class Carousel extends HTMLElement {
     }
 
     updateControls() {
-        const prevButton = this.querySelector('.upo-carousel-control:first-child');
-        const nextButton = this.querySelector('.upo-carousel-control:last-child');
+        const prevButton = this.leftControls.querySelector('.upo-carousel-control');
+        const nextButton = this.rightControls.querySelector('.upo-carousel-control');
 
         if (prevButton) {
-            prevButton.disabled = this.currentIndex === 0;
+            prevButton.style.opacity = this.currentIndex === 0 ? '0.3' : '1';
+            prevButton.style.pointerEvents = this.currentIndex === 0 ? 'none' : 'auto';
         }
         if (nextButton) {
-            nextButton.disabled = this.currentIndex === this.totalSlides - 1;
+            nextButton.style.opacity = this.currentIndex === this.totalSlides - 1 ? '0.3' : '1';
+            nextButton.style.pointerEvents = this.currentIndex === this.totalSlides - 1 ? 'none' : 'auto';
         }
     }
 
     next() {
         if (this.isTransitioning) return;
         
-        this.currentIndex = (this.currentIndex + 1) % this.totalSlides;
-        this.updateTrackPosition();
-        this.updateIndicators();
-        this.updateControls();
-        
-        // Restart autoplay
-        if (this.autoplay) {
-            this.restartAutoplay();
+        if (this.currentIndex < this.totalSlides - 1) {
+            this.currentIndex = this.currentIndex + 1;
+            this.updateTrackPosition();
+            this.updateIndicators();
+            this.updateControls();
+            
+            // Restart autoplay
+            if (this.autoplay) {
+                this.restartAutoplay();
+            }
         }
     }
 
     previous() {
         if (this.isTransitioning) return;
         
-        this.currentIndex = this.currentIndex === 0 ? this.totalSlides - 1 : this.currentIndex - 1;
-        this.updateTrackPosition();
-        this.updateIndicators();
-        this.updateControls();
-        
-        // Restart autoplay
-        if (this.autoplay) {
-            this.restartAutoplay();
+        if (this.currentIndex > 0) {
+            this.currentIndex = this.currentIndex - 1;
+            this.updateTrackPosition();
+            this.updateIndicators();
+            this.updateControls();
+            
+            // Restart autoplay
+            if (this.autoplay) {
+                this.restartAutoplay();
+            }
         }
     }
 

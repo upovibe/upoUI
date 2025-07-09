@@ -15,7 +15,7 @@ class DocsComponentsPage extends App {
 
     render() {
         return `
-            <div class="max-w-4xl mx-auto p-6">
+            <div class="">
                 <h1 class="text-3xl font-bold text-gray-900 mb-6">
                     Components
                 </h1>
@@ -23,7 +23,7 @@ class DocsComponentsPage extends App {
                     Explore our collection of UI components designed for modern web applications.
                 </p>
                 
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-2 2xl:grid-cols-4 gap-6">
                     <a href="/docs/components/alert" class="block p-6 border border-gray-200 rounded-lg hover:border-blue-500 hover:shadow-md transition-all">
                         <h3 class="text-lg font-semibold text-gray-900 mb-2">Alert</h3>
                         <p class="text-gray-600">Display callouts for user attention with different types and styles.</p>
@@ -37,6 +37,11 @@ class DocsComponentsPage extends App {
                     <a href="/docs/components/avatar" class="block p-6 border border-gray-200 rounded-lg hover:border-blue-500 hover:shadow-md transition-all">
                         <h3 class="text-lg font-semibold text-gray-900 mb-2">Avatar</h3>
                         <p class="text-gray-600">Circular avatars with images or initials and status indicators.</p>
+                    </a>
+                    
+                    <a href="/docs/components/badge" class="block p-6 border border-gray-200 rounded-lg hover:border-blue-500 hover:shadow-md transition-all">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-2">Badge</h3>
+                        <p class="text-gray-600">Small status indicator (e.g. notifications)</p>
                     </a>
                     
                     <a href="/docs/components/button" class="block p-6 border border-gray-200 rounded-lg hover:border-blue-500 hover:shadow-md transition-all">

@@ -56,20 +56,20 @@ class Button extends HTMLElement {
                 
                 /* Sizes */
                 .upo-button-sm {
-                    padding: 0.5rem 1rem;
-                    font-size: 0.875rem;
+                    padding: 0.25rem 0.5rem;
+                    font-size: 0.75rem;
                     line-height: 1.25;
                 }
                 
                 .upo-button-md {
-                    padding: 0.75rem 1.5rem;
-                    font-size: 1rem;
+                    padding: 0.375rem 0.75rem;
+                    font-size: 0.875rem;
                     line-height: 1.25;
                 }
                 
                 .upo-button-lg {
-                    padding: 1rem 2rem;
-                    font-size: 1.125rem;
+                    padding: 0.5rem 1rem;
+                    font-size: 1rem;
                     line-height: 1.25;
                 }
                 
@@ -313,22 +313,18 @@ class Button extends HTMLElement {
                 
                 /* Loading state */
                 .upo-button-loading {
-                    position: relative;
-                    color: transparent !important;
+                    gap: 0.5rem;
                 }
                 
                 .upo-button-loading::after {
                     content: '';
-                    position: absolute;
-                    top: 50%;
-                    left: 50%;
                     width: 1rem;
                     height: 1rem;
-                    margin: -0.5rem 0 0 -0.5rem;
                     border: 2px solid currentColor;
                     border-radius: 50%;
                     border-top-color: transparent;
                     animation: spin 1s linear infinite;
+                    flex-shrink: 0;
                 }
                 
                 @keyframes spin {

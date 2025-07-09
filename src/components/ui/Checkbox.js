@@ -28,6 +28,7 @@ class Checkbox extends HTMLElement {
         // Bind event handlers
         this._onCheckboxChange = this._onCheckboxChange.bind(this);
         this._onWrapperClick = this._onWrapperClick.bind(this);
+        this._onLabelClick = this._onLabelClick.bind(this);
     }
 
     addDefaultStyles() {
@@ -44,6 +45,8 @@ class Checkbox extends HTMLElement {
                     padding: 0.125rem;
                     border-radius: 0.25rem;
                     transition: background-color 0.15s ease-in-out;
+                    width: fit-content;
+                    padding: 0.25rem;
                 }
                 
                 .upo-checkbox-wrapper:hover {
@@ -149,6 +152,7 @@ class Checkbox extends HTMLElement {
     disconnectedCallback() {
         this.checkbox.removeEventListener('change', this._onCheckboxChange);
         this.wrapper.removeEventListener('click', this._onWrapperClick);
+        this.label.removeEventListener('click', this._onLabelClick);
     }
 
     static get observedAttributes() {
@@ -196,6 +200,13 @@ class Checkbox extends HTMLElement {
             return;
         }
         
+        if (!this.hasAttribute('disabled')) {
+            this.checkbox.checked = !this.checkbox.checked;
+            this._onCheckboxChange();
+        }
+    }
+
+    _onLabelClick(e) {
         if (!this.hasAttribute('disabled')) {
             this.checkbox.checked = !this.checkbox.checked;
             this._onCheckboxChange();

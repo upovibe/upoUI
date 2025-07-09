@@ -43,6 +43,24 @@ class CarouselDocsPage extends App {
   </ui-carousel-item>
 </ui-carousel>`;
 
+        const multipleItemsExample = `<ui-carousel items-per-view="3">
+  <ui-carousel-item>
+    <ui-card class="size-32 flex items-center justify-center border border-gray-200 rounded-lg shadow-md">Item 1</ui-card>
+  </ui-carousel-item>
+  <ui-carousel-item>
+    <ui-card class="size-32 flex items-center justify-center border border-gray-200 rounded-lg shadow-md">Item 2</ui-card>
+  </ui-carousel-item>
+  <ui-carousel-item>
+    <ui-card class="size-32 flex items-center justify-center border border-gray-200 rounded-lg shadow-md">Item 3</ui-card>
+  </ui-carousel-item>
+  <ui-carousel-item>
+    <ui-card class="size-32 flex items-center justify-center border border-gray-200 rounded-lg shadow-md">Item 4</ui-card>
+  </ui-carousel-item>
+  <ui-carousel-item>
+    <ui-card class="size-32 flex items-center justify-center border border-gray-200 rounded-lg shadow-md">Item 5</ui-card>
+  </ui-carousel-item>
+</ui-carousel>`;
+
         const setupExample = `// Import the carousel component
 import '@/components/ui/Carousel.js';
 import '@/components/ui/Card.js';
@@ -85,16 +103,16 @@ export default CarouselExample;`;
                     <!-- Live Example -->
                     <div class="mb-8">
                         <h2 class="text-xl font-semibold text-gray-900 mb-4">Live Example</h2>
-                        <ui-box class="p-4 shadow rounded-lg border border-gray-200">
+                        <ui-box class="p-4 shadow rounded-lg border border-gray-200 flex justify-center items-center">
                             <ui-carousel>
                                 <ui-carousel-item>
-                                    <ui-card>Slide 1</ui-card>
+                                    <ui-card class="size-40 flex items-center justify-center border border-gray-200 rounded-lg shodow-md">Slide 1</ui-card>
                                 </ui-carousel-item>
                                 <ui-carousel-item>
-                                    <ui-card>Slide 2</ui-card>
+                                    <ui-card class="size-40 flex items-center justify-center border border-gray-200 rounded-lg shodow-md">Slide 2</ui-card>
                                 </ui-carousel-item>
                                 <ui-carousel-item>
-                                    <ui-card>Slide 3</ui-card>
+                                    <ui-card class="size-40 flex items-center justify-center border border-gray-200 rounded-lg shodow-md">Slide 3</ui-card>
                                 </ui-carousel-item>
                             </ui-carousel>
                         </ui-box>
@@ -111,16 +129,16 @@ export default CarouselExample;`;
                   </ui-tab-list>
                   
                   <ui-tab-panel value="preview">
-                    <ui-box class="p-4 shadow rounded-lg border border-gray-200">
+                    <ui-box class="p-4 shadow rounded-lg border border-gray-200 flex justify-center items-center">
                       <ui-carousel>
                         <ui-carousel-item>
-                          <ui-card>Slide 1</ui-card>
+                          <ui-card class="size-40 flex items-center justify-center border border-gray-200 rounded-lg shodow-md">Slide 1</ui-card>
                         </ui-carousel-item>
                         <ui-carousel-item>
-                          <ui-card>Slide 2</ui-card>
+                          <ui-card class="size-40 flex items-center justify-center border border-gray-200 rounded-lg shodow-md">Slide 2</ui-card>
                         </ui-carousel-item>
                         <ui-carousel-item>
-                          <ui-card>Slide 3</ui-card>
+                          <ui-card class="size-40 flex items-center justify-center border border-gray-200 rounded-lg shodow-md">Slide 3</ui-card>
                         </ui-carousel-item>
                       </ui-carousel>
                     </ui-box>
@@ -141,13 +159,13 @@ export default CarouselExample;`;
                   </ui-tab-list>
                   
                   <ui-tab-panel value="preview2">
-                    <ui-box class="p-4 shadow rounded-lg border border-gray-200">
+                    <ui-box class="p-4 shadow rounded-lg border border-gray-200 flex justify-center items-center">
                       <ui-carousel autoplay interval="3000">
                         <ui-carousel-item>
-                          <ui-card>Auto Slide 1</ui-card>
+                            <ui-card class="size-40 flex items-center justify-center border border-gray-200 rounded-lg shodow-md">Auto Slide 1</ui-card>
                         </ui-carousel-item>
                         <ui-carousel-item>
-                          <ui-card>Auto Slide 2</ui-card>
+                          <ui-card class="size-40 flex items-center justify-center border border-gray-200 rounded-lg shodow-md">Auto Slide 2</ui-card>
                         </ui-carousel-item>
                       </ui-carousel>
                     </ui-box>
@@ -155,6 +173,42 @@ export default CarouselExample;`;
                   
                   <ui-tab-panel value="code2">
                     <ui-codeblock language="html" code="${autoplayExample.replace(/"/g, '&quot;')}"></ui-codeblock>
+                  </ui-tab-panel>
+                </ui-tabs>
+
+                <h2 class="text-xl font-semibold mt-8 mb-4">Multiple Items Carousel</h2>
+                <p class="mb-4 text-gray-600">Display multiple items at a time using the <code>items-per-view</code> attribute.</p>
+                
+                <ui-tabs>
+                  <ui-tab-list>
+                    <ui-tab value="preview3">Preview</ui-tab>
+                    <ui-tab value="code3">Code</ui-tab>
+                  </ui-tab-list>
+                  
+                  <ui-tab-panel value="preview3">
+                    <ui-box class="p-4 shadow rounded-lg border border-gray-200 flex justify-center items-center">
+                      <ui-carousel items-per-view="3">
+                        <ui-carousel-item>
+                            <ui-card class="size-32 flex items-center justify-center border border-gray-200 rounded-lg shadow-md">Item 1</ui-card>
+                        </ui-carousel-item>
+                        <ui-carousel-item>
+                          <ui-card class="size-32 flex items-center justify-center border border-gray-200 rounded-lg shadow-md">Item 2</ui-card>
+                        </ui-carousel-item>
+                        <ui-carousel-item>
+                          <ui-card class="size-32 flex items-center justify-center border border-gray-200 rounded-lg shadow-md">Item 3</ui-card>
+                        </ui-carousel-item>
+                        <ui-carousel-item>
+                          <ui-card class="size-32 flex items-center justify-center border border-gray-200 rounded-lg shadow-md">Item 4</ui-card>
+                        </ui-carousel-item>
+                        <ui-carousel-item>
+                          <ui-card class="size-32 flex items-center justify-center border border-gray-200 rounded-lg shadow-md">Item 5</ui-card>
+                        </ui-carousel-item>
+                      </ui-carousel>
+                    </ui-box>
+                  </ui-tab-panel>
+                  
+                  <ui-tab-panel value="code3">
+                    <ui-codeblock language="html" code="${multipleItemsExample.replace(/"/g, '&quot;')}"></ui-codeblock>
                   </ui-tab-panel>
                 </ui-tabs>
 
@@ -213,6 +267,12 @@ export default CarouselExample;`;
                                     <td class="px-4 py-2 text-sm text-gray-600">boolean</td>
                                     <td class="px-4 py-2 text-sm text-gray-600">true</td>
                                     <td class="px-4 py-2 text-sm text-gray-600">Show navigation buttons</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-2 text-sm font-mono text-gray-900">items-per-view</td>
+                                    <td class="px-4 py-2 text-sm text-gray-600">number</td>
+                                    <td class="px-4 py-2 text-sm text-gray-600">1</td>
+                                    <td class="px-4 py-2 text-sm text-gray-600">Number of items to display at a time</td>
                                 </tr>
                             </tbody>
                         </table>

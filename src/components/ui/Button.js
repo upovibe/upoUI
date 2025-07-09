@@ -32,7 +32,7 @@ class Button extends HTMLElement {
         // Add default styles via CSS
         this.addDefaultStyles();
     }
-
+    
     // Add default CSS styles to document if not already added
     addDefaultStyles() {
         if (!document.getElementById('upo-ui-button-styles')) {
@@ -369,13 +369,13 @@ class Button extends HTMLElement {
     get loading() {
         return this.hasAttribute('loading');
     }
-
+    
     // Connected callback - called when element is added to DOM
     connectedCallback() {
         // Prevent double processing
         if (this.initialized) return;
         this.initialized = true;
-
+        
         // Store original content before building the button
         const originalContent = Array.from(this.childNodes)
             .filter(node => node !== this.buttonElement)
@@ -434,7 +434,7 @@ class Button extends HTMLElement {
         
         this.buttonElement.className = classes.join(' ');
     }
-
+    
     // Forward common methods to the internal button
     focus() {
         this.buttonElement.focus();
@@ -449,5 +449,5 @@ class Button extends HTMLElement {
     }
 }
 
-customElements.define('ui-button', Button);
+    customElements.define('ui-button', Button);
 export default Button; 

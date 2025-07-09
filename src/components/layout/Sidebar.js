@@ -182,7 +182,16 @@ class Sidebar extends App {
                         </div>
                     </div>
 
-                    <nav class="p-4 space-y-6 h-full overflow-y-auto">
+                    <nav class="p-4 space-y-6 h-full overflow-y-auto overflow-x-hidden scrollbar-hide">
+                        <style>
+                            .scrollbar-hide {
+                                -ms-overflow-style: none;  /* Internet Explorer 10+ */
+                                scrollbar-width: none;  /* Firefox */
+                            }
+                            .scrollbar-hide::-webkit-scrollbar {
+                                display: none;  /* Safari and Chrome */
+                            }
+                        </style>
 
                         <!-- Getting Started Section -->
                         <section class="space-y-2 border-l border-blue-500 pl-3">
@@ -219,7 +228,16 @@ class Sidebar extends App {
         } else {
             // Desktop fixed version
             return `
-                <nav class="p-4 space-y-6 h-full overflow-y-auto overflow-x-hidden">
+                <nav class="p-4 space-y-6 h-full overflow-y-auto overflow-x-hidden scrollbar-hide">
+                    <style>
+                        .scrollbar-hide {
+                            -ms-overflow-style: none;  /* Internet Explorer 10+ */
+                            scrollbar-width: none;  /* Firefox */
+                        }
+                        .scrollbar-hide::-webkit-scrollbar {
+                            display: none;  /* Safari and Chrome */
+                        }
+                    </style>
 
                     <!-- Getting Started Section -->
                     <section class="space-y-2 border-l border-blue-500 pl-3">

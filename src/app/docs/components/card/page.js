@@ -3,6 +3,7 @@ import '@/components/ui/CodeBlock.js';
 import '@/components/ui/Card.js';
 import '@/components/ui/Box.js';
 import '@/components/ui/Tabs.js';
+import '@/components/ui/Avatar.js';
 
 class CardDocsPage extends App {
     connectedCallback() {
@@ -45,13 +46,48 @@ export default CardExample;`;
                     <div class="mb-8">
                         <h2 class="text-xl font-semibold text-gray-900 mb-4">Live Example</h2>
                         <ui-box class="p-4 shadow rounded-lg border border-gray-200">
-                            <ui-card>
-                                <h3>Card Title</h3>
-                                <p>This is the main content of the card. You can put any HTML content here.</p>
+                            <ui-card class="flex items-center gap-4">
+                                <ui-avatar name="John Doe" alt="John Doe"></ui-avatar>
+                                    <div>
+                                        <h3>Card Title</h3>
+                                        <p style="margin: 0; color: #6b7280;">Card subtitle</p>
+                                    </div>
                             </ui-card>
                         </ui-box>
                     </div>
                 </div>
+
+                <h2 class="text-xl font-semibold mt-8 mb-4">Usage</h2>
+                <p class="mb-4 text-gray-600">Simply wrap your content in the <code>ui-card</code> element.</p>
+                
+                <ui-tabs>
+                  <ui-tab-list>
+                    <ui-tab value="preview">Preview</ui-tab>
+                    <ui-tab value="code">Code</ui-tab>
+                  </ui-tab-list>
+                  
+                  <ui-tab-panel value="preview">
+                    <ui-box class="p-4 shadow rounded-lg border border-gray-200">
+                      <ui-card class="flex items-center gap-4">
+                        <ui-avatar name="John Doe" alt="John Doe"></ui-avatar>
+                        <div>
+                          <h3>Card Title</h3>
+                          <p style="margin: 0; color: #6b7280;">Card subtitle</p>
+                        </div>
+                      </ui-card>
+                    </ui-box>
+                  </ui-tab-panel>
+                  
+                  <ui-tab-panel value="code">
+                    <ui-codeblock language="html" code="<ui-card class=&quot;flex items-center gap-4&quot;>
+  <ui-avatar name=&quot;John Doe&quot; alt=&quot;John Doe&quot;></ui-avatar>
+  <div>
+    <h3>Card Title</h3>
+    <p style=&quot;margin: 0; color: #6b7280;&quot;>Card subtitle</p>
+  </div>
+</ui-card>"></ui-codeblock>
+                  </ui-tab-panel>
+                </ui-tabs>
 
                 <h2 class="text-xl font-semibold mt-8 mb-4">Setup Guide</h2>
                 <p class="mb-4 text-gray-600">Here's how to use the card component in your own JavaScript files:</p>

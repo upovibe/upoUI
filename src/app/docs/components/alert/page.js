@@ -114,10 +114,12 @@ alert.dismiss();`;
                   </ui-tab-list>
                   
                   <ui-tab-panel value="preview1">
+                  <ui-box class="flex flex-col gap-4 p-4 shadow rounded-lg border border-gray-200">
                     <ui-alert type="info">This is a basic info alert message.</ui-alert>
-                        <ui-alert type="success">Operation completed successfully!</ui-alert>
-                        <ui-alert type="warning">Please review your settings before continuing.</ui-alert>
-                        <ui-alert type="error">Something went wrong. Please try again.</ui-alert>
+                    <ui-alert type="success">Operation completed successfully!</ui-alert>
+                    <ui-alert type="warning">Please review your settings before continuing.</ui-alert>
+                    <ui-alert type="error">Something went wrong. Please try again.</ui-alert>
+                    </ui-box>
                   </ui-tab-panel>
                   
                   <ui-tab-panel value="code1">
@@ -135,10 +137,12 @@ alert.dismiss();`;
                   </ui-tab-list>
                   
                   <ui-tab-panel value="preview2">
+                  <ui-box class="flex flex-col gap-4 p-4 shadow rounded-lg border border-gray-200">
                     <ui-alert type="info" title="Information">Here's some important information you should know.</ui-alert>
-                        <ui-alert type="success" title="Success!">Your changes have been saved successfully.</ui-alert>
-                        <ui-alert type="warning" title="Warning">This action cannot be undone.</ui-alert>
-                        <ui-alert type="error" title="Error">Failed to connect to the server.</ui-alert>
+                    <ui-alert type="success" title="Success!">Your changes have been saved successfully.</ui-alert>
+                    <ui-alert type="warning" title="Warning">This action cannot be undone.</ui-alert>
+                    <ui-alert type="error" title="Error">Failed to connect to the server.</ui-alert>
+                    </ui-box>
                   </ui-tab-panel>
                   
                   <ui-tab-panel value="code2">
@@ -156,8 +160,10 @@ alert.dismiss();`;
                   </ui-tab-list>
                   
                   <ui-tab-panel value="preview3">
- <ui-alert type="info" dismissible>This alert can be dismissed by clicking the X button.</ui-alert>
-                        <ui-alert type="success" title="Success!" dismissible>Operation completed. You can dismiss this message.</ui-alert>
+                  <ui-box class="flex flex-col gap-4 p-4 shadow rounded-lg border border-gray-200">
+                    <ui-alert type="info" dismissible>This alert can be dismissed by clicking the X button.</ui-alert>
+                    <ui-alert type="success" title="Success!" dismissible>Operation completed. You can dismiss this message.</ui-alert>
+                    </ui-box>
                   </ui-tab-panel>
                   
                   <ui-tab-panel value="code3">

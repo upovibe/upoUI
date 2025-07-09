@@ -102,7 +102,6 @@ class TabPanel extends HTMLElement {
             <style>
                 :host {
                     display: none;
-                    padding: 1.25rem;
                     background: #ffffff;
                     border: 1px solid rgba(229, 231, 235, 0.8);
                     border-radius: 0.5rem;

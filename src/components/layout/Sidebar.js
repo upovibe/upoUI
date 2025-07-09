@@ -87,6 +87,7 @@ class Sidebar extends App {
 
         // Define component links in one place
         const componentLinks = [
+            { href: '/docs/components', label: 'Overview' },
             { href: '/docs/components/accordion', label: 'Accordion' },
             { href: '/docs/components/alert', label: 'Alert' },
             { href: '/docs/components/avatar', label: 'Avatar' },

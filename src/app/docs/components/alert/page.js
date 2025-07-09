@@ -84,7 +84,7 @@ alert.dismiss();`;
                     <!-- Live Examples -->
                     <div class="mb-8">
                         <h2 class="text-xl font-semibold text-gray-900 mb-4">Live Examples</h2>
-                        <ui-box class="flex flex-col gap-4">
+                        <ui-box class="flex flex-col gap-4 p-4 shadow rounded-lg border border-gray-200">
                             <ui-alert >
                                 This is a basic info alert message.
                             </ui-alert>

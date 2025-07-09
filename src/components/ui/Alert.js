@@ -42,6 +42,10 @@ class Alert extends HTMLElement {
             style.textContent = `
                 .upo-alert-info {
                     display: flex;
+                    align-items: start;
+                    justify-content: center;
+                    gap: 0.5rem;
+                    margin: 0 auto;
                     padding: 1rem;
                     border: 1px solid #bfdbfe;
                     border-radius: 0.375rem;
@@ -50,6 +54,10 @@ class Alert extends HTMLElement {
                 }
                 .upo-alert-success {
                     display: flex;
+                    align-items: start;
+                    justify-content: center;
+                    gap: 0.5rem;
+                    margin: 0 auto;
                     padding: 1rem;
                     border: 1px solid #bbf7d0;
                     border-radius: 0.375rem;
@@ -58,6 +66,10 @@ class Alert extends HTMLElement {
                 }
                 .upo-alert-warning {
                     display: flex;
+                    align-items: start;
+                    justify-content: center;
+                    gap: 0.5rem;
+                    margin: 0 auto;
                     padding: 1rem;
                     border: 1px solid #fde68a;
                     border-radius: 0.375rem;
@@ -66,6 +78,10 @@ class Alert extends HTMLElement {
                 }
                 .upo-alert-error {
                     display: flex;
+                    align-items: start;
+                    justify-content: center;
+                    gap: 0.5rem;
+                    margin: 0 auto;
                     padding: 1rem;
                     border: 1px solid #fecaca;
                     border-radius: 0.375rem;
@@ -84,11 +100,11 @@ class Alert extends HTMLElement {
                 .upo-alert-content {
                     margin-left: 0.75rem;
                     flex: 1;
+                    margin: 0 auto;
                 }
                 .upo-alert-title {
                     font-size: 0.875rem;
                     font-weight: 500;
-                    margin-bottom: 0.25rem;
                 }
                 .upo-alert-message {
                     font-size: 0.875rem;
@@ -100,7 +116,7 @@ class Alert extends HTMLElement {
                 .upo-alert-dismiss button {
                     display: inline-flex;
                     border-radius: 0.375rem;
-                    padding: 0.375rem;
+                    padding: 2px;
                     background: transparent;
                     border: none;
                     cursor: pointer;

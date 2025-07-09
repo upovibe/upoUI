@@ -19,6 +19,12 @@ import './Badge.js';
 import './Breadcrumb.js';
 import './Carousel.js';
 import './Checkbox.js';
+import './Collapse.js';
+import './DatePicker.js';
+import './Dialog.js';
+import './Drawer.js';
+import './Dropdown.js';
+import './EmptyState.js';
 
 // Export all components for easy importing
 export { default as Button } from './Button.js';
@@ -35,5 +41,11 @@ export { default as Badge } from './Badge.js';
 export { default as Breadcrumb } from './Breadcrumb.js';
 export { default as Carousel } from './Carousel.js';
 export { default as Checkbox } from './Checkbox.js';
+export { default as Collapse } from './Collapse.js';
+export { default as DatePicker } from './DatePicker.js';
+export { default as Dialog } from './Dialog.js';
+export { default as Drawer } from './Drawer.js';
+export { default as Dropdown } from './Dropdown.js';
+export { default as EmptyState } from './EmptyState.js';
 
 console.log('🎨 UPO UI Components loaded'); 

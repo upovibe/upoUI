@@ -28,6 +28,7 @@ import './EmptyState.js';
 import './TagInput.js';
 import './RangeInput.js';
 import './FileUpload.js';
+import './Modal.js';
 
 // Export all components for easy importing
 export { default as Button } from './Button.js';
@@ -52,5 +53,6 @@ export { default as EmptyState } from './EmptyState.js';
 export { default as TagInput } from './TagInput.js';
 export { default as RangeInput } from './RangeInput.js';
 export { default as FileUpload } from './FileUpload.js';
+export { default as Modal } from './Modal.js';
 
 console.log('🎨 UPO UI Components loaded'); 

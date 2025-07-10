@@ -30,7 +30,7 @@ import './RangeInput.js';
 import './FileUpload.js';
 import './Modal.js';
 import './Pagination.js';
-import './ProgressBar.js';
+import './RadioGroup.js';
 
 // Export all components for easy importing
 export { default as Button } from './Button.js';
@@ -57,6 +57,6 @@ export { default as RangeInput } from './RangeInput.js';
 export { default as FileUpload } from './FileUpload.js';
 export { default as Modal } from './Modal.js';
 export { default as Pagination } from './Pagination.js';
-export { default as ProgressBar } from './ProgressBar.js';
+export { default as RadioGroup } from './RadioGroup.js';
 
 console.log('🎨 UPO UI Components loaded'); 

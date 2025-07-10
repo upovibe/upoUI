@@ -104,7 +104,6 @@ class Sidebar extends App {
             { href: '/docs/components/fileupload', label: 'File Upload' },
             { href: '/docs/components/input', label: 'Input' },
             { href: '/docs/components/link', label: 'Link' },
-            { href: '/docs/components/menu', label: 'Menu' },
             { href: '/docs/components/modal', label: 'Modal' },
             { href: '/docs/components/pagination', label: 'Pagination' },
             { href: '/docs/components/progress', label: 'Progress Bar' },

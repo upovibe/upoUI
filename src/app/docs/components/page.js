@@ -33,7 +33,6 @@ class DocsComponentsPage extends App {
             { href: '/docs/components/fileupload', label: 'File Upload', description: 'Upload files with drag & drop or file picker.' },
             { href: '/docs/components/input', label: 'Input', description: 'Form input fields with focus states and validation.' },
             { href: '/docs/components/link', label: 'Link', description: 'Styled link components with hover and focus states.' },
-            { href: '/docs/components/menu', label: 'Menu', description: 'Navigation or action menus for dropdowns or drawers.' },
             { href: '/docs/components/modal', label: 'Modal', description: 'Centralized popup for focused user interaction.' },
             { href: '/docs/components/pagination', label: 'Pagination', description: 'Page controls for navigating long lists.' },
             { href: '/docs/components/progress', label: 'Progress Bar', description: 'Track the completion of a task or process.' },

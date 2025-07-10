@@ -372,6 +372,41 @@ class Table extends HTMLElement {
                     border-top: 1px solid #e5e7eb;
                 }
                 
+                .upo-table-pagination-left {
+                    display: flex;
+                    align-items: center;
+                    gap: 1rem;
+                }
+                
+                .upo-table-page-size {
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                    font-size: 0.875rem;
+                    color: #6b7280;
+                }
+                
+                .upo-table-page-size-select {
+                    padding: 0.25rem 0.5rem;
+                    font-size: 0.875rem;
+                    border: 1px solid #d1d5db;
+                    border-radius: 0.375rem;
+                    outline: none;
+                    background-color: #ffffff;
+                    color: #374151;
+                    cursor: pointer;
+                    transition: all 0.15s ease-in-out;
+                }
+                
+                .upo-table-page-size-select:focus {
+                    border-color: #3b82f6;
+                    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
+                }
+                
+                .upo-table-page-size-select:hover {
+                    border-color: #9ca3af;
+                }
+                
                 .upo-table-pagination-info {
                     font-size: 0.875rem;
                     color: #6b7280;
@@ -379,23 +414,56 @@ class Table extends HTMLElement {
                 
                 .upo-table-pagination-controls {
                     display: flex;
-                    gap: 0.5rem;
+                    gap: 0.25rem;
                 }
                 
                 .upo-table-pagination-button {
-                    padding: 0.375rem 0.75rem;
-                    font-size: 0.875rem;
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    min-width: 2rem;
+                    height: 2rem;
+                    padding: 0 0.5rem;
                     border: 1px solid #d1d5db;
-                    background-color: #ffffff;
+                    background: white;
                     color: #374151;
+                    text-decoration: none;
                     border-radius: 0.375rem;
+                    font-size: 0.75rem;
+                    font-weight: 500;
                     cursor: pointer;
                     transition: all 0.15s ease-in-out;
+                    user-select: none;
                 }
                 
                 .upo-table-pagination-button:hover:not(:disabled) {
                     background-color: #f9fafb;
                     border-color: #9ca3af;
+                    color: #111827;
+                }
+                
+                .upo-table-pagination-button.active {
+                    background-color: #3b82f6;
+                    border-color: #3b82f6;
+                    color: white;
+                }
+                
+                .upo-table-pagination-button.active:hover {
+                    background-color: #2563eb;
+                    border-color: #2563eb;
+                }
+                
+                .upo-table-pagination-button:disabled {
+                    opacity: 0.5;
+                    cursor: not-allowed;
+                    background-color: #f3f4f6;
+                    color: #9ca3af;
+                }
+                
+                .upo-table-pagination-button:disabled:hover {
+                    background-color: #f3f4f6;
+                    border-color: #d1d5db;
+                    color: #9ca3af;
                 }
                 
                 .upo-table-pagination-button:disabled {
@@ -764,6 +832,23 @@ class Table extends HTMLElement {
     }
 
     /**
+     * Handle page size changes
+     * @param {Event} event - The change event
+     */
+    handlePageSizeChange(event) {
+        const newPageSize = parseInt(event.target.value);
+        if (newPageSize && newPageSize !== this.pageSize) {
+            this.pageSize = newPageSize;
+            this.currentPage = 1; // Reset to first page
+            this.render();
+            this.dispatchEvent(new CustomEvent('table-page-size-change', {
+                detail: { pageSize: newPageSize },
+                bubbles: true
+            }));
+        }
+    }
+
+    /**
      * Go to a specific page
      * @param {number} page - The page number
      */
@@ -1033,9 +1118,22 @@ class Table extends HTMLElement {
             
             tableHTML += `
                 <div class="upo-table-pagination">
-                    <div class="upo-table-pagination-info">
-                        Showing ${startItem} to ${endItem} of ${dataToUse.length} results
-                        ${(this.searchable && this.searchQuery) || (this.filterable && this.filterValue) ? ` (filtered from ${this.data.length} total)` : ''}
+                    <div class="upo-table-pagination-left">
+                        <div class="upo-table-pagination-info">
+                            Showing ${startItem} to ${endItem} of ${dataToUse.length} results
+                            ${(this.searchable && this.searchQuery) || (this.filterable && this.filterValue) ? ` (filtered from ${this.data.length} total)` : ''}
+                        </div>
+                        <div class="upo-table-page-size">
+                            <label for="page-size-select">Show:</label>
+                            <select id="page-size-select" class="upo-table-page-size-select">
+                                <option value="5" ${this.pageSize === 5 ? 'selected' : ''}>5</option>
+                                <option value="10" ${this.pageSize === 10 ? 'selected' : ''}>10</option>
+                                <option value="25" ${this.pageSize === 25 ? 'selected' : ''}>25</option>
+                                <option value="50" ${this.pageSize === 50 ? 'selected' : ''}>50</option>
+                                <option value="100" ${this.pageSize === 100 ? 'selected' : ''}>100</option>
+                            </select>
+                            <span>entries</span>
+                        </div>
                     </div>
                     <div class="upo-table-pagination-controls">
                         <button class="upo-table-pagination-button" ${this.currentPage === 1 ? 'disabled' : ''} onclick="this.closest('ui-table').goToPage(${this.currentPage - 1})">
@@ -1115,6 +1213,14 @@ class Table extends HTMLElement {
             const filterSelect = this.querySelector('.upo-table-filter-select');
             if (filterSelect) {
                 filterSelect.addEventListener('change', this.handleFilterChange.bind(this));
+            }
+        }
+
+        // Add page size selector event listeners
+        if (this.pagination) {
+            const pageSizeSelect = this.querySelector('.upo-table-page-size-select');
+            if (pageSizeSelect) {
+                pageSizeSelect.addEventListener('change', this.handlePageSizeChange.bind(this));
             }
         }
     }

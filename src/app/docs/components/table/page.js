@@ -457,7 +457,7 @@ export default TableExample;`;
                         <li>• Use <code>sortable="true"</code> to enable column sorting</li>
                         <li>• Use <code>selectable="true"</code> to enable row selection</li>
                         <li>• Use <code>pagination="true"</code> to enable pagination</li>
-                        <li>• Use <code>page-size</code> to set rows per page</li>
+                        <li>• Use <code>page-size</code> to set initial rows per page (5, 10, 25, 50, 100 available)</li>
                         <li>• Use <code>striped="true"</code> for alternating row colors</li>
                         <li>• Use <code>bordered="true"</code> for table borders</li>
                         <li>• Use <code>compact="true"</code> for reduced padding</li>
@@ -584,6 +584,10 @@ export default TableExample;`;
                                 <tr>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">table-page-change</td>
                                     <td class="px-6 py-4 text-sm text-gray-500">Fired when page changes (detail: { page: number })</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">table-page-size-change</td>
+                                    <td class="px-6 py-4 text-sm text-gray-500">Fired when page size changes (detail: { pageSize: number })</td>
                                 </tr>
                             </tbody>
                         </table>

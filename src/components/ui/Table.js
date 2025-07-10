@@ -211,6 +211,44 @@ class Table extends HTMLElement {
                     width: 1rem;
                     height: 1rem;
                     margin: 0;
+                    cursor: pointer;
+                    accent-color: #3b82f6;
+                    border: 2px solid #d1d5db;
+                    border-radius: 0.25rem;
+                    transition: all 0.15s ease-in-out;
+                    appearance: none;
+                    -webkit-appearance: none;
+                    -moz-appearance: none;
+                    position: relative;
+                    background-color: white;
+                }
+                
+                .upo-table-checkbox:checked {
+                    background-color: #3b82f6;
+                    border-color: #3b82f6;
+                }
+                
+                .upo-table-checkbox:checked::after {
+                    content: '';
+                    position: absolute;
+                    left: 50%;
+                    top: 50%;
+                    transform: translate(-50%, -50%);
+                    width: 0.25rem;
+                    height: 0.5rem;
+                    border: 2px solid white;
+                    border-top: none;
+                    border-left: none;
+                    transform: translate(-50%, -60%) rotate(45deg);
+                }
+                
+                .upo-table-checkbox:focus {
+                    outline: 2px solid #3b82f6;
+                    outline-offset: 2px;
+                }
+                
+                .upo-table-checkbox:hover {
+                    border-color: #3b82f6;
                 }
                 
                 .upo-table-container {
@@ -618,6 +656,19 @@ class Table extends HTMLElement {
             detail: { row: null, selected: false, all: true },
             bubbles: true
         }));
+    }
+
+    /**
+     * Check if all visible rows are selected
+     * @returns {boolean} True if all visible rows are selected
+     */
+    areAllVisibleRowsSelected() {
+        if (!this.selectable) return false;
+        
+        const visibleData = this.getVisibleData();
+        if (visibleData.length === 0) return false;
+        
+        return visibleData.every(row => this.selectedRows.has(row));
     }
 
     /**
@@ -1084,7 +1135,7 @@ class Table extends HTMLElement {
                 <table class="${tableClasses}" role="table">
                     <thead>
                         <tr>
-                            ${this.selectable ? '<th><input type="checkbox" class="upo-table-checkbox" data-select-all></th>' : ''}
+                            ${this.selectable ? `<th><input type="checkbox" class="upo-table-checkbox" data-select-all ${this.areAllVisibleRowsSelected() ? 'checked' : ''}></th>` : ''}
                             ${this.columns.map(col => `
                                 <th data-column="${col.key}" ${this.sortable ? 'tabindex="0" role="button"' : ''}>
                                     ${col.label || col.key}

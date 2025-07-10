@@ -1,3 +1,45 @@
+/**
+ * Input Component
+ * 
+ * A versatile input component that supports various input types with enhanced functionality.
+ * Based on shadcn/ui input design pattern.
+ * 
+ * Attributes:
+ * - type: 'text' | 'password' | 'email' | 'number' | 'date' | 'datetime-local' | 'time' | 'search' (default: 'text')
+ * - placeholder: string (default: '')
+ * - value: string (default: '')
+ * - disabled: boolean (default: false)
+ * - prefix: string (default: '') - Text or symbol to show before input
+ * - suffix: string (default: '') - Text or symbol to show after input
+ * - leading-icon: string (default: '') - SVG icon to show before input
+ * - trailing-icon: string (default: '') - SVG icon to show after input
+ * - floating-label: boolean (default: false) - Enable floating label behavior
+ * 
+ * Features:
+ * - Password inputs have toggle visibility
+ * - Email inputs have validation
+ * - Number inputs use native browser controls
+ * - Search inputs have search icon
+ * - Date/time inputs use native browser picker
+ * - Prefix and suffix support
+ * - Leading and trailing icons
+ * - Floating labels
+ * 
+ * Usage:
+ * <ui-input></ui-input>
+ * <ui-input prefix="$" placeholder="Amount"></ui-input>
+ * <ui-input suffix="%" placeholder="Percentage"></ui-input>
+ * <ui-input leading-icon="<svg>...</svg>" placeholder="With icon"></ui-input>
+ * <ui-input floating-label placeholder="Floating label"></ui-input>
+ * <ui-input type="password"></ui-input>
+ * <ui-input type="email"></ui-input>
+ * <ui-input type="number"></ui-input>
+ * <ui-input type="date"></ui-input>
+ * <ui-input type="datetime-local"></ui-input>
+ * <ui-input type="time"></ui-input>
+ * <ui-input type="search"></ui-input>
+ */
+
 class Input extends HTMLElement {
     constructor() {
         super();
@@ -47,9 +89,9 @@ class Input extends HTMLElement {
                 .upo-input-default {
                     display: block;
                     width: 100%;
-                    padding: 0.75rem;
-                    font-size: 1rem;
-                    line-height: 1.5;
+                    padding: 0.5rem 0.75rem;
+                    font-size: 0.875rem;
+                    line-height: 1.25;
                     color: #374151;
                     background-color: #ffffff;
                     border: 1px solid #d1d5db;
@@ -71,23 +113,58 @@ class Input extends HTMLElement {
                     color: #9ca3af;
                 }
                 
-                /* Date picker input styles */
-                .upo-input-date-picker {
+                /* Search input styles */
+                .upo-input-search {
                     position: relative;
                     display: inline-block;
                     width: 100%;
                 }
                 
-                .upo-input-date-picker .upo-input-default {
+                .upo-input-search .upo-input-default {
+                    padding-left: 2.5rem;
+                    padding-right: 0.75rem;
+                }
+                
+                .upo-input-search .search-icon {
+                    position: absolute;
+                    left: 0.75rem;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    color: #9ca3af;
+                    pointer-events: none;
+                    width: 1rem;
+                    height: 1rem;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+                
+                .upo-input-search .search-icon svg {
+                    width: 100%;
+                    height: 100%;
+                }
+                
+                .upo-input-search:focus-within .search-icon {
+                    color: #3b82f6;
+                }
+                
+                /* Password input styles - fix icon positioning */
+                .upo-input-password {
+                    position: relative;
+                    display: inline-block;
+                    width: 100%;
+                }
+                
+                .upo-input-password .upo-input-default {
                     padding-right: 2.5rem;
                 }
                 
-                .upo-input-date-picker .calendar-icon {
+                .upo-input-password .toggle-password {
                     position: absolute;
                     right: 0.75rem;
                     top: 50%;
                     transform: translateY(-50%);
-                    color: #374151;
+                    color: #9ca3af;
                     cursor: pointer;
                     transition: color 0.15s ease-in-out;
                     z-index: 10;
@@ -96,18 +173,198 @@ class Input extends HTMLElement {
                     display: flex;
                     align-items: center;
                     justify-content: center;
+                    background: none;
+                    border: none;
+                    padding: 0;
+                    margin: 0;
                 }
                 
-                .upo-input-date-picker .calendar-icon svg {
+                .upo-input-password .toggle-password svg {
                     width: 100%;
                     height: 100%;
                 }
                 
-                .upo-input-date-picker:hover .calendar-icon {
-                    color: #9ca3af;
+                .upo-input-password .toggle-password:hover {
+                    color: #374151;
                 }
                 
-                .upo-input-date-picker:focus-within .calendar-icon {
+                .upo-input-password:focus-within .toggle-password {
+                    color: #3b82f6;
+                }
+                
+                /* Email input validation styles */
+                .upo-input-email.upo-input-invalid .upo-input-default {
+                    border-color: #ef4444;
+                    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+                }
+                
+                .upo-input-email.upo-input-valid .upo-input-default {
+                    border-color: #10b981;
+                    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+                }
+                
+                /* Input with prefix/suffix styles */
+                .upo-input-with-prefix,
+                .upo-input-with-suffix {
+                    position: relative;
+                    display: inline-block;
+                    width: 100%;
+                }
+                
+                .upo-input-with-prefix .upo-input-default {
+                    padding-left: 2.5rem;
+                }
+                
+                .upo-input-with-suffix .upo-input-default {
+                    padding-right: 2.5rem;
+                }
+                
+                .upo-input-prefix,
+                .upo-input-suffix {
+                    position: absolute;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    color: #6b7280;
+                    font-size: 0.875rem;
+                    font-weight: 500;
+                    pointer-events: none;
+                    z-index: 10;
+                }
+                
+                .upo-input-prefix {
+                    left: 0.75rem;
+                }
+                
+                .upo-input-suffix {
+                    right: 0.75rem;
+                }
+                
+                /* Input with icons styles */
+                .upo-input-with-leading-icon,
+                .upo-input-with-trailing-icon {
+                    position: relative;
+                    display: inline-block;
+                    width: 100%;
+                }
+                
+                .upo-input-with-leading-icon .upo-input-default {
+                    padding-left: 2.5rem;
+                }
+                
+                .upo-input-with-trailing-icon .upo-input-default {
+                    padding-right: 2.5rem;
+                }
+                
+                .upo-input-leading-icon,
+                .upo-input-trailing-icon {
+                    position: absolute;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    color: #6b7280;
+                    pointer-events: none;
+                    z-index: 10;
+                    width: 1rem;
+                    height: 1rem;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+                
+                .upo-input-leading-icon {
+                    left: 0.75rem;
+                }
+                
+                .upo-input-trailing-icon {
+                    right: 0.75rem;
+                }
+                
+                .upo-input-leading-icon svg,
+                .upo-input-trailing-icon svg {
+                    width: 100%;
+                    height: 100%;
+                }
+                
+                /* Floating label styles */
+                .upo-input-floating {
+                    position: relative;
+                    display: inline-block;
+                    width: 100%;
+                }
+                
+                .upo-input-floating .upo-input-default {
+                    padding-top: 1.25rem;
+                    padding-bottom: 0.25rem;
+                    padding-left: 0.75rem;
+                    padding-right: 0.75rem;
+                    font-size: 0.875rem;
+                    line-height: 1.25;
+                }
+                
+                .upo-input-floating-label {
+                    position: absolute;
+                    top: 0.75rem;
+                    left: 0.75rem;
+                    font-size: 0.875rem;
+                    color: #6b7280;
+                    transition: all 0.15s ease-in-out;
+                    pointer-events: none;
+                    z-index: 10;
+                    background: white;
+                    padding: 0 0.25rem;
+                }
+                
+                .upo-input-floating:focus-within .upo-input-floating-label,
+                .upo-input-floating.has-value .upo-input-floating-label {
+                    top: -0.5rem;
+                    font-size: 0.75rem;
+                    color: #3b82f6;
+                }
+                
+                .upo-input-floating:focus-within .upo-input-floating-label {
+                    color: #3b82f6;
+                }
+                
+                /* Password input styles */
+                .upo-input-password {
+                    position: relative;
+                    display: inline-block;
+                    width: 100%;
+                }
+                
+                .upo-input-password .upo-input-default {
+                    padding-right: 2.5rem;
+                }
+                
+                .upo-input-password .toggle-password {
+                    position: absolute;
+                    right: 0.75rem;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    color: #9ca3af;
+                    cursor: pointer;
+                    transition: color 0.15s ease-in-out;
+                    z-index: 10;
+                    width: 1rem;
+                    height: 1rem;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    background: none;
+                    border: none;
+                    padding: 0;
+                    margin: 0;
+                }
+                
+                .upo-input-password .toggle-password svg {
+                    width: 100%;
+                    height: 100%;
+                }
+                
+                .upo-input-password .toggle-password:hover {
+                    color: #374151;
+                }
+                
+                .upo-input-password:focus-within .toggle-password {
                     color: #3b82f6;
                 }
             `;
@@ -121,12 +378,23 @@ class Input extends HTMLElement {
         if (this.initialized) return;
         this.initialized = true;
         
+        // Store special attributes before removing them
+        this._prefix = this.getAttribute('prefix') || '';
+        this._suffix = this.getAttribute('suffix') || '';
+        this._leadingIcon = this.getAttribute('leading-icon') || '';
+        this._trailingIcon = this.getAttribute('trailing-icon') || '';
+        this._floatingLabel = this.hasAttribute('floating-label');
+        
         // Check if user provided classes
         const hasUserClass = this.hasAttribute('class');
         
-        // Apply default class if no user classes
+        // Apply default class to input element
         if (!hasUserClass) {
             this.input.className = 'upo-input-default';
+        } else {
+            // If user provided classes, add the default class to them
+            const userClasses = this.getAttribute('class');
+            this.input.className = `upo-input-default ${userClasses}`;
         }
         
         // Transfer all attributes to the internal input
@@ -135,9 +403,10 @@ class Input extends HTMLElement {
         attributes.forEach(attr => {
             const value = this.getAttribute(attr);
             if (attr === 'class' && hasUserClass) {
-                // Override default class with user classes
-                this.input.className = value;
-            } else {
+                // Add user classes to the default class
+                this.input.className = `upo-input-default ${value}`;
+            } else if (attr !== 'class') {
+                // Transfer all other attributes except class (already handled)
                 this.input.setAttribute(attr, value);
             }
         });
@@ -147,9 +416,222 @@ class Input extends HTMLElement {
             this.removeAttribute(attr);
         });
         
-        // Check if this is a date picker input
-        this.checkDatePicker();
+        // Setup input type-specific functionality
+        this.setupInputType();
+        
+        // Setup additional features
+        this.setupPrefixSuffix();
+        this.setupIcons();
+        this.setupLabels();
     }
+    
+    // Getter methods for attributes
+    get prefix() {
+        return this._prefix || '';
+    }
+    
+    get suffix() {
+        return this._suffix || '';
+    }
+    
+    get leadingIcon() {
+        return this._leadingIcon || '';
+    }
+    
+    get trailingIcon() {
+        return this._trailingIcon || '';
+    }
+    
+    get floatingLabel() {
+        return this._floatingLabel || false;
+    }
+    
+
+    
+    // Setup input type-specific functionality
+    setupInputType() {
+        const inputType = this.input.getAttribute('type') || 'text';
+        
+        switch (inputType) {
+            case 'search':
+                this.setupSearchInput();
+                break;
+            case 'password':
+                this.setupPasswordInput();
+                break;
+            case 'email':
+                this.setupEmailInput();
+                break;
+            case 'number':
+                this.setupNumberInput();
+                break;
+            case 'date':
+            case 'datetime-local':
+            case 'time':
+                this.setupDateInput();
+                break;
+            default:
+                // Basic text input - no additional setup needed
+                break;
+        }
+    }
+    
+    // Setup search input with search icon
+    setupSearchInput() {
+        this.classList.add('upo-input-search');
+        
+        // Add search icon
+        const icon = document.createElement('div');
+        icon.className = 'search-icon';
+        icon.innerHTML = '<svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>';
+        
+        this.appendChild(icon);
+    }
+    
+    // Setup password input with toggle visibility
+    setupPasswordInput() {
+        this.classList.add('upo-input-password');
+        
+        // Add toggle password button
+        const toggleBtn = document.createElement('button');
+        toggleBtn.className = 'toggle-password';
+        toggleBtn.type = 'button';
+        toggleBtn.setAttribute('aria-label', 'Toggle password visibility');
+        toggleBtn.innerHTML = '<svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>';
+        
+        toggleBtn.addEventListener('click', () => {
+            const type = this.input.type === 'password' ? 'text' : 'password';
+            this.input.type = type;
+            
+            // Update icon
+            if (type === 'text') {
+                toggleBtn.innerHTML = '<svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 7c2.76 0 5 2.24 5 5 0 .65-.13 1.26-.36 1.83l2.92 2.92c1.51-1.26 2.7-2.89 3.43-4.75-1.73-4.39-6-7.5-11-7.5-1.4 0-2.74.25-3.98.7l2.16 2.16C10.74 7.13 11.35 7 12 7zM2 4.27l2.28 2.28.46.46C3.08 8.3 1.78 10.02 1 12c1.73 4.39 6 7.5 11 7.5 1.55 0 3.03-.3 4.38-.84l.42.42L19.73 22 21 20.73 3.27 3 2 4.27zM7.53 9.8l1.55 1.55c-.05.21-.08.43-.08.65 0 1.66 1.34 3 3 3 .22 0 .44-.03.65-.08l1.55 1.55c-.67.33-1.41.53-2.2.53-2.76 0-5-2.24-5-5 0-.79.2-1.53.53-2.2zm4.31-.78l3.15 3.15.02-.16c0-1.66-1.34-3-3-3l-.17.01z"/></svg>';
+            } else {
+                toggleBtn.innerHTML = '<svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>';
+            }
+        });
+        
+        // Always append to wrapper for consistent positioning
+        this.appendChild(toggleBtn);
+    }
+    
+    // Setup email input with validation
+    setupEmailInput() {
+        this.classList.add('upo-input-email');
+        
+        // Add email validation
+        this.input.addEventListener('blur', () => {
+            this.validateEmail();
+        });
+        
+        this.input.addEventListener('input', () => {
+            // Clear validation state on input
+            this.classList.remove('upo-input-valid', 'upo-input-invalid');
+        });
+    }
+    
+    // Validate email format
+    validateEmail() {
+        const email = this.input.value.trim();
+        if (email === '') {
+            this.classList.remove('upo-input-valid', 'upo-input-invalid');
+            return;
+        }
+        
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const isValid = emailRegex.test(email);
+        
+        this.classList.remove('upo-input-valid', 'upo-input-invalid');
+        this.classList.add(isValid ? 'upo-input-valid' : 'upo-input-invalid');
+    }
+    
+    // Setup number input with native browser controls
+    setupNumberInput() {
+        // Use native browser number controls - no custom buttons needed
+        // The browser will handle the number input UI automatically
+    }
+    
+    // Setup date/time input with native browser picker
+    setupDateInput() {
+        // Use native browser date picker - no custom calendar needed
+        // The browser will handle the date picker UI automatically
+    }
+    
+    // Setup prefix and suffix
+    setupPrefixSuffix() {
+        if (this.prefix) {
+            this.classList.add('upo-input-with-prefix');
+            const prefixEl = document.createElement('div');
+            prefixEl.className = 'upo-input-prefix';
+            prefixEl.textContent = this.prefix;
+            this.appendChild(prefixEl);
+        }
+        
+        if (this.suffix) {
+            this.classList.add('upo-input-with-suffix');
+            const suffixEl = document.createElement('div');
+            suffixEl.className = 'upo-input-suffix';
+            suffixEl.textContent = this.suffix;
+            this.appendChild(suffixEl);
+        }
+    }
+    
+    // Setup leading and trailing icons
+    setupIcons() {
+        if (this.leadingIcon) {
+            this.classList.add('upo-input-with-leading-icon');
+            const iconEl = document.createElement('div');
+            iconEl.className = 'upo-input-leading-icon';
+            iconEl.innerHTML = this.leadingIcon;
+            this.appendChild(iconEl);
+        }
+        
+        if (this.trailingIcon) {
+            this.classList.add('upo-input-with-trailing-icon');
+            const iconEl = document.createElement('div');
+            iconEl.className = 'upo-input-trailing-icon';
+            iconEl.innerHTML = this.trailingIcon;
+            this.appendChild(iconEl);
+        }
+    }
+    
+    // Setup floating labels
+    setupLabels() {
+        if (this.floatingLabel) {
+            this.classList.add('upo-input-floating');
+            const placeholder = this.input.getAttribute('placeholder') || '';
+            if (placeholder) {
+                const floatingLabelEl = document.createElement('div');
+                floatingLabelEl.className = 'upo-input-floating-label';
+                floatingLabelEl.textContent = placeholder;
+                this.appendChild(floatingLabelEl);
+                
+                // Remove placeholder from input for floating label
+                this.input.removeAttribute('placeholder');
+                
+                // Handle floating label behavior
+                this.input.addEventListener('input', () => {
+                    if (this.input.value) {
+                        this.classList.add('has-value');
+                    } else {
+                        this.classList.remove('has-value');
+                    }
+                });
+                
+                this.input.addEventListener('focus', () => {
+                    this.classList.add('has-value');
+                });
+                
+                this.input.addEventListener('blur', () => {
+                    if (!this.input.value) {
+                        this.classList.remove('has-value');
+                    }
+                });
+            }
+        }
+    }
+    
+
     
     // Get the value of the input
     get value() {
@@ -166,41 +648,11 @@ class Input extends HTMLElement {
         this.input.focus();
     }
     
-    checkDatePicker() {
-        const isDatePicker = this.input.classList.contains('date-picker') || 
-                           this.input.classList.contains('upo-datepicker-input') ||
-                           this.input.hasAttribute('data-date-picker') ||
-                           this.input.getAttribute('type') === 'date' ||
-                           this.input.getAttribute('type') === 'datetime-local';
-        
-        if (isDatePicker) {
-            // Add date picker wrapper class
-            this.classList.add('upo-input-date-picker');
-            
-            // Add calendar icon
-            const icon = document.createElement('div');
-            icon.className = 'calendar-icon';
-            icon.innerHTML = '<svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M2,19c0,1.7,1.3,3,3,3h14c1.7,0,3-1.3,3-3v-8H2V19z M19,4h-2V3c0-0.6-0.4-1-1-1s-1,0.4-1,1v1H9V3c0-0.6-0.4-1-1-1S7,2.4,7,3v1H5C3.3,4,2,5.3,2,7v2h20V7C22,5.3,20.7,4,19,4z"></path></g></svg>';
-            
-            // Add click event to the icon to trigger calendar dropdown
-            icon.addEventListener('click', (e) => {
-                e.stopPropagation(); // Prevent event bubbling
-                // Dispatch a custom event that the date picker can listen for
-                this.dispatchEvent(new CustomEvent('calendar-icon-click', {
-                    bubbles: true,
-                    detail: { input: this }
-                }));
-            });
-            
-            this.appendChild(icon);
-        }
-    }
-    
     // Blur method
     blur() {
         this.input.blur();
     }
 }
 
-    customElements.define('ui-input', Input);
+customElements.define('ui-input', Input);
 export default Input; 

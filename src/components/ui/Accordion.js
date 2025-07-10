@@ -35,7 +35,7 @@ class AccordionItem extends HTMLElement {
         this._onHeaderClick = this._onHeaderClick.bind(this);
         this._onHeaderKeyDown = this._onHeaderKeyDown.bind(this);
     }
-
+        
     // Add default CSS styles to document if not already added
     addDefaultStyles() {
         if (!document.getElementById('upo-ui-accordion-styles')) {
@@ -131,9 +131,9 @@ class AccordionItem extends HTMLElement {
         const title = this.getAttribute('title') || 'Section';
         this.header.innerHTML = `
             <span class="upo-accordion-title">${title}</span>
-            <span class="upo-accordion-chevron" aria-hidden="true">
-                <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="#6b7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 8 10 12 14 8"/></svg>
-            </span>
+                <span class="upo-accordion-chevron" aria-hidden="true">
+                    <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="#6b7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 8 10 12 14 8"/></svg>
+                </span>
         `;
 
         // Set up the content
@@ -251,12 +251,12 @@ class AccordionItem extends HTMLElement {
                 }
             });
         }
-        
+            
         // Toggle this item
-        if (this.hasAttribute('open')) {
-            this.removeAttribute('open');
-        } else {
-            this.setAttribute('open', '');
+            if (this.hasAttribute('open')) {
+                this.removeAttribute('open');
+            } else {
+                this.setAttribute('open', '');
         }
     }
 
@@ -295,11 +295,11 @@ class Accordion extends HTMLElement {
                         item.removeAttribute('open');
                     } else {
                         openItem = item;
-                    }
                 }
+            }
             });
-        }
     }
+}
 }
 
 customElements.define('ui-accordion-item', AccordionItem);

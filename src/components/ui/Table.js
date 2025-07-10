@@ -37,7 +37,7 @@
  */
 class Table extends HTMLElement {
     static get observedAttributes() {
-        return ['data', 'columns', 'title', 'sortable', 'selectable', 'pagination', 'page-size', 'striped', 'bordered', 'compact', 'searchable', 'search-placeholder', 'clickable', 'filterable'];
+        return ['data', 'columns', 'title', 'sortable', 'selectable', 'pagination', 'page-size', 'striped', 'bordered', 'compact', 'searchable', 'search-placeholder', 'clickable', 'filterable', 'addable'];
     }
 
     constructor() {
@@ -58,6 +58,7 @@ class Table extends HTMLElement {
         this.searchPlaceholder = this.getAttribute('search-placeholder') || 'Search...';
         this.clickable = this.hasAttribute('clickable');
         this.filterable = this.hasAttribute('filterable');
+        this.addable = this.hasAttribute('addable');
         
         // Internal state
         this.currentPage = 1;
@@ -401,6 +402,23 @@ class Table extends HTMLElement {
                     color: #2563eb;
                 }
                 
+                .upo-table-add {
+                    padding: 0.5rem;
+                    border: none;
+                    background: none;
+                    color: #6b7280;
+                    border-radius: 0.375rem;
+                    cursor: pointer;
+                    display: flex;
+                    align-items: center;
+                    transition: background 0.15s;
+                }
+                
+                .upo-table-add:hover {
+                    background-color: #f3f4f6;
+                    color: #10b981;
+                }
+                
                 .upo-table-pagination {
                     display: flex;
                     justify-content: space-between;
@@ -560,7 +578,7 @@ class Table extends HTMLElement {
             if (name === 'data' || name === 'columns') {
                 this[name] = this.parseJSONAttribute(name, name === 'data' ? [] : []);
                 this.filteredData = [...this.data];
-            } else if (name === 'sortable' || name === 'selectable' || name === 'pagination' || name === 'striped' || name === 'bordered' || name === 'compact' || name === 'searchable' || name === 'clickable' || name === 'filterable') {
+            } else if (name === 'sortable' || name === 'selectable' || name === 'pagination' || name === 'striped' || name === 'bordered' || name === 'compact' || name === 'searchable' || name === 'clickable' || name === 'filterable' || name === 'addable') {
                 this[name] = this.hasAttribute(name);
             } else if (name === 'page-size') {
                 this.pageSize = parseInt(newValue) || 10;
@@ -676,6 +694,16 @@ class Table extends HTMLElement {
      */
     refresh() {
         this.dispatchEvent(new CustomEvent('table-refresh', {
+            detail: { timestamp: Date.now() },
+            bubbles: true
+        }));
+    }
+
+    /**
+     * Add new item
+     */
+    add() {
+        this.dispatchEvent(new CustomEvent('table-add', {
             detail: { timestamp: Date.now() },
             bubbles: true
         }));
@@ -1120,6 +1148,18 @@ class Table extends HTMLElement {
   </svg>
 </button>
         `;
+        
+        // Add button (icon only) - right side (only if addable is enabled)
+        if (this.addable) {
+            tableHTML += `
+                <button class="upo-table-add" onclick="this.closest('ui-table').add()" aria-label="Add new item">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                </button>
+            `;
+        }
         
         tableHTML += `
                     </div>

@@ -454,6 +454,7 @@ export default TableExample;`;
                         <li>• Use <code>searchable="true"</code> to enable search functionality</li>
                         <li>• Use <code>search-placeholder</code> to customize search input placeholder</li>
                         <li>• Use <code>filterable="true"</code> to enable dropdown filtering for the first column</li>
+                        <li>• Use <code>addable="true"</code> to enable the add button for creating new items</li>
                         <li>• Use <code>sortable="true"</code> to enable column sorting</li>
                         <li>• Use <code>selectable="true"</code> to enable row selection</li>
                         <li>• Use <code>pagination="true"</code> to enable pagination</li>
@@ -461,7 +462,7 @@ export default TableExample;`;
                         <li>• Use <code>striped="true"</code> for alternating row colors</li>
                         <li>• Use <code>bordered="true"</code> for table borders</li>
                         <li>• Use <code>compact="true"</code> for reduced padding</li>
-                        <li>• Listen for <code>table-sort</code>, <code>table-select</code>, <code>table-page-change</code>, and <code>table-search</code> events</li>
+                        <li>• Listen for <code>table-sort</code>, <code>table-select</code>, <code>table-page-change</code>, <code>table-search</code>, and <code>table-add</code> events</li>
                         <li>• Table is fully accessible with keyboard navigation and screen readers</li>
                         <li>• Responsive design with horizontal scrolling for mobile</li>
                         <li>• Search works across all columns and updates pagination automatically</li>
@@ -512,6 +513,12 @@ export default TableExample;`;
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">boolean</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">false</td>
                                     <td class="px-6 py-4 text-sm text-gray-500">Enable dropdown filtering for the first column</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">addable</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">boolean</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">false</td>
+                                    <td class="px-6 py-4 text-sm text-gray-500">Enable add button for creating new items</td>
                                 </tr>
                                 <tr>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">sortable</td>
@@ -588,6 +595,10 @@ export default TableExample;`;
                                 <tr>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">table-page-size-change</td>
                                     <td class="px-6 py-4 text-sm text-gray-500">Fired when page size changes (detail: { pageSize: number })</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">table-add</td>
+                                    <td class="px-6 py-4 text-sm text-gray-500">Fired when add button is clicked (detail: { timestamp: number })</td>
                                 </tr>
                             </tbody>
                         </table>

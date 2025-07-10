@@ -37,7 +37,7 @@
  */
 class Table extends HTMLElement {
     static get observedAttributes() {
-        return ['data', 'columns', 'title', 'sortable', 'selectable', 'pagination', 'page-size', 'striped', 'bordered', 'compact', 'searchable', 'search-placeholder', 'clickable', 'filterable', 'addable'];
+        return ['data', 'columns', 'title', 'sortable', 'selectable', 'pagination', 'page-size', 'striped', 'bordered', 'compact', 'searchable', 'search-placeholder', 'clickable', 'filterable', 'addable', 'action'];
     }
 
     constructor() {
@@ -59,6 +59,7 @@ class Table extends HTMLElement {
         this.clickable = this.hasAttribute('clickable');
         this.filterable = this.hasAttribute('filterable');
         this.addable = this.hasAttribute('addable');
+        this.action = this.hasAttribute('action');
         
         // Internal state
         this.currentPage = 1;
@@ -206,6 +207,50 @@ class Table extends HTMLElement {
                 
                 .upo-table-selectable tbody tr.selected:hover {
                     background-color: #bfdbfe;
+                }
+                
+                .upo-table-action-column {
+                    position: sticky;
+                    right: 0;
+                    background-color: #ffffff;
+                    z-index: 10;
+                    border-left: 2px solid #e5e7eb;
+                }
+                
+                .upo-table-action-buttons {
+                    display: flex;
+                    gap: 0.25rem;
+                    justify-content: center;
+                    align-items: center;
+                }
+                
+                .upo-table-action-button {
+                    padding: 0.25rem;
+                    border: none;
+                    background: none;
+                    color: #6b7280;
+                    border-radius: 0.25rem;
+                    cursor: pointer;
+                    display: flex;
+                    align-items: center;
+                    transition: all 0.15s ease-in-out;
+                    font-size: 0.75rem;
+                }
+                
+                .upo-table-action-button:hover {
+                    background-color: #f3f4f6;
+                }
+                
+                .upo-table-action-button.view:hover {
+                    color: #3b82f6;
+                }
+                
+                .upo-table-action-button.edit:hover {
+                    color: #f59e0b;
+                }
+                
+                .upo-table-action-button.delete:hover {
+                    color: #ef4444;
                 }
                 
                 .upo-table-checkbox {
@@ -578,7 +623,7 @@ class Table extends HTMLElement {
             if (name === 'data' || name === 'columns') {
                 this[name] = this.parseJSONAttribute(name, name === 'data' ? [] : []);
                 this.filteredData = [...this.data];
-            } else if (name === 'sortable' || name === 'selectable' || name === 'pagination' || name === 'striped' || name === 'bordered' || name === 'compact' || name === 'searchable' || name === 'clickable' || name === 'filterable' || name === 'addable') {
+            } else if (name === 'sortable' || name === 'selectable' || name === 'pagination' || name === 'striped' || name === 'bordered' || name === 'compact' || name === 'searchable' || name === 'clickable' || name === 'filterable' || name === 'addable' || name === 'action') {
                 this[name] = this.hasAttribute(name);
             } else if (name === 'page-size') {
                 this.pageSize = parseInt(newValue) || 10;
@@ -707,6 +752,48 @@ class Table extends HTMLElement {
             detail: { timestamp: Date.now() },
             bubbles: true
         }));
+    }
+
+    /**
+     * View row action
+     * @param {number} rowIndex - The index of the row
+     */
+    viewRow(rowIndex) {
+        const row = this.getVisibleData()[rowIndex];
+        if (row) {
+            this.dispatchEvent(new CustomEvent('table-view', {
+                detail: { row, rowIndex },
+                bubbles: true
+            }));
+        }
+    }
+
+    /**
+     * Edit row action
+     * @param {number} rowIndex - The index of the row
+     */
+    editRow(rowIndex) {
+        const row = this.getVisibleData()[rowIndex];
+        if (row) {
+            this.dispatchEvent(new CustomEvent('table-edit', {
+                detail: { row, rowIndex },
+                bubbles: true
+            }));
+        }
+    }
+
+    /**
+     * Delete row action
+     * @param {number} rowIndex - The index of the row
+     */
+    deleteRow(rowIndex) {
+        const row = this.getVisibleData()[rowIndex];
+        if (row) {
+            this.dispatchEvent(new CustomEvent('table-delete', {
+                detail: { row, rowIndex },
+                bubbles: true
+            }));
+        }
     }
 
     /**
@@ -1181,6 +1268,7 @@ class Table extends HTMLElement {
                                     ${col.label || col.key}
                                 </th>
                             `).join('')}
+                            ${this.action ? '<th class="upo-table-action-column">Actions</th>' : ''}
                         </tr>
                     </thead>
                     <tbody>
@@ -1218,6 +1306,30 @@ class Table extends HTMLElement {
                                 <td>${renderHTML ? cellValue : this.escapeHtml(cellValue)}</td>
                             `;
                         }).join('')}
+                        ${this.action ? `
+                            <td class="upo-table-action-column">
+                                <div class="upo-table-action-buttons">
+                                    <button class="upo-table-action-button view" onclick="this.closest('ui-table').viewRow(${index})" aria-label="View item">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                            <circle cx="12" cy="12" r="3"></circle>
+                                        </svg>
+                                    </button>
+                                    <button class="upo-table-action-button edit" onclick="this.closest('ui-table').editRow(${index})" aria-label="Edit item">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                                        </svg>
+                                    </button>
+                                    <button class="upo-table-action-button delete" onclick="this.closest('ui-table').deleteRow(${index})" aria-label="Delete item">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polyline points="3,6 5,6 21,6"></polyline>
+                                            <path d="M19,6v14a2,2 0 0,1 -2,2H7a2,2 0 0,1 -2,-2V6m3,0V4a2,2 0 0,1 2,-2h4a2,2 0 0,1 2,2v2"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </td>
+                        ` : ''}
                     </tr>
                 `;
             });

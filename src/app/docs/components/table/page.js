@@ -63,6 +63,18 @@ class TableDocsPage extends App {
   filterable="true"
 ></ui-table>`;
 
+        const addableExample = `<ui-table 
+  data='${JSON.stringify(sampleData)}' 
+  columns='${JSON.stringify(sampleColumns)}'
+  addable="true"
+></ui-table>`;
+
+        const actionExample = `<ui-table 
+  data='${JSON.stringify(sampleData)}' 
+  columns='${JSON.stringify(sampleColumns)}'
+  action="true"
+></ui-table>`;
+
         const paginationExample = `<ui-table 
   data='${JSON.stringify(sampleData)}' 
   columns='${JSON.stringify(sampleColumns)}'
@@ -158,6 +170,26 @@ class TableExample extends HTMLElement {
             const searchText = event.detail.query ? \`"\${event.detail.query}" (\${event.detail.results} results)\` : 'All';
             this.querySelector('#search-info').textContent = searchText;
             console.log('Search changed:', event.detail);
+        });
+        
+        this.addEventListener('table-add', (event) => {
+            console.log('Add button clicked:', event.detail);
+            // Handle adding new items
+        });
+        
+        this.addEventListener('table-view', (event) => {
+            console.log('View clicked:', event.detail.row, event.detail.rowIndex);
+            // Handle viewing item details
+        });
+        
+        this.addEventListener('table-edit', (event) => {
+            console.log('Edit clicked:', event.detail.row, event.detail.rowIndex);
+            // Handle editing item
+        });
+        
+        this.addEventListener('table-delete', (event) => {
+            console.log('Delete clicked:', event.detail.row, event.detail.rowIndex);
+            // Handle deleting item
         });
     }
 }
@@ -310,6 +342,54 @@ export default TableExample;`;
                   </ui-tab-panel>
                 </ui-tabs>
 
+                <h2 class="text-xl font-semibold mt-8 mb-4">Addable Table</h2>
+                <p class="mb-4 text-gray-600">Enable the add button to create new items.</p>
+                
+                <ui-tabs>
+                  <ui-tab-list>
+                    <ui-tab value="preview-addable">Preview</ui-tab>
+                    <ui-tab value="code-addable">Code</ui-tab>
+                  </ui-tab-list>
+                  
+                  <ui-tab-panel value="preview-addable">
+                    <ui-box class="p-4 shadow rounded-lg border border-gray-200">
+                      <ui-table 
+                        data='${JSON.stringify(sampleData)}' 
+                        columns='${JSON.stringify(sampleColumns)}'
+                        addable="true"
+                      ></ui-table>
+                    </ui-box>
+                  </ui-tab-panel>
+                  
+                  <ui-tab-panel value="code-addable">
+                    <ui-codeblock language="html" code="${addableExample.replace(/"/g, '&quot;')}"></ui-codeblock>
+                  </ui-tab-panel>
+                </ui-tabs>
+
+                <h2 class="text-xl font-semibold mt-8 mb-4">Action Buttons Table</h2>
+                <p class="mb-4 text-gray-600">Enable action buttons (view, edit, delete) on each row.</p>
+                
+                <ui-tabs>
+                  <ui-tab-list>
+                    <ui-tab value="preview-action">Preview</ui-tab>
+                    <ui-tab value="code-action">Code</ui-tab>
+                  </ui-tab-list>
+                  
+                  <ui-tab-panel value="preview-action">
+                    <ui-box class="p-4 shadow rounded-lg border border-gray-200">
+                      <ui-table 
+                        data='${JSON.stringify(sampleData)}' 
+                        columns='${JSON.stringify(sampleColumns)}'
+                        action="true"
+                      ></ui-table>
+                    </ui-box>
+                  </ui-tab-panel>
+                  
+                  <ui-tab-panel value="code-action">
+                    <ui-codeblock language="html" code="${actionExample.replace(/"/g, '&quot;')}"></ui-codeblock>
+                  </ui-tab-panel>
+                </ui-tabs>
+
                 <h2 class="text-xl font-semibold mt-8 mb-4">Sortable Table</h2>
                 <p class="mb-4 text-gray-600">Enable column sorting by clicking on headers.</p>
                 
@@ -455,6 +535,7 @@ export default TableExample;`;
                         <li>• Use <code>search-placeholder</code> to customize search input placeholder</li>
                         <li>• Use <code>filterable="true"</code> to enable dropdown filtering for the first column</li>
                         <li>• Use <code>addable="true"</code> to enable the add button for creating new items</li>
+                        <li>• Use <code>action="true"</code> to enable action buttons (view, edit, delete) on each row</li>
                         <li>• Use <code>sortable="true"</code> to enable column sorting</li>
                         <li>• Use <code>selectable="true"</code> to enable row selection</li>
                         <li>• Use <code>pagination="true"</code> to enable pagination</li>
@@ -462,7 +543,7 @@ export default TableExample;`;
                         <li>• Use <code>striped="true"</code> for alternating row colors</li>
                         <li>• Use <code>bordered="true"</code> for table borders</li>
                         <li>• Use <code>compact="true"</code> for reduced padding</li>
-                        <li>• Listen for <code>table-sort</code>, <code>table-select</code>, <code>table-page-change</code>, <code>table-search</code>, and <code>table-add</code> events</li>
+                        <li>• Listen for <code>table-sort</code>, <code>table-select</code>, <code>table-page-change</code>, <code>table-search</code>, <code>table-add</code>, <code>table-view</code>, <code>table-edit</code>, and <code>table-delete</code> events</li>
                         <li>• Table is fully accessible with keyboard navigation and screen readers</li>
                         <li>• Responsive design with horizontal scrolling for mobile</li>
                         <li>• Search works across all columns and updates pagination automatically</li>
@@ -519,6 +600,12 @@ export default TableExample;`;
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">boolean</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">false</td>
                                     <td class="px-6 py-4 text-sm text-gray-500">Enable add button for creating new items</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">action</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">boolean</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">false</td>
+                                    <td class="px-6 py-4 text-sm text-gray-500">Enable action buttons (view, edit, delete) on each row</td>
                                 </tr>
                                 <tr>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">sortable</td>
@@ -599,6 +686,18 @@ export default TableExample;`;
                                 <tr>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">table-add</td>
                                     <td class="px-6 py-4 text-sm text-gray-500">Fired when add button is clicked (detail: { timestamp: number })</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">table-view</td>
+                                    <td class="px-6 py-4 text-sm text-gray-500">Fired when view button is clicked (detail: { row: object, rowIndex: number })</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">table-edit</td>
+                                    <td class="px-6 py-4 text-sm text-gray-500">Fired when edit button is clicked (detail: { row: object, rowIndex: number })</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">table-delete</td>
+                                    <td class="px-6 py-4 text-sm text-gray-500">Fired when delete button is clicked (detail: { row: object, rowIndex: number })</td>
                                 </tr>
                             </tbody>
                         </table>

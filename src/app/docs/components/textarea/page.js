@@ -39,6 +39,17 @@ class TextareaDocsPage extends App {
   auto-resize
 ></ui-textarea>`;
 
+        const floatingLabelExample = `<ui-textarea floating-label placeholder="Your Message"></ui-textarea>
+<ui-textarea floating-label placeholder="Email Address" variant="primary"></ui-textarea>
+<ui-textarea floating-label placeholder="Description" size="lg"></ui-textarea>`;
+
+        const floatingLabelWithErrorExample = `<ui-textarea 
+  floating-label 
+  placeholder="Required Field" 
+  variant="error" 
+  error="This field is required"
+></ui-textarea>`;
+
         const statesExample = `<ui-textarea placeholder="Normal state"></ui-textarea>
 <ui-textarea placeholder="Disabled state" disabled></ui-textarea>
 <ui-textarea value="Read-only content" readonly></ui-textarea>`;
@@ -58,8 +69,8 @@ class TextareaExample extends HTMLElement {
                 <h3>Contact Form</h3>
                 <ui-textarea 
                     id="message-textarea"
-                    label="Your Message"
-                    placeholder="Enter your message here..."
+                    floating-label
+                    placeholder="Your Message"
                     maxlength="500"
                     show-count
                 ></ui-textarea>
@@ -111,8 +122,8 @@ export default TextareaExample;`;
                                 <ui-textarea placeholder="Enter your message"></ui-textarea>
                             </div>
                             <div class="flex flex-col gap-2">
-                                <h3 class="text-sm font-medium text-gray-700">With Character Count</h3>
-                                <ui-textarea placeholder="Type here..." maxlength="50" show-count></ui-textarea>
+                                <h3 class="text-sm font-medium text-gray-700">Floating Label</h3>
+                                <ui-textarea floating-label placeholder="Your Message"></ui-textarea>
                             </div>
                         </ui-box>
                     </div>
@@ -158,8 +169,8 @@ export default TextareaExample;`;
                   </ui-tab-panel>
                 </ui-tabs>
 
-                <h2 class="text-xl font-semibold mt-8 mb-4">Textarea Variants</h2>
-                <p class="mb-4 text-gray-600">Different color variants to match your design system and convey different states.</p>
+                <h2 class="text-xl font-semibold mt-8 mb-4">Floating Label</h2>
+                <p class="mb-4 text-gray-600">Modern floating label that animates above the textarea when focused or has content.</p>
                 
                 <ui-tabs>
                   <ui-tab-list>
@@ -169,6 +180,48 @@ export default TextareaExample;`;
                   
                   <ui-tab-panel value="preview3">
                     <ui-box class="space-y-4 p-4 shadow rounded-lg border border-gray-200">
+                      <ui-textarea floating-label placeholder="Your Message"></ui-textarea>
+                      <ui-textarea floating-label placeholder="Email Address" variant="primary"></ui-textarea>
+                      <ui-textarea floating-label placeholder="Description" size="lg"></ui-textarea>
+                    </ui-box>
+                  </ui-tab-panel>
+                  
+                  <ui-tab-panel value="code3">
+                    <ui-codeblock language="html" code="${floatingLabelExample.replace(/"/g, '&quot;')}"></ui-codeblock>
+                  </ui-tab-panel>
+                </ui-tabs>
+
+                <h2 class="text-xl font-semibold mt-8 mb-4">Floating Label with Error</h2>
+                <p class="mb-4 text-gray-600">Floating label with error state and validation message.</p>
+                
+                <ui-tabs>
+                  <ui-tab-list>
+                    <ui-tab value="preview4">Preview</ui-tab>
+                    <ui-tab value="code4">Code</ui-tab>
+                  </ui-tab-list>
+                  
+                  <ui-tab-panel value="preview4">
+                    <ui-box class="p-4 shadow rounded-lg border border-gray-200">
+                      <ui-textarea floating-label="Required Field" variant="error" error="This field is required"></ui-textarea>
+                    </ui-box>
+                  </ui-tab-panel>
+                  
+                  <ui-tab-panel value="code4">
+                    <ui-codeblock language="html" code="${floatingLabelWithErrorExample.replace(/"/g, '&quot;')}"></ui-codeblock>
+                  </ui-tab-panel>
+                </ui-tabs>
+
+                <h2 class="text-xl font-semibold mt-8 mb-4">Textarea Variants</h2>
+                <p class="mb-4 text-gray-600">Different color variants to match your design system and convey different states.</p>
+                
+                <ui-tabs>
+                  <ui-tab-list>
+                    <ui-tab value="preview5">Preview</ui-tab>
+                    <ui-tab value="code5">Code</ui-tab>
+                  </ui-tab-list>
+                  
+                  <ui-tab-panel value="preview5">
+                    <ui-box class="space-y-4 p-4 shadow rounded-lg border border-gray-200">
                       <ui-textarea placeholder="Default variant"></ui-textarea>
                       <ui-textarea variant="primary" placeholder="Primary variant"></ui-textarea>
                       <ui-textarea variant="success" placeholder="Success variant"></ui-textarea>
@@ -177,7 +230,7 @@ export default TextareaExample;`;
                     </ui-box>
                   </ui-tab-panel>
                   
-                  <ui-tab-panel value="code3">
+                  <ui-tab-panel value="code5">
                     <ui-codeblock language="html" code="${variantsExample.replace(/"/g, '&quot;')}"></ui-codeblock>
                   </ui-tab-panel>
                 </ui-tabs>
@@ -187,11 +240,11 @@ export default TextareaExample;`;
                 
                 <ui-tabs>
                   <ui-tab-list>
-                    <ui-tab value="preview4">Preview</ui-tab>
-                    <ui-tab value="code4">Code</ui-tab>
+                    <ui-tab value="preview6">Preview</ui-tab>
+                    <ui-tab value="code6">Code</ui-tab>
                   </ui-tab-list>
                   
-                  <ui-tab-panel value="preview4">
+                  <ui-tab-panel value="preview6">
                     <ui-box class="space-y-4 p-4 shadow rounded-lg border border-gray-200">
                       <ui-textarea size="sm" placeholder="Small size"></ui-textarea>
                       <ui-textarea size="md" placeholder="Medium size (default)"></ui-textarea>
@@ -199,7 +252,7 @@ export default TextareaExample;`;
                     </ui-box>
                   </ui-tab-panel>
                   
-                  <ui-tab-panel value="code4">
+                  <ui-tab-panel value="code6">
                     <ui-codeblock language="html" code="${sizesExample.replace(/"/g, '&quot;')}"></ui-codeblock>
                   </ui-tab-panel>
                 </ui-tabs>
@@ -209,17 +262,17 @@ export default TextareaExample;`;
                 
                 <ui-tabs>
                   <ui-tab-list>
-                    <ui-tab value="preview5">Preview</ui-tab>
-                    <ui-tab value="code5">Code</ui-tab>
+                    <ui-tab value="preview7">Preview</ui-tab>
+                    <ui-tab value="code7">Code</ui-tab>
                   </ui-tab-list>
                   
-                  <ui-tab-panel value="preview5">
+                  <ui-tab-panel value="preview7">
                     <ui-box class="p-4 shadow rounded-lg border border-gray-200">
                       <ui-textarea placeholder="Enter your message" maxlength="100" show-count></ui-textarea>
                     </ui-box>
                   </ui-tab-panel>
                   
-                  <ui-tab-panel value="code5">
+                  <ui-tab-panel value="code7">
                     <ui-codeblock language="html" code="${withCountExample.replace(/"/g, '&quot;')}"></ui-codeblock>
                   </ui-tab-panel>
                 </ui-tabs>
@@ -229,17 +282,17 @@ export default TextareaExample;`;
                 
                 <ui-tabs>
                   <ui-tab-list>
-                    <ui-tab value="preview6">Preview</ui-tab>
-                    <ui-tab value="code6">Code</ui-tab>
+                    <ui-tab value="preview8">Preview</ui-tab>
+                    <ui-tab value="code8">Code</ui-tab>
                   </ui-tab-list>
                   
-                  <ui-tab-panel value="preview6">
+                  <ui-tab-panel value="preview8">
                     <ui-box class="p-4 shadow rounded-lg border border-gray-200">
                       <ui-textarea placeholder="This textarea auto-resizes" auto-resize></ui-textarea>
                     </ui-box>
                   </ui-tab-panel>
                   
-                  <ui-tab-panel value="code6">
+                  <ui-tab-panel value="code8">
                     <ui-codeblock language="html" code="${autoResizeExample.replace(/"/g, '&quot;')}"></ui-codeblock>
                   </ui-tab-panel>
                 </ui-tabs>
@@ -249,11 +302,11 @@ export default TextareaExample;`;
                 
                 <ui-tabs>
                   <ui-tab-list>
-                    <ui-tab value="preview7">Preview</ui-tab>
-                    <ui-tab value="code7">Code</ui-tab>
+                    <ui-tab value="preview9">Preview</ui-tab>
+                    <ui-tab value="code9">Code</ui-tab>
                   </ui-tab-list>
                   
-                  <ui-tab-panel value="preview7">
+                  <ui-tab-panel value="preview9">
                     <ui-box class="space-y-4 p-4 shadow rounded-lg border border-gray-200">
                       <ui-textarea placeholder="Normal state"></ui-textarea>
                       <ui-textarea placeholder="Disabled state" disabled></ui-textarea>
@@ -261,7 +314,7 @@ export default TextareaExample;`;
                     </ui-box>
                   </ui-tab-panel>
                   
-                  <ui-tab-panel value="code7">
+                  <ui-tab-panel value="code9">
                     <ui-codeblock language="html" code="${statesExample.replace(/"/g, '&quot;')}"></ui-codeblock>
                   </ui-tab-panel>
                 </ui-tabs>
@@ -277,6 +330,7 @@ export default TextareaExample;`;
                         <li>• Import the textarea component before using it</li>
                         <li>• Use <code>placeholder</code> attribute for hint text</li>
                         <li>• Use <code>label</code> attribute for accessibility</li>
+                        <li>• Use <code>floating-label</code> attribute for modern floating label animation</li>
                         <li>• Use <code>variant</code> attribute for different styles (default, primary, secondary, success, warning, error)</li>
                         <li>• Use <code>size</code> attribute to control dimensions (sm, md, lg)</li>
                         <li>• Use <code>maxlength</code> and <code>show-count</code> for character counting</li>
@@ -319,6 +373,12 @@ export default TextareaExample;`;
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">string</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">-</td>
                                     <td class="px-6 py-4 text-sm text-gray-500">Label text displayed above the textarea</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">floating-label</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">string</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">-</td>
+                                    <td class="px-6 py-4 text-sm text-gray-500">Floating label that animates above the textarea</td>
                                 </tr>
                                 <tr>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">variant</td>

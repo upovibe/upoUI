@@ -212,8 +212,20 @@ class Table extends HTMLElement {
                 
                 .upo-table-controls-row {
                     display: flex;
+                    justify-content: space-between;
                     align-items: center;
                     gap: 0.5rem;
+                }
+                
+                .upo-table-controls-left {
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                }
+                
+                .upo-table-controls-right {
+                    display: flex;
+                    align-items: center;
                 }
                 
                 .upo-table-search {
@@ -781,9 +793,10 @@ class Table extends HTMLElement {
                     <span class="upo-table-count">(${this.searchable && this.searchQuery ? filteredCount : totalCount})</span>
                 </div>
                 <div class="upo-table-controls-row">
+                    <div class="upo-table-controls-left">
         `;
 
-        // Search bar (left), refresh button (right of search)
+        // Search bar and refresh button (left side)
         if (this.searchable) {
             tableHTML += `
                 <div class="upo-table-search">
@@ -815,7 +828,12 @@ class Table extends HTMLElement {
             </button>
         `;
         
-        // Print button (icon only)
+        tableHTML += `
+                    </div>
+                    <div class="upo-table-controls-right">
+        `;
+        
+        // Print button (icon only) - right side
         tableHTML += `
             <button class="upo-table-print" onclick="this.closest('ui-table').print()" aria-label="Print table">
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -824,6 +842,11 @@ class Table extends HTMLElement {
     <path d="M18 14H6V22H18V14Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
   </svg>
 </button>
+        `;
+        
+        tableHTML += `
+                    </div>
+                </div>
         `;
 
         tableHTML += `

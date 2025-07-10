@@ -255,6 +255,7 @@ class Switch extends HTMLElement {
         if (this.disabled) return;
         
         event.preventDefault();
+        event.stopPropagation();
         this.toggle();
     }
 
@@ -268,6 +269,7 @@ class Switch extends HTMLElement {
 
         if (event.key === ' ' || event.key === 'Enter') {
             event.preventDefault();
+            event.stopPropagation();
             this.toggle();
         }
     }
@@ -277,9 +279,20 @@ class Switch extends HTMLElement {
      * Updates the checked state, re-renders, and dispatches change event
      */
     toggle() {
+        // Toggle the boolean state
         this.checked = !this.checked;
-        this.setAttribute('checked', this.checked.toString());
+        
+        // Update the attribute to match the state
+        if (this.checked) {
+            this.setAttribute('checked', '');
+        } else {
+            this.removeAttribute('checked');
+        }
+        
+        // Re-render and dispatch event
         this.render();
+        this.updateAccessibility();
+        
         this.dispatchEvent(new CustomEvent('switch-change', {
             detail: { checked: this.checked },
             bubbles: true

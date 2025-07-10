@@ -45,7 +45,7 @@ class Tooltip extends HTMLElement {
     static get observedAttributes() {
         return [
             'content', 'position', 'trigger', 'variant', 'delay', 'duration',
-            'arrow', 'max-width', 'disabled'
+            'max-width', 'disabled'
         ];
     }
 
@@ -75,7 +75,6 @@ class Tooltip extends HTMLElement {
         const variant = this.getAttribute('variant') || 'default';
         const delay = this.getAttribute('delay') || '200';
         const duration = this.getAttribute('duration') || '300';
-        const showArrow = this.hasAttribute('arrow');
         const maxWidth = this.getAttribute('max-width') || '200px';
         const disabled = this.hasAttribute('disabled');
 
@@ -95,7 +94,7 @@ class Tooltip extends HTMLElement {
                     z-index: 9999;
                     background-color: #1f2937;
                     color: #ffffff;
-                    padding: 0.5rem 0.75rem;
+                    padding: 0.375rem 0.5rem;
                     border-radius: 0.375rem;
                     font-size: 0.875rem;
                     line-height: 1.25rem;
@@ -113,136 +112,53 @@ class Tooltip extends HTMLElement {
                     visibility: visible;
                 }
 
-                .tooltip-arrow {
-                    position: absolute;
-                    width: 0;
-                    height: 0;
-                    border: 4px solid transparent;
-                }
-
                 /* Position variants */
                 .tooltip--top {
                     transform: translateX(-50%);
-                }
-
-                .tooltip--top .tooltip-arrow {
-                    bottom: -4px;
-                    left: 50%;
-                    transform: translateX(-50%);
-                    border-top-color: #1f2937;
                 }
 
                 .tooltip--top-start {
                     transform: translateX(0);
                 }
 
-                .tooltip--top-start .tooltip-arrow {
-                    bottom: -4px;
-                    left: 0.75rem;
-                    border-top-color: #1f2937;
-                }
-
                 .tooltip--top-end {
                     transform: translateX(-100%);
-                }
-
-                .tooltip--top-end .tooltip-arrow {
-                    bottom: -4px;
-                    right: 0.75rem;
-                    border-top-color: #1f2937;
                 }
 
                 .tooltip--bottom {
                     transform: translateX(-50%);
                 }
 
-                .tooltip--bottom .tooltip-arrow {
-                    top: -4px;
-                    left: 50%;
-                    transform: translateX(-50%);
-                    border-bottom-color: #1f2937;
-                }
-
                 .tooltip--bottom-start {
                     transform: translateX(0);
-                }
-
-                .tooltip--bottom-start .tooltip-arrow {
-                    top: -4px;
-                    left: 0.75rem;
-                    border-bottom-color: #1f2937;
                 }
 
                 .tooltip--bottom-end {
                     transform: translateX(-100%);
                 }
 
-                .tooltip--bottom-end .tooltip-arrow {
-                    top: -4px;
-                    right: 0.75rem;
-                    border-bottom-color: #1f2937;
-                }
-
                 .tooltip--left {
                     transform: translateY(-50%);
-                }
-
-                .tooltip--left .tooltip-arrow {
-                    right: -4px;
-                    top: 50%;
-                    transform: translateY(-50%);
-                    border-left-color: #1f2937;
                 }
 
                 .tooltip--left-start {
                     transform: translateY(0);
                 }
 
-                .tooltip--left-start .tooltip-arrow {
-                    right: -4px;
-                    top: 0.75rem;
-                    border-left-color: #1f2937;
-                }
-
                 .tooltip--left-end {
                     transform: translateY(-100%);
-                }
-
-                .tooltip--left-end .tooltip-arrow {
-                    right: -4px;
-                    bottom: 0.75rem;
-                    border-left-color: #1f2937;
                 }
 
                 .tooltip--right {
                     transform: translateY(-50%);
                 }
 
-                .tooltip--right .tooltip-arrow {
-                    left: -4px;
-                    top: 50%;
-                    transform: translateY(-50%);
-                    border-right-color: #1f2937;
-                }
-
                 .tooltip--right-start {
                     transform: translateY(0);
                 }
 
-                .tooltip--right-start .tooltip-arrow {
-                    left: -4px;
-                    top: 0.75rem;
-                    border-right-color: #1f2937;
-                }
-
                 .tooltip--right-end {
                     transform: translateY(-100%);
-                }
-
-                .tooltip--right-end .tooltip-arrow {
-                    left: -4px;
-                    bottom: 0.75rem;
-                    border-right-color: #1f2937;
                 }
 
                 /* Variant styles */
@@ -256,23 +172,9 @@ class Tooltip extends HTMLElement {
                     color: #ffffff;
                 }
 
-                .tooltip--primary .tooltip-arrow {
-                    border-top-color: #3b82f6;
-                    border-bottom-color: #3b82f6;
-                    border-left-color: #3b82f6;
-                    border-right-color: #3b82f6;
-                }
-
                 .tooltip--success {
                     background-color: #10b981;
                     color: #ffffff;
-                }
-
-                .tooltip--success .tooltip-arrow {
-                    border-top-color: #10b981;
-                    border-bottom-color: #10b981;
-                    border-left-color: #10b981;
-                    border-right-color: #10b981;
                 }
 
                 .tooltip--warning {
@@ -280,35 +182,14 @@ class Tooltip extends HTMLElement {
                     color: #ffffff;
                 }
 
-                .tooltip--warning .tooltip-arrow {
-                    border-top-color: #f59e0b;
-                    border-bottom-color: #f59e0b;
-                    border-left-color: #f59e0b;
-                    border-right-color: #f59e0b;
-                }
-
                 .tooltip--error {
                     background-color: #ef4444;
                     color: #ffffff;
                 }
 
-                .tooltip--error .tooltip-arrow {
-                    border-top-color: #ef4444;
-                    border-bottom-color: #ef4444;
-                    border-left-color: #ef4444;
-                    border-right-color: #ef4444;
-                }
-
                 .tooltip--info {
                     background-color: #06b6d4;
                     color: #ffffff;
-                }
-
-                .tooltip--info .tooltip-arrow {
-                    border-top-color: #06b6d4;
-                    border-bottom-color: #06b6d4;
-                    border-left-color: #06b6d4;
-                    border-right-color: #06b6d4;
                 }
 
                 /* Disabled state */
@@ -325,9 +206,8 @@ class Tooltip extends HTMLElement {
             <div class="tooltip-trigger">
                 <slot></slot>
             </div>
-            <div class="tooltip tooltip--${position} tooltip--${variant}${showArrow ? ' tooltip--arrow' : ''}${disabled ? ' tooltip--disabled' : ''}">
+            <div class="tooltip tooltip--${position} tooltip--${variant}${disabled ? ' tooltip--disabled' : ''}">
                 <div class="tooltip-content">${content}</div>
-                ${showArrow ? '<div class="tooltip-arrow"></div>' : ''}
             </div>
         `;
     }

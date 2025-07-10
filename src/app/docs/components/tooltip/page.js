@@ -67,13 +67,7 @@ class TooltipDocsPage extends App {
   <button class="px-4 py-2 bg-purple-500 text-white rounded">Focus</button>
 </ui-tooltip>`;
 
-        const withArrowExample = `<ui-tooltip content="Tooltip with arrow" arrow>
-  <button class="px-4 py-2 bg-blue-500 text-white rounded">With Arrow</button>
-</ui-tooltip>
-
-<ui-tooltip content="Tooltip without arrow">
-  <button class="px-4 py-2 bg-green-500 text-white rounded">Without Arrow</button>
-</ui-tooltip>`;
+        const withArrowExample = `<!-- Arrow functionality has been removed for simplicity -->`;
 
         const richContentExample = `<ui-tooltip content="<strong>Bold text</strong> and <em>italic text</em> with <span style='color: #10b981;'>custom styling</span>">
   <button class="px-4 py-2 bg-blue-500 text-white rounded">Rich Content</button>
@@ -169,9 +163,9 @@ export default TooltipExample;`;
                                 </ui-tooltip>
                             </div>
                             <div class="flex flex-col gap-2">
-                                <h3 class="text-sm font-medium text-gray-700">With Arrow</h3>
-                                <ui-tooltip content="Tooltip with arrow indicator" arrow>
-                                    <button class="px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-600">With Arrow</button>
+                                <h3 class="text-sm font-medium text-gray-700">Rich Content</h3>
+                                <ui-tooltip content="<strong>Bold</strong> and <em>italic</em> text">
+                                    <button class="px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-600">Rich Content</button>
                                 </ui-tooltip>
                             </div>
                         </ui-box>
@@ -310,32 +304,7 @@ export default TooltipExample;`;
                   </ui-tab-panel>
                 </ui-tabs>
 
-                <h2 class="text-xl font-semibold mt-8 mb-4">Arrow Indicator</h2>
-                <p class="mb-4 text-gray-600">Add an arrow indicator to point to the trigger element.</p>
-                
-                <ui-tabs>
-                  <ui-tab-list>
-                    <ui-tab value="preview5">Preview</ui-tab>
-                    <ui-tab value="code5">Code</ui-tab>
-                  </ui-tab-list>
-                  
-                  <ui-tab-panel value="preview5">
-                    <ui-box class="p-4 shadow rounded-lg border border-gray-200">
-                      <div class="grid grid-cols-2 gap-4">
-                        <ui-tooltip content="Tooltip with arrow" arrow>
-                          <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">With Arrow</button>
-                        </ui-tooltip>
-                        <ui-tooltip content="Tooltip without arrow">
-                          <button class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">Without Arrow</button>
-                        </ui-tooltip>
-                      </div>
-                    </ui-box>
-                  </ui-tab-panel>
-                  
-                  <ui-tab-panel value="code5">
-                    <ui-codeblock language="html" code="${withArrowExample.replace(/"/g, '&quot;')}"></ui-codeblock>
-                  </ui-tab-panel>
-                </ui-tabs>
+
 
                 <h2 class="text-xl font-semibold mt-8 mb-4">Rich Content</h2>
                 <p class="mb-4 text-gray-600">Tooltips support HTML content for rich formatting.</p>
@@ -423,12 +392,7 @@ export default TooltipExample;`;
                                 <td class="px-4 py-2 text-sm text-gray-600">300</td>
                                 <td class="px-4 py-2 text-sm text-gray-600">Animation duration (ms)</td>
                               </tr>
-                              <tr>
-                                <td class="px-4 py-2 text-sm text-gray-900">arrow</td>
-                                <td class="px-4 py-2 text-sm text-gray-600">boolean</td>
-                                <td class="px-4 py-2 text-sm text-gray-600">false</td>
-                                <td class="px-4 py-2 text-sm text-gray-600">Show arrow indicator</td>
-                              </tr>
+
                               <tr>
                                 <td class="px-4 py-2 text-sm text-gray-900">max-width</td>
                                 <td class="px-4 py-2 text-sm text-gray-600">string</td>
@@ -533,43 +497,215 @@ export default TooltipExample;`;
                   </ui-tab-panel>
                 </ui-tabs>
 
-                <h2 class="text-xl font-semibold mt-8 mb-4">Key Features</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Positioning</h3>
-                    <ul class="list-disc list-inside text-gray-600 space-y-1">
-                      <li>12 different positions (top, bottom, left, right with start/center/end variants)</li>
-                      <li>Automatic viewport boundary detection</li>
-                      <li>Smooth positioning adjustments</li>
-                      <li>Responsive behavior</li>
-                    </ul>
+                <h2 class="text-xl font-semibold mt-8 mb-4">Key Points</h2>
+                <div class="space-y-4">
+                  <div class="bg-blue-50 border-l-4 border-blue-400 p-4">
+                    <div class="flex">
+                      <div class="flex-shrink-0">
+                        <i class="fas fa-info-circle text-blue-400"></i>
+                      </div>
+                      <div class="ml-3">
+                        <h3 class="text-sm font-medium text-blue-800">Positioning</h3>
+                        <div class="mt-2 text-sm text-blue-700">
+                          <p>Tooltips automatically position themselves around the trigger element with 12 different position options. The component detects viewport boundaries and adjusts positioning to ensure the tooltip remains visible.</p>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <div>
-                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Triggers</h3>
-                    <ul class="list-disc list-inside text-gray-600 space-y-1">
-                      <li>Hover (default) - shows on mouse enter/leave</li>
-                      <li>Click - shows on click, hides on outside click</li>
-                      <li>Focus - shows on focus/blur for accessibility</li>
-                      <li>Manual - controlled programmatically</li>
-                    </ul>
+
+                  <div class="bg-green-50 border-l-4 border-green-400 p-4">
+                    <div class="flex">
+                      <div class="flex-shrink-0">
+                        <i class="fas fa-mouse-pointer text-green-400"></i>
+                      </div>
+                      <div class="ml-3">
+                        <h3 class="text-sm font-medium text-green-800">Multiple Triggers</h3>
+                        <div class="mt-2 text-sm text-green-700">
+                          <p>Support for hover, click, focus, and manual triggers. Click triggers include outside click detection, and focus triggers provide accessibility for keyboard navigation and screen readers.</p>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <div>
-                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Styling</h3>
-                    <ul class="list-disc list-inside text-gray-600 space-y-1">
-                      <li>6 color variants (default, primary, success, warning, error, info)</li>
-                      <li>Optional arrow indicators</li>
-                      <li>Customizable max-width and delays</li>
-                      <li>Smooth CSS transitions</li>
-                    </ul>
+
+                  <div class="bg-purple-50 border-l-4 border-purple-400 p-4">
+                    <div class="flex">
+                      <div class="flex-shrink-0">
+                        <i class="fas fa-palette text-purple-400"></i>
+                      </div>
+                      <div class="ml-3">
+                        <h3 class="text-sm font-medium text-purple-800">Rich Styling</h3>
+                        <div class="mt-2 text-sm text-purple-700">
+                          <p>6 color variants available with smooth transitions. Support for HTML content allows rich formatting including bold, italic, and custom styling within tooltips.</p>
+                        </div>
+                      </div>
+                    </div>
                   </div>
+
+                  <div class="bg-orange-50 border-l-4 border-orange-400 p-4">
+                    <div class="flex">
+                      <div class="flex-shrink-0">
+                        <i class="fas fa-universal-access text-orange-400"></i>
+                      </div>
+                      <div class="ml-3">
+                        <h3 class="text-sm font-medium text-orange-800">Accessibility</h3>
+                        <div class="mt-2 text-sm text-orange-700">
+                          <p>Built with accessibility in mind. Includes keyboard navigation (Escape to close), focus-based triggers, proper ARIA attributes, and non-intrusive pointer events.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <h2 class="text-xl font-semibold mt-8 mb-4">API Reference</h2>
+                <div class="space-y-6">
                   <div>
-                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Accessibility</h3>
-                    <ul class="list-disc list-inside text-gray-600 space-y-1">
-                      <li>Keyboard navigation support (Escape to close)</li>
-                      <li>Focus-based triggers for screen readers</li>
-                      <li>Proper ARIA attributes</li>
-                      <li>Non-intrusive pointer events</li>
-                    </ul>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Attributes</h3>
+                    <div class="overflow-x-auto">
+                      <table class="min-w-full border border-gray-200">
+                        <thead class="bg-gray-50">
+                          <tr>
+                            <th class="px-4 py-2 text-left text-sm font-medium text-gray-900 border-b">Attribute</th>
+                            <th class="px-4 py-2 text-left text-sm font-medium text-gray-900 border-b">Type</th>
+                            <th class="px-4 py-2 text-left text-sm font-medium text-gray-900 border-b">Default</th>
+                            <th class="px-4 py-2 text-left text-sm font-medium text-gray-900 border-b">Description</th>
+                          </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                          <tr>
+                            <td class="px-4 py-2 text-sm text-gray-900 font-mono">content</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">string</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">''</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">Tooltip content (supports HTML)</td>
+                          </tr>
+                          <tr>
+                            <td class="px-4 py-2 text-sm text-gray-900 font-mono">position</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">string</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">'top'</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">Position: top, bottom, left, right, top-start, top-end, etc.</td>
+                          </tr>
+                          <tr>
+                            <td class="px-4 py-2 text-sm text-gray-900 font-mono">trigger</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">string</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">'hover'</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">Trigger: hover, click, focus, manual</td>
+                          </tr>
+                          <tr>
+                            <td class="px-4 py-2 text-sm text-gray-900 font-mono">variant</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">string</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">'default'</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">Style variant: default, primary, success, warning, error, info</td>
+                          </tr>
+                          <tr>
+                            <td class="px-4 py-2 text-sm text-gray-900 font-mono">delay</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">number</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">200</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">Delay before showing tooltip (ms)</td>
+                          </tr>
+                          <tr>
+                            <td class="px-4 py-2 text-sm text-gray-900 font-mono">duration</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">number</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">300</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">Animation duration (ms)</td>
+                          </tr>
+                          <tr>
+                            <td class="px-4 py-2 text-sm text-gray-900 font-mono">max-width</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">string</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">'200px'</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">Maximum width of tooltip</td>
+                          </tr>
+                          <tr>
+                            <td class="px-4 py-2 text-sm text-gray-900 font-mono">disabled</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">boolean</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">false</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">Disable tooltip functionality</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+
+                  <div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Methods</h3>
+                    <div class="overflow-x-auto">
+                      <table class="min-w-full border border-gray-200">
+                        <thead class="bg-gray-50">
+                          <tr>
+                            <th class="px-4 py-2 text-left text-sm font-medium text-gray-900 border-b">Method</th>
+                            <th class="px-4 py-2 text-left text-sm font-medium text-gray-900 border-b">Parameters</th>
+                            <th class="px-4 py-2 text-left text-sm font-medium text-gray-900 border-b">Description</th>
+                          </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                          <tr>
+                            <td class="px-4 py-2 text-sm text-gray-900 font-mono">show()</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">-</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">Show the tooltip</td>
+                          </tr>
+                          <tr>
+                            <td class="px-4 py-2 text-sm text-gray-900 font-mono">hide()</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">-</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">Hide the tooltip</td>
+                          </tr>
+                          <tr>
+                            <td class="px-4 py-2 text-sm text-gray-900 font-mono">toggle()</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">-</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">Toggle tooltip visibility</td>
+                          </tr>
+                          <tr>
+                            <td class="px-4 py-2 text-sm text-gray-900 font-mono">setContent(content)</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">string</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">Update tooltip content</td>
+                          </tr>
+                          <tr>
+                            <td class="px-4 py-2 text-sm text-gray-900 font-mono">setPosition(position)</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">string</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">Update tooltip position</td>
+                          </tr>
+                          <tr>
+                            <td class="px-4 py-2 text-sm text-gray-900 font-mono">setVariant(variant)</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">string</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">Update tooltip variant</td>
+                          </tr>
+                          <tr>
+                            <td class="px-4 py-2 text-sm text-gray-900 font-mono">enable()</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">-</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">Enable tooltip functionality</td>
+                          </tr>
+                          <tr>
+                            <td class="px-4 py-2 text-sm text-gray-900 font-mono">disable()</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">-</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">Disable tooltip functionality</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+
+                  <div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Events</h3>
+                    <div class="overflow-x-auto">
+                      <table class="min-w-full border border-gray-200">
+                        <thead class="bg-gray-50">
+                          <tr>
+                            <th class="px-4 py-2 text-left text-sm font-medium text-gray-900 border-b">Event</th>
+                            <th class="px-4 py-2 text-left text-sm font-medium text-gray-900 border-b">Detail</th>
+                            <th class="px-4 py-2 text-left text-sm font-medium text-gray-900 border-b">Description</th>
+                          </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                          <tr>
+                            <td class="px-4 py-2 text-sm text-gray-900 font-mono">tooltip-show</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">-</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">Fired when tooltip becomes visible</td>
+                          </tr>
+                          <tr>
+                            <td class="px-4 py-2 text-sm text-gray-900 font-mono">tooltip-hide</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">-</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">Fired when tooltip becomes hidden</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
                   </div>
                 </div>
             </div>

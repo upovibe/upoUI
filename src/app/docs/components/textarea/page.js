@@ -324,200 +324,240 @@ export default TextareaExample;`;
                 
                 <ui-codeblock language="javascript" code="${setupExample.replace(/"/g, '&quot;')}"></ui-codeblock>
                 
-                <div class="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
-                    <h3 class="text-lg font-semibold text-blue-900 mb-2">💡 Key Points</h3>
-                    <ul class="text-blue-800 space-y-1">
-                        <li>• Import the textarea component before using it</li>
-                        <li>• Use <code>placeholder</code> attribute for hint text</li>
-                        <li>• Use <code>label</code> attribute for accessibility</li>
-                        <li>• Use <code>floating-label</code> attribute for modern floating label animation</li>
-                        <li>• Use <code>variant</code> attribute for different styles (default, primary, secondary, success, warning, error)</li>
-                        <li>• Use <code>size</code> attribute to control dimensions (sm, md, lg)</li>
-                        <li>• Use <code>maxlength</code> and <code>show-count</code> for character counting</li>
-                        <li>• Use <code>auto-resize</code> for dynamic height adjustment</li>
-                        <li>• Use <code>error</code> attribute to show validation messages</li>
-                        <li>• Add <code>disabled</code> or <code>readonly</code> attributes for different states</li>
-                        <li>• Listen for <code>input</code>, <code>change</code>, <code>focus</code>, and <code>blur</code> events</li>
-                    </ul>
+                <h2 class="text-xl font-semibold mt-8 mb-4">Key Points</h2>
+                <div class="space-y-4">
+                  <div class="bg-blue-50 border-l-4 border-blue-400 p-4">
+                    <div class="flex">
+                      <div class="flex-shrink-0">
+                        <i class="fas fa-edit text-blue-400"></i>
+                      </div>
+                      <div class="ml-3">
+                        <h3 class="text-sm font-medium text-blue-800">Text Input</h3>
+                        <div class="mt-2 text-sm text-blue-700">
+                          <p>Multi-line text input with support for placeholders, labels, and floating labels. Includes character counting, auto-resize, and validation features.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="bg-green-50 border-l-4 border-green-400 p-4">
+                    <div class="flex">
+                      <div class="flex-shrink-0">
+                        <i class="fas fa-palette text-green-400"></i>
+                      </div>
+                      <div class="ml-3">
+                        <h3 class="text-sm font-medium text-green-800">Styling Options</h3>
+                        <div class="mt-2 text-sm text-green-700">
+                          <p>Multiple variants (default, primary, secondary, success, warning, error) and sizes (sm, md, lg). Floating label animation for modern UI design.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="bg-purple-50 border-l-4 border-purple-400 p-4">
+                    <div class="flex">
+                      <div class="flex-shrink-0">
+                        <i class="fas fa-cogs text-purple-400"></i>
+                      </div>
+                      <div class="ml-3">
+                        <h3 class="text-sm font-medium text-purple-800">Advanced Features</h3>
+                        <div class="mt-2 text-sm text-purple-700">
+                          <p>Character counting with maxlength and show-count attributes. Auto-resize functionality for dynamic height adjustment. Comprehensive validation and error handling.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="bg-orange-50 border-l-4 border-orange-400 p-4">
+                    <div class="flex">
+                      <div class="flex-shrink-0">
+                        <i class="fas fa-universal-access text-orange-400"></i>
+                      </div>
+                      <div class="ml-3">
+                        <h3 class="text-sm font-medium text-orange-800">Accessibility</h3>
+                        <div class="mt-2 text-sm text-orange-700">
+                          <p>Built-in accessibility features with proper ARIA labels, keyboard navigation, and screen reader support. Disabled and readonly states for different use cases.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
 
-                <div class="mt-8">
-                    <h3 class="text-lg font-semibold mb-4">API Reference</h3>
-                    
-                    <h4 class="text-md font-semibold mb-2">Attributes</h4>
-                    <div class="overflow-x-auto mb-6">
-                        <table class="min-w-full divide-y divide-gray-200">
-                            <thead class="bg-gray-50">
-                                <tr>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Attribute</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Default</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
-                                </tr>
-                            </thead>
-                            <tbody class="bg-white divide-y divide-gray-200">
-                                <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">placeholder</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">string</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">-</td>
-                                    <td class="px-6 py-4 text-sm text-gray-500">Hint text displayed when textarea is empty</td>
-                                </tr>
-                                <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">value</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">string</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">''</td>
-                                    <td class="px-6 py-4 text-sm text-gray-500">Initial value of the textarea</td>
-                                </tr>
-                                <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">label</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">string</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">-</td>
-                                    <td class="px-6 py-4 text-sm text-gray-500">Label text displayed above the textarea</td>
-                                </tr>
-                                <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">floating-label</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">string</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">-</td>
-                                    <td class="px-6 py-4 text-sm text-gray-500">Floating label that animates above the textarea</td>
-                                </tr>
-                                <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">variant</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">string</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">default</td>
-                                    <td class="px-6 py-4 text-sm text-gray-500">Style variant: default, primary, secondary, success, warning, error</td>
-                                </tr>
-                                <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">size</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">string</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">md</td>
-                                    <td class="px-6 py-4 text-sm text-gray-500">Size variant: sm, md, lg</td>
-                                </tr>
-                                <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">maxlength</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">number</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">-</td>
-                                    <td class="px-6 py-4 text-sm text-gray-500">Maximum number of characters allowed</td>
-                                </tr>
-                                <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">error</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">string</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">-</td>
-                                    <td class="px-6 py-4 text-sm text-gray-500">Error message to display</td>
-                                </tr>
-                                <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">disabled</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">boolean</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">false</td>
-                                    <td class="px-6 py-4 text-sm text-gray-500">Disables the textarea</td>
-                                </tr>
-                                <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">readonly</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">boolean</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">false</td>
-                                    <td class="px-6 py-4 text-sm text-gray-500">Makes the textarea read-only</td>
-                                </tr>
-                                <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">show-count</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">boolean</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">false</td>
-                                    <td class="px-6 py-4 text-sm text-gray-500">Shows character count</td>
-                                </tr>
-                                <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">auto-resize</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">boolean</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">false</td>
-                                    <td class="px-6 py-4 text-sm text-gray-500">Automatically adjusts height based on content</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <h4 class="text-md font-semibold mb-2">Events</h4>
-                    <div class="overflow-x-auto mb-6">
-                        <table class="min-w-full divide-y divide-gray-200">
-                            <thead class="bg-gray-50">
-                                <tr>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Event</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Detail</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
-                                </tr>
-                            </thead>
-                            <tbody class="bg-white divide-y divide-gray-200">
-                                <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">input</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{ value: string }</td>
-                                    <td class="px-6 py-4 text-sm text-gray-500">Fired when the value changes</td>
-                                </tr>
-                                <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">change</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{ value: string }</td>
-                                    <td class="px-6 py-4 text-sm text-gray-500">Fired when the value changes and loses focus</td>
-                                </tr>
-                                <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">focus</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">-</td>
-                                    <td class="px-6 py-4 text-sm text-gray-500">Fired when the textarea gains focus</td>
-                                </tr>
-                                <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">blur</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">-</td>
-                                    <td class="px-6 py-4 text-sm text-gray-500">Fired when the textarea loses focus</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <h4 class="text-md font-semibold mb-2">Methods</h4>
+                                <div class="space-y-6">
+                  <div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Attributes</h3>
                     <div class="overflow-x-auto">
-                        <table class="min-w-full divide-y divide-gray-200">
-                            <thead class="bg-gray-50">
-                                <tr>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Method</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Parameters</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Returns</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
-                                </tr>
-                            </thead>
-                            <tbody class="bg-white divide-y divide-gray-200">
-                                <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">getValue()</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">-</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">string</td>
-                                    <td class="px-6 py-4 text-sm text-gray-500">Get the current value</td>
-                                </tr>
-                                <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">setValue(value)</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">string</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">void</td>
-                                    <td class="px-6 py-4 text-sm text-gray-500">Set the textarea value</td>
-                                </tr>
-                                <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">focus()</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">-</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">void</td>
-                                    <td class="px-6 py-4 text-sm text-gray-500">Focus the textarea</td>
-                                </tr>
-                                <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">blur()</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">-</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">void</td>
-                                    <td class="px-6 py-4 text-sm text-gray-500">Remove focus from the textarea</td>
-                                </tr>
-                                <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">setError(message)</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">string</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">void</td>
-                                    <td class="px-6 py-4 text-sm text-gray-500">Set an error message</td>
-                                </tr>
-                                <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">clearError()</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">-</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">void</td>
-                                    <td class="px-6 py-4 text-sm text-gray-500">Clear the error message</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                      <table class="min-w-full border border-gray-200">
+                        <thead class="bg-gray-50">
+                          <tr>
+                            <th class="px-4 py-2 text-left text-sm font-medium text-gray-900 border-b">Attribute</th>
+                            <th class="px-4 py-2 text-left text-sm font-medium text-gray-900 border-b">Type</th>
+                            <th class="px-4 py-2 text-left text-sm font-medium text-gray-900 border-b">Default</th>
+                            <th class="px-4 py-2 text-left text-sm font-medium text-gray-900 border-b">Description</th>
+                          </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                          <tr>
+                            <td class="px-4 py-2 text-sm text-gray-900 font-mono">placeholder</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">string</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">-</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">Hint text displayed when textarea is empty</td>
+                          </tr>
+                          <tr>
+                            <td class="px-4 py-2 text-sm text-gray-900 font-mono">value</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">string</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">''</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">Initial value of the textarea</td>
+                          </tr>
+                          <tr>
+                            <td class="px-4 py-2 text-sm text-gray-900 font-mono">label</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">string</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">-</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">Label text displayed above the textarea</td>
+                          </tr>
+                          <tr>
+                            <td class="px-4 py-2 text-sm text-gray-900 font-mono">floating-label</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">string</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">-</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">Floating label that animates above the textarea</td>
+                          </tr>
+                          <tr>
+                            <td class="px-4 py-2 text-sm text-gray-900 font-mono">variant</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">string</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">default</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">Style variant: default, primary, secondary, success, warning, error</td>
+                          </tr>
+                          <tr>
+                            <td class="px-4 py-2 text-sm text-gray-900 font-mono">size</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">string</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">md</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">Size variant: sm, md, lg</td>
+                          </tr>
+                          <tr>
+                            <td class="px-4 py-2 text-sm text-gray-900 font-mono">maxlength</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">number</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">-</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">Maximum number of characters allowed</td>
+                          </tr>
+                          <tr>
+                            <td class="px-4 py-2 text-sm text-gray-900 font-mono">error</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">string</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">-</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">Error message to display</td>
+                          </tr>
+                          <tr>
+                            <td class="px-4 py-2 text-sm text-gray-900 font-mono">disabled</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">boolean</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">false</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">Disables the textarea</td>
+                          </tr>
+                          <tr>
+                            <td class="px-4 py-2 text-sm text-gray-900 font-mono">readonly</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">boolean</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">false</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">Makes the textarea read-only</td>
+                          </tr>
+                          <tr>
+                            <td class="px-4 py-2 text-sm text-gray-900 font-mono">show-count</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">boolean</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">false</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">Shows character count</td>
+                          </tr>
+                          <tr>
+                            <td class="px-4 py-2 text-sm text-gray-900 font-mono">auto-resize</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">boolean</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">false</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">Automatically adjusts height based on content</td>
+                          </tr>
+                        </tbody>
+                      </table>
                     </div>
+                  </div>
+
+                  <div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Methods</h3>
+                    <div class="overflow-x-auto">
+                      <table class="min-w-full border border-gray-200">
+                        <thead class="bg-gray-50">
+                          <tr>
+                            <th class="px-4 py-2 text-left text-sm font-medium text-gray-900 border-b">Method</th>
+                            <th class="px-4 py-2 text-left text-sm font-medium text-gray-900 border-b">Parameters</th>
+                            <th class="px-4 py-2 text-left text-sm font-medium text-gray-900 border-b">Description</th>
+                          </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                          <tr>
+                            <td class="px-4 py-2 text-sm text-gray-900 font-mono">getValue()</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">-</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">Get the current value</td>
+                          </tr>
+                          <tr>
+                            <td class="px-4 py-2 text-sm text-gray-900 font-mono">setValue(value)</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">string</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">Set the textarea value</td>
+                          </tr>
+                          <tr>
+                            <td class="px-4 py-2 text-sm text-gray-900 font-mono">focus()</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">-</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">Focus the textarea</td>
+                          </tr>
+                          <tr>
+                            <td class="px-4 py-2 text-sm text-gray-900 font-mono">blur()</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">-</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">Remove focus from the textarea</td>
+                          </tr>
+                          <tr>
+                            <td class="px-4 py-2 text-sm text-gray-900 font-mono">setError(message)</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">string</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">Set an error message</td>
+                          </tr>
+                          <tr>
+                            <td class="px-4 py-2 text-sm text-gray-900 font-mono">clearError()</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">-</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">Clear the error message</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+
+                  <div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Events</h3>
+                    <div class="overflow-x-auto">
+                      <table class="min-w-full border border-gray-200">
+                        <thead class="bg-gray-50">
+                          <tr>
+                            <th class="px-4 py-2 text-left text-sm font-medium text-gray-900 border-b">Event</th>
+                            <th class="px-4 py-2 text-left text-sm font-medium text-gray-900 border-b">Detail</th>
+                            <th class="px-4 py-2 text-left text-sm font-medium text-gray-900 border-b">Description</th>
+                          </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                          <tr>
+                            <td class="px-4 py-2 text-sm text-gray-900 font-mono">input</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">{ value: string }</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">Fired when the value changes</td>
+                          </tr>
+                          <tr>
+                            <td class="px-4 py-2 text-sm text-gray-900 font-mono">change</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">{ value: string }</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">Fired when the value changes and loses focus</td>
+                          </tr>
+                          <tr>
+                            <td class="px-4 py-2 text-sm text-gray-900 font-mono">focus</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">-</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">Fired when the textarea gains focus</td>
+                          </tr>
+                          <tr>
+                            <td class="px-4 py-2 text-sm text-gray-900 font-mono">blur</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">-</td>
+                            <td class="px-4 py-2 text-sm text-gray-600">Fired when the textarea loses focus</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
                 </div>
             </div>
         `;

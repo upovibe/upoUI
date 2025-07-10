@@ -298,9 +298,14 @@ class Table extends HTMLElement {
                 }
                 
                 .upo-table-container {
-                    overflow-x: auto;
                     border-radius: 0.375rem;
                     border: 1px solid #e5e7eb;
+                }
+                
+                .upo-table-scroll-container {
+                    overflow-x: auto;
+                    max-height: 400px;
+                    overflow-y: auto;
                 }
                 
                 .upo-table-header {
@@ -1259,19 +1264,20 @@ class Table extends HTMLElement {
         `;
 
         tableHTML += `
-                <table class="${tableClasses}" role="table">
-                    <thead>
-                        <tr>
-                            ${this.selectable ? `<th><input type="checkbox" class="upo-table-checkbox" data-select-all ${this.areAllVisibleRowsSelected() ? 'checked' : ''}></th>` : ''}
-                            ${this.columns.map(col => `
-                                <th data-column="${col.key}" ${this.sortable ? 'tabindex="0" role="button"' : ''}>
-                                    ${col.label || col.key}
-                                </th>
-                            `).join('')}
-                            ${this.action ? '<th class="upo-table-action-column">Actions</th>' : ''}
-                        </tr>
-                    </thead>
-                    <tbody>
+                <div class="upo-table-scroll-container">
+                    <table class="${tableClasses}" role="table">
+                        <thead>
+                            <tr>
+                                ${this.selectable ? `<th><input type="checkbox" class="upo-table-checkbox" data-select-all ${this.areAllVisibleRowsSelected() ? 'checked' : ''}></th>` : ''}
+                                ${this.columns.map(col => `
+                                    <th data-column="${col.key}" ${this.sortable ? 'tabindex="0" role="button"' : ''}>
+                                        ${col.label || col.key}
+                                    </th>
+                                `).join('')}
+                                ${this.action ? '<th class="upo-table-action-column">Actions</th>' : ''}
+                            </tr>
+                        </thead>
+                        <tbody>
         `;
 
         if (visibleData.length === 0) {
@@ -1336,8 +1342,9 @@ class Table extends HTMLElement {
         }
 
         tableHTML += `
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                </div>
         `;
 
         if (this.pagination && dataToUse.length > 0) {

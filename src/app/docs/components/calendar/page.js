@@ -15,6 +15,10 @@ class CalendarDocsPage extends App {
 
         const withDateExample = `<ui-calendar date="2024-06-15"></ui-calendar>`;
 
+        const withTimeExample = `<ui-calendar show-time></ui-calendar>`;
+
+        const withDateTimeExample = `<ui-calendar date="2024-06-15" show-time time="14:30"></ui-calendar>`;
+
         const interactiveExample = `<ui-calendar id="my-calendar"></ui-calendar>
 
 <script>
@@ -27,6 +31,23 @@ calendar.addEventListener('month-change', (e) => {
 });
 calendar.addEventListener('today', (e) => {
     console.log('Today button clicked:', e.detail.date);
+});
+</script>`;
+
+        const timeInteractiveExample = `<ui-calendar id="time-calendar" show-time time="09:00"></ui-calendar>
+
+<script>
+const calendar = document.getElementById('time-calendar');
+calendar.addEventListener('date-select', (e) => {
+    if (e.detail.time) {
+        console.log('Date and time selected:', e.detail.dateTime);
+        console.log('Time:', e.detail.time);
+    } else {
+        console.log('Date selected:', e.detail.date);
+    }
+});
+calendar.addEventListener('time-change', (e) => {
+    console.log('Time changed:', e.detail.time);
 });
 </script>`;
 
@@ -52,6 +73,21 @@ document.addEventListener('month-change', (event) => {
 
 document.addEventListener('today', (event) => {
     console.log('Today button clicked:', event.detail.date);
+});
+
+// Listen for time events (when show-time is enabled)
+document.addEventListener('time-change', (event) => {
+    console.log('Time changed:', event.detail.time);
+});
+
+// Enhanced date-select event with time
+document.addEventListener('date-select', (event) => {
+    if (event.detail.time) {
+        console.log('Date and time selected:', event.detail.dateTime);
+        console.log('Time:', event.detail.time);
+    } else {
+        console.log('Date selected:', event.detail.date);
+    }
 });`;
 
         return `
@@ -65,8 +101,19 @@ document.addEventListener('today', (event) => {
                     <!-- Live Examples -->
                     <div class="mb-8">
                         <h2 class="text-xl font-semibold text-gray-900 mb-4">Live Examples</h2>
-                        <ui-box class="flex justify-center p-4 shadow rounded-lg border border-gray-200">
-                            <ui-calendar id="live-calendar"></ui-calendar>
+                        <ui-box class="flex flex-col gap-6 p-4 shadow rounded-lg border border-gray-200">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Basic Calendar</label>
+                                <div class="flex justify-center">
+                                    <ui-calendar id="live-calendar"></ui-calendar>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Calendar with Time Selection</label>
+                                <div class="flex justify-center">
+                                    <ui-calendar id="live-calendar-time" show-time time="14:30"></ui-calendar>
+                                </div>
+                            </div>
                         </ui-box>
                     </div>
                 </div>
@@ -111,8 +158,8 @@ document.addEventListener('today', (event) => {
                   </ui-tab-panel>
                 </ui-tabs>
 
-                <h2 class="text-xl font-semibold mt-8 mb-4">Interactive Calendar</h2>
-                <p class="mb-4 text-gray-600">Listen for calendar events to handle date selection and navigation.</p>
+                <h2 class="text-xl font-semibold mt-8 mb-4">Calendar with Time Selection</h2>
+                <p class="mb-4 text-gray-600">Enable time selection by adding the <code>show-time</code> attribute. Users can select hours and minutes.</p>
                 
                 <ui-tabs>
                   <ui-tab-list>
@@ -121,6 +168,46 @@ document.addEventListener('today', (event) => {
                   </ui-tab-list>
                   
                   <ui-tab-panel value="preview3">
+                  <ui-box class="flex justify-center p-4 shadow rounded-lg border border-gray-200">
+                    <ui-calendar show-time></ui-calendar>
+                  </ui-box>
+                  </ui-tab-panel>
+                  
+                  <ui-tab-panel value="code3">
+                    <ui-codeblock language="html" code="${withTimeExample.replace(/"/g, '&quot;')}"></ui-codeblock>
+                  </ui-tab-panel>
+                </ui-tabs>
+
+                <h2 class="text-xl font-semibold mt-8 mb-4">Calendar with Date and Time</h2>
+                <p class="mb-4 text-gray-600">Set both initial date and time using the <code>date</code> and <code>time</code> attributes.</p>
+                
+                <ui-tabs>
+                  <ui-tab-list>
+                    <ui-tab value="preview4">Preview</ui-tab>
+                    <ui-tab value="code4">Code</ui-tab>
+                  </ui-tab-list>
+                  
+                  <ui-tab-panel value="preview4">
+                  <ui-box class="flex justify-center p-4 shadow rounded-lg border border-gray-200">
+                    <ui-calendar date="2024-06-15" show-time time="14:30"></ui-calendar>
+                  </ui-box>
+                  </ui-tab-panel>
+                  
+                  <ui-tab-panel value="code4">
+                    <ui-codeblock language="html" code="${withDateTimeExample.replace(/"/g, '&quot;')}"></ui-codeblock>
+                  </ui-tab-panel>
+                </ui-tabs>
+
+                <h2 class="text-xl font-semibold mt-8 mb-4">Interactive Calendar</h2>
+                <p class="mb-4 text-gray-600">Listen for calendar events to handle date selection and navigation.</p>
+                
+                <ui-tabs>
+                  <ui-tab-list>
+                    <ui-tab value="preview5">Preview</ui-tab>
+                    <ui-tab value="code5">Code</ui-tab>
+                  </ui-tab-list>
+                  
+                  <ui-tab-panel value="preview5">
                   <ui-box class="flex flex-col items-center gap-4 p-4 shadow rounded-lg border border-gray-200">
                     <ui-calendar id="interactive-calendar"></ui-calendar>
                     <div id="calendar-events" class="text-sm text-gray-600 bg-gray-50 p-3 rounded border">
@@ -129,8 +216,31 @@ document.addEventListener('today', (event) => {
                   </ui-box>
                   </ui-tab-panel>
                   
-                  <ui-tab-panel value="code3">
+                  <ui-tab-panel value="code5">
                     <ui-codeblock language="html" code="${interactiveExample.replace(/"/g, '&quot;')}"></ui-codeblock>
+                  </ui-tab-panel>
+                </ui-tabs>
+
+                <h2 class="text-xl font-semibold mt-8 mb-4">Interactive Calendar with Time</h2>
+                <p class="mb-4 text-gray-600">Listen for both date and time selection events.</p>
+                
+                <ui-tabs>
+                  <ui-tab-list>
+                    <ui-tab value="preview6">Preview</ui-tab>
+                    <ui-tab value="code6">Code</ui-tab>
+                  </ui-tab-list>
+                  
+                  <ui-tab-panel value="preview6">
+                  <ui-box class="flex flex-col items-center gap-4 p-4 shadow rounded-lg border border-gray-200">
+                    <ui-calendar id="interactive-calendar-time" show-time time="09:00"></ui-calendar>
+                    <div id="calendar-time-events" class="text-sm text-gray-600 bg-gray-50 p-3 rounded border">
+                        <div>Event log will appear here...</div>
+                    </div>
+                  </ui-box>
+                  </ui-tab-panel>
+                  
+                  <ui-tab-panel value="code6">
+                    <ui-codeblock language="html" code="${timeInteractiveExample.replace(/"/g, '&quot;')}"></ui-codeblock>
                   </ui-tab-panel>
                 </ui-tabs>
 
@@ -144,7 +254,10 @@ document.addEventListener('today', (event) => {
                     <ul class="text-blue-800 space-y-1">
                         <li>• Import the calendar component before using it</li>
                         <li>• Use <code>date</code> attribute to set initial view (ISO date string)</li>
+                        <li>• Use <code>show-time</code> attribute to enable time selection</li>
+                        <li>• Use <code>time</code> attribute to set initial time (HH:MM format)</li>
                         <li>• Listen for <code>date-select</code> events when dates are clicked</li>
+                        <li>• Listen for <code>time-change</code> events when time is changed</li>
                         <li>• Listen for <code>month-change</code> events when navigating months</li>
                         <li>• Listen for <code>today</code> events when "Today" button is clicked</li>
                         <li>• Calendar includes navigation controls and "Today" button</li>
@@ -152,6 +265,11 @@ document.addEventListener('today', (event) => {
                     </ul>
                 </div>
 
+                <h2 class="text-xl font-semibold mt-8 mb-4">Event Handling</h2>
+                <p class="mb-4 text-gray-600">Learn how to handle events and programmatically control the calendar.</p>
+                
+                <ui-codeblock language="javascript" code="${eventsExample.replace(/"/g, '&quot;')}"></ui-codeblock>
+                
                 <div class="mt-8">
                     <h3 class="text-lg font-semibold mb-4">API Reference</h3>
                     
@@ -173,6 +291,18 @@ document.addEventListener('today', (event) => {
                                     <td class="px-4 py-2 text-sm text-gray-600">current date</td>
                                     <td class="px-4 py-2 text-sm text-gray-600">ISO date string to set the initial calendar view</td>
                                 </tr>
+                                <tr>
+                                    <td class="px-4 py-2 text-sm font-mono text-gray-900">show-time</td>
+                                    <td class="px-4 py-2 text-sm text-gray-600">boolean</td>
+                                    <td class="px-4 py-2 text-sm text-gray-600">false</td>
+                                    <td class="px-4 py-2 text-sm text-gray-600">Enable time selection with hour and minute dropdowns</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-2 text-sm font-mono text-gray-900">time</td>
+                                    <td class="px-4 py-2 text-sm text-gray-600">string</td>
+                                    <td class="px-4 py-2 text-sm text-gray-600">'12:00'</td>
+                                    <td class="px-4 py-2 text-sm text-gray-600">Initial time in HH:MM format (24-hour)</td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -190,8 +320,13 @@ document.addEventListener('today', (event) => {
                             <tbody class="divide-y divide-gray-200">
                                 <tr>
                                     <td class="px-4 py-2 text-sm font-mono text-gray-900">date-select</td>
-                                    <td class="px-4 py-2 text-sm text-gray-600">{ date: Date }</td>
-                                    <td class="px-4 py-2 text-sm text-gray-600">Fired when a date is clicked</td>
+                                    <td class="px-4 py-2 text-sm text-gray-600">{ date: Date } or { date: Date, time: string, dateTime: Date }</td>
+                                    <td class="px-4 py-2 text-sm text-gray-600">Fired when a date is clicked. Includes time info if show-time is enabled</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-2 text-sm font-mono text-gray-900">time-change</td>
+                                    <td class="px-4 py-2 text-sm text-gray-600">{ time: string }</td>
+                                    <td class="px-4 py-2 text-sm text-gray-600">Fired when time is changed (only when show-time is enabled)</td>
                                 </tr>
                                 <tr>
                                     <td class="px-4 py-2 text-sm font-mono text-gray-900">month-change</td>
@@ -238,6 +373,10 @@ document.addEventListener('today', (event) => {
                                     <td class="px-4 py-2 text-sm text-gray-600">Click any date to trigger events</td>
                                 </tr>
                                 <tr>
+                                    <td class="px-4 py-2 text-sm font-mono text-gray-900">Time Selection</td>
+                                    <td class="px-4 py-2 text-sm text-gray-600">Hour and minute dropdowns (when show-time is enabled)</td>
+                                </tr>
+                                <tr>
                                     <td class="px-4 py-2 text-sm font-mono text-gray-900">Responsive Design</td>
                                     <td class="px-4 py-2 text-sm text-gray-600">Works well on different screen sizes</td>
                                 </tr>
@@ -256,7 +395,7 @@ document.addEventListener('today', (event) => {
     connectedCallback() {
         super.connectedCallback();
         
-        // Set up event listeners for the interactive example
+        // Set up event listeners for the interactive examples
         setTimeout(() => {
             const interactiveCalendar = document.getElementById('interactive-calendar');
             const eventLog = document.getElementById('calendar-events');
@@ -278,6 +417,26 @@ document.addEventListener('today', (event) => {
                 interactiveCalendar.addEventListener('today', (e) => {
                     const date = e.detail.date.toLocaleDateString();
                     this.addEventLog(eventLog, `Today button clicked: ${date}`);
+                });
+            }
+
+            // Set up time calendar events
+            const interactiveTimeCalendar = document.getElementById('interactive-calendar-time');
+            const timeEventLog = document.getElementById('calendar-time-events');
+            
+            if (interactiveTimeCalendar && timeEventLog) {
+                interactiveTimeCalendar.addEventListener('date-select', (e) => {
+                    if (e.detail.time) {
+                        const dateTime = e.detail.dateTime.toLocaleString();
+                        this.addEventLog(timeEventLog, `Date and time selected: ${dateTime}`);
+                    } else {
+                        const date = e.detail.date.toLocaleDateString();
+                        this.addEventLog(timeEventLog, `Date selected: ${date}`);
+                    }
+                });
+                
+                interactiveTimeCalendar.addEventListener('time-change', (e) => {
+                    this.addEventLog(timeEventLog, `Time changed to: ${e.detail.time}`);
                 });
             }
         }, 100);

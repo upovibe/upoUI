@@ -7,10 +7,13 @@
  * Attributes:
  * - date: ISO date string (default: current date)
  * - view: 'month' | 'year' (default: 'month')
+ * - show-time: boolean (default: false) - shows time selection
+ * - time: string (default: '12:00') - initial time in HH:MM format
  * 
  * Usage:
  * <ui-calendar></ui-calendar>
  * <ui-calendar date="2024-01-15"></ui-calendar>
+ * <ui-calendar date="2024-01-15" show-time time="14:30"></ui-calendar>
  */
 class Calendar extends HTMLElement {
     constructor() {
@@ -31,10 +34,15 @@ class Calendar extends HTMLElement {
             this.selectedDate = null; // No selected date
         }
         
+        // Time state
+        this.showTime = this.hasAttribute('show-time');
+        this.selectedTime = this.getAttribute('time') || '12:00';
+        
         // Bind methods
         this.previousMonth = this.previousMonth.bind(this);
         this.nextMonth = this.nextMonth.bind(this);
         this.goToToday = this.goToToday.bind(this);
+        this.handleTimeChange = this.handleTimeChange.bind(this);
     }
 
     connectedCallback() {
@@ -57,6 +65,12 @@ class Calendar extends HTMLElement {
         for (let i = startYear; i <= currentYear + 10; i++) {
             years.push(i);
         }
+        
+        // Generate time options
+        const hours = Array.from({length: 24}, (_, i) => i.toString().padStart(2, '0'));
+        const minutes = Array.from({length: 60}, (_, i) => i.toString().padStart(2, '0'));
+        const [selectedHour, selectedMinute] = this.selectedTime.split(':');
+        
         this.shadowRoot.innerHTML = `
             <style>
                 :host {
@@ -213,6 +227,43 @@ class Calendar extends HTMLElement {
                     background: #f3f4f6;
                     border-color: #9ca3af;
                 }
+                .time-selector {
+                    margin-top: 1rem;
+                    padding-top: 1rem;
+                    border-top: 1px solid #e5e7eb;
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                    justify-content: center;
+                }
+                .time-selector-label {
+                    font-size: 0.875rem;
+                    font-weight: 500;
+                    color: #374151;
+                }
+                .time-select {
+                    padding: 0.25rem 0.5rem;
+                    border: 1px solid #d1d5db;
+                    border-radius: 0.375rem;
+                    background: white;
+                    font-size: 0.875rem;
+                    color: #374151;
+                    cursor: pointer;
+                    transition: all 0.15s ease-in-out;
+                    width: 4rem;
+                }
+                .time-select:hover {
+                    border-color: #9ca3af;
+                }
+                .time-select:focus {
+                    outline: 2px solid #3b82f6;
+                    outline-offset: 2px;
+                }
+                .time-separator {
+                    font-size: 0.875rem;
+                    color: #6b7280;
+                    font-weight: 500;
+                }
             </style>
             <div class="calendar">
                 <div class="calendar-header">
@@ -252,6 +303,23 @@ class Calendar extends HTMLElement {
                     ${this.renderDays()}
                 </div>
                 <button class="today-button" id="go-today">Today</button>
+                
+                ${this.showTime ? `
+                <div class="time-selector">
+                    <span class="time-selector-label">Time:</span>
+                    <select class="time-select" id="hour-select">
+                        ${hours.map(hour => 
+                            `<option value="${hour}" ${hour === selectedHour ? 'selected' : ''}>${hour}</option>`
+                        ).join('')}
+                    </select>
+                    <span class="time-separator">:</span>
+                    <select class="time-select" id="minute-select">
+                        ${minutes.map(minute => 
+                            `<option value="${minute}" ${minute === selectedMinute ? 'selected' : ''}>${minute}</option>`
+                        ).join('')}
+                    </select>
+                </div>
+                ` : ''}
             </div>
         `;
     }
@@ -324,6 +392,8 @@ class Calendar extends HTMLElement {
         const todayButton = this.shadowRoot.getElementById('go-today');
         const monthSelect = this.shadowRoot.getElementById('month-select');
         const yearSelect = this.shadowRoot.getElementById('year-select');
+        const hourSelect = this.shadowRoot.getElementById('hour-select');
+        const minuteSelect = this.shadowRoot.getElementById('minute-select');
         
         prevButton.addEventListener('click', this.previousMonth);
         nextButton.addEventListener('click', this.nextMonth);
@@ -352,6 +422,13 @@ class Calendar extends HTMLElement {
             });
         }
         
+        if (hourSelect) {
+            hourSelect.addEventListener('change', this.handleTimeChange);
+        }
+        if (minuteSelect) {
+            minuteSelect.addEventListener('change', this.handleTimeChange);
+        }
+        
         // Day click events
         const days = this.shadowRoot.querySelectorAll('.calendar-day');
         days.forEach(day => {
@@ -362,6 +439,22 @@ class Calendar extends HTMLElement {
                 }
             });
         });
+    }
+
+    handleTimeChange() {
+        const hourSelect = this.shadowRoot.getElementById('hour-select');
+        const minuteSelect = this.shadowRoot.getElementById('minute-select');
+        
+        if (hourSelect && minuteSelect) {
+            const hour = hourSelect.value;
+            const minute = minuteSelect.value;
+            this.selectedTime = `${hour}:${minute}`;
+            
+            this.dispatchEvent(new CustomEvent('time-change', {
+                detail: { time: this.selectedTime },
+                bubbles: true
+            }));
+        }
     }
 
     previousMonth() {
@@ -400,14 +493,28 @@ class Calendar extends HTMLElement {
         this.selectedDate = date; // Update the selected date
         this.render(); // Re-render to highlight the selected date
         this.setupEventListeners(); // Re-setup event listeners after re-render
+        
+        // Create a date-time object if time is enabled
+        let dateTimeData = { date: date };
+        if (this.showTime) {
+            const [hour, minute] = this.selectedTime.split(':');
+            const dateTime = new Date(date);
+            dateTime.setHours(parseInt(hour), parseInt(minute), 0, 0);
+            dateTimeData = { 
+                date: dateTime,
+                time: this.selectedTime,
+                dateTime: dateTime
+            };
+        }
+        
         this.dispatchEvent(new CustomEvent('date-select', {
-            detail: { date: date },
+            detail: dateTimeData,
             bubbles: true
         }));
     }
 
     static get observedAttributes() {
-        return ['date'];
+        return ['date', 'show-time', 'time'];
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
@@ -419,6 +526,14 @@ class Calendar extends HTMLElement {
                 this.render();
                 this.setupEventListeners();
             }
+        } else if (name === 'show-time') {
+            this.showTime = this.hasAttribute('show-time');
+            this.render();
+            this.setupEventListeners();
+        } else if (name === 'time' && newValue) {
+            this.selectedTime = newValue;
+            this.render();
+            this.setupEventListeners();
         }
     }
 }

@@ -91,6 +91,18 @@ class Table extends HTMLElement {
     }
 
     /**
+     * Escape HTML to prevent XSS attacks
+     * @param {string} text - The text to escape
+     * @returns {string} Escaped HTML
+     */
+    escapeHtml(text) {
+        if (typeof text !== 'string') return text;
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+
+    /**
      * Add default CSS styles to document if not already added
      * Creates a unique style element with all table styles
      */
@@ -922,9 +934,14 @@ class Table extends HTMLElement {
                                 <input type="checkbox" class="upo-table-checkbox" data-row-index="${index}" ${isSelected ? 'checked' : ''}>
                             </td>
                         ` : ''}
-                        ${this.columns.map(col => `
-                            <td>${row[col.key] || ''}</td>
-                        `).join('')}
+                        ${this.columns.map(col => {
+                            const cellValue = row[col.key] || '';
+                            // Check if the column should render HTML
+                            const renderHTML = col.html !== false; // Default to true unless explicitly set to false
+                            return `
+                                <td>${renderHTML ? cellValue : this.escapeHtml(cellValue)}</td>
+                            `;
+                        }).join('')}
                     </tr>
                 `;
             });

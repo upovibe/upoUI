@@ -176,6 +176,7 @@ export default TableExample;`;
                                 <ui-table 
                                     data='${JSON.stringify(sampleData)}' 
                                     columns='${JSON.stringify(sampleColumns)}'
+                                    clickable="true"
                                 ></ui-table>
                             </div>
                             <div class="flex flex-col gap-2">
@@ -293,6 +294,7 @@ export default TableExample;`;
                         data='${JSON.stringify(sampleData)}' 
                         columns='${JSON.stringify(sampleColumns)}'
                         sortable="true"
+                        clickable="true"
                       ></ui-table>
                     </ui-box>
                   </ui-tab-panel>

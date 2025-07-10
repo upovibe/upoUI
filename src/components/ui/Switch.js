@@ -43,6 +43,9 @@ class Switch extends HTMLElement {
         this.label = this.getAttribute('label') || '';
         this.description = this.getAttribute('description') || '';
         
+        // Flag to prevent attributeChangedCallback from interfering with programmatic changes
+        this.isUpdating = false;
+        
         // Add default styles
         this.addDefaultStyles();
     }
@@ -234,7 +237,7 @@ class Switch extends HTMLElement {
      * @param {string} newValue - The new value
      */
     attributeChangedCallback(name, oldValue, newValue) {
-        if (oldValue !== newValue) {
+        if (oldValue !== newValue && !this.isUpdating) {
             // Handle boolean attributes
             if (name === 'checked' || name === 'disabled') {
                 this[name] = this.hasAttribute(name);
@@ -279,6 +282,9 @@ class Switch extends HTMLElement {
      * Updates the checked state, re-renders, and dispatches change event
      */
     toggle() {
+        // Set flag to prevent attributeChangedCallback from interfering
+        this.isUpdating = true;
+        
         // Toggle the boolean state
         this.checked = !this.checked;
         
@@ -297,6 +303,9 @@ class Switch extends HTMLElement {
             detail: { checked: this.checked },
             bubbles: true
         }));
+        
+        // Reset flag
+        this.isUpdating = false;
     }
 
     /**

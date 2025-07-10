@@ -3,6 +3,7 @@ import '@/components/ui/CodeBlock.js';
 import '@/components/ui/Dialog.js';
 import '@/components/ui/Button.js';
 import '@/components/ui/Box.js';
+import '@/components/ui/Tabs.js';
 
 class DialogDocsPage extends App {
     connectedCallback() {

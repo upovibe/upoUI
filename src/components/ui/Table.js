@@ -386,7 +386,7 @@ class Table extends HTMLElement {
                     color: #6b7280;
                 }
                 
-                .upo-table-page-size-select {
+                .upo-table-page-size-input {
                     padding: 0.25rem 0.5rem;
                     font-size: 0.875rem;
                     border: 1px solid #d1d5db;
@@ -394,16 +394,17 @@ class Table extends HTMLElement {
                     outline: none;
                     background-color: #ffffff;
                     color: #374151;
-                    cursor: pointer;
+                    width: 60px;
+                    text-align: center;
                     transition: all 0.15s ease-in-out;
                 }
                 
-                .upo-table-page-size-select:focus {
+                .upo-table-page-size-input:focus {
                     border-color: #3b82f6;
                     box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
                 }
                 
-                .upo-table-page-size-select:hover {
+                .upo-table-page-size-input:hover {
                     border-color: #9ca3af;
                 }
                 
@@ -836,8 +837,19 @@ class Table extends HTMLElement {
      * @param {Event} event - The change event
      */
     handlePageSizeChange(event) {
-        const newPageSize = parseInt(event.target.value);
-        if (newPageSize && newPageSize !== this.pageSize) {
+        let newPageSize = parseInt(event.target.value);
+        
+        // Validate input
+        if (isNaN(newPageSize) || newPageSize < 1) {
+            newPageSize = 10; // Default fallback
+        } else if (newPageSize > 1000) {
+            newPageSize = 1000; // Max limit
+        }
+        
+        // Update input value if it was invalid
+        event.target.value = newPageSize;
+        
+        if (newPageSize !== this.pageSize) {
             this.pageSize = newPageSize;
             this.currentPage = 1; // Reset to first page
             this.render();
@@ -1124,20 +1136,16 @@ class Table extends HTMLElement {
                             ${(this.searchable && this.searchQuery) || (this.filterable && this.filterValue) ? ` (filtered from ${this.data.length} total)` : ''}
                         </div>
                         <div class="upo-table-page-size">
-                            <label for="page-size-select">Show:</label>
-                            <select id="page-size-select" class="upo-table-page-size-select">
-                                <option value="5" ${this.pageSize === 5 ? 'selected' : ''}>5</option>
-                                <option value="10" ${this.pageSize === 10 ? 'selected' : ''}>10</option>
-                                <option value="25" ${this.pageSize === 25 ? 'selected' : ''}>25</option>
-                                <option value="50" ${this.pageSize === 50 ? 'selected' : ''}>50</option>
-                                <option value="100" ${this.pageSize === 100 ? 'selected' : ''}>100</option>
-                            </select>
+                            <label for="page-size-input">Show:</label>
+                            <input type="number" id="page-size-input" class="upo-table-page-size-input" value="${this.pageSize}" min="1" max="1000">
                             <span>entries</span>
                         </div>
                     </div>
                     <div class="upo-table-pagination-controls">
-                        <button class="upo-table-pagination-button" ${this.currentPage === 1 ? 'disabled' : ''} onclick="this.closest('ui-table').goToPage(${this.currentPage - 1})">
-                            Previous
+                        <button class="upo-table-pagination-button" ${this.currentPage === 1 ? 'disabled' : ''} onclick="this.closest('ui-table').goToPage(${this.currentPage - 1})" aria-label="Go to previous page">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="15,18 9,12 15,6"></polyline>
+                            </svg>
                         </button>
             `;
 
@@ -1154,8 +1162,10 @@ class Table extends HTMLElement {
             }
 
             tableHTML += `
-                        <button class="upo-table-pagination-button" ${this.currentPage === maxPage ? 'disabled' : ''} onclick="this.closest('ui-table').goToPage(${this.currentPage + 1})">
-                            Next
+                        <button class="upo-table-pagination-button" ${this.currentPage === maxPage ? 'disabled' : ''} onclick="this.closest('ui-table').goToPage(${this.currentPage + 1})" aria-label="Go to next page">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="9,18 15,12 9,6"></polyline>
+                            </svg>
                         </button>
                     </div>
                 </div>
@@ -1216,11 +1226,16 @@ class Table extends HTMLElement {
             }
         }
 
-        // Add page size selector event listeners
+        // Add page size input event listeners
         if (this.pagination) {
-            const pageSizeSelect = this.querySelector('.upo-table-page-size-select');
-            if (pageSizeSelect) {
-                pageSizeSelect.addEventListener('change', this.handlePageSizeChange.bind(this));
+            const pageSizeInput = this.querySelector('.upo-table-page-size-input');
+            if (pageSizeInput) {
+                pageSizeInput.addEventListener('change', this.handlePageSizeChange.bind(this));
+                pageSizeInput.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter') {
+                        e.target.blur(); // Trigger change event
+                    }
+                });
             }
         }
     }

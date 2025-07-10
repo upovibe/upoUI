@@ -457,7 +457,7 @@ export default TableExample;`;
                         <li>• Use <code>sortable="true"</code> to enable column sorting</li>
                         <li>• Use <code>selectable="true"</code> to enable row selection</li>
                         <li>• Use <code>pagination="true"</code> to enable pagination</li>
-                        <li>• Use <code>page-size</code> to set initial rows per page (5, 10, 25, 50, 100 available)</li>
+                        <li>• Use <code>page-size</code> to set initial rows per page (users can enter custom values 1-1000)</li>
                         <li>• Use <code>striped="true"</code> for alternating row colors</li>
                         <li>• Use <code>bordered="true"</code> for table borders</li>
                         <li>• Use <code>compact="true"</code> for reduced padding</li>

@@ -125,17 +125,22 @@ class FileUpload extends HTMLElement {
         .file-list {
           margin-top: 1rem;
           text-align: left;
+          display: flex;
+          flex-wrap: wrap;
+          gap: 0.5rem;
         }
 
         .file-item {
           display: flex;
           align-items: center;
-          padding: 0.75rem;
+          padding: 0.5rem;
           background: white;
           border: 1px solid #e5e7eb;
           border-radius: 0.375rem;
-          margin-bottom: 0.5rem;
           transition: all 0.2s ease;
+          min-width: 200px;
+          max-width: 300px;
+          flex-shrink: 0;
         }
 
         .file-item:hover {
@@ -144,24 +149,27 @@ class FileUpload extends HTMLElement {
         }
 
         .file-icon {
-          width: 2rem;
-          height: 2rem;
-          margin-right: 0.75rem;
+          width: 1.5rem;
+          height: 1.5rem;
+          margin-right: 0.5rem;
           color: #6b7280;
+          flex-shrink: 0;
         }
 
         .file-info {
           flex: 1;
           min-width: 0;
+          overflow: hidden;
         }
 
         .file-name {
           font-weight: 500;
           color: #374151;
-          margin-bottom: 0.25rem;
+          margin-bottom: 0.125rem;
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
+          font-size: 0.875rem;
         }
 
         .file-size {
@@ -172,7 +180,10 @@ class FileUpload extends HTMLElement {
         .file-actions {
           display: flex;
           align-items: center;
-          gap: 0.5rem;
+          gap: 0.25rem;
+          position: relative;
+          z-index: 10;
+          flex-shrink: 0;
         }
 
         .remove-btn {
@@ -180,9 +191,14 @@ class FileUpload extends HTMLElement {
           border: none;
           color: #ef4444;
           cursor: pointer;
-          padding: 0.25rem;
+          padding: 0.125rem;
           border-radius: 0.25rem;
           transition: all 0.2s ease;
+          position: relative;
+          z-index: 10;
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
 
         .remove-btn:hover {
@@ -284,6 +300,11 @@ class FileUpload extends HTMLElement {
 
     // Click to upload
     uploadArea.addEventListener('click', (e) => {
+      // Don't trigger file input if clicking on file items or remove buttons
+      if (e.target.closest('.file-item') || e.target.closest('.remove-btn')) {
+        return;
+      }
+      
       if (!this.hasAttribute('disabled') && e.target !== fileInput) {
         fileInput.click();
       }
@@ -413,7 +434,9 @@ class FileUpload extends HTMLElement {
     // Add remove event listeners
     fileList.querySelectorAll('.remove-btn').forEach(btn => {
       btn.addEventListener('click', (e) => {
+        e.preventDefault();
         e.stopPropagation();
+        e.stopImmediatePropagation();
         const index = parseInt(btn.dataset.index);
         this.removeFile(index);
       });

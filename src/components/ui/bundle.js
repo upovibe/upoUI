@@ -42,7 +42,6 @@ export { default as Carousel } from './Carousel.js';
 export { default as Checkbox } from './Checkbox.js';
 export { default as DatePicker } from './DatePicker.js';
 export { default as Dialog } from './Dialog.js';
-export { default as Drawer } from './Drawer.js';
 export { default as Dropdown } from './Dropdown.js';
 export { default as EmptyState } from './EmptyState.js';
 

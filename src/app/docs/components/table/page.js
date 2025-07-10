@@ -43,6 +43,19 @@ class TableDocsPage extends App {
   selectable="true"
 ></ui-table>`;
 
+        const searchableExample = `<ui-table 
+  data='${JSON.stringify(sampleData)}' 
+  columns='${JSON.stringify(sampleColumns)}'
+  searchable="true"
+></ui-table>`;
+
+        const searchableCustomExample = `<ui-table 
+  data='${JSON.stringify(sampleData)}' 
+  columns='${JSON.stringify(sampleColumns)}'
+  searchable="true"
+  search-placeholder="Search employees..."
+></ui-table>`;
+
         const paginationExample = `<ui-table 
   data='${JSON.stringify(sampleData)}' 
   columns='${JSON.stringify(sampleColumns)}'
@@ -65,6 +78,7 @@ class TableDocsPage extends App {
   selectable="true"
   pagination="true"
   page-size="3"
+  searchable="true"
   striped="true"
   bordered="true"
 ></ui-table>`;
@@ -101,6 +115,7 @@ class TableExample extends HTMLElement {
                     selectable="true"
                     pagination="true"
                     page-size="2"
+                    searchable="true"
                     striped="true"
                     bordered="true"
                 ></ui-table>
@@ -109,6 +124,7 @@ class TableExample extends HTMLElement {
                     <p>Selected rows: <span id="selected-count">0</span></p>
                     <p>Current sort: <span id="sort-info">None</span></p>
                     <p>Current page: <span id="page-info">1</span></p>
+                    <p>Search results: <span id="search-info">All</span></p>
                 </div>
             </div>
         \`;
@@ -130,6 +146,12 @@ class TableExample extends HTMLElement {
             this.querySelector('#page-info').textContent = event.detail.page;
             console.log('Page changed:', event.detail);
         });
+        
+        this.addEventListener('table-search', (event) => {
+            const searchText = event.detail.query ? \`"\${event.detail.query}" (\${event.detail.results} results)\` : 'All';
+            this.querySelector('#search-info').textContent = searchText;
+            console.log('Search changed:', event.detail);
+        });
     }
 }
 
@@ -141,7 +163,7 @@ export default TableExample;`;
                 <div class="mb-8">
                     <h1 class="text-3xl font-bold text-gray-900 mb-4">Table Component</h1>
                     <p class="text-lg text-gray-600 mb-6">
-                        A comprehensive table component with sorting, pagination, selection, and responsive design. 
+                        A comprehensive table component with sorting, pagination, selection, search, and responsive design. 
                         Perfect for displaying data with interactive features and accessibility support.
                     </p>
                     
@@ -154,6 +176,14 @@ export default TableExample;`;
                                 <ui-table 
                                     data='${JSON.stringify(sampleData)}' 
                                     columns='${JSON.stringify(sampleColumns)}'
+                                ></ui-table>
+                            </div>
+                            <div class="flex flex-col gap-2">
+                                <h3 class="text-sm font-medium text-gray-700">Searchable Table</h3>
+                                <ui-table 
+                                    data='${JSON.stringify(sampleData)}' 
+                                    columns='${JSON.stringify(sampleColumns)}'
+                                    searchable="true"
                                 ></ui-table>
                             </div>
                             <div class="flex flex-col gap-2">
@@ -199,8 +229,8 @@ export default TableExample;`;
                   </ui-tab-panel>
                 </ui-tabs>
 
-                <h2 class="text-xl font-semibold mt-8 mb-4">Sortable Table</h2>
-                <p class="mb-4 text-gray-600">Enable column sorting by clicking on headers.</p>
+                <h2 class="text-xl font-semibold mt-8 mb-4">Searchable Table</h2>
+                <p class="mb-4 text-gray-600">Enable search functionality to filter data across all columns.</p>
                 
                 <ui-tabs>
                   <ui-tab-list>
@@ -213,18 +243,18 @@ export default TableExample;`;
                       <ui-table 
                         data='${JSON.stringify(sampleData)}' 
                         columns='${JSON.stringify(sampleColumns)}'
-                        sortable="true"
+                        searchable="true"
                       ></ui-table>
                     </ui-box>
                   </ui-tab-panel>
                   
                   <ui-tab-panel value="code2">
-                    <ui-codeblock language="html" code="${sortableExample.replace(/"/g, '&quot;')}"></ui-codeblock>
+                    <ui-codeblock language="html" code="${searchableExample.replace(/"/g, '&quot;')}"></ui-codeblock>
                   </ui-tab-panel>
                 </ui-tabs>
 
-                <h2 class="text-xl font-semibold mt-8 mb-4">Selectable Table</h2>
-                <p class="mb-4 text-gray-600">Enable row selection with checkboxes.</p>
+                <h2 class="text-xl font-semibold mt-8 mb-4">Searchable Table with Custom Placeholder</h2>
+                <p class="mb-4 text-gray-600">Customize the search input placeholder text.</p>
                 
                 <ui-tabs>
                   <ui-tab-list>
@@ -237,18 +267,19 @@ export default TableExample;`;
                       <ui-table 
                         data='${JSON.stringify(sampleData)}' 
                         columns='${JSON.stringify(sampleColumns)}'
-                        selectable="true"
+                        searchable="true"
+                        search-placeholder="Search employees..."
                       ></ui-table>
                     </ui-box>
                   </ui-tab-panel>
                   
                   <ui-tab-panel value="code3">
-                    <ui-codeblock language="html" code="${selectableExample.replace(/"/g, '&quot;')}"></ui-codeblock>
+                    <ui-codeblock language="html" code="${searchableCustomExample.replace(/"/g, '&quot;')}"></ui-codeblock>
                   </ui-tab-panel>
                 </ui-tabs>
 
-                <h2 class="text-xl font-semibold mt-8 mb-4">Pagination</h2>
-                <p class="mb-4 text-gray-600">Add pagination to handle large datasets.</p>
+                <h2 class="text-xl font-semibold mt-8 mb-4">Sortable Table</h2>
+                <p class="mb-4 text-gray-600">Enable column sorting by clicking on headers.</p>
                 
                 <ui-tabs>
                   <ui-tab-list>
@@ -261,19 +292,18 @@ export default TableExample;`;
                       <ui-table 
                         data='${JSON.stringify(sampleData)}' 
                         columns='${JSON.stringify(sampleColumns)}'
-                        pagination="true"
-                        page-size="3"
+                        sortable="true"
                       ></ui-table>
                     </ui-box>
                   </ui-tab-panel>
                   
                   <ui-tab-panel value="code4">
-                    <ui-codeblock language="html" code="${paginationExample.replace(/"/g, '&quot;')}"></ui-codeblock>
+                    <ui-codeblock language="html" code="${sortableExample.replace(/"/g, '&quot;')}"></ui-codeblock>
                   </ui-tab-panel>
                 </ui-tabs>
 
-                <h2 class="text-xl font-semibold mt-8 mb-4">Styled Table</h2>
-                <p class="mb-4 text-gray-600">Apply different styling options.</p>
+                <h2 class="text-xl font-semibold mt-8 mb-4">Selectable Table</h2>
+                <p class="mb-4 text-gray-600">Enable row selection with checkboxes.</p>
                 
                 <ui-tabs>
                   <ui-tab-list>
@@ -286,20 +316,18 @@ export default TableExample;`;
                       <ui-table 
                         data='${JSON.stringify(sampleData)}' 
                         columns='${JSON.stringify(sampleColumns)}'
-                        striped="true"
-                        bordered="true"
-                        compact="true"
+                        selectable="true"
                       ></ui-table>
                     </ui-box>
                   </ui-tab-panel>
                   
                   <ui-tab-panel value="code5">
-                    <ui-codeblock language="html" code="${styledExample.replace(/"/g, '&quot;')}"></ui-codeblock>
+                    <ui-codeblock language="html" code="${selectableExample.replace(/"/g, '&quot;')}"></ui-codeblock>
                   </ui-tab-panel>
                 </ui-tabs>
 
-                <h2 class="text-xl font-semibold mt-8 mb-4">Full Featured Table</h2>
-                <p class="mb-4 text-gray-600">Combine all features for a complete table experience.</p>
+                <h2 class="text-xl font-semibold mt-8 mb-4">Pagination</h2>
+                <p class="mb-4 text-gray-600">Add pagination to handle large datasets.</p>
                 
                 <ui-tabs>
                   <ui-tab-list>
@@ -312,17 +340,69 @@ export default TableExample;`;
                       <ui-table 
                         data='${JSON.stringify(sampleData)}' 
                         columns='${JSON.stringify(sampleColumns)}'
+                        pagination="true"
+                        page-size="3"
+                      ></ui-table>
+                    </ui-box>
+                  </ui-tab-panel>
+                  
+                  <ui-tab-panel value="code6">
+                    <ui-codeblock language="html" code="${paginationExample.replace(/"/g, '&quot;')}"></ui-codeblock>
+                  </ui-tab-panel>
+                </ui-tabs>
+
+                <h2 class="text-xl font-semibold mt-8 mb-4">Styled Table</h2>
+                <p class="mb-4 text-gray-600">Apply different styling options.</p>
+                
+                <ui-tabs>
+                  <ui-tab-list>
+                    <ui-tab value="preview7">Preview</ui-tab>
+                    <ui-tab value="code7">Code</ui-tab>
+                  </ui-tab-list>
+                  
+                  <ui-tab-panel value="preview7">
+                    <ui-box class="p-4 shadow rounded-lg border border-gray-200">
+                      <ui-table 
+                        data='${JSON.stringify(sampleData)}' 
+                        columns='${JSON.stringify(sampleColumns)}'
+                        striped="true"
+                        bordered="true"
+                        compact="true"
+                      ></ui-table>
+                    </ui-box>
+                  </ui-tab-panel>
+                  
+                  <ui-tab-panel value="code7">
+                    <ui-codeblock language="html" code="${styledExample.replace(/"/g, '&quot;')}"></ui-codeblock>
+                  </ui-tab-panel>
+                </ui-tabs>
+
+                <h2 class="text-xl font-semibold mt-8 mb-4">Full Featured Table</h2>
+                <p class="mb-4 text-gray-600">Combine all features for a complete table experience.</p>
+                
+                <ui-tabs>
+                  <ui-tab-list>
+                    <ui-tab value="preview8">Preview</ui-tab>
+                    <ui-tab value="code8">Code</ui-tab>
+                  </ui-tab-list>
+                  
+                  <ui-tab-panel value="preview8">
+                    <ui-box class="p-4 shadow rounded-lg border border-gray-200">
+                      <ui-table 
+                        data='${JSON.stringify(sampleData)}' 
+                        columns='${JSON.stringify(sampleColumns)}'
                         sortable="true"
                         selectable="true"
                         pagination="true"
                         page-size="3"
+                        searchable="true"
                         striped="true"
                         bordered="true"
                       ></ui-table>
                     </ui-box>
                   </ui-tab-panel>
                   
-                  <ui-tab-panel value="code6">
+                  <ui-tab-panel value="code8">
                     <ui-codeblock language="html" code="${fullExample.replace(/"/g, '&quot;')}"></ui-codeblock>
                   </ui-tab-panel>
                 </ui-tabs>
@@ -338,6 +418,8 @@ export default TableExample;`;
                         <li>• Import the table component before using it</li>
                         <li>• Use <code>data</code> attribute with JSON string for table data</li>
                         <li>• Use <code>columns</code> attribute with JSON string for column definitions</li>
+                        <li>• Use <code>searchable="true"</code> to enable search functionality</li>
+                        <li>• Use <code>search-placeholder</code> to customize search input placeholder</li>
                         <li>• Use <code>sortable="true"</code> to enable column sorting</li>
                         <li>• Use <code>selectable="true"</code> to enable row selection</li>
                         <li>• Use <code>pagination="true"</code> to enable pagination</li>
@@ -345,9 +427,10 @@ export default TableExample;`;
                         <li>• Use <code>striped="true"</code> for alternating row colors</li>
                         <li>• Use <code>bordered="true"</code> for table borders</li>
                         <li>• Use <code>compact="true"</code> for reduced padding</li>
-                        <li>• Listen for <code>table-sort</code>, <code>table-select</code>, and <code>table-page-change</code> events</li>
+                        <li>• Listen for <code>table-sort</code>, <code>table-select</code>, <code>table-page-change</code>, and <code>table-search</code> events</li>
                         <li>• Table is fully accessible with keyboard navigation and screen readers</li>
                         <li>• Responsive design with horizontal scrolling for mobile</li>
+                        <li>• Search works across all columns and updates pagination automatically</li>
                     </ul>
                 </div>
 
@@ -377,6 +460,18 @@ export default TableExample;`;
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">string</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">'[]'</td>
                                     <td class="px-6 py-4 text-sm text-gray-500">JSON string of column definitions</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">searchable</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">boolean</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">false</td>
+                                    <td class="px-6 py-4 text-sm text-gray-500">Enable search functionality</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">search-placeholder</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">string</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">'Search...'</td>
+                                    <td class="px-6 py-4 text-sm text-gray-500">Placeholder text for search input</td>
                                 </tr>
                                 <tr>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">sortable</td>
@@ -435,6 +530,10 @@ export default TableExample;`;
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
                                 <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">table-search</td>
+                                    <td class="px-6 py-4 text-sm text-gray-500">Fired when search query changes (detail: { query: string, results: number })</td>
+                                </tr>
+                                <tr>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">table-sort</td>
                                     <td class="px-6 py-4 text-sm text-gray-500">Fired when column is sorted (detail: { column: string, direction: string })</td>
                                 </tr>
@@ -460,6 +559,10 @@ export default TableExample;`;
                                 </tr>
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">filterData(query)</td>
+                                    <td class="px-6 py-4 text-sm text-gray-500">Programmatically filter data by search query</td>
+                                </tr>
                                 <tr>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">sort(column)</td>
                                     <td class="px-6 py-4 text-sm text-gray-500">Programmatically sort by column</td>

@@ -37,7 +37,7 @@
  */
 class Table extends HTMLElement {
     static get observedAttributes() {
-        return ['data', 'columns', 'title', 'sortable', 'selectable', 'pagination', 'page-size', 'striped', 'bordered', 'compact', 'searchable', 'search-placeholder', 'clickable'];
+        return ['data', 'columns', 'title', 'sortable', 'selectable', 'pagination', 'page-size', 'striped', 'bordered', 'compact', 'searchable', 'search-placeholder', 'clickable', 'filterable'];
     }
 
     constructor() {
@@ -57,6 +57,7 @@ class Table extends HTMLElement {
         this.searchable = this.hasAttribute('searchable');
         this.searchPlaceholder = this.getAttribute('search-placeholder') || 'Search...';
         this.clickable = this.hasAttribute('clickable');
+        this.filterable = this.hasAttribute('filterable');
         
         // Internal state
         this.currentPage = 1;
@@ -64,6 +65,7 @@ class Table extends HTMLElement {
         this.sortDirection = 'asc';
         this.selectedRows = new Set();
         this.searchQuery = '';
+        this.filterValue = '';
         this.filteredData = [...this.data];
         
         // Flag to prevent attributeChangedCallback from interfering
@@ -317,6 +319,33 @@ class Table extends HTMLElement {
                     color: #2563eb;
                 }
                 
+                .upo-table-filter {
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                }
+                
+                .upo-table-filter-select {
+                    padding: 0.5rem 0.75rem;
+                    font-size: 0.875rem;
+                    border: 1px solid #d1d5db;
+                    border-radius: 0.375rem;
+                    outline: none;
+                    background-color: #ffffff;
+                    color: #374151;
+                    cursor: pointer;
+                    transition: all 0.15s ease-in-out;
+                }
+                
+                .upo-table-filter-select:focus {
+                    border-color: #3b82f6;
+                    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
+                }
+                
+                .upo-table-filter-select:hover {
+                    border-color: #9ca3af;
+                }
+                
                 .upo-table-print {
                     padding: 0.5rem;
                     border: none;
@@ -411,7 +440,7 @@ class Table extends HTMLElement {
             if (name === 'data' || name === 'columns') {
                 this[name] = this.parseJSONAttribute(name, name === 'data' ? [] : []);
                 this.filteredData = [...this.data];
-            } else if (name === 'sortable' || name === 'selectable' || name === 'pagination' || name === 'striped' || name === 'bordered' || name === 'compact' || name === 'searchable' || name === 'clickable') {
+            } else if (name === 'sortable' || name === 'selectable' || name === 'pagination' || name === 'striped' || name === 'bordered' || name === 'compact' || name === 'searchable' || name === 'clickable' || name === 'filterable') {
                 this[name] = this.hasAttribute(name);
             } else if (name === 'page-size') {
                 this.pageSize = parseInt(newValue) || 10;
@@ -662,18 +691,36 @@ class Table extends HTMLElement {
      * Filter data based on search query
      * @param {string} query - The search query
      */
-    filterData(query) {
+    filterData(query, filterValue = '') {
         this.searchQuery = query.toLowerCase().trim();
+        this.filterValue = filterValue;
         
-        if (!this.searchQuery) {
+        if (!this.searchQuery && !this.filterValue) {
             this.filteredData = [...this.data];
         } else {
             this.filteredData = this.data.filter(row => {
-                return this.columns.some(col => {
-                    const value = row[col.key];
-                    if (value === null || value === undefined) return false;
-                    return String(value).toLowerCase().includes(this.searchQuery);
-                });
+                let matchesSearch = true;
+                let matchesFilter = true;
+                
+                // Check search query
+                if (this.searchQuery) {
+                    matchesSearch = this.columns.some(col => {
+                        const value = row[col.key];
+                        if (value === null || value === undefined) return false;
+                        return String(value).toLowerCase().includes(this.searchQuery);
+                    });
+                }
+                
+                // Check filter value (if filterable is enabled, filter by the first column)
+                if (this.filterValue && this.filterable) {
+                    const firstColumn = this.columns[0];
+                    if (firstColumn) {
+                        const value = row[firstColumn.key];
+                        matchesFilter = String(value) === this.filterValue;
+                    }
+                }
+                
+                return matchesSearch && matchesFilter;
             });
         }
         
@@ -682,7 +729,7 @@ class Table extends HTMLElement {
         
         this.render();
         this.dispatchEvent(new CustomEvent('table-search', {
-            detail: { query: this.searchQuery, results: this.filteredData.length },
+            detail: { query: this.searchQuery, filterValue: this.filterValue, results: this.filteredData.length },
             bubbles: true
         }));
     }
@@ -693,7 +740,7 @@ class Table extends HTMLElement {
      */
     handleSearchInput(event) {
         const query = event.target.value;
-        this.filterData(query);
+        this.filterData(query, this.filterValue);
     }
 
     /**
@@ -703,8 +750,17 @@ class Table extends HTMLElement {
     handleSearchKeydown(event) {
         if (event.key === 'Escape') {
             event.target.value = '';
-            this.filterData('');
+            this.filterData('', this.filterValue);
         }
+    }
+
+    /**
+     * Handle filter dropdown changes
+     * @param {Event} event - The change event
+     */
+    handleFilterChange(event) {
+        const filterValue = event.target.value;
+        this.filterData(this.searchQuery, filterValue);
     }
 
     /**
@@ -714,7 +770,7 @@ class Table extends HTMLElement {
     goToPage(page) {
         if (!this.pagination) return;
 
-        const dataToUse = this.searchable ? this.filteredData : this.data;
+        const dataToUse = (this.searchable || this.filterable) ? this.filteredData : this.data;
         const maxPage = Math.ceil(dataToUse.length / this.pageSize);
         if (page < 1 || page > maxPage) return;
 
@@ -731,7 +787,7 @@ class Table extends HTMLElement {
      * @returns {Array} The visible data
      */
     getVisibleData() {
-        const dataToUse = this.searchable ? this.filteredData : this.data;
+        const dataToUse = (this.searchable || this.filterable) ? this.filteredData : this.data;
         
         if (!this.pagination) return dataToUse;
 
@@ -807,7 +863,7 @@ class Table extends HTMLElement {
      */
     render() {
         const visibleData = this.getVisibleData();
-        const dataToUse = this.searchable ? this.filteredData : this.data;
+        const dataToUse = (this.searchable || this.filterable) ? this.filteredData : this.data;
         const maxPage = Math.ceil(dataToUse.length / this.pageSize);
         const totalCount = this.data.length;
         const filteredCount = dataToUse.length;
@@ -831,7 +887,7 @@ class Table extends HTMLElement {
             <div class="upo-table-header">
                 <div class="upo-table-title">
                     ${this.title}
-                    <span class="upo-table-count">(${this.searchable && this.searchQuery ? filteredCount : totalCount})</span>
+                    <span class="upo-table-count">(${(this.searchable && this.searchQuery) || (this.filterable && this.filterValue) ? filteredCount : totalCount})</span>
                 </div>
                 <div class="upo-table-controls-row">
                     <div class="upo-table-controls-left">
@@ -856,6 +912,25 @@ class Table extends HTMLElement {
                             ×
                         </button>
                     ` : ''}
+                </div>
+            `;
+        }
+
+        // Filter dropdown (if filterable is enabled)
+        if (this.filterable && this.columns.length > 0) {
+            const firstColumn = this.columns[0];
+            const uniqueValues = [...new Set(this.data.map(row => row[firstColumn.key]).filter(val => val != null))];
+            
+            tableHTML += `
+                <div class="upo-table-filter">
+                    <select class="upo-table-filter-select" aria-label="Filter by ${firstColumn.label || firstColumn.key}">
+                        <option value="">All ${firstColumn.label || firstColumn.key}</option>
+                        ${uniqueValues.map(value => `
+                            <option value="${value}" ${this.filterValue === value ? 'selected' : ''}>
+                                ${value}
+                            </option>
+                        `).join('')}
+                    </select>
                 </div>
             `;
         }
@@ -960,7 +1035,7 @@ class Table extends HTMLElement {
                 <div class="upo-table-pagination">
                     <div class="upo-table-pagination-info">
                         Showing ${startItem} to ${endItem} of ${dataToUse.length} results
-                        ${this.searchable && this.searchQuery ? ` (filtered from ${this.data.length} total)` : ''}
+                        ${(this.searchable && this.searchQuery) || (this.filterable && this.filterValue) ? ` (filtered from ${this.data.length} total)` : ''}
                     </div>
                     <div class="upo-table-pagination-controls">
                         <button class="upo-table-pagination-button" ${this.currentPage === 1 ? 'disabled' : ''} onclick="this.closest('ui-table').goToPage(${this.currentPage - 1})">
@@ -1030,8 +1105,16 @@ class Table extends HTMLElement {
             if (clearButton) {
                 clearButton.addEventListener('click', () => {
                     this.querySelector('.upo-table-search-input').value = '';
-                    this.filterData('');
+                    this.filterData('', this.filterValue);
                 });
+            }
+        }
+
+        // Add filter dropdown event listeners
+        if (this.filterable) {
+            const filterSelect = this.querySelector('.upo-table-filter-select');
+            if (filterSelect) {
+                filterSelect.addEventListener('change', this.handleFilterChange.bind(this));
             }
         }
     }

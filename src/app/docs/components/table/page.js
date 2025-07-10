@@ -12,14 +12,15 @@ class TableDocsPage extends App {
 
     render() {
         const sampleData = [
-            { id: 1, name: 'John Doe', email: 'john@example.com', age: 25, department: 'Engineering' },
-            { id: 2, name: 'Jane Smith', email: 'jane@example.com', age: 30, department: 'Marketing' },
-            { id: 3, name: 'Bob Johnson', email: 'bob@example.com', age: 28, department: 'Sales' },
-            { id: 4, name: 'Alice Brown', email: 'alice@example.com', age: 32, department: 'Engineering' },
-            { id: 5, name: 'Charlie Wilson', email: 'charlie@example.com', age: 27, department: 'HR' }
+            { id: 1, name: 'John Doe', email: 'john@example.com', age: 25, department: 'Engineering', status: 'Active' },
+            { id: 2, name: 'Jane Smith', email: 'jane@example.com', age: 30, department: 'Marketing', status: 'Active' },
+            { id: 3, name: 'Bob Johnson', email: 'bob@example.com', age: 28, department: 'Sales', status: 'Inactive' },
+            { id: 4, name: 'Alice Brown', email: 'alice@example.com', age: 32, department: 'Engineering', status: 'Active' },
+            { id: 5, name: 'Charlie Wilson', email: 'charlie@example.com', age: 27, department: 'HR', status: 'Pending' }
         ];
 
         const sampleColumns = [
+            { key: 'status', label: 'Status' },
             { key: 'name', label: 'Name' },
             { key: 'email', label: 'Email' },
             { key: 'age', label: 'Age' },
@@ -54,6 +55,12 @@ class TableDocsPage extends App {
   columns='${JSON.stringify(sampleColumns)}'
   searchable="true"
   search-placeholder="Search employees..."
+></ui-table>`;
+
+        const filterableExample = `<ui-table 
+  data='${JSON.stringify(sampleData)}' 
+  columns='${JSON.stringify(sampleColumns)}'
+  filterable="true"
 ></ui-table>`;
 
         const paginationExample = `<ui-table 
@@ -279,6 +286,30 @@ export default TableExample;`;
                   </ui-tab-panel>
                 </ui-tabs>
 
+                <h2 class="text-xl font-semibold mt-8 mb-4">Filterable Table</h2>
+                <p class="mb-4 text-gray-600">Enable dropdown filtering for the first column values.</p>
+                
+                <ui-tabs>
+                  <ui-tab-list>
+                    <ui-tab value="preview-filter">Preview</ui-tab>
+                    <ui-tab value="code-filter">Code</ui-tab>
+                  </ui-tab-list>
+                  
+                  <ui-tab-panel value="preview-filter">
+                    <ui-box class="p-4 shadow rounded-lg border border-gray-200">
+                      <ui-table 
+                        data='${JSON.stringify(sampleData)}' 
+                        columns='${JSON.stringify(sampleColumns)}'
+                        filterable="true"
+                      ></ui-table>
+                    </ui-box>
+                  </ui-tab-panel>
+                  
+                  <ui-tab-panel value="code-filter">
+                    <ui-codeblock language="html" code="${filterableExample.replace(/"/g, '&quot;')}"></ui-codeblock>
+                  </ui-tab-panel>
+                </ui-tabs>
+
                 <h2 class="text-xl font-semibold mt-8 mb-4">Sortable Table</h2>
                 <p class="mb-4 text-gray-600">Enable column sorting by clicking on headers.</p>
                 
@@ -422,6 +453,7 @@ export default TableExample;`;
                         <li>• Use <code>columns</code> attribute with JSON string for column definitions</li>
                         <li>• Use <code>searchable="true"</code> to enable search functionality</li>
                         <li>• Use <code>search-placeholder</code> to customize search input placeholder</li>
+                        <li>• Use <code>filterable="true"</code> to enable dropdown filtering for the first column</li>
                         <li>• Use <code>sortable="true"</code> to enable column sorting</li>
                         <li>• Use <code>selectable="true"</code> to enable row selection</li>
                         <li>• Use <code>pagination="true"</code> to enable pagination</li>
@@ -474,6 +506,12 @@ export default TableExample;`;
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">string</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">'Search...'</td>
                                     <td class="px-6 py-4 text-sm text-gray-500">Placeholder text for search input</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">filterable</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">boolean</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">false</td>
+                                    <td class="px-6 py-4 text-sm text-gray-500">Enable dropdown filtering for the first column</td>
                                 </tr>
                                 <tr>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">sortable</td>
@@ -533,7 +571,7 @@ export default TableExample;`;
                             <tbody class="bg-white divide-y divide-gray-200">
                                 <tr>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">table-search</td>
-                                    <td class="px-6 py-4 text-sm text-gray-500">Fired when search query changes (detail: { query: string, results: number })</td>
+                                    <td class="px-6 py-4 text-sm text-gray-500">Fired when search query or filter changes (detail: { query: string, filterValue: string, results: number })</td>
                                 </tr>
                                 <tr>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">table-sort</td>

@@ -36,7 +36,6 @@ class DocsComponentsPage extends App {
             { href: '/docs/components/modal', label: 'Modal', description: 'Centralized popup for focused user interaction.' },
             { href: '/docs/components/pagination', label: 'Pagination', description: 'Page controls for navigating long lists.' },
             { href: '/docs/components/radiogroup', label: 'Radio Group', description: 'Single-select form inputs grouped together.' },
-            { href: '/docs/components/rating', label: 'Rating', description: 'Star-based rating display or input.' },
             { href: '/docs/components/skeleton', label: 'Skeleton Loader', description: 'Placeholder loading indicator for content.' },
             { href: '/docs/components/switch', label: 'Switch', description: 'Toggle switch between on/off states.' },
             { href: '/docs/components/table', label: 'Table', description: 'Display tabular data in rows and columns.' },

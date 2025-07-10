@@ -107,7 +107,6 @@ class Sidebar extends App {
             { href: '/docs/components/modal', label: 'Modal' },
             { href: '/docs/components/pagination', label: 'Pagination' },
             { href: '/docs/components/radiogroup', label: 'Radio Group' },
-            { href: '/docs/components/rating', label: 'Rating' },
             { href: '/docs/components/skeleton', label: 'Skeleton Loader' },
             { href: '/docs/components/switch', label: 'Switch' },
             { href: '/docs/components/table', label: 'Table' },

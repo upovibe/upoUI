@@ -138,12 +138,14 @@ class Table extends HTMLElement {
                     padding: 0.75rem;
                     color: #374151;
                     border-bottom: 1px solid #e5e7eb;
+                    white-space: nowrap;
                 }
                 
                 .upo-table td {
                     padding: 0.75rem;
                     border-bottom: 1px solid #e5e7eb;
                     color: #111827;
+                    white-space: nowrap;
                 }
                 
                 .upo-table-compact th,

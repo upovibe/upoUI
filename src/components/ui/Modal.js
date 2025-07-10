@@ -46,6 +46,8 @@ class Modal extends HTMLElement {
         this.render();
         this.setupEventListeners();
         this.updateOpenState();
+        // Add explicit close button event after render
+        this.addCloseButtonHandler();
     }
 
     disconnectedCallback() {
@@ -58,18 +60,12 @@ class Modal extends HTMLElement {
                 this.updateOpenState();
             } else {
                 this.render();
+                this.addCloseButtonHandler();
             }
         }
     }
 
     setupEventListeners() {
-        // Close button event
-        this.shadowRoot.addEventListener('click', (e) => {
-            if (e.target.classList.contains('modal-close')) {
-                this.close();
-            }
-        });
-
         // Backdrop click
         this.shadowRoot.addEventListener('click', (e) => {
             if (e.target.classList.contains('modal-backdrop') && this.getAttribute('close-on-backdrop-click') !== 'false') {
@@ -433,6 +429,16 @@ class Modal extends HTMLElement {
                 </div>
             </div>
         `;
+    }
+
+    addCloseButtonHandler() {
+        const closeBtn = this.shadowRoot.querySelector('.modal-close');
+        if (closeBtn) {
+            closeBtn.onclick = (e) => {
+                e.stopPropagation();
+                this.close();
+            };
+        }
     }
 }
 

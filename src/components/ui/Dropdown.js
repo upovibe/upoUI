@@ -1,62 +1,119 @@
 /**
  * Dropdown Component
  * 
- * A customizable dropdown component with support for single/multi-select, search, and keyboard navigation.
+ * A customizable dropdown/select component with modern UI
  * 
  * Attributes:
- * - placeholder: string - placeholder text when no option is selected
- * - multiple: boolean - enables multi-select mode
- * - searchable: boolean - enables search functionality
- * - disabled: boolean - disables the dropdown
- * - size: string - size variant: "sm", "md", "lg" (default: "md")
+ * - placeholder: string (default: 'Select an option')
+ * - value: string (default: '') - Selected value(s)
+ * - multiple: boolean (default: false) - Enable multi-select
+ * - searchable: boolean (default: false) - Enable search functionality
+ * - disabled: boolean (default: false) - Disable the dropdown
+ * - size: 'sm' | 'md' | 'lg' (default: 'md') - Size variant
+ * - status: 'success' | 'warning' | 'error' | 'info' (default: '') - Validation state
+ * 
+ * Features:
+ * - Single and multi-select modes
+ * - Searchable options
+ * - Custom styling with Tailwind CSS
+ * - Keyboard navigation
+ * - Clear selection
+ * - Loading state
+ * - Custom option rendering
  * 
  * Usage:
- * <ui-dropdown placeholder="Select an option">
+ * <ui-dropdown>
+ *   <ui-option value="option1">Option 1</ui-option>
+ *   <ui-option value="option2">Option 2</ui-option>
+ * </ui-dropdown>
+ * 
+ * <ui-dropdown multiple searchable>
  *   <ui-option value="option1">Option 1</ui-option>
  *   <ui-option value="option2">Option 2</ui-option>
  * </ui-dropdown>
  */
+
 class Dropdown extends HTMLElement {
     constructor() {
         super();
-        this.attachShadow({ mode: 'open' });
-        this.isOpen = false;
-        this.selectedOptions = new Set();
-        this.searchQuery = '';
-        this.focusedIndex = -1;
-    }
-
-    connectedCallback() {
-        this.render();
-        this.setupEventListeners();
-        // Render options after a small delay to ensure child elements are available
-        setTimeout(() => {
-            this.renderOptions();
-            this.updateDisplay();
-        }, 0);
-    }
-
-    render() {
-        const placeholder = this.getAttribute('placeholder') || 'Select an option';
-        const multiple = this.hasAttribute('multiple');
-        const searchable = this.hasAttribute('searchable');
-        const disabled = this.hasAttribute('disabled');
-        const size = this.getAttribute('size') || 'md';
         
-        this.shadowRoot.innerHTML = `
-            <style>
-                :host {
-                    display: block;
-                    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        // Create the main container
+        this.container = document.createElement('div');
+        this.container.className = 'upo-dropdown';
+        
+        // Create the trigger
+        this.trigger = document.createElement('div');
+        this.trigger.className = 'upo-dropdown-trigger';
+        this.trigger.tabIndex = 0;
+        
+        // Create the selection display
+        this.selection = document.createElement('div');
+        this.selection.className = 'upo-dropdown-selection';
+        
+        // Create the arrow
+        this.arrow = document.createElement('div');
+        this.arrow.className = 'upo-dropdown-arrow';
+        this.arrow.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>';
+        
+        // Create the menu
+        this.menu = document.createElement('div');
+        this.menu.className = 'upo-dropdown-menu';
+        
+        // Create the search container
+        this.searchContainer = document.createElement('div');
+        this.searchContainer.className = 'upo-dropdown-search';
+        this.searchContainer.style.display = 'none';
+        
+        // Create the search input
+        this.searchInput = document.createElement('input');
+        this.searchInput.type = 'text';
+        this.searchInput.className = 'upo-dropdown-search-input';
+        this.searchInput.placeholder = 'Search...';
+        
+        // Create the options container
+        this.optionsContainer = document.createElement('div');
+        this.optionsContainer.className = 'upo-dropdown-options';
+        
+        // Assemble the structure
+        this.trigger.appendChild(this.selection);
+        this.trigger.appendChild(this.arrow);
+        this.searchContainer.appendChild(this.searchInput);
+        this.menu.appendChild(this.searchContainer);
+        this.menu.appendChild(this.optionsContainer);
+        this.container.appendChild(this.trigger);
+        this.container.appendChild(this.menu);
+        this.appendChild(this.container);
+        
+        // Initialize state - ensure we start with no selections
+        this.isOpen = false;
+        this.selectedValues = new Set();
+        this.filteredOptions = [];
+        this.focusedIndex = -1;
+        this.searchTerm = '';
+        
+        // Flag to prevent double processing
+        this.initialized = false;
+        
+        // Add default styles
+        this.addDefaultStyles();
+        
+        // Set up event listeners
+        this.setupEventListeners();
+    }
+    
+    addDefaultStyles() {
+        if (!document.getElementById('upo-ui-dropdown-styles')) {
+            const style = document.createElement('style');
+            style.id = 'upo-ui-dropdown-styles';
+            style.textContent = `
+                .upo-dropdown {
                     position: relative;
-                }
-                
-                .dropdown-container {
-                    position: relative;
+                    display: inline-block;
                     width: 100%;
+                    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
                 }
                 
-                .dropdown-trigger {
+                .upo-dropdown-trigger {
                     display: flex;
                     align-items: center;
                     justify-content: space-between;
@@ -64,272 +121,329 @@ class Dropdown extends HTMLElement {
                     padding: 0.5rem 0.75rem;
                     border: 1px solid #d1d5db;
                     border-radius: 0.375rem;
-                    background-color: white;
+                    background-color: #ffffff;
                     cursor: pointer;
-                    transition: all 0.15s ease-in-out;
+                    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
                     font-size: 0.875rem;
-                    line-height: 1.25rem;
+                    line-height: 1.25;
                     color: #374151;
+                    min-height: 2.5rem;
+                    user-select: none;
+                    box-sizing: border-box;
                 }
                 
-                .dropdown-trigger:hover:not(:disabled) {
+                .upo-dropdown-trigger:hover {
                     border-color: #9ca3af;
                 }
                 
-                .dropdown-trigger:focus {
+                .upo-dropdown-trigger:focus {
                     outline: none;
                     border-color: #3b82f6;
                     box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
                 }
                 
-                .dropdown-trigger:disabled {
+                .upo-dropdown-trigger.disabled {
                     background-color: #f9fafb;
                     color: #9ca3af;
                     cursor: not-allowed;
+                    border-color: #e5e7eb;
                 }
                 
-                .dropdown-trigger.open {
-                    border-color: #3b82f6;
-                    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-                }
-                
-                .dropdown-value {
+                .upo-dropdown-selection {
                     flex: 1;
-                    text-align: left;
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-                    white-space: nowrap;
+                    display: flex;
+                    align-items: center;
+                    gap: 0.25rem;
+                    flex-wrap: wrap;
+                    min-height: 1.25rem;
                 }
                 
-                .dropdown-placeholder {
+                .upo-dropdown-placeholder {
                     color: #9ca3af;
                 }
                 
-                .dropdown-arrow {
-                    width: 1rem;
-                    height: 1rem;
+                .upo-dropdown-selected {
+                    display: flex;
+                    align-items: center;
+                    gap: 0.25rem;
+                    flex-wrap: wrap;
+                }
+                
+                .upo-dropdown-tag {
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 0.25rem;
+                    padding: 0.125rem 0.5rem;
+                    background-color: #e0e7ff;
+                    color: #3730a3;
+                    border-radius: 0.25rem;
+                    font-size: 0.75rem;
+                    font-weight: 500;
+                }
+                
+                .upo-dropdown-tag-remove {
+                    cursor: pointer;
+                    padding: 0.125rem;
+                    border-radius: 0.125rem;
+                    transition: background-color 0.15s ease-in-out;
+                }
+                
+                .upo-dropdown-tag-remove:hover {
+                    background-color: rgba(55, 48, 163, 0.1);
+                }
+                
+                .upo-dropdown-arrow {
+                    display: flex;
+                    align-items: center;
                     color: #6b7280;
                     transition: transform 0.15s ease-in-out;
                     flex-shrink: 0;
                     margin-left: 0.5rem;
                 }
                 
-                .dropdown-trigger.open .dropdown-arrow {
+                .upo-dropdown.open .upo-dropdown-arrow {
                     transform: rotate(180deg);
                 }
                 
-                .dropdown-menu {
+                .upo-dropdown-menu {
                     position: absolute;
                     top: calc(100% + 4px);
                     left: 0;
                     right: 0;
-                    background-color: white;
+                    background-color: #ffffff;
                     border: 1px solid #d1d5db;
                     border-radius: 0.375rem;
                     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
                     z-index: 9999;
-                    max-height: 200px;
-                    overflow-y: auto;
-                    opacity: 0;
-                    visibility: hidden;
-                    transform: translateY(-4px);
-                    transition: all 0.15s ease-in-out;
+                    max-height: 15rem;
+                    overflow: hidden;
+                    display: none;
                 }
                 
-                .dropdown-menu.open {
-                    opacity: 1;
-                    visibility: visible;
-                    transform: translateY(0);
+                .upo-dropdown.open .upo-dropdown-menu {
+                    display: block;
                 }
                 
-                .dropdown-search {
-                    padding: 0.5rem 0.75rem;
+                .upo-dropdown-search {
+                    padding: 0.5rem;
                     border-bottom: 1px solid #e5e7eb;
                 }
                 
-                .dropdown-search input {
+                .upo-dropdown-search-input {
                     width: 100%;
                     padding: 0.375rem 0.5rem;
                     border: 1px solid #d1d5db;
                     border-radius: 0.25rem;
                     font-size: 0.875rem;
                     outline: none;
+                    transition: border-color 0.15s ease-in-out;
                 }
                 
-                .dropdown-search input:focus {
+                .upo-dropdown-search-input:focus {
                     border-color: #3b82f6;
-                    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
+                    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
                 }
                 
-                .dropdown-options {
-                    padding: 0.25rem 0;
+                .upo-dropdown-options {
+                    max-height: 12rem;
+                    overflow-y: auto;
                 }
                 
-                .dropdown-option {
+                .upo-dropdown-option {
                     padding: 0.5rem 0.75rem;
                     cursor: pointer;
-                    font-size: 0.875rem;
-                    color: #374151;
                     transition: background-color 0.15s ease-in-out;
                     display: flex;
                     align-items: center;
+                    gap: 0.5rem;
                 }
                 
-                .dropdown-option:hover {
+                .upo-dropdown-option:hover {
                     background-color: #f3f4f6;
                 }
                 
-                .dropdown-option.selected {
+                .upo-dropdown-option.selected {
+                    background-color: #dbeafe;
+                    color: #1e40af;
+                }
+                
+                .upo-dropdown-option.focused {
                     background-color: #eff6ff;
-                    color: #1d4ed8;
                 }
                 
-                .dropdown-option.focused {
-                    background-color: #f3f4f6;
-                }
-                
-                .dropdown-option:disabled {
+                .upo-dropdown-option.disabled {
                     color: #9ca3af;
                     cursor: not-allowed;
+                    background-color: #f9fafb;
                 }
                 
-                .dropdown-option:disabled:hover {
-                    background-color: transparent;
-                }
-                
-                .dropdown-checkbox {
-                    margin-right: 0.5rem;
+                .upo-dropdown-option-checkbox {
                     width: 1rem;
                     height: 1rem;
-                    color: #3b82f6;
+                    border: 1px solid #d1d5db;
+                    border-radius: 0.25rem;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    flex-shrink: 0;
                 }
                 
-                .dropdown-no-options {
-                    padding: 0.5rem 0.75rem;
-                    color: #9ca3af;
-                    font-size: 0.875rem;
+                .upo-dropdown-option.selected .upo-dropdown-option-checkbox {
+                    background-color: #3b82f6;
+                    border-color: #3b82f6;
+                    color: white;
+                }
+                
+                .upo-dropdown-option-text {
+                    flex: 1;
+                }
+                
+                .upo-dropdown-empty {
+                    padding: 0.75rem;
                     text-align: center;
+                    color: #6b7280;
+                    font-size: 0.875rem;
                 }
                 
                 /* Size variants */
-                .dropdown-trigger.size-sm {
+                .upo-dropdown.size-sm .upo-dropdown-trigger {
                     padding: 0.375rem 0.5rem;
+                    min-height: 2rem;
                     font-size: 0.75rem;
                 }
                 
-                .dropdown-trigger.size-lg {
+                .upo-dropdown.size-lg .upo-dropdown-trigger {
                     padding: 0.75rem 1rem;
+                    min-height: 3rem;
                     font-size: 1rem;
                 }
                 
-                /* Responsive */
-                @media (max-width: 640px) {
-                    .dropdown-menu {
-                        max-height: 150px;
-                    }
+                /* Status variants */
+                .upo-dropdown.status-success .upo-dropdown-trigger {
+                    border-color: #10b981;
                 }
-            </style>
-            
-            <div class="dropdown-container">
-                <button class="dropdown-trigger size-${size} ${this.isOpen ? 'open' : ''}" 
-                        type="button" 
-                        role="combobox" 
-                        aria-expanded="${this.isOpen}"
-                        aria-haspopup="listbox"
-                        ${disabled ? 'disabled' : ''}>
-                    <span class="dropdown-value">
-                        <span class="dropdown-placeholder">${placeholder}</span>
-                    </span>
-                    <svg class="dropdown-arrow" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                    </svg>
-                </button>
                 
-                <div class="dropdown-menu ${this.isOpen ? 'open' : ''}" role="listbox">
-                    ${searchable ? `
-                        <div class="dropdown-search">
-                            <input type="text" placeholder="Search options..." id="search-input">
-                        </div>
-                    ` : ''}
-                    <div class="dropdown-options" id="options-container">
-                        <div class="dropdown-no-options">No options available</div>
-                    </div>
-                </div>
-            </div>
-        `;
+                .upo-dropdown.status-success .upo-dropdown-trigger:focus {
+                    border-color: #10b981;
+                    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+                }
+                
+                .upo-dropdown.status-warning .upo-dropdown-trigger {
+                    border-color: #f59e0b;
+                }
+                
+                .upo-dropdown.status-warning .upo-dropdown-trigger:focus {
+                    border-color: #f59e0b;
+                    box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
+                }
+                
+                .upo-dropdown.status-error .upo-dropdown-trigger {
+                    border-color: #ef4444;
+                }
+                
+                .upo-dropdown.status-error .upo-dropdown-trigger:focus {
+                    border-color: #ef4444;
+                    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+                }
+                
+                .upo-dropdown.status-info .upo-dropdown-trigger {
+                    border-color: #3b82f6;
+                }
+                
+                .upo-dropdown.status-info .upo-dropdown-trigger:focus {
+                    border-color: #3b82f6;
+                    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+                }
+            `;
+            document.head.appendChild(style);
+        }
+    }
+    
+    connectedCallback() {
+        // Prevent double processing
+        if (this.initialized) return;
+        this.initialized = true;
+
+        // Move all ui-option children to an internal array and remove from DOM
+        this._options = Array.from(this.querySelectorAll('ui-option'));
+        this._options.forEach(option => this.removeChild(option));
+
+        // Force clear any initial selections - start completely empty
+        this.selectedValues.clear();
+
+        this.updateSelection();
+        this.updateOptions();
     }
 
     setupEventListeners() {
-        const trigger = this.shadowRoot.querySelector('.dropdown-trigger');
-        const searchInput = this.shadowRoot.querySelector('#search-input');
-        const optionsContainer = this.shadowRoot.querySelector('#options-container');
-
         // Toggle dropdown
-        trigger.addEventListener('click', (e) => {
+        this.trigger.addEventListener('click', (e) => {
+            console.log('Trigger clicked!');
             e.preventDefault();
+            e.stopPropagation();
             if (this.hasAttribute('disabled')) return;
-            this.toggle();
+            this.toggleDropdown();
         });
 
-        // Search functionality
-        if (searchInput) {
-            searchInput.addEventListener('input', (e) => {
-                this.searchQuery = e.target.value.toLowerCase();
-                this.filterOptions();
-            });
-
-            searchInput.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter') {
-                    e.preventDefault();
-                    this.selectFocusedOption();
-                }
-            });
-        }
-
         // Keyboard navigation
-        trigger.addEventListener('keydown', (e) => {
+        this.trigger.addEventListener('keydown', (e) => {
             if (this.hasAttribute('disabled')) return;
             
             switch (e.key) {
                 case 'Enter':
                 case ' ':
                     e.preventDefault();
-                    this.toggle();
+                    this.toggleDropdown();
                     break;
                 case 'ArrowDown':
                     e.preventDefault();
-                    this.open();
+                    this.openDropdown();
+                    this.focusNextOption();
+                    break;
+                case 'Escape':
+                    this.closeDropdown();
+                    break;
+            }
+        });
+        
+        // Search functionality
+        this.searchInput.addEventListener('input', (e) => {
+            this.searchTerm = e.target.value.toLowerCase();
+            this.filterOptions();
+            this.updateOptions();
+        });
+        
+        this.searchInput.addEventListener('keydown', (e) => {
+            switch (e.key) {
+                case 'ArrowDown':
+                    e.preventDefault();
                     this.focusNextOption();
                     break;
                 case 'ArrowUp':
                     e.preventDefault();
-                    this.open();
                     this.focusPrevOption();
                     break;
+                case 'Enter':
+                    e.preventDefault();
+                    if (this.focusedIndex >= 0) {
+                        this.selectOption(this.focusedIndex);
+                    }
+                    break;
                 case 'Escape':
-                    this.close();
+                    this.closeDropdown();
                     break;
             }
         });
 
-        // Close on outside click
+        // Global click to close
         document.addEventListener('click', (e) => {
-            if (!this.shadowRoot.contains(e.target)) {
-                this.close();
+            if (!this.container.contains(e.target)) {
+                this.closeDropdown();
             }
         });
-
-        // Handle option clicks
-        optionsContainer.addEventListener('click', (e) => {
-            const option = e.target.closest('.dropdown-option');
-            if (option) {
-                const value = option.dataset.value;
-                this.selectOption(value);
-            }
-        });
-
-        // Keyboard navigation in dropdown
-        optionsContainer.addEventListener('keydown', (e) => {
+        
+        // Keyboard navigation for options
+        this.optionsContainer.addEventListener('keydown', (e) => {
             switch (e.key) {
                 case 'ArrowDown':
                     e.preventDefault();
@@ -342,205 +456,245 @@ class Dropdown extends HTMLElement {
                 case 'Enter':
                 case ' ':
                     e.preventDefault();
-                    this.selectFocusedOption();
+                    if (this.focusedIndex >= 0) {
+                        this.selectOption(this.focusedIndex);
+                    }
                     break;
                 case 'Escape':
-                    this.close();
+                    this.closeDropdown();
                     break;
             }
         });
     }
 
-    toggle() {
+    toggleDropdown() {
+        console.log('toggleDropdown called, current state:', this.isOpen);
         if (this.isOpen) {
-            this.close();
+            this.closeDropdown();
         } else {
-            this.open();
+            this.openDropdown();
         }
     }
 
-    open() {
+    openDropdown() {
+        console.log('openDropdown called');
         this.isOpen = true;
-        this.shadowRoot.querySelector('.dropdown-trigger').classList.add('open');
-        this.shadowRoot.querySelector('.dropdown-menu').classList.add('open');
+        this.container.classList.add('open');
         
-        // Re-render options when opening to ensure they're up to date
-        this.renderOptions();
-        
-        // Focus search input if available
-        const searchInput = this.shadowRoot.querySelector('#search-input');
-        if (searchInput) {
-            setTimeout(() => searchInput.focus(), 0);
+        // Show/hide search
+        if (this.hasAttribute('searchable')) {
+            this.searchContainer.style.display = 'block';
+            setTimeout(() => this.searchInput.focus(), 0);
+        } else {
+            this.searchContainer.style.display = 'none';
         }
         
-        this.dispatchEvent(new CustomEvent('dropdown-open', { bubbles: true }));
+        this.updateOptions();
+        this.dispatchEvent(new CustomEvent('open', { bubbles: true }));
     }
-
-    close() {
+    
+    closeDropdown() {
+        console.log('closeDropdown called');
         this.isOpen = false;
-        this.shadowRoot.querySelector('.dropdown-trigger').classList.remove('open');
-        this.shadowRoot.querySelector('.dropdown-menu').classList.remove('open');
+        this.container.classList.remove('open');
         this.focusedIndex = -1;
-        this.searchQuery = '';
+        this.searchTerm = '';
+        this.searchInput.value = '';
         
-        // Clear search input
-        const searchInput = this.shadowRoot.querySelector('#search-input');
-        if (searchInput) {
-            searchInput.value = '';
+        this.dispatchEvent(new CustomEvent('close', { bubbles: true }));
+    }
+    
+    updateSelection() {
+        if (this.selectedValues.size === 0) {
+            this.selection.innerHTML = `<span class="upo-dropdown-placeholder">${this.getAttribute('placeholder') || 'Select an option'}</span>`;
+            return;
         }
         
-        this.dispatchEvent(new CustomEvent('dropdown-close', { bubbles: true }));
+        if (this.hasAttribute('multiple')) {
+            // Multi-select mode
+            const tags = Array.from(this.selectedValues).map(value => {
+                // Find the option in this._options
+                const option = (this._options || []).find(opt => opt.getAttribute('value') === value);
+                const text = option ? option.textContent.trim() : value;
+                return `
+                    <span class="upo-dropdown-tag">
+                        ${text}
+                        <span class="upo-dropdown-tag-remove" data-value="${value}">×</span>
+                    </span>
+                `;
+            }).join('');
+            this.selection.innerHTML = tags;
+            
+            // Add remove event listeners
+            this.selection.querySelectorAll('.upo-dropdown-tag-remove').forEach(removeBtn => {
+                removeBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const value = removeBtn.dataset.value;
+                    this.selectedValues.delete(value);
+                    this.updateSelection();
+                    this.dispatchChangeEvent();
+                });
+            });
+        } else {
+            // Single-select mode
+            const value = Array.from(this.selectedValues)[0];
+            // Find the option in this._options
+            const option = (this._options || []).find(opt => opt.getAttribute('value') === value);
+            const text = option ? option.textContent.trim() : value;
+            this.selection.innerHTML = `<span>${text}</span>`;
+        }
     }
-
-    getOptions() {
-        return Array.from(this.querySelectorAll('ui-option')).map(option => ({
-            value: option.getAttribute('value'),
-            text: option.textContent.trim(),
-            disabled: option.hasAttribute('disabled')
-        }));
-    }
-
-    filterOptions() {
-        const options = this.getOptions();
-        const filteredOptions = options.filter(option => 
-            !option.disabled && option.text.toLowerCase().includes(this.searchQuery)
-        );
-        this.renderOptions(filteredOptions);
-    }
-
-    renderOptions(options = null) {
-        const optionsContainer = this.shadowRoot.querySelector('#options-container');
-        const allOptions = options || this.getOptions();
-        const multiple = this.hasAttribute('multiple');
+    
+    updateOptions() {
+        // Use internal options array
+        const options = this._options || [];
+        this.filteredOptions = options.filter(option => {
+            if (this.searchTerm) {
+                return option.textContent.toLowerCase().includes(this.searchTerm) ||
+                       option.getAttribute('value').toLowerCase().includes(this.searchTerm);
+            }
+            return true;
+        });
         
-        if (allOptions.length === 0) {
-            optionsContainer.innerHTML = '<div class="dropdown-no-options">No options available</div>';
+        console.log('updateOptions called, selectedValues:', this.selectedValues);
+        console.log('filteredOptions count:', this.filteredOptions.length);
+        
+        if (this.filteredOptions.length === 0) {
+            this.optionsContainer.innerHTML = `
+                <div class="upo-dropdown-empty">
+                    ${this.searchTerm ? 'No options found' : 'No options available'}
+                </div>
+            `;
             return;
         }
 
-        optionsContainer.innerHTML = allOptions.map((option, index) => {
-            const isSelected = this.selectedOptions.has(option.value);
-            const isFocused = index === this.focusedIndex;
-            const isDisabled = option.disabled;
+        const optionsHtml = this.filteredOptions.map((option, index) => {
+            const value = option.getAttribute('value');
+            const text = option.textContent.trim();
+            const disabled = option.hasAttribute('disabled');
+            const selected = this.selectedValues.has(value);
+            const focused = index === this.focusedIndex;
             
-            return `
-                <div class="dropdown-option ${isSelected ? 'selected' : ''} ${isFocused ? 'focused' : ''} ${isDisabled ? 'disabled' : ''}"
-                     data-value="${option.value}"
-                     role="option"
-                     aria-selected="${isSelected}"
-                     ${isDisabled ? 'aria-disabled="true"' : ''}
-                     tabindex="${isFocused ? '0' : '-1'}">
-                    ${multiple ? `
-                        <input type="checkbox" class="dropdown-checkbox" ${isSelected ? 'checked' : ''} ${isDisabled ? 'disabled' : ''}>
-                    ` : ''}
-                    ${option.text}
-                </div>
-            `;
+            console.log(`Option ${value}: selected=${selected}, text=${text}`);
+            
+            let optionHtml = `<div class="upo-dropdown-option`;
+            if (selected) optionHtml += ' selected';
+            if (focused) optionHtml += ' focused';
+            if (disabled) optionHtml += ' disabled';
+            optionHtml += `" data-value="${value}" data-index="${index}">`;
+            
+            if (this.hasAttribute('multiple')) {
+                optionHtml += `
+                    <div class="upo-dropdown-option-checkbox">
+                        ${selected ? '✓' : ''}
+                    </div>
+                `;
+            }
+            
+            optionHtml += `<span class="upo-dropdown-option-text">${text}</span></div>`;
+            return optionHtml;
         }).join('');
-    }
-
-    selectOption(value) {
-        const multiple = this.hasAttribute('multiple');
         
-        if (multiple) {
-            if (this.selectedOptions.has(value)) {
-                this.selectedOptions.delete(value);
+        this.optionsContainer.innerHTML = optionsHtml;
+        
+        // Add click event listeners
+        this.optionsContainer.querySelectorAll('.upo-dropdown-option').forEach(optionEl => {
+            optionEl.addEventListener('click', (e) => {
+                const value = optionEl.dataset.value;
+                const index = parseInt(optionEl.dataset.index);
+                this.selectOption(index);
+            });
+        });
+    }
+    
+    selectOption(index) {
+        if (index < 0 || index >= this.filteredOptions.length) return;
+        
+        const option = this.filteredOptions[index];
+        const value = option.getAttribute('value');
+        
+        if (option.hasAttribute('disabled')) return;
+        
+        if (this.hasAttribute('multiple')) {
+            // Multi-select mode
+            if (this.selectedValues.has(value)) {
+                this.selectedValues.delete(value);
             } else {
-                this.selectedOptions.add(value);
+                this.selectedValues.add(value);
             }
         } else {
-            this.selectedOptions.clear();
-            this.selectedOptions.add(value);
-            this.close();
+            // Single-select mode
+            this.selectedValues.clear();
+            this.selectedValues.add(value);
+            this.closeDropdown();
         }
         
-        this.updateDisplay();
-        this.dispatchEvent(new CustomEvent('dropdown-change', { 
-            bubbles: true, 
-            detail: { 
-                value: multiple ? Array.from(this.selectedOptions) : value,
-                selectedOptions: Array.from(this.selectedOptions)
-            }
-        }));
+        this.updateSelection();
+        this.updateOptions();
+        this.dispatchChangeEvent();
     }
-
-    updateDisplay() {
-        const valueElement = this.shadowRoot.querySelector('.dropdown-value');
-        const placeholder = this.getAttribute('placeholder') || 'Select an option';
-        const multiple = this.hasAttribute('multiple');
-        
-        if (this.selectedOptions.size === 0) {
-            valueElement.innerHTML = `<span class="dropdown-placeholder">${placeholder}</span>`;
-        } else if (multiple) {
-            const options = this.getOptions();
-            const selectedTexts = Array.from(this.selectedOptions)
-                .map(value => options.find(opt => opt.value === value)?.text)
-                .filter(Boolean);
-            
-            if (selectedTexts.length === 0) {
-                valueElement.innerHTML = `<span class="dropdown-placeholder">${placeholder}</span>`;
-            } else if (selectedTexts.length === 1) {
-                valueElement.textContent = selectedTexts[0];
-            } else {
-                valueElement.textContent = `${selectedTexts.length} items selected`;
-            }
-        } else {
-            const options = this.getOptions();
-            const selectedOption = options.find(opt => opt.value === Array.from(this.selectedOptions)[0]);
-            valueElement.textContent = selectedOption?.text || placeholder;
-        }
+    
+    filterOptions() {
+        // Options are filtered in updateOptions()
     }
 
     focusNextOption() {
-        const options = this.shadowRoot.querySelectorAll('.dropdown-option:not(.disabled)');
-        if (options.length === 0) return;
-        
-        this.focusedIndex = Math.min(this.focusedIndex + 1, options.length - 1);
-        this.updateFocus();
+        this.focusedIndex = Math.min(this.focusedIndex + 1, this.filteredOptions.length - 1);
+        this.updateOptions();
     }
 
     focusPrevOption() {
-        const options = this.shadowRoot.querySelectorAll('.dropdown-option:not(.disabled)');
-        if (options.length === 0) return;
-        
         this.focusedIndex = Math.max(this.focusedIndex - 1, 0);
-        this.updateFocus();
+        this.updateOptions();
     }
-
-    updateFocus() {
-        const options = this.shadowRoot.querySelectorAll('.dropdown-option');
-        options.forEach((option, index) => {
-            option.classList.toggle('focused', index === this.focusedIndex);
-            option.tabIndex = index === this.focusedIndex ? 0 : -1;
-        });
+    
+    dispatchChangeEvent() {
+        const value = this.hasAttribute('multiple') 
+            ? Array.from(this.selectedValues).join(',')
+            : Array.from(this.selectedValues)[0] || '';
+        
+        this.dispatchEvent(new CustomEvent('change', {
+            bubbles: true,
+            detail: { value }
+        }));
     }
-
-    selectFocusedOption() {
-        const options = this.shadowRoot.querySelectorAll('.dropdown-option:not(.disabled)');
-        if (this.focusedIndex >= 0 && this.focusedIndex < options.length) {
-            const option = options[this.focusedIndex];
-            const value = option.dataset.value;
-            this.selectOption(value);
+    
+    // Public methods
+    get value() {
+        if (this.hasAttribute('multiple')) {
+            return Array.from(this.selectedValues);
         }
+        return Array.from(this.selectedValues)[0] || '';
     }
-
-    static get observedAttributes() {
-        return ['placeholder', 'multiple', 'searchable', 'disabled', 'size'];
-    }
-
-    attributeChangedCallback(name, oldValue, newValue) {
-        if (name === 'disabled') {
-            const trigger = this.shadowRoot.querySelector('.dropdown-trigger');
-            if (trigger) {
-                trigger.disabled = this.hasAttribute('disabled');
+    
+    set value(val) {
+        console.log('set value called with:', val);
+        this.selectedValues.clear();
+        if (this.hasAttribute('multiple')) {
+            if (Array.isArray(val)) {
+                val.forEach(v => this.selectedValues.add(v));
+            } else if (typeof val === 'string') {
+                val.split(',').forEach(v => this.selectedValues.add(v.trim()));
             }
         } else {
-            this.render();
-            this.setupEventListeners();
-            this.updateDisplay();
+            this.selectedValues.add(val);
         }
+        console.log('selectedValues after set:', this.selectedValues);
+        this.updateSelection();
+        this.updateOptions();
+    }
+    
+    open() {
+        this.openDropdown();
+    }
+    
+    close() {
+        this.closeDropdown();
     }
 }
+
+// Register the component
+customElements.define('ui-dropdown', Dropdown);
 
 /**
  * Dropdown Option Component
@@ -551,12 +705,11 @@ class DropdownOption extends HTMLElement {
     }
 
     connectedCallback() {
-        // This component is just a container for the option content
-        // The actual rendering is handled by the parent Dropdown component
+        // Ensure the option is inside a dropdown
+        if (!this.closest('ui-dropdown')) {
+            console.warn('ui-option must be used inside ui-dropdown');
+        }
     }
 }
 
-customElements.define('ui-dropdown', Dropdown);
 customElements.define('ui-option', DropdownOption);
-
-export default Dropdown; 

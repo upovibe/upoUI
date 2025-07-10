@@ -28,7 +28,9 @@ class InputDocsPage extends App {
 
         const prefixSuffixExample = `<ui-input prefix="$" placeholder="Amount"></ui-input>
 <ui-input suffix="%" placeholder="Percentage"></ui-input>
-<ui-input prefix="https://" suffix=".com" placeholder="Website"></ui-input>`;
+<ui-input prefix='<i class="fas fa-globe"></i>' suffix=".com" placeholder="Website"></ui-input>
+<ui-input prefix='<i class="fas fa-envelope"></i>' placeholder="Email"></ui-input>
+<ui-input suffix='<i class="fas fa-calendar"></i>' placeholder="Date"></ui-input>`;
 
         const iconsExample = `<ui-input 
   leading-icon="<i class='fas fa-envelope'></i>"
@@ -125,17 +127,15 @@ export default InputExample;`;
                     <div class="mb-8">
                         <h2 class="text-xl font-semibold text-gray-900 mb-4">Live Examples</h2>
                         <ui-box class="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 shadow rounded-lg border border-gray-200">
-                            <div>
-                                <h3 class="text-sm font-medium text-gray-700 mb-2">Basic Inputs</h3>
+                            <div class="flex flex-col gap-2">
+                                <h3 class="text-sm font-medium text-gray-700">Basic Inputs</h3>
                                 <ui-input placeholder="Text input"></ui-input>
-                                <ui-input type="email" placeholder="Email input" class="mt-2"></ui-input>
-                                <ui-input type="password" placeholder="Password input" class="mt-2"></ui-input>
-                            </div>
-                            <div>
-                                <h3 class="text-sm font-medium text-gray-700 mb-2">Advanced Features</h3>
+                                <ui-input type="email" placeholder="Email input"></ui-input>
+                                <ui-input type="password" placeholder="Password input"></ui-input>                            </div>
+                            <div class="flex flex-col gap-2">
+                                <h3 class="text-sm font-medium text-gray-700">Advanced Features</h3>
+                                <ui-input placeholder="With icons" leading-icon="<i class='fas fa-search'></i>"></ui-input>
                                 <ui-input placeholder="With prefix" prefix="$" suffix=".00"></ui-input>
-                                <ui-input placeholder="With icons" leading-icon="<i class='fas fa-search'></i>" class="mt-2"></ui-input>
-                                <ui-input placeholder="With label" label="Email Address" class="mt-2"></ui-input>
                             </div>
                         </ui-box>
                     </div>
@@ -240,7 +240,15 @@ export default InputExample;`;
                       </div>
                       <div>
                         <label class="block text-sm font-medium text-gray-700 mb-1">Website Input</label>
-                        <ui-input prefix="https://" suffix=".com" placeholder="Website"></ui-input>
+                        <ui-input prefix='<i class="fas fa-globe"></i>' suffix=".com" placeholder="Website"></ui-input>
+                      </div>
+                      <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Email with Icon</label>
+                        <ui-input prefix='<i class="fas fa-envelope"></i>' placeholder="Email"></ui-input>
+                      </div>
+                      <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Date with Icon</label>
+                        <ui-input suffix='<i class="fas fa-calendar"></i>' placeholder="Date"></ui-input>
                       </div>
                     </ui-box>
                   </ui-tab-panel>
@@ -358,8 +366,8 @@ export default InputExample;`;
                         <li>• Import the input component before using it</li>
                         <li>• Use <code>type</code> attribute for different input types (text, email, password, etc.)</li>
                         <li>• Use <code>status</code> attribute for validation states (success, warning, error, info)</li>
-                        <li>• Use <code>prefix</code> and <code>suffix</code> for text before/after input</li>
-                        <li>• Use <code>leading-icon</code> and <code>trailing-icon</code> for FontAwesome icons</li>
+                        <li>• Use <code>prefix</code> and <code>suffix</code> for text or HTML (like FontAwesome icons) before/after input</li>
+                        <li>• Use <code>leading-icon</code> and <code>trailing-icon</code> specifically for FontAwesome icons</li>
                         <li>• Use <code>label</code> for external labels</li>
                         <li>• Use <code>floating-label</code> for floating labels</li>
                         <li>• Password inputs automatically include a visibility toggle</li>
@@ -410,12 +418,12 @@ export default InputExample;`;
                                 <tr>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">prefix</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">string</td>
-                                    <td class="px-6 py-4 text-sm text-gray-500">Text to display before the input</td>
+                                    <td class="px-6 py-4 text-sm text-gray-500">Text or HTML (like FontAwesome icons) to display before the input</td>
                                 </tr>
                                 <tr>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">suffix</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">string</td>
-                                    <td class="px-6 py-4 text-sm text-gray-500">Text to display after the input</td>
+                                    <td class="px-6 py-4 text-sm text-gray-500">Text or HTML (like FontAwesome icons) to display after the input</td>
                                 </tr>
                                 <tr>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">leading-icon</td>

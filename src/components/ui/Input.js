@@ -237,6 +237,9 @@ class Input extends HTMLElement {
                     font-weight: 500;
                     pointer-events: none;
                     z-index: 10;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
                 }
                 
                 .upo-input-prefix {
@@ -245,6 +248,17 @@ class Input extends HTMLElement {
                 
                 .upo-input-suffix {
                     right: 0.75rem;
+                }
+                
+                /* FontAwesome icon support in prefix/suffix */
+                .upo-input-prefix i,
+                .upo-input-suffix i {
+                    font-size: 0.875rem;
+                    width: 1rem;
+                    height: 1rem;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
                 }
                 
                 /* Input with icons styles */
@@ -691,7 +705,7 @@ class Input extends HTMLElement {
             this.classList.add('upo-input-with-prefix');
             const prefixEl = document.createElement('div');
             prefixEl.className = 'upo-input-prefix';
-            prefixEl.textContent = this.prefix;
+            prefixEl.innerHTML = this.prefix; // Use innerHTML to support HTML content like FontAwesome icons
             this.appendChild(prefixEl);
         }
         
@@ -699,7 +713,7 @@ class Input extends HTMLElement {
             this.classList.add('upo-input-with-suffix');
             const suffixEl = document.createElement('div');
             suffixEl.className = 'upo-input-suffix';
-            suffixEl.textContent = this.suffix;
+            suffixEl.innerHTML = this.suffix; // Use innerHTML to support HTML content like FontAwesome icons
             this.appendChild(suffixEl);
         }
     }

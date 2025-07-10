@@ -5,7 +5,7 @@
  * Based on shadcn/ui input design pattern.
  * 
  * Attributes:
- * - type: 'text' | 'password' | 'email' | 'number' | 'date' | 'datetime-local' | 'time' | 'search' (default: 'text')
+ * - type: 'text' | 'password' | 'email' | 'number' | 'date' | 'datetime-local' | 'time' | 'search' | 'color' (default: 'text')
  * - placeholder: string (default: '')
  * - value: string (default: '')
  * - disabled: boolean (default: false)
@@ -14,6 +14,7 @@
  * - leading-icon: string (default: '') - SVG icon to show before input
  * - trailing-icon: string (default: '') - SVG icon to show after input
  * - floating-label: boolean (default: false) - Enable floating label behavior
+ * - status: 'success' | 'warning' | 'error' | 'info' (default: '') - Validation state
  * 
  * Features:
  * - Password inputs have toggle visibility
@@ -21,9 +22,11 @@
  * - Number inputs use native browser controls
  * - Search inputs have search icon
  * - Date/time inputs use native browser picker
+ * - Color inputs use native browser color picker
  * - Prefix and suffix support
  * - Leading and trailing icons
  * - Floating labels
+ * - Validation states with visual indicators
  * 
  * Usage:
  * <ui-input></ui-input>
@@ -38,6 +41,11 @@
  * <ui-input type="datetime-local"></ui-input>
  * <ui-input type="time"></ui-input>
  * <ui-input type="search"></ui-input>
+ * <ui-input type="color"></ui-input>
+ * <ui-input status="success" placeholder="Success state"></ui-input>
+ * <ui-input status="warning" placeholder="Warning state"></ui-input>
+ * <ui-input status="error" placeholder="Error state"></ui-input>
+ * <ui-input status="info" placeholder="Info state"></ui-input>
  */
 
 class Input extends HTMLElement {
@@ -367,6 +375,70 @@ class Input extends HTMLElement {
                 .upo-input-password:focus-within .toggle-password {
                     color: #3b82f6;
                 }
+
+                /* Validation status styles */
+                .upo-input-success .upo-input-default {
+                    border-color: #10b981;
+                    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+                }
+                .upo-input-warning .upo-input-default {
+                    border-color: #f59e0b;
+                    box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
+                }
+                .upo-input-error .upo-input-default {
+                    border-color: #ef4444;
+                    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+                }
+                .upo-input-info .upo-input-default {
+                    border-color: #3b82f6;
+                    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+                }
+
+                /* Color input styles */
+                .upo-input-color {
+                    position: relative;
+                    display: inline-block;
+                    width: 100%;
+                }
+                
+                .upo-input-color .color-preview {
+                    display: flex;
+                    align-items: center;
+                    gap: 0.75rem;
+                    padding: 0.5rem 0.75rem;
+                    border: 1px solid #d1d5db;
+                    border-radius: 0.375rem;
+                    background-color: #ffffff;
+                    cursor: pointer;
+                    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+                    position: relative;
+                    z-index: 2;
+                }
+                
+                .upo-input-color .color-preview:hover {
+                    border-color: #9ca3af;
+                }
+                
+                .upo-input-color .color-preview:focus-within {
+                    border-color: #3b82f6;
+                    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+                }
+                
+                .upo-input-color .color-swatch {
+                    width: 2rem;
+                    height: 2rem;
+                    border-radius: 0.375rem;
+                    border: 2px solid #d1d5db;
+                    background-color: #000000;
+                    flex-shrink: 0;
+                }
+                
+                .upo-input-color .color-value {
+                    font-size: 0.875rem;
+                    color: #374151;
+                    font-weight: 500;
+                    font-family: 'Courier New', monospace;
+                }
             `;
             document.head.appendChild(style);
         }
@@ -384,6 +456,7 @@ class Input extends HTMLElement {
         this._leadingIcon = this.getAttribute('leading-icon') || '';
         this._trailingIcon = this.getAttribute('trailing-icon') || '';
         this._floatingLabel = this.hasAttribute('floating-label');
+        this._status = this.getAttribute('status') || '';
         
         // Check if user provided classes
         const hasUserClass = this.hasAttribute('class');
@@ -423,6 +496,7 @@ class Input extends HTMLElement {
         this.setupPrefixSuffix();
         this.setupIcons();
         this.setupLabels();
+        this.setupStatus();
     }
     
     // Getter methods for attributes
@@ -446,9 +520,11 @@ class Input extends HTMLElement {
         return this._floatingLabel || false;
     }
     
-
+    get status() {
+        return this._status || '';
+    }
     
-    // Setup input type-specific functionality
+    // Setup input type and additional features
     setupInputType() {
         const inputType = this.input.getAttribute('type') || 'text';
         
@@ -469,6 +545,9 @@ class Input extends HTMLElement {
             case 'datetime-local':
             case 'time':
                 this.setupDateInput();
+                break;
+            case 'color':
+                this.setupColorInput();
                 break;
             default:
                 // Basic text input - no additional setup needed
@@ -556,6 +635,55 @@ class Input extends HTMLElement {
         // Use native browser date picker - no custom calendar needed
         // The browser will handle the date picker UI automatically
     }
+
+    // Setup color input with native browser color picker
+    setupColorInput() {
+        this.classList.add('upo-input-color');
+        
+        // Position the hidden input relative to the wrapper
+        this.input.style.position = 'absolute';
+        this.input.style.top = '0';
+        this.input.style.left = '0';
+        this.input.style.width = '100%';
+        this.input.style.height = '100%';
+        this.input.style.opacity = '0';
+        this.input.style.cursor = 'pointer';
+        this.input.style.zIndex = '1';
+        
+        // Create color preview element
+        const colorPreview = document.createElement('div');
+        colorPreview.className = 'color-preview';
+        colorPreview.innerHTML = `
+            <div class="color-swatch"></div>
+            <span class="color-value">#000000</span>
+        `;
+        
+        // Make preview clickable to open color picker
+        colorPreview.addEventListener('click', () => {
+            this.input.click();
+        });
+        
+        // Add color preview to the wrapper
+        this.appendChild(colorPreview);
+        
+        // Update color preview when input changes
+        this.input.addEventListener('input', () => {
+            const color = this.input.value;
+            const swatch = colorPreview.querySelector('.color-swatch');
+            const value = colorPreview.querySelector('.color-value');
+            
+            swatch.style.backgroundColor = color;
+            value.textContent = color;
+        });
+        
+        // Set initial color if value exists
+        if (this.input.value) {
+            const swatch = colorPreview.querySelector('.color-swatch');
+            const value = colorPreview.querySelector('.color-value');
+            swatch.style.backgroundColor = this.input.value;
+            value.textContent = this.input.value;
+        }
+    }
     
     // Setup prefix and suffix
     setupPrefixSuffix() {
@@ -631,6 +759,13 @@ class Input extends HTMLElement {
         }
     }
     
+    // Setup validation status
+    setupStatus() {
+        if (this.status && ['success', 'warning', 'error', 'info'].includes(this.status)) {
+            this.classList.add(`upo-input-${this.status}`);
+        }
+    }
+    
 
     
     // Get the value of the input
@@ -654,5 +789,5 @@ class Input extends HTMLElement {
     }
 }
 
-customElements.define('ui-input', Input);
+    customElements.define('ui-input', Input);
 export default Input; 

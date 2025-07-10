@@ -108,6 +108,36 @@ class DatePickerDocsPage extends App {
                                 <label class="block text-sm font-medium text-gray-700 mb-1">Time Input</label>
                                 <ui-input type="time" placeholder="Select time"></ui-input>
                             </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Color Input</label>
+                                <ui-input type="color" placeholder="Select color"></ui-input>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h2 class="text-xl font-semibold mb-4">Validation States</h2>
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Success State</label>
+                                <ui-input status="success" placeholder="Success validation"></ui-input>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Warning State</label>
+                                <ui-input status="warning" placeholder="Warning validation"></ui-input>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Error State</label>
+                                <ui-input status="error" placeholder="Error validation"></ui-input>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Info State</label>
+                                <ui-input status="info" placeholder="Info validation"></ui-input>
+                            </div>
                         </div>
                     </div>
                 </div>

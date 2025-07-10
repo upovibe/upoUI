@@ -25,6 +25,8 @@ import './Dialog.js';
 import './Drawer.js';
 import './Dropdown.js';
 import './EmptyState.js';
+import './TagInput.js';
+import './RangeInput.js';
 
 // Export all components for easy importing
 export { default as Button } from './Button.js';
@@ -46,5 +48,7 @@ export { default as DatePicker } from './DatePicker.js';
 export { default as Dialog } from './Dialog.js';
 export { default as Dropdown } from './Dropdown.js';
 export { default as EmptyState } from './EmptyState.js';
+export { default as TagInput } from './TagInput.js';
+export { default as RangeInput } from './RangeInput.js';
 
 console.log('🎨 UPO UI Components loaded'); 

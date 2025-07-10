@@ -37,7 +37,7 @@
  */
 class Table extends HTMLElement {
     static get observedAttributes() {
-        return ['data', 'columns', 'title', 'sortable', 'selectable', 'pagination', 'page-size', 'striped', 'bordered', 'compact', 'searchable', 'search-placeholder'];
+        return ['data', 'columns', 'title', 'sortable', 'selectable', 'pagination', 'page-size', 'striped', 'bordered', 'compact', 'searchable', 'search-placeholder', 'clickable'];
     }
 
     constructor() {
@@ -56,6 +56,7 @@ class Table extends HTMLElement {
         this.compact = this.hasAttribute('compact');
         this.searchable = this.hasAttribute('searchable');
         this.searchPlaceholder = this.getAttribute('search-placeholder') || 'Search...';
+        this.clickable = this.hasAttribute('clickable');
         
         // Internal state
         this.currentPage = 1;
@@ -140,6 +141,19 @@ class Table extends HTMLElement {
                 
                 .upo-table tbody tr:hover {
                     background-color: #f3f4f6;
+                }
+                
+                .upo-table-clickable tbody tr {
+                    cursor: pointer;
+                    transition: background-color 0.15s ease-in-out;
+                }
+                
+                .upo-table-clickable tbody tr:hover {
+                    background-color: #e5f3ff;
+                }
+                
+                .upo-table-clickable tbody tr:active {
+                    background-color: #b3d9ff;
                 }
                 
                 .upo-table-sortable th {
@@ -385,7 +399,7 @@ class Table extends HTMLElement {
             if (name === 'data' || name === 'columns') {
                 this[name] = this.parseJSONAttribute(name, name === 'data' ? [] : []);
                 this.filteredData = [...this.data];
-            } else if (name === 'sortable' || name === 'selectable' || name === 'pagination' || name === 'striped' || name === 'bordered' || name === 'compact' || name === 'searchable') {
+            } else if (name === 'sortable' || name === 'selectable' || name === 'pagination' || name === 'striped' || name === 'bordered' || name === 'compact' || name === 'searchable' || name === 'clickable') {
                 this[name] = this.hasAttribute(name);
             } else if (name === 'page-size') {
                 this.pageSize = parseInt(newValue) || 10;
@@ -734,11 +748,25 @@ class Table extends HTMLElement {
      */
     handleRowClick(event) {
         const tr = event.target.closest('tr');
-        if (!tr || !this.selectable) return;
+        if (!tr) return;
 
         const rowIndex = parseInt(tr.dataset.rowIndex);
         if (!isNaN(rowIndex)) {
-            this.toggleRowSelection(rowIndex);
+            // Handle selection if selectable
+            if (this.selectable) {
+                this.toggleRowSelection(rowIndex);
+            }
+            
+            // Handle row click if clickable
+            if (this.clickable) {
+                const row = this.getVisibleData()[rowIndex];
+                if (row) {
+                    this.dispatchEvent(new CustomEvent('table-row-click', {
+                        detail: { row, rowIndex, event },
+                        bubbles: true
+                    }));
+                }
+            }
         }
     }
 
@@ -776,6 +804,7 @@ class Table extends HTMLElement {
             'upo-table',
             this.sortable ? 'upo-table-sortable' : '',
             this.selectable ? 'upo-table-selectable' : '',
+            this.clickable ? 'upo-table-clickable' : '',
             this.striped ? 'upo-table-striped' : '',
             this.bordered ? 'upo-table-bordered' : '',
             this.compact ? 'upo-table-compact' : ''
@@ -960,11 +989,13 @@ class Table extends HTMLElement {
             });
         }
 
-        if (this.selectable) {
+        if (this.selectable || this.clickable) {
             this.querySelectorAll('tbody tr').forEach(tr => {
                 tr.addEventListener('click', this.handleRowClick.bind(this));
             });
+        }
 
+        if (this.selectable) {
             this.querySelectorAll('.upo-table-checkbox').forEach(checkbox => {
                 checkbox.addEventListener('change', this.handleCheckboxChange.bind(this));
             });

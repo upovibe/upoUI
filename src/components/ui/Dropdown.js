@@ -326,7 +326,7 @@ class Dropdown extends HTMLElement {
                 .upo-dropdown.status-success .upo-dropdown-trigger:focus {
                     border-color: #10b981;
                     box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
-                }
+                    }
                 
                 .upo-dropdown.status-warning .upo-dropdown-trigger {
                     border-color: #f59e0b;
@@ -383,7 +383,7 @@ class Dropdown extends HTMLElement {
             e.stopPropagation();
             if (this.hasAttribute('disabled')) return;
             this.toggleDropdown();
-        });
+            });
 
         // Keyboard navigation
         this.trigger.addEventListener('keydown', (e) => {
@@ -441,7 +441,7 @@ class Dropdown extends HTMLElement {
                 this.closeDropdown();
             }
         });
-        
+
         // Keyboard navigation for options
         this.optionsContainer.addEventListener('keydown', (e) => {
             switch (e.key) {
@@ -492,7 +492,7 @@ class Dropdown extends HTMLElement {
         this.updateOptions();
         this.dispatchEvent(new CustomEvent('open', { bubbles: true }));
     }
-    
+
     closeDropdown() {
         console.log('closeDropdown called');
         this.isOpen = false;
@@ -542,7 +542,7 @@ class Dropdown extends HTMLElement {
             const option = (this._options || []).find(opt => opt.getAttribute('value') === value);
             const text = option ? option.textContent.trim() : value;
             this.selection.innerHTML = `<span>${text}</span>`;
-        }
+    }
     }
     
     updateOptions() {
@@ -552,7 +552,7 @@ class Dropdown extends HTMLElement {
             if (this.searchTerm) {
                 return option.textContent.toLowerCase().includes(this.searchTerm) ||
                        option.getAttribute('value').toLowerCase().includes(this.searchTerm);
-            }
+    }
             return true;
         });
         
@@ -587,8 +587,8 @@ class Dropdown extends HTMLElement {
                 optionHtml += `
                     <div class="upo-dropdown-option-checkbox">
                         ${selected ? '✓' : ''}
-                    </div>
-                `;
+                </div>
+            `;
             }
             
             optionHtml += `<span class="upo-dropdown-option-text">${text}</span></div>`;
@@ -632,7 +632,7 @@ class Dropdown extends HTMLElement {
         this.updateSelection();
         this.updateOptions();
         this.dispatchChangeEvent();
-    }
+            }
     
     filterOptions() {
         // Options are filtered in updateOptions()
@@ -647,7 +647,7 @@ class Dropdown extends HTMLElement {
         this.focusedIndex = Math.max(this.focusedIndex - 1, 0);
         this.updateOptions();
     }
-    
+
     dispatchChangeEvent() {
         const value = this.hasAttribute('multiple') 
             ? Array.from(this.selectedValues).join(',')
@@ -658,7 +658,7 @@ class Dropdown extends HTMLElement {
             detail: { value }
         }));
     }
-    
+
     // Public methods
     get value() {
         if (this.hasAttribute('multiple')) {
@@ -690,8 +690,8 @@ class Dropdown extends HTMLElement {
     
     close() {
         this.closeDropdown();
+        }
     }
-}
 
 // Register the component
 customElements.define('ui-dropdown', Dropdown);

@@ -145,7 +145,7 @@ class Modal extends HTMLElement {
         const position = this.getAttribute('position') || 'right';
         const size = this.getAttribute('size') || 'md';
         const backdrop = this.getAttribute('backdrop') !== 'false';
-        const showClose = this.getAttribute('close-button') !== 'false';
+        const showClose = this.getAttribute('close-button') === 'true';
 
         this.shadowRoot.innerHTML = `
             <style>
@@ -299,10 +299,12 @@ class Modal extends HTMLElement {
                 .modal-header {
                     display: flex;
                     align-items: center;
-                    justify-content: space-between;
-                    padding: 1rem 1.5rem;
+                    justify-content: center;
+                    padding: 0.5rem 0.5rem;
                     border-bottom: 1px solid #e5e7eb;
                     background: #f9fafb;
+                    position: relative;
+                    min-height: 2rem;
                 }
 
                 .modal-title {
@@ -310,22 +312,42 @@ class Modal extends HTMLElement {
                     font-weight: 600;
                     color: #111827;
                     margin: 0;
+                    text-align: center;
                 }
 
                 .modal-close {
                     background: none;
                     border: none;
-                    font-size: 1.5rem;
                     color: #6b7280;
                     cursor: pointer;
-                    padding: 0.25rem;
+                    padding: 0.15rem;
                     border-radius: 0.25rem;
                     transition: all 0.2s ease;
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    width: 2rem;
-                    height: 2rem;
+                    width: 1.5rem;
+                    height: 1.5rem;
+                    position: absolute;
+                    top: 1rem;
+                    z-index: 10;
+                }
+
+                /* Position-specific close button placement */
+                .modal-content[data-position="left"] .modal-close {
+                    left: 1rem;
+                }
+
+                .modal-content[data-position="right"] .modal-close {
+                    right: 1rem;
+                }
+
+                .modal-content[data-position="top"] .modal-close {
+                    right: 1rem;
+                }
+
+                .modal-content[data-position="bottom"] .modal-close {
+                    right: 1rem;
                 }
 
                 .modal-close:hover {
@@ -336,6 +358,11 @@ class Modal extends HTMLElement {
                 .modal-close:focus {
                     outline: 2px solid #3b82f6;
                     outline-offset: 2px;
+                }
+
+                .modal-close svg {
+                    width: 1.25rem;
+                    height: 1.25rem;
                 }
 
                 .modal-body {
@@ -349,7 +376,7 @@ class Modal extends HTMLElement {
                     align-items: center;
                     justify-content: flex-end;
                     gap: 0.75rem;
-                    padding: 1rem 1.5rem;
+                    padding: 0.5rem 1.5rem;
                     border-top: 1px solid #e5e7eb;
                     background: #f9fafb;
                 }
@@ -386,10 +413,16 @@ class Modal extends HTMLElement {
                             <slot name="title">Modal Title</slot>
                         </h3>
                         <button class="modal-close" aria-label="Close modal">
-                            <i class="fas fa-times"></i>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x-circle"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
                         </button>
                     </div>
-                ` : ''}
+                ` : `
+                    <div class="modal-header">
+                        <h3 class="modal-title">
+                            <slot name="title">Modal Title</slot>
+                        </h3>
+                    </div>
+                `}
                 
                 <div class="modal-body">
                     <slot></slot>

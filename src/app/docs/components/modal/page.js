@@ -78,16 +78,16 @@ class ModalDocsPage extends App {
   <div>100% width</div>
 </ui-modal>`;
 
-        const optionsExample = `<!-- No Backdrop -->
+        const optionsExample = `<!-- With Close Button -->
+<ui-modal open position="right" close-button="true">
+  <div slot="title">With Close Button</div>
+  <div>Modal with close button enabled</div>
+</ui-modal>
+
+<!-- No Backdrop -->
 <ui-modal open position="right" backdrop="false">
   <div slot="title">No Backdrop</div>
   <div>Modal without backdrop</div>
-</ui-modal>
-
-<!-- No Close Button -->
-<ui-modal open position="right" close-button="false">
-  <div slot="title">No Close Button</div>
-  <div>Modal without close button</div>
 </ui-modal>
 
 <!-- No Escape Key -->
@@ -150,7 +150,8 @@ export default ModalExample;`;
                     <h1 class="text-3xl font-bold text-gray-900 mb-4">Modal Component</h1>
                     <p class="text-lg text-gray-600 mb-6">
                         A versatile side modal component that slides in from different directions (left, right, top, bottom). 
-                        Perfect for navigation panels, forms, and content overlays with smooth animations.
+                        Perfect for navigation panels, forms, and content overlays with smooth animations. 
+                        The close button automatically positions itself based on the modal direction for optimal UX.
                     </p>
                     
                     <!-- Live Examples -->
@@ -377,22 +378,22 @@ export default ModalExample;`;
                   <ui-tab-panel value="preview4">
                     <ui-box class="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 shadow rounded-lg border border-gray-200">
                       <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">No Backdrop</label>
-                        <ui-button size="sm" onclick="document.getElementById('no-backdrop').setAttribute('open', '')">Open</ui-button>
-                        <ui-modal id="no-backdrop" position="right" size="sm" backdrop="false">
-                          <div slot="title">No Backdrop</div>
-                          <div>Modal without backdrop</div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">With Close Button</label>
+                        <ui-button size="sm" onclick="document.getElementById('with-close-btn').setAttribute('open', '')">Open</ui-button>
+                        <ui-modal id="with-close-btn" position="right" size="sm" close-button="true">
+                          <div slot="title">With Close Button</div>
+                          <div>Modal with close button enabled</div>
                           <div slot="footer">
                             <ui-button size="sm" variant="secondary" onclick="this.closest('ui-modal').removeAttribute('open')">Close</ui-button>
                           </div>
                         </ui-modal>
                       </div>
                       <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">No Close Button</label>
-                        <ui-button size="sm" onclick="document.getElementById('no-close-btn').setAttribute('open', '')">Open</ui-button>
-                        <ui-modal id="no-close-btn" position="right" size="sm" close-button="false">
-                          <div slot="title">No Close Button</div>
-                          <div>Modal without close button</div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">No Backdrop</label>
+                        <ui-button size="sm" onclick="document.getElementById('no-backdrop').setAttribute('open', '')">Open</ui-button>
+                        <ui-modal id="no-backdrop" position="right" size="sm" backdrop="false">
+                          <div slot="title">No Backdrop</div>
+                          <div>Modal without backdrop</div>
                           <div slot="footer">
                             <ui-button size="sm" variant="secondary" onclick="this.closest('ui-modal').removeAttribute('open')">Close</ui-button>
                           </div>
@@ -441,8 +442,8 @@ export default ModalExample;`;
                         <li>• Use <code>position</code> attribute for slide direction: left, right, top, bottom</li>
                         <li>• Use <code>size</code> attribute for dimensions: sm, md, lg, xl, full</li>
                         <li>• <strong>Note:</strong> Top and bottom positions always have full width - size only affects height</li>
+                        <li>• Close button is disabled by default - use <code>close-button="true"</code> to enable</li>
                         <li>• Use <code>backdrop="false"</code> to hide the backdrop</li>
-                        <li>• Use <code>close-button="false"</code> to hide the close button</li>
                         <li>• Use <code>close-on-escape="false"</code> to disable escape key</li>
                         <li>• Use <code>close-on-backdrop-click="false"</code> to disable backdrop click</li>
                         <li>• Use <code>slot="title"</code> for header content</li>
@@ -506,7 +507,7 @@ export default ModalExample;`;
                                 <tr>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">close-button</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">boolean</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">true</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">false</td>
                                     <td class="px-6 py-4 text-sm text-gray-500">Show/hide close button</td>
                                 </tr>
                             </tbody>

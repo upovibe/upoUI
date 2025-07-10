@@ -108,13 +108,12 @@ class Sidebar extends App {
             { href: '/docs/components/pagination', label: 'Pagination' },
             { href: '/docs/components/radiogroup', label: 'Radio Group' },
             { href: '/docs/components/skeleton', label: 'Skeleton Loader' },
-            { href: '/docs/components/switch', label: 'Switch' },
             { href: '/docs/components/table', label: 'Table' },
-            { href: '/docs/components/tab', label: 'Tabs' },
+            { href: '/docs/components/tabs', label: 'Tabs' },
             { href: '/docs/components/textarea', label: 'Textarea' },
             { href: '/docs/components/taginput', label: 'Tag Input' },
             { href: '/docs/components/tooltip', label: 'Tooltip' },
-            { href: '/docs/components/video', label: 'Video Player' },
+            { href: '/docs/components/switch', label: 'Switch' },
             // Add more as needed
         ];
 

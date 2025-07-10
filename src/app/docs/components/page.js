@@ -14,7 +14,7 @@ class DocsComponentsPage extends App {
     }
 
     render() {
-        // Define component data in one place
+        // Define component data in one place (alphabetically sorted by label)
         const components = [
             { href: '/docs/components/accordion', label: 'Accordion', description: 'Collapsible content sections with smooth animations.' },
             { href: '/docs/components/alert', label: 'Alert', description: 'Display callouts for user attention with different types and styles.' },
@@ -37,13 +37,12 @@ class DocsComponentsPage extends App {
             { href: '/docs/components/pagination', label: 'Pagination', description: 'Page controls for navigating long lists.' },
             { href: '/docs/components/radiogroup', label: 'Radio Group', description: 'Single-select form inputs grouped together.' },
             { href: '/docs/components/skeleton', label: 'Skeleton Loader', description: 'Placeholder loading indicator for content.' },
-            { href: '/docs/components/switch', label: 'Switch', description: 'Toggle switch between on/off states.' },
             { href: '/docs/components/table', label: 'Table', description: 'Display tabular data in rows and columns.' },
             { href: '/docs/components/tabs', label: 'Tabs', description: 'Tabbed interfaces for organizing content into sections.' },
-            { href: '/docs/components/textarea', label: 'Textarea', description: 'Multi-line input fields for long text.' },
             { href: '/docs/components/taginput', label: 'Tag Input', description: 'Input field for adding and managing tags.' },
+            { href: '/docs/components/textarea', label: 'Textarea', description: 'Multi-line input fields for long text.' },
             { href: '/docs/components/tooltip', label: 'Tooltip', description: 'Small pop-up with helpful information on hover.' },
-            { href: '/docs/components/video', label: 'Video Player', description: 'Embed or stream video content with controls.' },
+            { href: '/docs/components/switch', label: 'Switch', description: 'Toggle switch component for boolean state management.' },
         ];
 
         return `

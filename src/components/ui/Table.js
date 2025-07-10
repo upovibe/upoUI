@@ -467,6 +467,19 @@ class Table extends HTMLElement {
                     color: #9ca3af;
                 }
                 
+                /* Ellipsis styling */
+                .upo-table-pagination-ellipsis {
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    min-width: 2rem;
+                    height: 2rem;
+                    padding: 0 0.5rem;
+                    color: #6b7280;
+                    font-size: 0.75rem;
+                    user-select: none;
+                }
+                
                 .upo-table-pagination-button:disabled {
                     opacity: 0.5;
                     cursor: not-allowed;
@@ -1149,14 +1162,49 @@ class Table extends HTMLElement {
                         </button>
             `;
 
-            // Page numbers
-            const startPage = Math.max(1, this.currentPage - 2);
-            const endPage = Math.min(maxPage, this.currentPage + 2);
+            // Page numbers with ellipsis
+            const maxVisible = 5; // Show max 5 page numbers
+            let startPage = Math.max(1, this.currentPage - Math.floor(maxVisible / 2));
+            let endPage = Math.min(maxPage, startPage + maxVisible - 1);
             
+            // Adjust if we're near the end
+            if (endPage - startPage + 1 < maxVisible) {
+                startPage = Math.max(1, endPage - maxVisible + 1);
+            }
+            
+            // Show ellipsis before first page if needed
+            if (startPage > 1) {
+                tableHTML += `
+                    <button class="upo-table-pagination-button" onclick="this.closest('ui-table').goToPage(1)">
+                        1
+                    </button>
+                `;
+                if (startPage > 2) {
+                    tableHTML += `
+                        <span class="upo-table-pagination-ellipsis">...</span>
+                    `;
+                }
+            }
+            
+            // Show visible page numbers
             for (let i = startPage; i <= endPage; i++) {
                 tableHTML += `
                     <button class="upo-table-pagination-button ${i === this.currentPage ? 'active' : ''}" onclick="this.closest('ui-table').goToPage(${i})">
                         ${i}
+                    </button>
+                `;
+            }
+            
+            // Show ellipsis after last page if needed
+            if (endPage < maxPage) {
+                if (endPage < maxPage - 1) {
+                    tableHTML += `
+                        <span class="upo-table-pagination-ellipsis">...</span>
+                    `;
+                }
+                tableHTML += `
+                    <button class="upo-table-pagination-button" onclick="this.closest('ui-table').goToPage(${maxPage})">
+                        ${maxPage}
                     </button>
                 `;
             }

@@ -6,9 +6,10 @@
  * Attributes:
  * - open: boolean (default: false) - controls dialog visibility
  * - title: string - sets the header title
+ * - position: string (default: "center") - dialog position: "top", "bottom", "left", "right", "center"
  * 
  * Usage:
- * <ui-dialog open title="My Dialog">
+ * <ui-dialog open title="My Dialog" position="top">
  *   <div slot="content">Dialog content goes here</div>
  *   <div slot="footer">Footer content goes here</div>
  * </ui-dialog>
@@ -27,6 +28,7 @@ class Dialog extends HTMLElement {
 
     render() {
         const title = this.getAttribute('title') || 'Dialog';
+        const position = this.getAttribute('position') || 'center';
         
         this.shadowRoot.innerHTML = `
             <style>
@@ -43,12 +45,40 @@ class Dialog extends HTMLElement {
                     bottom: 0;
                     background-color: rgba(0, 0, 0, 0.5);
                     display: flex;
-                    align-items: center;
-                    justify-content: center;
                     z-index: 1000;
                     opacity: 0;
                     visibility: hidden;
                     transition: opacity 0.3s ease, visibility 0.3s ease;
+                }
+                
+                /* Position variants */
+                .dialog-overlay.position-center {
+                    align-items: center;
+                    justify-content: center;
+                }
+                
+                .dialog-overlay.position-top {
+                    align-items: flex-start;
+                    justify-content: center;
+                    padding-top: 2rem;
+                }
+                
+                .dialog-overlay.position-bottom {
+                    align-items: flex-end;
+                    justify-content: center;
+                    padding-bottom: 2rem;
+                }
+                
+                .dialog-overlay.position-left {
+                    align-items: center;
+                    justify-content: flex-start;
+                    padding-left: 2rem;
+                }
+                
+                .dialog-overlay.position-right {
+                    align-items: center;
+                    justify-content: flex-end;
+                    padding-right: 2rem;
                 }
                 
                 .dialog-overlay.open {
@@ -186,7 +216,7 @@ class Dialog extends HTMLElement {
                 }
             </style>
             
-            <div class="dialog-overlay ${this.isOpen ? 'open' : ''}">
+            <div class="dialog-overlay position-${position} ${this.isOpen ? 'open' : ''}">
                 <div class="dialog">
                     <div class="dialog-header">
                         <h2 class="dialog-title">${title}</h2>
@@ -267,7 +297,7 @@ class Dialog extends HTMLElement {
     }
 
     static get observedAttributes() {
-        return ['open', 'title'];
+        return ['open', 'title', 'position'];
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
@@ -277,7 +307,7 @@ class Dialog extends HTMLElement {
             } else {
                 this.close();
             }
-        } else if (name === 'title') {
+        } else if (name === 'title' || name === 'position') {
             this.render();
             this.setupEventListeners();
         }

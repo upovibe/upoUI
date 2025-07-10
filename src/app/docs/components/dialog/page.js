@@ -73,6 +73,47 @@ class DialogDocsPage extends App {
 
 <ui-button onclick="document.getElementById('form-dialog').open()">Add User</ui-button>`;
 
+        const positionExample = `<ui-dialog id="top-dialog" title="Top Dialog" position="top">
+    <div slot="content">
+        <p>This dialog appears at the top of the screen.</p>
+        <p>Use <code>position="top"</code> to position dialogs at the top.</p>
+    </div>
+</ui-dialog>
+
+<ui-dialog id="bottom-dialog" title="Bottom Dialog" position="bottom">
+    <div slot="content">
+        <p>This dialog appears at the bottom of the screen.</p>
+        <p>Use <code>position="bottom"</code> to position dialogs at the bottom.</p>
+    </div>
+</ui-dialog>
+
+<ui-dialog id="left-dialog" title="Left Dialog" position="left">
+    <div slot="content">
+        <p>This dialog appears on the left side.</p>
+        <p>Use <code>position="left"</code> to position dialogs on the left.</p>
+    </div>
+</ui-dialog>
+
+<ui-dialog id="right-dialog" title="Right Dialog" position="right">
+    <div slot="content">
+        <p>This dialog appears on the right side.</p>
+        <p>Use <code>position="right"</code> to position dialogs on the right.</p>
+    </div>
+</ui-dialog>
+
+<ui-dialog id="center-dialog" title="Center Dialog" position="center">
+    <div slot="content">
+        <p>This dialog appears in the center (default).</p>
+        <p>Use <code>position="center"</code> or omit the attribute for center positioning.</p>
+    </div>
+</ui-dialog>
+
+<ui-button onclick="document.getElementById('top-dialog').open()">Top</ui-button>
+<ui-button onclick="document.getElementById('bottom-dialog').open()">Bottom</ui-button>
+<ui-button onclick="document.getElementById('left-dialog').open()">Left</ui-button>
+<ui-button onclick="document.getElementById('right-dialog').open()">Right</ui-button>
+<ui-button onclick="document.getElementById('center-dialog').open()">Center</ui-button>`;
+
         const apiExample = `// Open dialog programmatically
 const dialog = document.getElementById('my-dialog');
 dialog.open();
@@ -99,6 +140,9 @@ dialog.addEventListener('cancel', () => {
 
 // Set dialog title
 dialog.setAttribute('title', 'New Title');
+
+// Set dialog position
+dialog.setAttribute('position', 'top'); // top, bottom, left, right, center
 
 // Check if dialog is open
 if (dialog.hasAttribute('open')) {
@@ -206,6 +250,32 @@ if (dialog.hasAttribute('open')) {
                   </ui-tab-panel>
                 </ui-tabs>
 
+                <h2 class="text-xl font-semibold mt-8 mb-4">Positioned Dialogs</h2>
+                <p class="mb-4 text-gray-600">Control where the dialog appears on the screen using the position attribute.</p>
+                
+                <ui-tabs>
+                  <ui-tab-list>
+                    <ui-tab value="preview5">Preview</ui-tab>
+                    <ui-tab value="code5">Code</ui-tab>
+                  </ui-tab-list>
+                  
+                  <ui-tab-panel value="preview5">
+                  <ui-box class="p-4 shadow rounded-lg border border-gray-200">
+                    <div class="flex flex-wrap gap-2">
+                      <ui-button onclick="document.getElementById('demo-top-dialog').open()">Top</ui-button>
+                      <ui-button onclick="document.getElementById('demo-bottom-dialog').open()">Bottom</ui-button>
+                      <ui-button onclick="document.getElementById('demo-left-dialog').open()">Left</ui-button>
+                      <ui-button onclick="document.getElementById('demo-right-dialog').open()">Right</ui-button>
+                      <ui-button onclick="document.getElementById('demo-center-dialog').open()">Center</ui-button>
+                    </div>
+                  </ui-box>
+                  </ui-tab-panel>
+                  
+                  <ui-tab-panel value="code5">
+                    <ui-codeblock language="html" code="${positionExample.replace(/"/g, '&quot;')}"></ui-codeblock>
+                  </ui-tab-panel>
+                </ui-tabs>
+
                 <h2 class="text-xl font-semibold mt-8 mb-4">API Reference</h2>
                 <p class="mb-4 text-gray-600">Learn how to programmatically control the dialog component.</p>
                 
@@ -247,6 +317,12 @@ if (dialog.hasAttribute('open')) {
                                 <td class="px-4 py-2 text-sm text-gray-600">string</td>
                                 <td class="px-4 py-2 text-sm text-gray-600">"Dialog"</td>
                                 <td class="px-4 py-2 text-sm text-gray-600">Sets the header title</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-2 text-sm font-mono text-gray-900">position</td>
+                                <td class="px-4 py-2 text-sm text-gray-600">string</td>
+                                <td class="px-4 py-2 text-sm text-gray-600">"center"</td>
+                                <td class="px-4 py-2 text-sm text-gray-600">Dialog position: "top", "bottom", "left", "right", "center"</td>
                             </tr>
                         </tbody>
                     </table>
@@ -400,6 +476,42 @@ if (dialog.hasAttribute('open')) {
                 <div slot="footer">
                     <ui-button class="secondary" onclick="document.getElementById('demo-form-dialog').close()">Cancel</ui-button>
                     <ui-button class="primary">Save</ui-button>
+                </div>
+            </ui-dialog>
+            
+            <!-- Positioned Dialog Examples -->
+            <ui-dialog id="demo-top-dialog" title="Top Dialog" position="top">
+                <div slot="content">
+                    <p>This dialog appears at the top of the screen.</p>
+                    <p>Use <code>position="top"</code> to position dialogs at the top.</p>
+                </div>
+            </ui-dialog>
+            
+            <ui-dialog id="demo-bottom-dialog" title="Bottom Dialog" position="bottom">
+                <div slot="content">
+                    <p>This dialog appears at the bottom of the screen.</p>
+                    <p>Use <code>position="bottom"</code> to position dialogs at the bottom.</p>
+                </div>
+            </ui-dialog>
+            
+            <ui-dialog id="demo-left-dialog" title="Left Dialog" position="left">
+                <div slot="content">
+                    <p>This dialog appears on the left side.</p>
+                    <p>Use <code>position="left"</code> to position dialogs on the left.</p>
+                </div>
+            </ui-dialog>
+            
+            <ui-dialog id="demo-right-dialog" title="Right Dialog" position="right">
+                <div slot="content">
+                    <p>This dialog appears on the right side.</p>
+                    <p>Use <code>position="right"</code> to position dialogs on the right.</p>
+                </div>
+            </ui-dialog>
+            
+            <ui-dialog id="demo-center-dialog" title="Center Dialog" position="center">
+                <div slot="content">
+                    <p>This dialog appears in the center (default).</p>
+                    <p>Use <code>position="center"</code> or omit the attribute for center positioning.</p>
                 </div>
             </ui-dialog>
         `;

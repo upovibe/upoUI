@@ -404,7 +404,13 @@ calendarDropdown.style.display = 'none';  // Close`;
         const calendar = document.getElementById(calendarId);
         
         if (dateInput && calendarDropdown && calendar) {
+            // Toggle calendar on input click
             dateInput.addEventListener('click', () => {
+                calendarDropdown.style.display = calendarDropdown.style.display === 'none' ? 'block' : 'none';
+            });
+            
+            // Toggle calendar on calendar icon click
+            dateInput.addEventListener('calendar-icon-click', () => {
                 calendarDropdown.style.display = calendarDropdown.style.display === 'none' ? 'block' : 'none';
             });
             

@@ -89,9 +89,10 @@ class Input extends HTMLElement {
                     transform: translateY(-50%);
                     width: 1rem;
                     height: 1rem;
-                    color: #6b7280;
-                    pointer-events: none;
+                    color: #374151;
+                    cursor: pointer;
                     transition: color 0.15s ease-in-out;
+                    z-index: 10;
                 }
                 
                 .upo-input-date-picker:hover .calendar-icon {
@@ -174,6 +175,16 @@ class Input extends HTMLElement {
             icon.setAttribute('viewBox', '0 0 20 20');
             icon.setAttribute('fill', 'currentColor');
             icon.innerHTML = '<path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd" />';
+            
+            // Add click event to the icon to trigger calendar dropdown
+            icon.addEventListener('click', (e) => {
+                e.stopPropagation(); // Prevent event bubbling
+                // Dispatch a custom event that the date picker can listen for
+                this.dispatchEvent(new CustomEvent('calendar-icon-click', {
+                    bubbles: true,
+                    detail: { input: this }
+                }));
+            });
             
             this.appendChild(icon);
         }

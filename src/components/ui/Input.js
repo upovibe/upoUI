@@ -70,6 +70,37 @@ class Input extends HTMLElement {
                 .upo-input-default::placeholder {
                     color: #9ca3af;
                 }
+                
+                /* Date picker input styles */
+                .upo-input-date-picker {
+                    position: relative;
+                    display: inline-block;
+                    width: 100%;
+                }
+                
+                .upo-input-date-picker .upo-input-default {
+                    padding-right: 2.5rem;
+                }
+                
+                .upo-input-date-picker .calendar-icon {
+                    position: absolute;
+                    right: 0.75rem;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    width: 1rem;
+                    height: 1rem;
+                    color: #6b7280;
+                    pointer-events: none;
+                    transition: color 0.15s ease-in-out;
+                }
+                
+                .upo-input-date-picker:hover .calendar-icon {
+                    color: #9ca3af;
+                }
+                
+                .upo-input-date-picker:focus-within .calendar-icon {
+                    color: #3b82f6;
+                }
             `;
             document.head.appendChild(style);
         }
@@ -106,6 +137,9 @@ class Input extends HTMLElement {
         attributes.forEach(attr => {
             this.removeAttribute(attr);
         });
+        
+        // Check if this is a date picker input
+        this.checkDatePicker();
     }
     
     // Get the value of the input
@@ -121,6 +155,28 @@ class Input extends HTMLElement {
     // Focus method
     focus() {
         this.input.focus();
+    }
+    
+    checkDatePicker() {
+        const isDatePicker = this.input.classList.contains('date-picker') || 
+                           this.input.classList.contains('upo-datepicker-input') ||
+                           this.input.hasAttribute('data-date-picker') ||
+                           this.input.getAttribute('type') === 'date' ||
+                           this.input.getAttribute('type') === 'datetime-local';
+        
+        if (isDatePicker) {
+            // Add date picker wrapper class
+            this.classList.add('upo-input-date-picker');
+            
+            // Add calendar icon
+            const icon = document.createElement('svg');
+            icon.className = 'calendar-icon';
+            icon.setAttribute('viewBox', '0 0 20 20');
+            icon.setAttribute('fill', 'currentColor');
+            icon.innerHTML = '<path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd" />';
+            
+            this.appendChild(icon);
+        }
     }
     
     // Blur method

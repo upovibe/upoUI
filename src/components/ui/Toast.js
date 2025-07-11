@@ -165,25 +165,42 @@ class Toast extends HTMLElement {
         border: none;
         color: #9ca3af;
         cursor: pointer;
-        padding: 4px;
+        padding: 6px;
         border-radius: 4px;
-        transition: all 0.2s;
+        transition: all 0.2s ease;
         flex-shrink: 0;
-        width: 24px;
-        height: 24px;
+        width: 28px;
+        height: 28px;
         display: flex;
         align-items: center;
         justify-content: center;
+        user-select: none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
       }
 
       .close-btn:hover {
         background: #f3f4f6;
         color: #6b7280;
+        transform: scale(1.1);
+      }
+
+      .close-btn:active {
+        background: #e5e7eb;
+        color: #374151;
+        transform: scale(0.95);
+      }
+
+      .close-btn:focus {
+        outline: 2px solid #3b82f6;
+        outline-offset: 2px;
       }
 
       .close-btn svg {
         width: 16px;
         height: 16px;
+        pointer-events: none;
       }
 
       .progress-bar {
@@ -279,8 +296,23 @@ class Toast extends HTMLElement {
   setupEventListeners() {
     const closeBtn = this.shadowRoot.querySelector('.close-btn');
     if (closeBtn) {
-      closeBtn.addEventListener('click', () => this.hide());
+      // Remove any existing listeners to prevent duplicates
+      closeBtn.removeEventListener('click', this.handleClose);
+      closeBtn.removeEventListener('mousedown', this.handleClose);
+      
+      // Add click listener
+      closeBtn.addEventListener('click', this.handleClose.bind(this));
+      
+      // Also add mousedown for better responsiveness
+      closeBtn.addEventListener('mousedown', this.handleClose.bind(this));
     }
+  }
+
+  handleClose(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    console.log('Close button clicked');
+    this.hide();
   }
 
   startProgress(duration) {

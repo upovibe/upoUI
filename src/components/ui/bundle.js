@@ -32,6 +32,7 @@ import './Modal.js';
 import './Pagination.js';
 import './RadioGroup.js';
 import './Skeleton.js';
+import './Table.js';
 
 // Export all components for easy importing
 export { default as Button } from './Button.js';
@@ -60,5 +61,6 @@ export { default as Modal } from './Modal.js';
 export { default as Pagination } from './Pagination.js';
 export { default as RadioGroup } from './RadioGroup.js';
 export { default as Skeleton } from './Skeleton.js';
+export { default as Table } from './Table.js';
 
 console.log('🎨 UPO UI Components loaded'); 

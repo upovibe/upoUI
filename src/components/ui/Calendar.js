@@ -363,8 +363,11 @@ class Calendar extends HTMLElement {
                 
                 ${this.rangeMode ? `
                 <div class="range-info">
-                    ${this.rangeStart ? `Start: <span>${this.rangeStart.toLocaleDateString()}</span>` : 'Click to select start date'}
-                    ${this.rangeEnd ? ` | End: <span>${this.rangeEnd.toLocaleDateString()}</span>` : ''}
+                    <div>
+                        ${this.rangeStart ? `Start: <span>${this.rangeStart.toLocaleDateString()}</span>` : 'Click to select start date'}
+                        ${this.rangeEnd ? ` | End: <span>${this.rangeEnd.toLocaleDateString()}</span>` : ''}
+                    </div>
+                    ${this.rangeStart ? `<button class="clear-range-button" id="clear-range">Clear</button>` : ''}
                 </div>
                 ` : ''}
                 
@@ -512,10 +515,15 @@ class Calendar extends HTMLElement {
         const yearSelect = this.shadowRoot.getElementById('year-select');
         const hourSelect = this.shadowRoot.getElementById('hour-select');
         const minuteSelect = this.shadowRoot.getElementById('minute-select');
+        const clearRangeButton = this.shadowRoot.getElementById('clear-range');
         
         prevButton.addEventListener('click', this.previousMonth);
         nextButton.addEventListener('click', this.nextMonth);
         todayButton.addEventListener('click', this.goToToday);
+        
+        if (clearRangeButton) {
+            clearRangeButton.addEventListener('click', this.clearRange.bind(this));
+        }
         
         if (monthSelect) {
             monthSelect.addEventListener('change', (e) => {

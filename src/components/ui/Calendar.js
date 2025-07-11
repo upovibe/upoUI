@@ -241,10 +241,29 @@ class Calendar extends HTMLElement {
                     border-radius: 0.375rem;
                     font-size: 0.875rem;
                     color: #374151;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
                 }
                 .range-info span {
                     font-weight: 600;
                     color: #1e40af;
+                }
+                .clear-range-button {
+                    padding: 0.25rem 0.5rem;
+                    font-size: 0.75rem;
+                    font-weight: 500;
+                    color: #6b7280;
+                    background: transparent;
+                    border: 1px solid #d1d5db;
+                    border-radius: 0.25rem;
+                    cursor: pointer;
+                    transition: all 0.15s ease-in-out;
+                }
+                .clear-range-button:hover {
+                    background: #f3f4f6;
+                    border-color: #9ca3af;
+                    color: #374151;
                 }
                 .today-button {
                     display: inline-flex;

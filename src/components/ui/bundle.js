@@ -33,6 +33,7 @@ import './Pagination.js';
 import './RadioGroup.js';
 import './Skeleton.js';
 import './Table.js';
+import './Toast.js';
 
 // Export all components for easy importing
 export { default as Button } from './Button.js';
@@ -62,5 +63,6 @@ export { default as Pagination } from './Pagination.js';
 export { default as RadioGroup } from './RadioGroup.js';
 export { default as Skeleton } from './Skeleton.js';
 export { default as Table } from './Table.js';
+export { default as Toast } from './Toast.js';
 
 console.log('🎨 UPO UI Components loaded'); 

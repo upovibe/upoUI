@@ -112,6 +112,7 @@ class Sidebar extends App {
             { href: '/docs/components/textarea', label: 'Textarea' },
             { href: '/docs/components/taginput', label: 'Tag Input' },
             { href: '/docs/components/tooltip', label: 'Tooltip' },
+            { href: '/docs/components/toast', label: 'Toast' },
             { href: '/docs/components/switch', label: 'Switch' },
             // Add more as needed
         ];

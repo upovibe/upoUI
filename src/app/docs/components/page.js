@@ -41,6 +41,7 @@ class DocsComponentsPage extends App {
             { href: '/docs/components/taginput', label: 'Tag Input', description: 'Input field for adding and managing tags.' },
             { href: '/docs/components/textarea', label: 'Textarea', description: 'Multi-line input fields for long text.' },
             { href: '/docs/components/tooltip', label: 'Tooltip', description: 'Small pop-up with helpful information on hover.' },
+            { href: '/docs/components/toast', label: 'Toast', description: 'Display notifications with different styles and positions.' },
             { href: '/docs/components/switch', label: 'Switch', description: 'Toggle switch component for boolean state management.' },
         ];
 

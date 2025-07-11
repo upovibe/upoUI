@@ -178,6 +178,12 @@ class TableDocsPage extends App {
    refresh="true"
  ></ui-table>`;
 
+     const printExample = `<ui-table 
+   data='${JSON.stringify(sampleData)}' 
+   columns='${JSON.stringify(sampleColumns)}'
+   print="true"
+ ></ui-table>`;
+
     const paginationExample = `<ui-table 
   data='${JSON.stringify(sampleData)}' 
   columns='${JSON.stringify(sampleColumns)}'
@@ -538,6 +544,33 @@ export default TableExample;`;
                    </ui-tab-panel>
                  </ui-tabs>
 
+                 <h2 class="text-xl font-semibold mt-8 mb-4">Print Table</h2>
+                 <p class="mb-4 text-gray-600">Enable the print button to print table data.</p>
+                 
+                 <ui-tabs>
+                   <ui-tab-list>
+                     <ui-tab value="preview-print">Preview</ui-tab>
+                     <ui-tab value="code-print">Code</ui-tab>
+                   </ui-tab-list>
+                   
+                   <ui-tab-panel value="preview-print">
+                     <ui-box class="p-4 shadow rounded-lg border border-gray-200">
+                       <ui-table 
+                         data='${JSON.stringify(sampleData)}' 
+                         columns='${JSON.stringify(sampleColumns)}'
+                         print="true"
+                       ></ui-table>
+                     </ui-box>
+                   </ui-tab-panel>
+                   
+                   <ui-tab-panel value="code-print">
+                     <ui-codeblock language="html" code="${printExample.replace(
+                       /"/g,
+                       "&quot;"
+                     )}"></ui-codeblock>
+                   </ui-tab-panel>
+                 </ui-tabs>
+
                  <h2 class="text-xl font-semibold mt-8 mb-4">Action Buttons Table</h2>
                  <p class="mb-4 text-gray-600">Enable action buttons (view, edit, delete) on each row.</p>
                 
@@ -728,8 +761,9 @@ export default TableExample;`;
                         <li>• Use <code>search-placeholder</code> to customize search input placeholder</li>
                         <li>• Use <code>filterable="true"</code> to enable dropdown filtering for the first column</li>
                         <li>• Use <code>addable="true"</code> to enable the add button for creating new items</li>
-                                                 <li>• Use <code>action="true"</code> to enable action buttons (view, edit, delete) on each row</li>
+                        <li>• Use <code>action="true"</code> to enable action buttons (view, edit, delete) on each row</li>
                          <li>• Use <code>refresh="true"</code> to enable the refresh button</li>
+                         <li>• Use <code>print="true"</code> to enable the print button</li>
                          <li>• Use <code>sortable="true"</code> to enable column sorting</li>
                         <li>• Use <code>selectable="true"</code> to enable row selection</li>
                         <li>• Use <code>pagination="true"</code> to enable pagination</li>
@@ -806,6 +840,12 @@ export default TableExample;`;
                                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">boolean</td>
                                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">false</td>
                                      <td class="px-6 py-4 text-sm text-gray-500">Enable refresh button</td>
+                                 </tr>
+                                 <tr>
+                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">print</td>
+                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">boolean</td>
+                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">false</td>
+                                     <td class="px-6 py-4 text-sm text-gray-500">Enable print button</td>
                                  </tr>
                                 <tr>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">sortable</td>

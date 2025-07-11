@@ -39,6 +39,14 @@ class TableDocsPage extends App {
                 console.log('➕ ADD button clicked! Timestamp:', event.detail.timestamp);
             });
         }
+        
+        // Clickable table demo
+        const clickableTable = this.querySelector('#demo-clickable-table');
+        if (clickableTable) {
+            clickableTable.addEventListener('table-row-click', (event) => {
+                console.log('🖱️ ROW clicked! Row index:', event.detail.rowIndex, 'Data:', event.detail.row);
+            });
+        }
     }
 
     render() {
@@ -289,6 +297,15 @@ export default TableExample;`;
                                     columns='${JSON.stringify(sampleColumns)}'
                                     addable="true"
                                     id="demo-addable-table"
+                                ></ui-table>
+                            </div>
+                            <div class="flex flex-col gap-2">
+                                <h3 class="text-sm font-medium text-gray-700">Clickable Table (Check Console)</h3>
+                                <ui-table 
+                                    data='${JSON.stringify(sampleData)}' 
+                                    columns='${JSON.stringify(sampleColumns)}'
+                                    clickable="true"
+                                    id="demo-clickable-table"
                                 ></ui-table>
                             </div>
                         </ui-box>

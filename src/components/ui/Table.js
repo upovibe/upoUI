@@ -184,19 +184,28 @@ class Table extends HTMLElement {
                 }
                 
                 .upo-table-sortable th::after {
-                    content: '↕';
+                    content: '';
                     margin-left: 0.5rem;
                     opacity: 0.5;
+                    display: inline-block;
+                    width: 16px;
+                    height: 16px;
+                    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236b7280' stroke-width='2'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4'/%3E%3C/svg%3E");
+                    background-size: contain;
+                    background-repeat: no-repeat;
+                    background-position: center;
                 }
                 
                 .upo-table-sortable th.upo-sort-asc::after {
-                    content: '↑';
+                    content: '';
                     opacity: 1;
+                    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%233b82f6' stroke-width='2'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M5 15l7-7 7 7'/%3E%3C/svg%3E");
                 }
                 
                 .upo-table-sortable th.upo-sort-desc::after {
-                    content: '↓';
+                    content: '';
                     opacity: 1;
+                    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%233b82f6' stroke-width='2'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E");
                 }
                 
                 .upo-table-selectable tbody tr {

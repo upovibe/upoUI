@@ -291,75 +291,75 @@ export default FileUploadExample;`;
                     <h3 class="text-lg font-semibold text-gray-900 mb-2">Attributes</h3>
                     <div class="overflow-x-auto">
                       <table class="min-w-full border border-gray-200">
-                        <thead class="bg-gray-50">
-                          <tr>
+                            <thead class="bg-gray-50">
+                                <tr>
                             <th class="px-4 py-2 text-left text-sm font-medium text-gray-900 border-b">Attribute</th>
                             <th class="px-4 py-2 text-left text-sm font-medium text-gray-900 border-b">Type</th>
                             <th class="px-4 py-2 text-left text-sm font-medium text-gray-900 border-b">Default</th>
                             <th class="px-4 py-2 text-left text-sm font-medium text-gray-900 border-b">Description</th>
-                          </tr>
-                        </thead>
+                                </tr>
+                            </thead>
                         <tbody class="divide-y divide-gray-200">
-                          <tr>
+                                <tr>
                             <td class="px-4 py-2 text-sm text-gray-900 font-mono">multiple</td>
                             <td class="px-4 py-2 text-sm text-gray-600">boolean</td>
                             <td class="px-4 py-2 text-sm text-gray-600">false</td>
                             <td class="px-4 py-2 text-sm text-gray-600">Allow multiple file selection</td>
-                          </tr>
-                          <tr>
+                                </tr>
+                                <tr>
                             <td class="px-4 py-2 text-sm text-gray-900 font-mono">accept</td>
                             <td class="px-4 py-2 text-sm text-gray-600">string</td>
                             <td class="px-4 py-2 text-sm text-gray-600">''</td>
                             <td class="px-4 py-2 text-sm text-gray-600">Comma-separated list of accepted file types</td>
-                          </tr>
-                          <tr>
+                                </tr>
+                                <tr>
                             <td class="px-4 py-2 text-sm text-gray-900 font-mono">max-size</td>
                             <td class="px-4 py-2 text-sm text-gray-600">number</td>
                             <td class="px-4 py-2 text-sm text-gray-600">-</td>
                             <td class="px-4 py-2 text-sm text-gray-600">Maximum file size in bytes</td>
-                          </tr>
-                          <tr>
+                                </tr>
+                                <tr>
                             <td class="px-4 py-2 text-sm text-gray-900 font-mono">max-files</td>
                             <td class="px-4 py-2 text-sm text-gray-600">number</td>
                             <td class="px-4 py-2 text-sm text-gray-600">-</td>
                             <td class="px-4 py-2 text-sm text-gray-600">Maximum number of files allowed</td>
-                          </tr>
-                          <tr>
+                                </tr>
+                                <tr>
                             <td class="px-4 py-2 text-sm text-gray-900 font-mono">disabled</td>
                             <td class="px-4 py-2 text-sm text-gray-600">boolean</td>
                             <td class="px-4 py-2 text-sm text-gray-600">false</td>
                             <td class="px-4 py-2 text-sm text-gray-600">Disable the file upload</td>
-                          </tr>
-                          <tr>
+                                </tr>
+                                <tr>
                             <td class="px-4 py-2 text-sm text-gray-900 font-mono">status</td>
                             <td class="px-4 py-2 text-sm text-gray-600">string</td>
                             <td class="px-4 py-2 text-sm text-gray-600">''</td>
                             <td class="px-4 py-2 text-sm text-gray-600">Visual status: success, warning, error, info</td>
-                          </tr>
-                          <tr>
+                                </tr>
+                                <tr>
                             <td class="px-4 py-2 text-sm text-gray-900 font-mono">text</td>
                             <td class="px-4 py-2 text-sm text-gray-600">string</td>
                             <td class="px-4 py-2 text-sm text-gray-600">'Drop files here or click to upload'</td>
                             <td class="px-4 py-2 text-sm text-gray-600">Custom upload text</td>
-                          </tr>
-                        </tbody>
-                      </table>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
-                  </div>
+                    </div>
 
                   <div>
                     <h3 class="text-lg font-semibold text-gray-900 mb-2">Methods</h3>
                     <div class="overflow-x-auto">
                       <table class="min-w-full border border-gray-200">
-                        <thead class="bg-gray-50">
-                          <tr>
+                            <thead class="bg-gray-50">
+                                <tr>
                             <th class="px-4 py-2 text-left text-sm font-medium text-gray-900 border-b">Method</th>
                             <th class="px-4 py-2 text-left text-sm font-medium text-gray-900 border-b">Parameters</th>
                             <th class="px-4 py-2 text-left text-sm font-medium text-gray-900 border-b">Description</th>
-                          </tr>
-                        </thead>
+                                </tr>
+                            </thead>
                         <tbody class="divide-y divide-gray-200">
-                          <tr>
+                                <tr>
                             <td class="px-4 py-2 text-sm text-gray-900 font-mono">getFiles()</td>
                             <td class="px-4 py-2 text-sm text-gray-600">-</td>
                             <td class="px-4 py-2 text-sm text-gray-600">Returns array of selected files</td>
@@ -373,33 +373,33 @@ export default FileUploadExample;`;
                             <td class="px-4 py-2 text-sm text-gray-900 font-mono">setUploadProgress(fileName, progress)</td>
                             <td class="px-4 py-2 text-sm text-gray-600">string, number</td>
                             <td class="px-4 py-2 text-sm text-gray-600">Sets upload progress for a specific file (0-100)</td>
-                          </tr>
-                        </tbody>
-                      </table>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
-                  </div>
+                    </div>
 
                   <div>
                     <h3 class="text-lg font-semibold text-gray-900 mb-2">Events</h3>
                     <div class="overflow-x-auto">
                       <table class="min-w-full border border-gray-200">
-                        <thead class="bg-gray-50">
-                          <tr>
+                            <thead class="bg-gray-50">
+                                <tr>
                             <th class="px-4 py-2 text-left text-sm font-medium text-gray-900 border-b">Event</th>
                             <th class="px-4 py-2 text-left text-sm font-medium text-gray-900 border-b">Detail</th>
                             <th class="px-4 py-2 text-left text-sm font-medium text-gray-900 border-b">Description</th>
-                          </tr>
-                        </thead>
+                                </tr>
+                            </thead>
                         <tbody class="divide-y divide-gray-200">
-                          <tr>
+                                <tr>
                             <td class="px-4 py-2 text-sm text-gray-900 font-mono">files-changed</td>
                             <td class="px-4 py-2 text-sm text-gray-600">FileList</td>
                             <td class="px-4 py-2 text-sm text-gray-600">Fired when files are added or removed</td>
-                          </tr>
-                        </tbody>
-                      </table>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
-                  </div>
+                    </div>
                 </div>
             </div>
         `;

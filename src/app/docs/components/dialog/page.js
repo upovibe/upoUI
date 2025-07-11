@@ -344,61 +344,61 @@ if (dialog.hasAttribute('open')) {
                 <div class="space-y-6">
                   <div>
                     <h3 class="text-lg font-semibold text-gray-900 mb-2">Attributes</h3>
-                    <div class="overflow-x-auto">
+                <div class="overflow-x-auto">
                       <table class="min-w-full border border-gray-200">
                         <thead class="bg-gray-50">
-                          <tr>
+                            <tr>
                             <th class="px-4 py-2 text-left text-sm font-medium text-gray-900 border-b">Attribute</th>
                             <th class="px-4 py-2 text-left text-sm font-medium text-gray-900 border-b">Type</th>
                             <th class="px-4 py-2 text-left text-sm font-medium text-gray-900 border-b">Default</th>
                             <th class="px-4 py-2 text-left text-sm font-medium text-gray-900 border-b">Description</th>
-                          </tr>
+                            </tr>
                         </thead>
                         <tbody class="divide-y divide-gray-200">
-                          <tr>
+                            <tr>
                             <td class="px-4 py-2 text-sm text-gray-900 font-mono">open</td>
-                            <td class="px-4 py-2 text-sm text-gray-600">boolean</td>
-                            <td class="px-4 py-2 text-sm text-gray-600">false</td>
-                            <td class="px-4 py-2 text-sm text-gray-600">Controls dialog visibility</td>
-                          </tr>
-                          <tr>
+                                <td class="px-4 py-2 text-sm text-gray-600">boolean</td>
+                                <td class="px-4 py-2 text-sm text-gray-600">false</td>
+                                <td class="px-4 py-2 text-sm text-gray-600">Controls dialog visibility</td>
+                            </tr>
+                            <tr>
                             <td class="px-4 py-2 text-sm text-gray-900 font-mono">title</td>
-                            <td class="px-4 py-2 text-sm text-gray-600">string</td>
-                            <td class="px-4 py-2 text-sm text-gray-600">"Dialog"</td>
-                            <td class="px-4 py-2 text-sm text-gray-600">Sets the header title</td>
-                          </tr>
-                          <tr>
+                                <td class="px-4 py-2 text-sm text-gray-600">string</td>
+                                <td class="px-4 py-2 text-sm text-gray-600">"Dialog"</td>
+                                <td class="px-4 py-2 text-sm text-gray-600">Sets the header title</td>
+                            </tr>
+                            <tr>
                             <td class="px-4 py-2 text-sm text-gray-900 font-mono">position</td>
-                            <td class="px-4 py-2 text-sm text-gray-600">string</td>
-                            <td class="px-4 py-2 text-sm text-gray-600">"center"</td>
-                            <td class="px-4 py-2 text-sm text-gray-600">Dialog position: "top", "bottom", "left", "right", "center"</td>
-                          </tr>
+                                <td class="px-4 py-2 text-sm text-gray-600">string</td>
+                                <td class="px-4 py-2 text-sm text-gray-600">"center"</td>
+                                <td class="px-4 py-2 text-sm text-gray-600">Dialog position: "top", "bottom", "left", "right", "center"</td>
+                            </tr>
                         </tbody>
-                      </table>
+                    </table>
                     </div>
-                  </div>
+                </div>
 
                   <div>
                     <h3 class="text-lg font-semibold text-gray-900 mb-2">Slots</h3>
-                    <div class="overflow-x-auto">
+                <div class="overflow-x-auto">
                       <table class="min-w-full border border-gray-200">
                         <thead class="bg-gray-50">
-                          <tr>
+                            <tr>
                             <th class="px-4 py-2 text-left text-sm font-medium text-gray-900 border-b">Slot</th>
                             <th class="px-4 py-2 text-left text-sm font-medium text-gray-900 border-b">Description</th>
-                          </tr>
+                            </tr>
                         </thead>
                         <tbody class="divide-y divide-gray-200">
-                          <tr>
+                            <tr>
                             <td class="px-4 py-2 text-sm text-gray-900 font-mono">content</td>
-                            <td class="px-4 py-2 text-sm text-gray-600">Main dialog content area</td>
-                          </tr>
-                          <tr>
+                                <td class="px-4 py-2 text-sm text-gray-600">Main dialog content area</td>
+                            </tr>
+                            <tr>
                             <td class="px-4 py-2 text-sm text-gray-900 font-mono">footer</td>
-                            <td class="px-4 py-2 text-sm text-gray-600">Footer area for buttons and actions</td>
-                          </tr>
+                                <td class="px-4 py-2 text-sm text-gray-600">Footer area for buttons and actions</td>
+                            </tr>
                         </tbody>
-                      </table>
+                    </table>
                     </div>
                   </div>
 
@@ -427,42 +427,42 @@ if (dialog.hasAttribute('open')) {
                         </tbody>
                       </table>
                     </div>
-                  </div>
+                </div>
 
                   <div>
                     <h3 class="text-lg font-semibold text-gray-900 mb-2">Events</h3>
-                    <div class="overflow-x-auto">
+                <div class="overflow-x-auto">
                       <table class="min-w-full border border-gray-200">
                         <thead class="bg-gray-50">
-                          <tr>
+                            <tr>
                             <th class="px-4 py-2 text-left text-sm font-medium text-gray-900 border-b">Event</th>
                             <th class="px-4 py-2 text-left text-sm font-medium text-gray-900 border-b">Detail</th>
                             <th class="px-4 py-2 text-left text-sm font-medium text-gray-900 border-b">Description</th>
-                          </tr>
+                            </tr>
                         </thead>
                         <tbody class="divide-y divide-gray-200">
-                          <tr>
+                            <tr>
                             <td class="px-4 py-2 text-sm text-gray-900 font-mono">dialog-open</td>
                             <td class="px-4 py-2 text-sm text-gray-600">-</td>
-                            <td class="px-4 py-2 text-sm text-gray-600">Fired when dialog opens</td>
-                          </tr>
-                          <tr>
+                                <td class="px-4 py-2 text-sm text-gray-600">Fired when dialog opens</td>
+                            </tr>
+                            <tr>
                             <td class="px-4 py-2 text-sm text-gray-900 font-mono">dialog-close</td>
                             <td class="px-4 py-2 text-sm text-gray-600">-</td>
-                            <td class="px-4 py-2 text-sm text-gray-600">Fired when dialog closes</td>
-                          </tr>
-                          <tr>
+                                <td class="px-4 py-2 text-sm text-gray-600">Fired when dialog closes</td>
+                            </tr>
+                            <tr>
                             <td class="px-4 py-2 text-sm text-gray-900 font-mono">confirm</td>
                             <td class="px-4 py-2 text-sm text-gray-600">-</td>
-                            <td class="px-4 py-2 text-sm text-gray-600">Fired when default confirm button is clicked</td>
-                          </tr>
-                          <tr>
+                                <td class="px-4 py-2 text-sm text-gray-600">Fired when default confirm button is clicked</td>
+                            </tr>
+                            <tr>
                             <td class="px-4 py-2 text-sm text-gray-900 font-mono">cancel</td>
                             <td class="px-4 py-2 text-sm text-gray-600">-</td>
-                            <td class="px-4 py-2 text-sm text-gray-600">Fired when default cancel button is clicked</td>
-                          </tr>
+                                <td class="px-4 py-2 text-sm text-gray-600">Fired when default cancel button is clicked</td>
+                            </tr>
                         </tbody>
-                      </table>
+                    </table>
                     </div>
                   </div>
                 </div>

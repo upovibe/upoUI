@@ -8,6 +8,37 @@ class TableDocsPage extends App {
     connectedCallback() {
         super.connectedCallback();
         document.title = 'Table | UPO UI Docs';
+        
+        // Add event listeners after the component is rendered
+        setTimeout(() => {
+            this.setupDemoEventListeners();
+        }, 100);
+    }
+    
+    setupDemoEventListeners() {
+        // Action table demo
+        const actionTable = this.querySelector('#demo-action-table');
+        if (actionTable) {
+            actionTable.addEventListener('table-view', (event) => {
+                console.log('🔍 VIEW clicked for row:', event.detail.rowIndex, 'Data:', event.detail.row);
+            });
+            
+            actionTable.addEventListener('table-edit', (event) => {
+                console.log('✏️ EDIT clicked for row:', event.detail.rowIndex, 'Data:', event.detail.row);
+            });
+            
+            actionTable.addEventListener('table-delete', (event) => {
+                console.log('🗑️ DELETE clicked for row:', event.detail.rowIndex, 'Data:', event.detail.row);
+            });
+        }
+        
+        // Addable table demo
+        const addableTable = this.querySelector('#demo-addable-table');
+        if (addableTable) {
+            addableTable.addEventListener('table-add', (event) => {
+                console.log('➕ ADD button clicked! Timestamp:', event.detail.timestamp);
+            });
+        }
     }
 
     render() {
@@ -240,6 +271,24 @@ export default TableExample;`;
                                     data='${JSON.stringify(sampleData)}' 
                                     columns='${JSON.stringify(sampleColumns)}'
                                     selectable="true"
+                                ></ui-table>
+                            </div>
+                            <div class="flex flex-col gap-2">
+                                <h3 class="text-sm font-medium text-gray-700">Action Buttons Table (Check Console)</h3>
+                                <ui-table 
+                                    data='${JSON.stringify(sampleData)}' 
+                                    columns='${JSON.stringify(sampleColumns)}'
+                                    action="true"
+                                    id="demo-action-table"
+                                ></ui-table>
+                            </div>
+                            <div class="flex flex-col gap-2">
+                                <h3 class="text-sm font-medium text-gray-700">Addable Table (Check Console)</h3>
+                                <ui-table 
+                                    data='${JSON.stringify(sampleData)}' 
+                                    columns='${JSON.stringify(sampleColumns)}'
+                                    addable="true"
+                                    id="demo-addable-table"
                                 ></ui-table>
                             </div>
                         </ui-box>

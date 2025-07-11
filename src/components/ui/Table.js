@@ -231,7 +231,7 @@ class Table extends HTMLElement {
                 .upo-table-action-buttons {
                     display: flex;
                     gap: 0.25rem;
-                    justify-content: center;
+                    justify-content: start;
                     align-items: center;
                 }
                 

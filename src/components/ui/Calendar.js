@@ -54,6 +54,7 @@ class Calendar extends HTMLElement {
         this.nextMonth = this.nextMonth.bind(this);
         this.goToToday = this.goToToday.bind(this);
         this.handleTimeChange = this.handleTimeChange.bind(this);
+        this.clearRange = this.clearRange.bind(this);
     }
 
     connectedCallback() {
@@ -674,6 +675,18 @@ class Calendar extends HTMLElement {
         
         this.dispatchEvent(new CustomEvent('range-select', {
             detail: rangeData,
+            bubbles: true
+        }));
+    }
+
+    clearRange() {
+        this.rangeStart = null;
+        this.rangeEnd = null;
+        this.render();
+        this.setupEventListeners();
+        
+        this.dispatchEvent(new CustomEvent('range-clear', {
+            detail: { cleared: true },
             bubbles: true
         }));
     }

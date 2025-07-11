@@ -19,6 +19,21 @@ class CalendarDocsPage extends App {
 
         const withDateTimeExample = `<ui-calendar date="2024-06-15" show-time time="14:30"></ui-calendar>`;
 
+        const rangeExample = `<ui-calendar range-mode="true"></ui-calendar>`;
+
+        const rangeWithConstraintsExample = `<ui-calendar 
+    range-mode="true" 
+    min-date="2023-03-01" 
+    max-date="2026-03-31">
+</ui-calendar>`;
+
+        const rangeWithTimeExample = `<ui-calendar 
+    range-mode="true" 
+    show-time="true" 
+    min-date="2023-03-01" 
+    max-date="2026-03-31">
+</ui-calendar>`;
+
         const interactiveExample = `<ui-calendar id="my-calendar"></ui-calendar>
 
 <script>
@@ -48,6 +63,17 @@ calendar.addEventListener('date-select', (e) => {
 });
 calendar.addEventListener('time-change', (e) => {
     console.log('Time changed:', e.detail.time);
+});
+</script>`;
+
+        const rangeInteractiveExample = `<ui-calendar id="range-calendar" range-mode="true" min-date="2023-03-01" max-date="2026-03-31"></ui-calendar>
+
+<script>
+const calendar = document.getElementById('range-calendar');
+calendar.addEventListener('range-select', (e) => {
+    console.log('Range selected:', e.detail);
+    console.log('Start date:', e.detail.startDate);
+    console.log('End date:', e.detail.endDate);
 });
 </script>`;
 
@@ -112,6 +138,12 @@ document.addEventListener('date-select', (event) => {
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Calendar with Time Selection</label>
                                 <div class="flex justify-center">
                                     <ui-calendar id="live-calendar-time" show-time time="14:30"></ui-calendar>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Date Range Selection (Check Console)</label>
+                                <div class="flex justify-center">
+                                    <ui-calendar id="live-range-calendar" range-mode="true" min-date="2023-03-01" max-date="2026-03-31"></ui-calendar>
                                 </div>
                             </div>
                         </ui-box>
@@ -221,6 +253,66 @@ document.addEventListener('date-select', (event) => {
                   </ui-tab-panel>
                 </ui-tabs>
 
+                <h2 class="text-xl font-semibold mt-8 mb-4">Date Range Selection</h2>
+                <p class="mb-4 text-gray-600">Enable date range selection with the <code>range-mode</code> attribute. Users can select start and end dates.</p>
+                
+                <ui-tabs>
+                  <ui-tab-list>
+                    <ui-tab value="preview-range">Preview</ui-tab>
+                    <ui-tab value="code-range">Code</ui-tab>
+                  </ui-tab-list>
+                  
+                  <ui-tab-panel value="preview-range">
+                  <ui-box class="flex justify-center p-4 shadow rounded-lg border border-gray-200">
+                    <ui-calendar range-mode="true"></ui-calendar>
+                  </ui-box>
+                  </ui-tab-panel>
+                  
+                  <ui-tab-panel value="code-range">
+                    <ui-codeblock language="html" code="${rangeExample.replace(/"/g, '&quot;')}"></ui-codeblock>
+                  </ui-tab-panel>
+                </ui-tabs>
+
+                <h2 class="text-xl font-semibold mt-8 mb-4">Date Range with Constraints</h2>
+                <p class="mb-4 text-gray-600">Set minimum and maximum selectable dates using <code>min-date</code> and <code>max-date</code> attributes.</p>
+                
+                <ui-tabs>
+                  <ui-tab-list>
+                    <ui-tab value="preview-range-constraints">Preview</ui-tab>
+                    <ui-tab value="code-range-constraints">Code</ui-tab>
+                  </ui-tab-list>
+                  
+                  <ui-tab-panel value="preview-range-constraints">
+                  <ui-box class="flex justify-center p-4 shadow rounded-lg border border-gray-200">
+                    <ui-calendar range-mode="true" min-date="2023-03-01" max-date="2026-03-31"></ui-calendar>
+                  </ui-box>
+                  </ui-tab-panel>
+                  
+                  <ui-tab-panel value="code-range-constraints">
+                    <ui-codeblock language="html" code="${rangeWithConstraintsExample.replace(/"/g, '&quot;')}"></ui-codeblock>
+                  </ui-tab-panel>
+                </ui-tabs>
+
+                <h2 class="text-xl font-semibold mt-8 mb-4">Date Range with Time Selection</h2>
+                <p class="mb-4 text-gray-600">Combine range selection with time selection for precise date-time ranges.</p>
+                
+                <ui-tabs>
+                  <ui-tab-list>
+                    <ui-tab value="preview-range-time">Preview</ui-tab>
+                    <ui-tab value="code-range-time">Code</ui-tab>
+                  </ui-tab-list>
+                  
+                  <ui-tab-panel value="preview-range-time">
+                  <ui-box class="flex justify-center p-4 shadow rounded-lg border border-gray-200">
+                    <ui-calendar range-mode="true" show-time="true" min-date="2023-03-01" max-date="2026-03-31"></ui-calendar>
+                  </ui-box>
+                  </ui-tab-panel>
+                  
+                  <ui-tab-panel value="code-range-time">
+                    <ui-codeblock language="html" code="${rangeWithTimeExample.replace(/"/g, '&quot;')}"></ui-codeblock>
+                  </ui-tab-panel>
+                </ui-tabs>
+
                 <h2 class="text-xl font-semibold mt-8 mb-4">Interactive Calendar with Time</h2>
                 <p class="mb-4 text-gray-600">Listen for both date and time selection events.</p>
                 
@@ -244,6 +336,29 @@ document.addEventListener('date-select', (event) => {
                   </ui-tab-panel>
                 </ui-tabs>
 
+                <h2 class="text-xl font-semibold mt-8 mb-4">Interactive Date Range Selection</h2>
+                <p class="mb-4 text-gray-600">Listen for range selection events to handle date ranges.</p>
+                
+                <ui-tabs>
+                  <ui-tab-list>
+                    <ui-tab value="preview7">Preview</ui-tab>
+                    <ui-tab value="code7">Code</ui-tab>
+                  </ui-tab-list>
+                  
+                  <ui-tab-panel value="preview7">
+                  <ui-box class="flex flex-col items-center gap-4 p-4 shadow rounded-lg border border-gray-200">
+                    <ui-calendar id="interactive-range-calendar" range-mode="true" min-date="2023-03-01" max-date="2026-03-31"></ui-calendar>
+                    <div id="calendar-range-events" class="text-sm text-gray-600 bg-gray-50 p-3 rounded border">
+                        <div>Range selection log will appear here...</div>
+                    </div>
+                  </ui-box>
+                  </ui-tab-panel>
+                  
+                  <ui-tab-panel value="code7">
+                    <ui-codeblock language="html" code="${rangeInteractiveExample.replace(/"/g, '&quot;')}"></ui-codeblock>
+                  </ui-tab-panel>
+                </ui-tabs>
+
                 <h2 class="text-xl font-semibold mt-8 mb-4">Complete Setup Guide</h2>
                 <p class="mb-4 text-gray-600">Here's how to use the calendar component in your own JavaScript files:</p>
                 
@@ -256,12 +371,16 @@ document.addEventListener('date-select', (event) => {
                         <li>• Use <code>date</code> attribute to set initial view (ISO date string)</li>
                         <li>• Use <code>show-time</code> attribute to enable time selection</li>
                         <li>• Use <code>time</code> attribute to set initial time (HH:MM format)</li>
+                        <li>• Use <code>range-mode="true"</code> to enable date range selection</li>
+                        <li>• Use <code>min-date</code> and <code>max-date</code> to set date constraints</li>
                         <li>• Listen for <code>date-select</code> events when dates are clicked</li>
+                        <li>• Listen for <code>range-select</code> events when date ranges are selected</li>
                         <li>• Listen for <code>time-change</code> events when time is changed</li>
                         <li>• Listen for <code>month-change</code> events when navigating months</li>
                         <li>• Listen for <code>today</code> events when "Today" button is clicked</li>
                         <li>• Calendar includes navigation controls and "Today" button</li>
                         <li>• Today's date is highlighted automatically</li>
+                        <li>• Range selection shows visual feedback with different colors</li>
                     </ul>
                 </div>
 
@@ -303,6 +422,24 @@ document.addEventListener('date-select', (event) => {
                                     <td class="px-4 py-2 text-sm text-gray-600">'12:00'</td>
                                     <td class="px-4 py-2 text-sm text-gray-600">Initial time in HH:MM format (24-hour)</td>
                                 </tr>
+                                <tr>
+                                    <td class="px-4 py-2 text-sm font-mono text-gray-900">range-mode</td>
+                                    <td class="px-4 py-2 text-sm text-gray-600">boolean</td>
+                                    <td class="px-4 py-2 text-sm text-gray-600">false</td>
+                                    <td class="px-4 py-2 text-sm text-gray-600">Enable date range selection mode</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-2 text-sm font-mono text-gray-900">min-date</td>
+                                    <td class="px-4 py-2 text-sm text-gray-600">string</td>
+                                    <td class="px-4 py-2 text-sm text-gray-600">none</td>
+                                    <td class="px-4 py-2 text-sm text-gray-600">Minimum selectable date (ISO date string)</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-2 text-sm font-mono text-gray-900">max-date</td>
+                                    <td class="px-4 py-2 text-sm text-gray-600">string</td>
+                                    <td class="px-4 py-2 text-sm text-gray-600">none</td>
+                                    <td class="px-4 py-2 text-sm text-gray-600">Maximum selectable date (ISO date string)</td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -337,6 +474,11 @@ document.addEventListener('date-select', (event) => {
                                     <td class="px-4 py-2 text-sm font-mono text-gray-900">today</td>
                                     <td class="px-4 py-2 text-sm text-gray-600">{ date: Date }</td>
                                     <td class="px-4 py-2 text-sm text-gray-600">Fired when the "Today" button is clicked</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-2 text-sm font-mono text-gray-900">range-select</td>
+                                    <td class="px-4 py-2 text-sm text-gray-600">{ start: Date, end: Date, startDate: string, endDate: string }</td>
+                                    <td class="px-4 py-2 text-sm text-gray-600">Fired when a date range is selected (only when range-mode is enabled)</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -379,6 +521,14 @@ document.addEventListener('date-select', (event) => {
                                 <tr>
                                     <td class="px-4 py-2 text-sm font-mono text-gray-900">Responsive Design</td>
                                     <td class="px-4 py-2 text-sm text-gray-600">Works well on different screen sizes</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-2 text-sm font-mono text-gray-900">Date Range Selection</td>
+                                    <td class="px-4 py-2 text-sm text-gray-600">Select start and end dates with visual range highlighting</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-2 text-sm font-mono text-gray-900">Date Constraints</td>
+                                    <td class="px-4 py-2 text-sm text-gray-600">Set minimum and maximum selectable dates</td>
                                 </tr>
                                 <tr>
                                     <td class="px-4 py-2 text-sm font-mono text-gray-900">Accessibility</td>
@@ -437,6 +587,35 @@ document.addEventListener('date-select', (event) => {
                 
                 interactiveTimeCalendar.addEventListener('time-change', (e) => {
                     this.addEventLog(timeEventLog, `Time changed to: ${e.detail.time}`);
+                });
+            }
+
+            // Set up range calendar events
+            const interactiveRangeCalendar = document.getElementById('interactive-range-calendar');
+            const rangeEventLog = document.getElementById('calendar-range-events');
+            
+            if (interactiveRangeCalendar && rangeEventLog) {
+                interactiveRangeCalendar.addEventListener('range-select', (e) => {
+                    if (e.detail.startDate && e.detail.endDate) {
+                        const startDate = new Date(e.detail.startDate).toLocaleDateString();
+                        const endDate = new Date(e.detail.endDate).toLocaleDateString();
+                        this.addEventLog(rangeEventLog, `Range selected: ${startDate} to ${endDate}`);
+                    } else if (e.detail.startDate) {
+                        const startDate = new Date(e.detail.startDate).toLocaleDateString();
+                        this.addEventLog(rangeEventLog, `Start date selected: ${startDate}`);
+                    }
+                });
+            }
+
+            // Set up live range calendar events
+            const liveRangeCalendar = document.getElementById('live-range-calendar');
+            if (liveRangeCalendar) {
+                liveRangeCalendar.addEventListener('range-select', (e) => {
+                    console.log('🔍 Range selected:', e.detail);
+                    if (e.detail.startDate && e.detail.endDate) {
+                        console.log('📅 Start date:', e.detail.startDate);
+                        console.log('📅 End date:', e.detail.endDate);
+                    }
                 });
             }
         }, 100);

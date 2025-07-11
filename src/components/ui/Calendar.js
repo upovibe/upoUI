@@ -9,11 +9,15 @@
  * - view: 'month' | 'year' (default: 'month')
  * - show-time: boolean (default: false) - shows time selection
  * - time: string (default: '12:00') - initial time in HH:MM format
+ * - range-mode: boolean (default: false) - enables date range selection
+ * - min-date: ISO date string (default: none) - minimum selectable date
+ * - max-date: ISO date string (default: none) - maximum selectable date
  * 
  * Usage:
  * <ui-calendar></ui-calendar>
  * <ui-calendar date="2024-01-15"></ui-calendar>
  * <ui-calendar date="2024-01-15" show-time time="14:30"></ui-calendar>
+ * <ui-calendar range-mode="true" min-date="2023-03-01" max-date="2026-03-31"></ui-calendar>
  */
 class Calendar extends HTMLElement {
     constructor() {
@@ -37,6 +41,13 @@ class Calendar extends HTMLElement {
         // Time state
         this.showTime = this.hasAttribute('show-time');
         this.selectedTime = this.getAttribute('time') || '12:00';
+        
+        // Range mode state
+        this.rangeMode = this.hasAttribute('range-mode');
+        this.minDate = this.getAttribute('min-date') ? new Date(this.getAttribute('min-date')) : null;
+        this.maxDate = this.getAttribute('max-date') ? new Date(this.getAttribute('max-date')) : null;
+        this.rangeStart = null;
+        this.rangeEnd = null;
         
         // Bind methods
         this.previousMonth = this.previousMonth.bind(this);
@@ -198,6 +209,21 @@ class Calendar extends HTMLElement {
                     color: white;
                     font-weight: 600;
                 }
+                .calendar-day.range-start {
+                    background: #3b82f6;
+                    color: white;
+                    font-weight: 600;
+                }
+                .calendar-day.range-end {
+                    background: #1e40af;
+                    color: white;
+                    font-weight: 600;
+                }
+                .calendar-day.in-range {
+                    background: #dbeafe;
+                    color: #1e40af;
+                    font-weight: 500;
+                }
                 .calendar-day.other-month {
                     color: #9ca3af;
                 }
@@ -207,6 +233,18 @@ class Calendar extends HTMLElement {
                 }
                 .calendar-day.disabled:hover {
                     background: transparent;
+                }
+                .range-info {
+                    margin-top: 0.5rem;
+                    padding: 0.5rem;
+                    background: #f3f4f6;
+                    border-radius: 0.375rem;
+                    font-size: 0.875rem;
+                    color: #374151;
+                }
+                .range-info span {
+                    font-weight: 600;
+                    color: #1e40af;
                 }
                 .today-button {
                     display: inline-flex;
@@ -304,6 +342,13 @@ class Calendar extends HTMLElement {
                 </div>
                 <button class="today-button" id="go-today">Today</button>
                 
+                ${this.rangeMode ? `
+                <div class="range-info">
+                    ${this.rangeStart ? `Start: <span>${this.rangeStart.toLocaleDateString()}</span>` : 'Click to select start date'}
+                    ${this.rangeEnd ? ` | End: <span>${this.rangeEnd.toLocaleDateString()}</span>` : ''}
+                </div>
+                ` : ''}
+                
                 ${this.showTime ? `
                 <div class="time-selector">
                     <span class="time-selector-label">Time:</span>
@@ -347,6 +392,33 @@ class Calendar extends HTMLElement {
                    date.getFullYear() === today.getFullYear();
         };
         
+        // Check if date is in range
+        const isInRange = (date) => {
+            if (!this.rangeStart || !this.rangeEnd) return false;
+            const dateStr = date.toISOString().split('T')[0];
+            const startStr = this.rangeStart.toISOString().split('T')[0];
+            const endStr = this.rangeEnd.toISOString().split('T')[0];
+            return dateStr >= startStr && dateStr <= endStr;
+        };
+        
+        // Check if date is range start/end
+        const isRangeStart = (date) => {
+            if (!this.rangeStart) return false;
+            return date.toISOString().split('T')[0] === this.rangeStart.toISOString().split('T')[0];
+        };
+        
+        const isRangeEnd = (date) => {
+            if (!this.rangeEnd) return false;
+            return date.toISOString().split('T')[0] === this.rangeEnd.toISOString().split('T')[0];
+        };
+        
+        // Check if date is disabled
+        const isDisabled = (date) => {
+            if (this.minDate && date < this.minDate) return true;
+            if (this.maxDate && date > this.maxDate) return true;
+            return false;
+        };
+        
         let days = '';
         
         // Previous month days
@@ -355,7 +427,14 @@ class Calendar extends HTMLElement {
         for (let i = firstDayOfWeek - 1; i >= 0; i--) {
             const day = daysInPrevMonth - i;
             const date = new Date(year, month - 1, day);
-            days += `<div class="calendar-day other-month" data-date="${date.toISOString().split('T')[0]}">${day}</div>`;
+            const dateStr = date.toISOString().split('T')[0];
+            const classes = ['calendar-day', 'other-month'];
+            
+            if (isDisabled(date)) {
+                classes.push('disabled');
+            }
+            
+            days += `<div class="calendar-day ${classes.join(' ')}" data-date="${dateStr}">${day}</div>`;
         }
         
         // Current month days
@@ -368,8 +447,22 @@ class Calendar extends HTMLElement {
                 classes.push('today');
             }
 
-            if (this.selectedDate && date.toISOString().split('T')[0] === this.selectedDate.toISOString().split('T')[0]) {
+            if (!this.rangeMode && this.selectedDate && date.toISOString().split('T')[0] === this.selectedDate.toISOString().split('T')[0]) {
                 classes.push('selected');
+            }
+            
+            if (this.rangeMode) {
+                if (isRangeStart(date)) {
+                    classes.push('range-start');
+                } else if (isRangeEnd(date)) {
+                    classes.push('range-end');
+                } else if (isInRange(date)) {
+                    classes.push('in-range');
+                }
+            }
+            
+            if (isDisabled(date)) {
+                classes.push('disabled');
             }
             
             days += `<div class="calendar-day ${classes.join(' ')}" data-date="${dateStr}">${day}</div>`;
@@ -380,7 +473,13 @@ class Calendar extends HTMLElement {
         for (let day = 1; day <= remainingDays; day++) {
             const date = new Date(year, month + 1, day);
             const dateStr = date.toISOString().split('T')[0];
-            days += `<div class="calendar-day other-month" data-date="${dateStr}">${day}</div>`;
+            const classes = ['calendar-day', 'other-month'];
+            
+            if (isDisabled(date)) {
+                classes.push('disabled');
+            }
+            
+            days += `<div class="calendar-day ${classes.join(' ')}" data-date="${dateStr}">${day}</div>`;
         }
         
         return days;
@@ -434,8 +533,12 @@ class Calendar extends HTMLElement {
         days.forEach(day => {
             day.addEventListener('click', (e) => {
                 const date = e.target.dataset.date;
-                if (date) {
-                    this.selectDate(date);
+                if (date && !e.target.classList.contains('disabled')) {
+                    if (this.rangeMode) {
+                        this.selectRangeDate(date);
+                    } else {
+                        this.selectDate(date);
+                    }
                 }
             });
         });
@@ -513,8 +616,43 @@ class Calendar extends HTMLElement {
         }));
     }
 
+    selectRangeDate(dateString) {
+        const date = new Date(dateString);
+        
+        // If no start date is selected, or if clicking the same date as start, set as start
+        if (!this.rangeStart || (this.rangeStart && this.rangeStart.toISOString().split('T')[0] === dateString)) {
+            this.rangeStart = date;
+            this.rangeEnd = null; // Reset end date
+        } else {
+            // If start date is selected, set as end date
+            if (date < this.rangeStart) {
+                // If selected date is before start date, swap them
+                this.rangeEnd = this.rangeStart;
+                this.rangeStart = date;
+            } else {
+                this.rangeEnd = date;
+            }
+        }
+        
+        this.render();
+        this.setupEventListeners();
+        
+        // Dispatch range event
+        const rangeData = {
+            start: this.rangeStart,
+            end: this.rangeEnd,
+            startDate: this.rangeStart ? this.rangeStart.toISOString().split('T')[0] : null,
+            endDate: this.rangeEnd ? this.rangeEnd.toISOString().split('T')[0] : null
+        };
+        
+        this.dispatchEvent(new CustomEvent('range-select', {
+            detail: rangeData,
+            bubbles: true
+        }));
+    }
+
     static get observedAttributes() {
-        return ['date', 'show-time', 'time'];
+        return ['date', 'show-time', 'time', 'range-mode', 'min-date', 'max-date'];
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
@@ -532,6 +670,18 @@ class Calendar extends HTMLElement {
             this.setupEventListeners();
         } else if (name === 'time' && newValue) {
             this.selectedTime = newValue;
+            this.render();
+            this.setupEventListeners();
+        } else if (name === 'range-mode') {
+            this.rangeMode = this.hasAttribute('range-mode');
+            this.render();
+            this.setupEventListeners();
+        } else if (name === 'min-date' && newValue) {
+            this.minDate = new Date(newValue);
+            this.render();
+            this.setupEventListeners();
+        } else if (name === 'max-date' && newValue) {
+            this.maxDate = new Date(newValue);
             this.render();
             this.setupEventListeners();
         }

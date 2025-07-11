@@ -1,7 +1,7 @@
 <?php
 // api/migrate.php - Run all database migrations from terminal
 
-require_once __DIR__ . '/database/connection.php'; // Loads env from project root and connects to DB
+require_once __DIR__ . '/database/connection.php';
 
 $migrationDir = __DIR__ . '/database/migrations/';
 $files = glob($migrationDir . '*.sql');

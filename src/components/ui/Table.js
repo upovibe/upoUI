@@ -17,6 +17,7 @@
  * - compact: boolean - Enable compact mode (default: false)
  * - searchable: boolean - Enable search functionality (default: false)
  * - search-placeholder: string - Placeholder text for search input (default: 'Search...')
+ * - refresh: boolean - Enable refresh button (default: false)
  * 
  * Events:
  * - table-sort: Fired when column is sorted (detail: { column: string, direction: string })
@@ -37,7 +38,7 @@
  */
 class Table extends HTMLElement {
     static get observedAttributes() {
-        return ['data', 'columns', 'title', 'sortable', 'selectable', 'pagination', 'page-size', 'striped', 'bordered', 'compact', 'searchable', 'search-placeholder', 'clickable', 'filterable', 'addable', 'action'];
+        return ['data', 'columns', 'title', 'sortable', 'selectable', 'pagination', 'page-size', 'striped', 'bordered', 'compact', 'searchable', 'search-placeholder', 'clickable', 'filterable', 'addable', 'action', 'refresh'];
     }
 
     constructor() {
@@ -60,6 +61,7 @@ class Table extends HTMLElement {
         this.filterable = this.hasAttribute('filterable');
         this.addable = this.hasAttribute('addable');
         this.action = this.hasAttribute('action');
+        this.refresh = this.hasAttribute('refresh');
         
         // Internal state
         this.currentPage = 1;
@@ -335,7 +337,6 @@ class Table extends HTMLElement {
                 .upo-table-count {
                     font-size: 0.875rem;
                     color: #6b7280;
-                    margin-left: 0.5rem;
                 }
                 
                 .upo-table-controls-row {
@@ -639,7 +640,7 @@ class Table extends HTMLElement {
             if (name === 'data' || name === 'columns') {
                 this[name] = this.parseJSONAttribute(name, name === 'data' ? [] : []);
                 this.filteredData = [...this.data];
-            } else if (name === 'sortable' || name === 'selectable' || name === 'pagination' || name === 'striped' || name === 'bordered' || name === 'compact' || name === 'searchable' || name === 'clickable' || name === 'filterable' || name === 'addable' || name === 'action') {
+            } else if (name === 'sortable' || name === 'selectable' || name === 'pagination' || name === 'striped' || name === 'bordered' || name === 'compact' || name === 'searchable' || name === 'clickable' || name === 'filterable' || name === 'addable' || name === 'action' || name === 'refresh') {
                 this[name] = this.hasAttribute(name);
             } else if (name === 'page-size') {
                 this.pageSize = parseInt(newValue) || 10;
@@ -1227,14 +1228,16 @@ class Table extends HTMLElement {
             `;
         }
 
-        // Refresh button (icon only)
-        tableHTML += `
-            <button class="upo-table-refresh" onclick="this.closest('ui-table').refresh()" aria-label="Refresh table">
-                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"/>
-                </svg>
-            </button>
-        `;
+        // Refresh button (icon only) - only if refresh is enabled
+        if (this.refresh) {
+            tableHTML += `
+                <button class="upo-table-refresh" onclick="this.closest('ui-table').refresh()" aria-label="Refresh table">
+                    <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"/>
+                    </svg>
+                </button>
+            `;
+        }
         
         tableHTML += `
                     </div>

@@ -166,11 +166,17 @@ class TableDocsPage extends App {
   addable="true"
 ></ui-table>`;
 
-    const actionExample = `<ui-table 
-  data='${JSON.stringify(sampleData)}' 
-  columns='${JSON.stringify(sampleColumns)}'
-  action="true"
-></ui-table>`;
+         const actionExample = `<ui-table 
+   data='${JSON.stringify(sampleData)}' 
+   columns='${JSON.stringify(sampleColumns)}'
+   action="true"
+ ></ui-table>`;
+
+     const refreshExample = `<ui-table 
+   data='${JSON.stringify(sampleData)}' 
+   columns='${JSON.stringify(sampleColumns)}'
+   refresh="true"
+ ></ui-table>`;
 
     const paginationExample = `<ui-table 
   data='${JSON.stringify(sampleData)}' 
@@ -505,8 +511,35 @@ export default TableExample;`;
                   </ui-tab-panel>
                 </ui-tabs>
 
-                <h2 class="text-xl font-semibold mt-8 mb-4">Action Buttons Table</h2>
-                <p class="mb-4 text-gray-600">Enable action buttons (view, edit, delete) on each row.</p>
+                                 <h2 class="text-xl font-semibold mt-8 mb-4">Refresh Table</h2>
+                 <p class="mb-4 text-gray-600">Enable the refresh button to reload table data.</p>
+                 
+                 <ui-tabs>
+                   <ui-tab-list>
+                     <ui-tab value="preview-refresh">Preview</ui-tab>
+                     <ui-tab value="code-refresh">Code</ui-tab>
+                   </ui-tab-list>
+                   
+                   <ui-tab-panel value="preview-refresh">
+                     <ui-box class="p-4 shadow rounded-lg border border-gray-200">
+                       <ui-table 
+                         data='${JSON.stringify(sampleData)}' 
+                         columns='${JSON.stringify(sampleColumns)}'
+                         refresh="true"
+                       ></ui-table>
+                     </ui-box>
+                   </ui-tab-panel>
+                   
+                   <ui-tab-panel value="code-refresh">
+                     <ui-codeblock language="html" code="${refreshExample.replace(
+                       /"/g,
+                       "&quot;"
+                     )}"></ui-codeblock>
+                   </ui-tab-panel>
+                 </ui-tabs>
+
+                 <h2 class="text-xl font-semibold mt-8 mb-4">Action Buttons Table</h2>
+                 <p class="mb-4 text-gray-600">Enable action buttons (view, edit, delete) on each row.</p>
                 
                 <ui-tabs>
                   <ui-tab-list>
@@ -695,8 +728,9 @@ export default TableExample;`;
                         <li>• Use <code>search-placeholder</code> to customize search input placeholder</li>
                         <li>• Use <code>filterable="true"</code> to enable dropdown filtering for the first column</li>
                         <li>• Use <code>addable="true"</code> to enable the add button for creating new items</li>
-                        <li>• Use <code>action="true"</code> to enable action buttons (view, edit, delete) on each row</li>
-                        <li>• Use <code>sortable="true"</code> to enable column sorting</li>
+                                                 <li>• Use <code>action="true"</code> to enable action buttons (view, edit, delete) on each row</li>
+                         <li>• Use <code>refresh="true"</code> to enable the refresh button</li>
+                         <li>• Use <code>sortable="true"</code> to enable column sorting</li>
                         <li>• Use <code>selectable="true"</code> to enable row selection</li>
                         <li>• Use <code>pagination="true"</code> to enable pagination</li>
                         <li>• Use <code>page-size</code> to set initial rows per page (users can enter custom values 1-1000)</li>
@@ -761,12 +795,18 @@ export default TableExample;`;
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">false</td>
                                     <td class="px-6 py-4 text-sm text-gray-500">Enable add button for creating new items</td>
                                 </tr>
-                                <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">action</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">boolean</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">false</td>
-                                    <td class="px-6 py-4 text-sm text-gray-500">Enable action buttons (view, edit, delete) on each row</td>
-                                </tr>
+                                                                 <tr>
+                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">action</td>
+                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">boolean</td>
+                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">false</td>
+                                     <td class="px-6 py-4 text-sm text-gray-500">Enable action buttons (view, edit, delete) on each row</td>
+                                 </tr>
+                                 <tr>
+                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">refresh</td>
+                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">boolean</td>
+                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">false</td>
+                                     <td class="px-6 py-4 text-sm text-gray-500">Enable refresh button</td>
+                                 </tr>
                                 <tr>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">sortable</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">boolean</td>

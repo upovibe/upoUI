@@ -1,127 +1,185 @@
-import App from '@/core/App.js';
-import '@/components/ui/CodeBlock.js';
-import '@/components/ui/Table.js';
-import '@/components/ui/Box.js';
-import '@/components/ui/Tabs.js';
+import App from "@/core/App.js";
+import "@/components/ui/CodeBlock.js";
+import "@/components/ui/Table.js";
+import "@/components/ui/Box.js";
+import "@/components/ui/Tabs.js";
 
 class TableDocsPage extends App {
-    connectedCallback() {
-        super.connectedCallback();
-        document.title = 'Table | UPO UI Docs';
-        
-        // Add event listeners after the component is rendered
-        setTimeout(() => {
-            this.setupDemoEventListeners();
-        }, 100);
-    }
-    
-    setupDemoEventListeners() {
-        // Action table demo
-        const actionTable = this.querySelector('#demo-action-table');
-        if (actionTable) {
-            actionTable.addEventListener('table-view', (event) => {
-                console.log('🔍 VIEW clicked for row:', event.detail.rowIndex, 'Data:', event.detail.row);
-            });
-            
-            actionTable.addEventListener('table-edit', (event) => {
-                console.log('✏️ EDIT clicked for row:', event.detail.rowIndex, 'Data:', event.detail.row);
-            });
-            
-            actionTable.addEventListener('table-delete', (event) => {
-                console.log('🗑️ DELETE clicked for row:', event.detail.rowIndex, 'Data:', event.detail.row);
-            });
-        }
-        
-        // Addable table demo
-        const addableTable = this.querySelector('#demo-addable-table');
-        if (addableTable) {
-            addableTable.addEventListener('table-add', (event) => {
-                console.log('➕ ADD button clicked! Timestamp:', event.detail.timestamp);
-            });
-        }
-        
-        // Clickable table demo
-        const clickableTable = this.querySelector('#demo-clickable-table');
-        if (clickableTable) {
-            clickableTable.addEventListener('table-row-click', (event) => {
-                console.log('🖱️ ROW clicked! Row index:', event.detail.rowIndex, 'Data:', event.detail.row);
-            });
-        }
+  connectedCallback() {
+    super.connectedCallback();
+    document.title = "Table | UPO UI Docs";
+
+    // Add event listeners after the component is rendered
+    setTimeout(() => {
+      this.setupDemoEventListeners();
+    }, 100);
+  }
+
+  setupDemoEventListeners() {
+    // Action table demo
+    const actionTable = this.querySelector("#demo-action-table");
+    if (actionTable) {
+      actionTable.addEventListener("table-view", (event) => {
+        console.log(
+          "🔍 VIEW clicked for row:",
+          event.detail.rowIndex,
+          "Data:",
+          event.detail.row
+        );
+      });
+
+      actionTable.addEventListener("table-edit", (event) => {
+        console.log(
+          "✏️ EDIT clicked for row:",
+          event.detail.rowIndex,
+          "Data:",
+          event.detail.row
+        );
+      });
+
+      actionTable.addEventListener("table-delete", (event) => {
+        console.log(
+          "🗑️ DELETE clicked for row:",
+          event.detail.rowIndex,
+          "Data:",
+          event.detail.row
+        );
+      });
     }
 
-    render() {
-        const sampleData = [
-            { id: 1, name: 'John Doe', email: 'john@example.com', age: 25, department: 'Engineering', status: 'Active' },
-            { id: 2, name: 'Jane Smith', email: 'jane@example.com', age: 30, department: 'Marketing', status: 'Active' },
-            { id: 3, name: 'Bob Johnson', email: 'bob@example.com', age: 28, department: 'Sales', status: 'Inactive' },
-            { id: 4, name: 'Alice Brown', email: 'alice@example.com', age: 32, department: 'Engineering', status: 'Active' },
-            { id: 5, name: 'Charlie Wilson', email: 'charlie@example.com', age: 27, department: 'HR', status: 'Pending' }
-        ];
+    // Addable table demo
+    const addableTable = this.querySelector("#demo-addable-table");
+    if (addableTable) {
+      addableTable.addEventListener("table-add", (event) => {
+        console.log(
+          "➕ ADD button clicked! Timestamp:",
+          event.detail.timestamp
+        );
+      });
+    }
 
-        const sampleColumns = [
-            { key: 'status', label: 'Status' },
-            { key: 'name', label: 'Name' },
-            { key: 'email', label: 'Email' },
-            { key: 'age', label: 'Age' },
-            { key: 'department', label: 'Department' }
-        ];
+    // Clickable table demo
+    const clickableTable = this.querySelector("#demo-clickable-table");
+    if (clickableTable) {
+      clickableTable.addEventListener("table-row-click", (event) => {
+        console.log(
+          "🖱️ ROW clicked! Row index:",
+          event.detail.rowIndex,
+          "Data:",
+          event.detail.row
+        );
+      });
+    }
+  }
 
-        const basicExample = `<ui-table 
+  render() {
+    const sampleData = [
+      {
+        id: 1,
+        name: "John Doe",
+        email: "john@example.com",
+        age: 25,
+        department: "Engineering",
+        status: "Active",
+      },
+      {
+        id: 2,
+        name: "Jane Smith",
+        email: "jane@example.com",
+        age: 30,
+        department: "Marketing",
+        status: "Active",
+      },
+      {
+        id: 3,
+        name: "Bob Johnson",
+        email: "bob@example.com",
+        age: 28,
+        department: "Sales",
+        status: "Inactive",
+      },
+      {
+        id: 4,
+        name: "Alice Brown",
+        email: "alice@example.com",
+        age: 32,
+        department: "Engineering",
+        status: "Active",
+      },
+      {
+        id: 5,
+        name: "Charlie Wilson",
+        email: "charlie@example.com",
+        age: 27,
+        department: "HR",
+        status: "Pending",
+      },
+    ];
+
+    const sampleColumns = [
+      { key: "status", label: "Status" },
+      { key: "name", label: "Name" },
+      { key: "email", label: "Email" },
+      { key: "age", label: "Age" },
+      { key: "department", label: "Department" },
+    ];
+
+    const basicExample = `<ui-table 
   data='${JSON.stringify(sampleData)}' 
   columns='${JSON.stringify(sampleColumns)}'
 ></ui-table>`;
 
-        const sortableExample = `<ui-table 
+    const sortableExample = `<ui-table 
   data='${JSON.stringify(sampleData)}' 
   columns='${JSON.stringify(sampleColumns)}'
   sortable="true"
 ></ui-table>`;
 
-        const selectableExample = `<ui-table 
+    const selectableExample = `<ui-table 
   data='${JSON.stringify(sampleData)}' 
   columns='${JSON.stringify(sampleColumns)}'
   selectable="true"
 ></ui-table>`;
 
-        const searchableExample = `<ui-table 
+    const searchableExample = `<ui-table 
   data='${JSON.stringify(sampleData)}' 
   columns='${JSON.stringify(sampleColumns)}'
   searchable="true"
 ></ui-table>`;
 
-        const searchableCustomExample = `<ui-table 
+    const searchableCustomExample = `<ui-table 
   data='${JSON.stringify(sampleData)}' 
   columns='${JSON.stringify(sampleColumns)}'
   searchable="true"
   search-placeholder="Search employees..."
 ></ui-table>`;
 
-        const filterableExample = `<ui-table 
+    const filterableExample = `<ui-table 
   data='${JSON.stringify(sampleData)}' 
   columns='${JSON.stringify(sampleColumns)}'
   filterable="true"
 ></ui-table>`;
 
-        const addableExample = `<ui-table 
+    const addableExample = `<ui-table 
   data='${JSON.stringify(sampleData)}' 
   columns='${JSON.stringify(sampleColumns)}'
   addable="true"
 ></ui-table>`;
 
-        const actionExample = `<ui-table 
+    const actionExample = `<ui-table 
   data='${JSON.stringify(sampleData)}' 
   columns='${JSON.stringify(sampleColumns)}'
   action="true"
 ></ui-table>`;
 
-        const paginationExample = `<ui-table 
+    const paginationExample = `<ui-table 
   data='${JSON.stringify(sampleData)}' 
   columns='${JSON.stringify(sampleColumns)}'
   pagination="true"
   page-size="3"
 ></ui-table>`;
 
-        const styledExample = `<ui-table 
+    const styledExample = `<ui-table 
   data='${JSON.stringify(sampleData)}' 
   columns='${JSON.stringify(sampleColumns)}'
   striped="true"
@@ -129,7 +187,7 @@ class TableDocsPage extends App {
   compact="true"
 ></ui-table>`;
 
-        const fullExample = `<ui-table 
+    const fullExample = `<ui-table 
   data='${JSON.stringify(sampleData)}' 
   columns='${JSON.stringify(sampleColumns)}'
   sortable="true"
@@ -141,7 +199,7 @@ class TableDocsPage extends App {
   bordered="true"
 ></ui-table>`;
 
-        const setupExample = `// Import the table component
+    const setupExample = `// Import the table component
 import '@/components/ui/Table.js';
 
 class TableExample extends HTMLElement {
@@ -236,7 +294,7 @@ class TableExample extends HTMLElement {
 customElements.define('ui-table-example', TableExample);
 export default TableExample;`;
 
-        return `
+    return `
             <div>
                 <div class="mb-8">
                     <h1 class="text-3xl font-bold text-gray-900 mb-4">Table Component</h1>
@@ -331,7 +389,10 @@ export default TableExample;`;
                   </ui-tab-panel>
                   
                   <ui-tab-panel value="code1">
-                    <ui-codeblock language="html" code="${basicExample.replace(/"/g, '&quot;')}"></ui-codeblock>
+                    <ui-codeblock language="html" code="${basicExample.replace(
+                      /"/g,
+                      "&quot;"
+                    )}"></ui-codeblock>
                   </ui-tab-panel>
                 </ui-tabs>
 
@@ -355,7 +416,10 @@ export default TableExample;`;
                   </ui-tab-panel>
                   
                   <ui-tab-panel value="code2">
-                    <ui-codeblock language="html" code="${searchableExample.replace(/"/g, '&quot;')}"></ui-codeblock>
+                    <ui-codeblock language="html" code="${searchableExample.replace(
+                      /"/g,
+                      "&quot;"
+                    )}"></ui-codeblock>
                   </ui-tab-panel>
                 </ui-tabs>
 
@@ -380,7 +444,10 @@ export default TableExample;`;
                   </ui-tab-panel>
                   
                   <ui-tab-panel value="code3">
-                    <ui-codeblock language="html" code="${searchableCustomExample.replace(/"/g, '&quot;')}"></ui-codeblock>
+                    <ui-codeblock language="html" code="${searchableCustomExample.replace(
+                      /"/g,
+                      "&quot;"
+                    )}"></ui-codeblock>
                   </ui-tab-panel>
                 </ui-tabs>
 
@@ -404,7 +471,10 @@ export default TableExample;`;
                   </ui-tab-panel>
                   
                   <ui-tab-panel value="code-filter">
-                    <ui-codeblock language="html" code="${filterableExample.replace(/"/g, '&quot;')}"></ui-codeblock>
+                    <ui-codeblock language="html" code="${filterableExample.replace(
+                      /"/g,
+                      "&quot;"
+                    )}"></ui-codeblock>
                   </ui-tab-panel>
                 </ui-tabs>
 
@@ -428,7 +498,10 @@ export default TableExample;`;
                   </ui-tab-panel>
                   
                   <ui-tab-panel value="code-addable">
-                    <ui-codeblock language="html" code="${addableExample.replace(/"/g, '&quot;')}"></ui-codeblock>
+                    <ui-codeblock language="html" code="${addableExample.replace(
+                      /"/g,
+                      "&quot;"
+                    )}"></ui-codeblock>
                   </ui-tab-panel>
                 </ui-tabs>
 
@@ -452,7 +525,10 @@ export default TableExample;`;
                   </ui-tab-panel>
                   
                   <ui-tab-panel value="code-action">
-                    <ui-codeblock language="html" code="${actionExample.replace(/"/g, '&quot;')}"></ui-codeblock>
+                    <ui-codeblock language="html" code="${actionExample.replace(
+                      /"/g,
+                      "&quot;"
+                    )}"></ui-codeblock>
                   </ui-tab-panel>
                 </ui-tabs>
 
@@ -477,7 +553,10 @@ export default TableExample;`;
                   </ui-tab-panel>
                   
                   <ui-tab-panel value="code4">
-                    <ui-codeblock language="html" code="${sortableExample.replace(/"/g, '&quot;')}"></ui-codeblock>
+                    <ui-codeblock language="html" code="${sortableExample.replace(
+                      /"/g,
+                      "&quot;"
+                    )}"></ui-codeblock>
                   </ui-tab-panel>
                 </ui-tabs>
 
@@ -501,7 +580,10 @@ export default TableExample;`;
                   </ui-tab-panel>
                   
                   <ui-tab-panel value="code5">
-                    <ui-codeblock language="html" code="${selectableExample.replace(/"/g, '&quot;')}"></ui-codeblock>
+                    <ui-codeblock language="html" code="${selectableExample.replace(
+                      /"/g,
+                      "&quot;"
+                    )}"></ui-codeblock>
                   </ui-tab-panel>
                 </ui-tabs>
 
@@ -526,7 +608,10 @@ export default TableExample;`;
                   </ui-tab-panel>
                   
                   <ui-tab-panel value="code6">
-                    <ui-codeblock language="html" code="${paginationExample.replace(/"/g, '&quot;')}"></ui-codeblock>
+                    <ui-codeblock language="html" code="${paginationExample.replace(
+                      /"/g,
+                      "&quot;"
+                    )}"></ui-codeblock>
                   </ui-tab-panel>
                 </ui-tabs>
 
@@ -552,7 +637,10 @@ export default TableExample;`;
                   </ui-tab-panel>
                   
                   <ui-tab-panel value="code7">
-                    <ui-codeblock language="html" code="${styledExample.replace(/"/g, '&quot;')}"></ui-codeblock>
+                    <ui-codeblock language="html" code="${styledExample.replace(
+                      /"/g,
+                      "&quot;"
+                    )}"></ui-codeblock>
                   </ui-tab-panel>
                 </ui-tabs>
 
@@ -582,14 +670,20 @@ export default TableExample;`;
                   </ui-tab-panel>
                   
                   <ui-tab-panel value="code8">
-                    <ui-codeblock language="html" code="${fullExample.replace(/"/g, '&quot;')}"></ui-codeblock>
+                    <ui-codeblock language="html" code="${fullExample.replace(
+                      /"/g,
+                      "&quot;"
+                    )}"></ui-codeblock>
                   </ui-tab-panel>
                 </ui-tabs>
 
                 <h2 class="text-xl font-semibold mt-8 mb-4">Setup Guide</h2>
                 <p class="mb-4 text-gray-600">Here's how to use the table component in your own JavaScript files:</p>
                 
-                <ui-codeblock language="javascript" code="${setupExample.replace(/"/g, '&quot;')}"></ui-codeblock>
+                <ui-codeblock language="javascript" code="${setupExample.replace(
+                  /"/g,
+                  "&quot;"
+                )}"></ui-codeblock>
                 
                 <div class="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
                     <h3 class="text-lg font-semibold text-blue-900 mb-2">💡 Key Points</h3>
@@ -805,8 +899,8 @@ export default TableExample;`;
                 </div>
             </div>
         `;
-    }
+  }
 }
 
-customElements.define('app-table-docs-page', TableDocsPage);
-export default TableDocsPage; 
+customElements.define("app-table-docs-page", TableDocsPage);
+export default TableDocsPage;

@@ -1,40 +1,40 @@
-import App from '@/core/App.js';
-import '@/components/ui/CodeBlock.js';
-import '@/components/ui/Calendar.js';
-import '@/components/ui/Box.js';
-import '@/components/ui/Tabs.js';
+import App from "@/core/App.js";
+import "@/components/ui/CodeBlock.js";
+import "@/components/ui/Calendar.js";
+import "@/components/ui/Box.js";
+import "@/components/ui/Tabs.js";
 
 class CalendarDocsPage extends App {
-    connectedCallback() {
-        super.connectedCallback();
-        document.title = 'Calendar Component | UPO UI';
-    }
+  connectedCallback() {
+    super.connectedCallback();
+    document.title = "Calendar Component | UPO UI";
+  }
 
-    render() {
-        const basicExample = `<ui-calendar></ui-calendar>`;
+  render() {
+    const basicExample = `<ui-calendar></ui-calendar>`;
 
-        const withDateExample = `<ui-calendar date="2024-06-15"></ui-calendar>`;
+    const withDateExample = `<ui-calendar date="2024-06-15"></ui-calendar>`;
 
-        const withTimeExample = `<ui-calendar show-time></ui-calendar>`;
+    const withTimeExample = `<ui-calendar show-time></ui-calendar>`;
 
-        const withDateTimeExample = `<ui-calendar date="2024-06-15" show-time time="14:30"></ui-calendar>`;
+    const withDateTimeExample = `<ui-calendar date="2024-06-15" show-time time="14:30"></ui-calendar>`;
 
-        const rangeExample = `<ui-calendar range-mode="true"></ui-calendar>`;
+    const rangeExample = `<ui-calendar range-mode="true"></ui-calendar>`;
 
-        const rangeWithConstraintsExample = `<ui-calendar 
+    const rangeWithConstraintsExample = `<ui-calendar 
     range-mode="true" 
     min-date="2023-03-01" 
     max-date="2026-03-31">
 </ui-calendar>`;
 
-        const rangeWithTimeExample = `<ui-calendar 
+    const rangeWithTimeExample = `<ui-calendar 
     range-mode="true" 
     show-time="true" 
     min-date="2023-03-01" 
     max-date="2026-03-31">
 </ui-calendar>`;
 
-        const interactiveExample = `<ui-calendar id="my-calendar"></ui-calendar>
+    const interactiveExample = `<ui-calendar id="my-calendar"></ui-calendar>
 
 <script>
 const calendar = document.getElementById('my-calendar');
@@ -49,7 +49,7 @@ calendar.addEventListener('today', (e) => {
 });
 </script>`;
 
-        const timeInteractiveExample = `<ui-calendar id="time-calendar" show-time time="09:00"></ui-calendar>
+    const timeInteractiveExample = `<ui-calendar id="time-calendar" show-time time="09:00"></ui-calendar>
 
 <script>
 const calendar = document.getElementById('time-calendar');
@@ -66,7 +66,7 @@ calendar.addEventListener('time-change', (e) => {
 });
 </script>`;
 
-        const rangeInteractiveExample = `<ui-calendar id="range-calendar" range-mode="true" min-date="2023-03-01" max-date="2026-03-31"></ui-calendar>
+    const rangeInteractiveExample = `<ui-calendar id="range-calendar" range-mode="true" min-date="2023-03-01" max-date="2026-03-31"></ui-calendar>
 
 <script>
 const calendar = document.getElementById('range-calendar');
@@ -77,7 +77,7 @@ calendar.addEventListener('range-select', (e) => {
 });
 </script>`;
 
-        const setupExample = `// Import the calendar component
+    const setupExample = `// Import the calendar component
 import '@/components/ui/Calendar.js';
 
 class MyPage extends HTMLElement {
@@ -88,7 +88,7 @@ class MyPage extends HTMLElement {
     }
 }`;
 
-        const eventsExample = `// Listen for calendar events
+    const eventsExample = `// Listen for calendar events
 document.addEventListener('date-select', (event) => {
     console.log('Date selected:', event.detail.date);
 });
@@ -116,7 +116,7 @@ document.addEventListener('date-select', (event) => {
     }
 });`;
 
-        return `
+    return `
             <div>
                 <div class="mb-8">
                     <h1 class="text-3xl font-bold text-gray-900 mb-4">Calendar Component</h1>
@@ -166,7 +166,10 @@ document.addEventListener('date-select', (event) => {
                   </ui-tab-panel>
                   
                   <ui-tab-panel value="code1">
-                    <ui-codeblock language="html" code="${basicExample.replace(/"/g, '&quot;')}"></ui-codeblock>
+                    <ui-codeblock language="html" code="${basicExample.replace(
+                      /"/g,
+                      "&quot;"
+                    )}"></ui-codeblock>
                   </ui-tab-panel>
                 </ui-tabs>
 
@@ -186,7 +189,10 @@ document.addEventListener('date-select', (event) => {
                   </ui-tab-panel>
                   
                   <ui-tab-panel value="code2">
-                    <ui-codeblock language="html" code="${withDateExample.replace(/"/g, '&quot;')}"></ui-codeblock>
+                    <ui-codeblock language="html" code="${withDateExample.replace(
+                      /"/g,
+                      "&quot;"
+                    )}"></ui-codeblock>
                   </ui-tab-panel>
                 </ui-tabs>
 
@@ -206,7 +212,10 @@ document.addEventListener('date-select', (event) => {
                   </ui-tab-panel>
                   
                   <ui-tab-panel value="code3">
-                    <ui-codeblock language="html" code="${withTimeExample.replace(/"/g, '&quot;')}"></ui-codeblock>
+                    <ui-codeblock language="html" code="${withTimeExample.replace(
+                      /"/g,
+                      "&quot;"
+                    )}"></ui-codeblock>
                   </ui-tab-panel>
                 </ui-tabs>
 
@@ -226,7 +235,10 @@ document.addEventListener('date-select', (event) => {
                   </ui-tab-panel>
                   
                   <ui-tab-panel value="code4">
-                    <ui-codeblock language="html" code="${withDateTimeExample.replace(/"/g, '&quot;')}"></ui-codeblock>
+                    <ui-codeblock language="html" code="${withDateTimeExample.replace(
+                      /"/g,
+                      "&quot;"
+                    )}"></ui-codeblock>
                   </ui-tab-panel>
                 </ui-tabs>
 
@@ -249,7 +261,10 @@ document.addEventListener('date-select', (event) => {
                   </ui-tab-panel>
                   
                   <ui-tab-panel value="code5">
-                    <ui-codeblock language="html" code="${interactiveExample.replace(/"/g, '&quot;')}"></ui-codeblock>
+                    <ui-codeblock language="html" code="${interactiveExample.replace(
+                      /"/g,
+                      "&quot;"
+                    )}"></ui-codeblock>
                   </ui-tab-panel>
                 </ui-tabs>
 
@@ -269,7 +284,10 @@ document.addEventListener('date-select', (event) => {
                   </ui-tab-panel>
                   
                   <ui-tab-panel value="code-range">
-                    <ui-codeblock language="html" code="${rangeExample.replace(/"/g, '&quot;')}"></ui-codeblock>
+                    <ui-codeblock language="html" code="${rangeExample.replace(
+                      /"/g,
+                      "&quot;"
+                    )}"></ui-codeblock>
                   </ui-tab-panel>
                 </ui-tabs>
 
@@ -289,7 +307,10 @@ document.addEventListener('date-select', (event) => {
                   </ui-tab-panel>
                   
                   <ui-tab-panel value="code-range-constraints">
-                    <ui-codeblock language="html" code="${rangeWithConstraintsExample.replace(/"/g, '&quot;')}"></ui-codeblock>
+                    <ui-codeblock language="html" code="${rangeWithConstraintsExample.replace(
+                      /"/g,
+                      "&quot;"
+                    )}"></ui-codeblock>
                   </ui-tab-panel>
                 </ui-tabs>
 
@@ -309,7 +330,10 @@ document.addEventListener('date-select', (event) => {
                   </ui-tab-panel>
                   
                   <ui-tab-panel value="code-range-time">
-                    <ui-codeblock language="html" code="${rangeWithTimeExample.replace(/"/g, '&quot;')}"></ui-codeblock>
+                    <ui-codeblock language="html" code="${rangeWithTimeExample.replace(
+                      /"/g,
+                      "&quot;"
+                    )}"></ui-codeblock>
                   </ui-tab-panel>
                 </ui-tabs>
 
@@ -332,7 +356,10 @@ document.addEventListener('date-select', (event) => {
                   </ui-tab-panel>
                   
                   <ui-tab-panel value="code6">
-                    <ui-codeblock language="html" code="${timeInteractiveExample.replace(/"/g, '&quot;')}"></ui-codeblock>
+                    <ui-codeblock language="html" code="${timeInteractiveExample.replace(
+                      /"/g,
+                      "&quot;"
+                    )}"></ui-codeblock>
                   </ui-tab-panel>
                 </ui-tabs>
 
@@ -355,14 +382,20 @@ document.addEventListener('date-select', (event) => {
                   </ui-tab-panel>
                   
                   <ui-tab-panel value="code7">
-                    <ui-codeblock language="html" code="${rangeInteractiveExample.replace(/"/g, '&quot;')}"></ui-codeblock>
+                    <ui-codeblock language="html" code="${rangeInteractiveExample.replace(
+                      /"/g,
+                      "&quot;"
+                    )}"></ui-codeblock>
                   </ui-tab-panel>
                 </ui-tabs>
 
                 <h2 class="text-xl font-semibold mt-8 mb-4">Complete Setup Guide</h2>
                 <p class="mb-4 text-gray-600">Here's how to use the calendar component in your own JavaScript files:</p>
                 
-                <ui-codeblock language="javascript" code="${setupExample.replace(/"/g, '&quot;')}"></ui-codeblock>
+                <ui-codeblock language="javascript" code="${setupExample.replace(
+                  /"/g,
+                  "&quot;"
+                )}"></ui-codeblock>
                 
                 <div class="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
                     <h3 class="text-lg font-semibold text-blue-900 mb-2">💡 Key Points</h3>
@@ -387,7 +420,10 @@ document.addEventListener('date-select', (event) => {
                 <h2 class="text-xl font-semibold mt-8 mb-4">Event Handling</h2>
                 <p class="mb-4 text-gray-600">Learn how to handle events and programmatically control the calendar.</p>
                 
-                <ui-codeblock language="javascript" code="${eventsExample.replace(/"/g, '&quot;')}"></ui-codeblock>
+                <ui-codeblock language="javascript" code="${eventsExample.replace(
+                  /"/g,
+                  "&quot;"
+                )}"></ui-codeblock>
                 
                 <div class="mt-8">
                     <h3 class="text-lg font-semibold mb-4">API Reference</h3>
@@ -540,101 +576,116 @@ document.addEventListener('date-select', (event) => {
                 </div>
             </div>
         `;
+  }
+
+  connectedCallback() {
+    super.connectedCallback();
+
+    // Set up event listeners for the interactive examples
+    setTimeout(() => {
+      const interactiveCalendar = document.getElementById(
+        "interactive-calendar"
+      );
+      const eventLog = document.getElementById("calendar-events");
+
+      if (interactiveCalendar && eventLog) {
+        interactiveCalendar.addEventListener("date-select", (e) => {
+          const date = e.detail.date.toLocaleDateString();
+          this.addEventLog(eventLog, `Date selected: ${date}`);
+        });
+
+        interactiveCalendar.addEventListener("month-change", (e) => {
+          const date = e.detail.date.toLocaleDateString("en-US", {
+            month: "long",
+            year: "numeric",
+          });
+          this.addEventLog(eventLog, `Month changed to: ${date}`);
+        });
+
+        interactiveCalendar.addEventListener("today", (e) => {
+          const date = e.detail.date.toLocaleDateString();
+          this.addEventLog(eventLog, `Today button clicked: ${date}`);
+        });
+      }
+
+      // Set up time calendar events
+      const interactiveTimeCalendar = document.getElementById(
+        "interactive-calendar-time"
+      );
+      const timeEventLog = document.getElementById("calendar-time-events");
+
+      if (interactiveTimeCalendar && timeEventLog) {
+        interactiveTimeCalendar.addEventListener("date-select", (e) => {
+          if (e.detail.time) {
+            const dateTime = e.detail.dateTime.toLocaleString();
+            this.addEventLog(
+              timeEventLog,
+              `Date and time selected: ${dateTime}`
+            );
+          } else {
+            const date = e.detail.date.toLocaleDateString();
+            this.addEventLog(timeEventLog, `Date selected: ${date}`);
+          }
+        });
+
+        interactiveTimeCalendar.addEventListener("time-change", (e) => {
+          this.addEventLog(timeEventLog, `Time changed to: ${e.detail.time}`);
+        });
+      }
+
+      // Set up range calendar events
+      const interactiveRangeCalendar = document.getElementById(
+        "interactive-range-calendar"
+      );
+      const rangeEventLog = document.getElementById("calendar-range-events");
+
+      if (interactiveRangeCalendar && rangeEventLog) {
+        interactiveRangeCalendar.addEventListener("range-select", (e) => {
+          if (e.detail.startDate && e.detail.endDate) {
+            const startDate = new Date(e.detail.startDate).toLocaleDateString();
+            const endDate = new Date(e.detail.endDate).toLocaleDateString();
+            this.addEventLog(
+              rangeEventLog,
+              `Range selected: ${startDate} to ${endDate}`
+            );
+          } else if (e.detail.startDate) {
+            const startDate = new Date(e.detail.startDate).toLocaleDateString();
+            this.addEventLog(
+              rangeEventLog,
+              `Start date selected: ${startDate}`
+            );
+          }
+        });
+      }
+
+      // Set up live range calendar events
+      const liveRangeCalendar = document.getElementById("live-range-calendar");
+      if (liveRangeCalendar) {
+        liveRangeCalendar.addEventListener("range-select", (e) => {
+          console.log("🔍 Range selected:", e.detail);
+          if (e.detail.startDate && e.detail.endDate) {
+            console.log("📅 Start date:", e.detail.startDate);
+            console.log("📅 End date:", e.detail.endDate);
+          }
+        });
+      }
+    }, 100);
+  }
+
+  addEventLog(container, message) {
+    const timestamp = new Date().toLocaleTimeString();
+    const logEntry = document.createElement("div");
+    logEntry.textContent = `[${timestamp}] ${message}`;
+    container.appendChild(logEntry);
+
+    // Keep only last 5 entries
+    while (container.children.length > 5) {
+      container.removeChild(container.firstChild);
     }
 
-    connectedCallback() {
-        super.connectedCallback();
-        
-        // Set up event listeners for the interactive examples
-        setTimeout(() => {
-            const interactiveCalendar = document.getElementById('interactive-calendar');
-            const eventLog = document.getElementById('calendar-events');
-            
-            if (interactiveCalendar && eventLog) {
-                interactiveCalendar.addEventListener('date-select', (e) => {
-                    const date = e.detail.date.toLocaleDateString();
-                    this.addEventLog(eventLog, `Date selected: ${date}`);
-                });
-                
-                interactiveCalendar.addEventListener('month-change', (e) => {
-                    const date = e.detail.date.toLocaleDateString('en-US', { 
-                        month: 'long', 
-                        year: 'numeric' 
-                    });
-                    this.addEventLog(eventLog, `Month changed to: ${date}`);
-                });
-                
-                interactiveCalendar.addEventListener('today', (e) => {
-                    const date = e.detail.date.toLocaleDateString();
-                    this.addEventLog(eventLog, `Today button clicked: ${date}`);
-                });
-            }
-
-            // Set up time calendar events
-            const interactiveTimeCalendar = document.getElementById('interactive-calendar-time');
-            const timeEventLog = document.getElementById('calendar-time-events');
-            
-            if (interactiveTimeCalendar && timeEventLog) {
-                interactiveTimeCalendar.addEventListener('date-select', (e) => {
-                    if (e.detail.time) {
-                        const dateTime = e.detail.dateTime.toLocaleString();
-                        this.addEventLog(timeEventLog, `Date and time selected: ${dateTime}`);
-                    } else {
-                        const date = e.detail.date.toLocaleDateString();
-                        this.addEventLog(timeEventLog, `Date selected: ${date}`);
-                    }
-                });
-                
-                interactiveTimeCalendar.addEventListener('time-change', (e) => {
-                    this.addEventLog(timeEventLog, `Time changed to: ${e.detail.time}`);
-                });
-            }
-
-            // Set up range calendar events
-            const interactiveRangeCalendar = document.getElementById('interactive-range-calendar');
-            const rangeEventLog = document.getElementById('calendar-range-events');
-            
-            if (interactiveRangeCalendar && rangeEventLog) {
-                interactiveRangeCalendar.addEventListener('range-select', (e) => {
-                    if (e.detail.startDate && e.detail.endDate) {
-                        const startDate = new Date(e.detail.startDate).toLocaleDateString();
-                        const endDate = new Date(e.detail.endDate).toLocaleDateString();
-                        this.addEventLog(rangeEventLog, `Range selected: ${startDate} to ${endDate}`);
-                    } else if (e.detail.startDate) {
-                        const startDate = new Date(e.detail.startDate).toLocaleDateString();
-                        this.addEventLog(rangeEventLog, `Start date selected: ${startDate}`);
-                    }
-                });
-            }
-
-            // Set up live range calendar events
-            const liveRangeCalendar = document.getElementById('live-range-calendar');
-            if (liveRangeCalendar) {
-                liveRangeCalendar.addEventListener('range-select', (e) => {
-                    console.log('🔍 Range selected:', e.detail);
-                    if (e.detail.startDate && e.detail.endDate) {
-                        console.log('📅 Start date:', e.detail.startDate);
-                        console.log('📅 End date:', e.detail.endDate);
-                    }
-                });
-            }
-        }, 100);
-    }
-
-    addEventLog(container, message) {
-        const timestamp = new Date().toLocaleTimeString();
-        const logEntry = document.createElement('div');
-        logEntry.textContent = `[${timestamp}] ${message}`;
-        container.appendChild(logEntry);
-        
-        // Keep only last 5 entries
-        while (container.children.length > 5) {
-            container.removeChild(container.firstChild);
-        }
-        
-        container.scrollTop = container.scrollHeight;
-    }
+    container.scrollTop = container.scrollHeight;
+  }
 }
 
-customElements.define('app-calendar-docs-page', CalendarDocsPage);
-export default CalendarDocsPage; 
+customElements.define("app-calendar-docs-page", CalendarDocsPage);
+export default CalendarDocsPage;

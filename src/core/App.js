@@ -97,7 +97,7 @@ class App extends HTMLElement {
         const bundleSrc = '/src/components/ui/bundle.js';
         let alreadyLoaded = false;
         document.querySelectorAll('script').forEach(s => {
-            if (s.src.endsWith(bundleSrc)) {
+            if (s.src.includes(bundleSrc)) {
                 alreadyLoaded = true;
             }
         });

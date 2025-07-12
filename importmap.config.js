@@ -7,11 +7,12 @@ const importMap = {
         "@/core/": "/src/core/",
         "@/components/": "/src/components/",
         "@/app/": "/src/app/",
+        "@/services/": "/src/services/",
         "@/utils/": "/src/utils/",
-        "@/assets/": "/src/assets/"
+        "@/assets/": "/src/assets/",
+        "@/hooks/": "/src/hooks/"
     }
 };
 
 // Inject import map inline during page load
-document.write(`<script type="importmap">${JSON.stringify(importMap, null, 4)}<\/script>`);
-console.log('✅ Import map loaded with @ aliases'); 
+document.write(`<script type="importmap">${JSON.stringify(importMap, null, 4)}<\/script>`); 

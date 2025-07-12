@@ -46,20 +46,14 @@ class Sidebar extends App {
             sidebar.classList.remove('-translate-x-full');
             sidebar.classList.add('translate-x-0');
             backdrop.classList.remove('hidden');
-            // Update button icon to left arrow (close) - target the inner button element
-            const innerButton = toggleButton.querySelector('button');
-            if (innerButton) {
-                innerButton.innerHTML = '<i class="fas fa-chevron-left text-gray-600"></i>';
-            }
+            // Update button icon to left arrow (close)
+            toggleButton.innerHTML = '<i class="fas fa-chevron-left text-gray-600"></i>';
         } else {
             sidebar.classList.remove('translate-x-0');
             sidebar.classList.add('-translate-x-full');
             backdrop.classList.add('hidden');
-            // Update button icon to right arrow (open) - target the inner button element
-            const innerButton = toggleButton.querySelector('button');
-            if (innerButton) {
-                innerButton.innerHTML = '<i class="fas fa-chevron-right text-gray-600"></i>';
-            }
+            // Update button icon to right arrow (open)
+            toggleButton.innerHTML = '<i class="fas fa-chevron-right text-gray-600"></i>';
         }
     }
 
@@ -74,11 +68,8 @@ class Sidebar extends App {
                 sidebar.classList.remove('translate-x-0');
                 sidebar.classList.add('-translate-x-full');
                 backdrop.classList.add('hidden');
-                // Update button icon to right arrow (open) - target the inner button element
-                const innerButton = toggleButton.querySelector('button');
-                if (innerButton) {
-                    innerButton.innerHTML = '<i class="fas fa-chevron-right text-gray-600"></i>';
-                }
+                // Update button icon to right arrow (open)
+                toggleButton.innerHTML = '<i class="fas fa-chevron-right text-gray-600"></i>';
             }
         }
     }
@@ -139,13 +130,13 @@ class Sidebar extends App {
                 <aside class="fixed inset-y-0 left-0 z-50 w-64 bg-white transform -translate-x-full transition-transform duration-300 ease-in-out flex flex-col">
                     
                     <!-- Toggle Button - positioned on the right edge of sidebar -->
-                    <ui-button 
+                    <button 
                         id="sidebar-toggle-button"
                         class="absolute -right-4 top-4 w-8 h-8 bg-white border border-gray-200 rounded-r-md hover:bg-gray-50 transition-colors flex items-center justify-center z-10 p-0"
                         aria-label="Toggle sidebar"
                     >
                         <i class="fas fa-chevron-right text-gray-600 text-sm"></i>
-                    </ui-button>
+                    </button>
 
                     <!-- Logo Section -->
                     <div class="h-16 border-b border-gray-200 flex items-center px-3 flex-shrink-0">

@@ -46,14 +46,20 @@ class Sidebar extends App {
             sidebar.classList.remove('-translate-x-full');
             sidebar.classList.add('translate-x-0');
             backdrop.classList.remove('hidden');
-            // Update button icon to left arrow (close)
-            toggleButton.innerHTML = '<i class="fas fa-chevron-left text-gray-600"></i>';
+            // Update button icon to left arrow (close) - target the inner button element
+            const innerButton = toggleButton.querySelector('button');
+            if (innerButton) {
+                innerButton.innerHTML = '<i class="fas fa-chevron-left text-gray-600"></i>';
+            }
         } else {
             sidebar.classList.remove('translate-x-0');
             sidebar.classList.add('-translate-x-full');
             backdrop.classList.add('hidden');
-            // Update button icon to right arrow (open)
-            toggleButton.innerHTML = '<i class="fas fa-chevron-right text-gray-600"></i>';
+            // Update button icon to right arrow (open) - target the inner button element
+            const innerButton = toggleButton.querySelector('button');
+            if (innerButton) {
+                innerButton.innerHTML = '<i class="fas fa-chevron-right text-gray-600"></i>';
+            }
         }
     }
 
@@ -68,8 +74,11 @@ class Sidebar extends App {
                 sidebar.classList.remove('translate-x-0');
                 sidebar.classList.add('-translate-x-full');
                 backdrop.classList.add('hidden');
-                // Update button icon to right arrow (open)
-                toggleButton.innerHTML = '<i class="fas fa-chevron-right text-gray-600"></i>';
+                // Update button icon to right arrow (open) - target the inner button element
+                const innerButton = toggleButton.querySelector('button');
+                if (innerButton) {
+                    innerButton.innerHTML = '<i class="fas fa-chevron-right text-gray-600"></i>';
+                }
             }
         }
     }

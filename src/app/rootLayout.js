@@ -19,7 +19,7 @@ class RootLayout extends App {
             <div class="flex flex-col min-h-screen bg-gray-50">
                 <app-header></app-header>
                 
-                <main class="relative z-10 flex-grow pt-16 flex justify-center items-center">
+                <main class="relative z-10 flex-grow pt-16">
                     <!-- Page content will be injected here -->
                 </main>
                 
